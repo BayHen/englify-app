@@ -1,0 +1,45 @@
+import { useQuery } from '@tanstack/react-query';
+import { router } from 'expo-router';
+import { Text, View } from 'react-native';
+import { ActionButton, NavLink, Page } from '@/components/page';
+import { EmptyState, ErrorState, LoadingState } from '@/components/states';
+import { useAppPalette } from '@/constants/app-theme';
+import { getMockContent, type FeatureKey } from '@/lib/mock-content';
+import { useAppStore, type ThemeMode } from '@/state/app-store';
+
+const links = [
+  { href: '/home' as const, label: 'Home' },
+  { href: '/journey' as const, label: 'Journey' },
+  { href: '/explore' as const, label: 'Explore' },
+  { href: '/coach' as const, label: 'AI Coach' },
+  { href: '/profile' as const, label: 'Profile' },
+];
+
+export function FeatureScreen({ feature }: { feature: FeatureKey }) {
+  const palette = useAppPalette();
+  const { data, isPending, isError, refetch } = useQuery({ queryKey: ['mock-content', feature], queryFn: () => getMockContent(feature) });
+  const displayName = useAppStore((state) => state.displayName);
+  const themeMode = useAppStore((state) => state.themeMode);
+  const setThemeMode = useAppStore((state) => state.setThemeMode);
+  const signOut = useAppStore((state) => state.signOut);
+  const content = data ?? { eyebrow: 'YOUR QUEST', title: 'Getting ready', description: 'Preparing your learning space.', items: [] };
+
+  return (
+    <Page eyebrow={content.eyebrow} title={feature === 'home' && displayName ? `Welcome, ${displayName}` : content.title} description={content.description}>
+      {isPending ? <LoadingState /> : isError ? <ErrorState retry={() => { void refetch(); }} /> : content.items.length === 0 ? <EmptyState /> : content.items.map((item) => (
+        <View key={item.title} style={{ backgroundColor: palette.surface, borderColor: palette.border, borderWidth: 1, borderRadius: 18, padding: 18, gap: 5 }}>
+          <Text style={{ color: palette.text, fontSize: 17, fontWeight: '700' }}>{item.title}</Text>
+          <Text style={{ color: palette.muted, fontSize: 14 }}>{item.detail}</Text>
+        </View>
+      ))}
+      {feature === 'coach' && <Text style={{ color: palette.muted }}>AI conversation and pronunciation scoring are not connected yet.</Text>}
+      {feature === 'profile' && <>
+        <Text style={{ color: palette.text, fontWeight: '700', marginTop: 14 }}>Appearance · {themeMode}</Text>
+        {(['system', 'light', 'dark'] as ThemeMode[]).map((mode) => <ActionButton key={mode} label={mode === 'system' ? 'Use device setting' : `Use ${mode} theme`} onPress={() => setThemeMode(mode)} secondary={themeMode !== mode} />)}
+        <ActionButton label="Sign out of demo" onPress={() => { signOut(); router.replace('/login'); }} secondary />
+      </>}
+      <Text style={{ color: palette.muted, fontSize: 12, marginTop: 20 }}>Demo content · no progress is saved yet</Text>
+      {links.filter((link) => link.href !== `/${feature}`).map((link) => <NavLink key={link.href} href={link.href} label={link.label} />)}
+    </Page>
+  );
+}

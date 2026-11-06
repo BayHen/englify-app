@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: englify
+      POSTGRES_DB: englify
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U englify -d englify"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    environment:
+      ENGLIFY_ENVIRONMENT: development
+      ENGLIFY_DATABASE_URL: postgresql+psycopg://englify:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/englify
+      ENGLIFY_CORS_ORIGINS: http://localhost:3000,http://localhost:8081
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
