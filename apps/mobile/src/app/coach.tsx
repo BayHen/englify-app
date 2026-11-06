@@ -1,2 +1,1 @@
-import { FeatureScreen } from '@/components/feature-screen';
-export default function Coach() { return <FeatureScreen feature="coach" />; }
+export { CoachScreen as default } from '@/features/demo/screens';

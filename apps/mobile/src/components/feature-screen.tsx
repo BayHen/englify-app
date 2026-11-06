@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { ActionButton, NavLink, Page } from '@/components/page';
 import { EmptyState, ErrorState, LoadingState } from '@/components/states';
 import { useAppPalette } from '@/constants/app-theme';
 import { getMockContent, type FeatureKey } from '@/lib/mock-content';
 import { useAppStore, type ThemeMode } from '@/state/app-store';
+import { AppCard, AppText } from '@/ui';
 
 const links = [
   { href: '/home' as const, label: 'Home' },
@@ -27,16 +28,17 @@ export function FeatureScreen({ feature }: { feature: FeatureKey }) {
   return (
     <Page eyebrow={content.eyebrow} title={feature === 'home' && displayName ? `Welcome, ${displayName}` : content.title} description={content.description}>
       {isPending ? <LoadingState /> : isError ? <ErrorState retry={() => { void refetch(); }} /> : content.items.length === 0 ? <EmptyState /> : content.items.map((item) => (
-        <View key={item.title} style={{ backgroundColor: palette.surface, borderColor: palette.border, borderWidth: 1, borderRadius: 18, padding: 18, gap: 5 }}>
-          <Text style={{ color: palette.text, fontSize: 17, fontWeight: '700' }}>{item.title}</Text>
-          <Text style={{ color: palette.muted, fontSize: 14 }}>{item.detail}</Text>
-        </View>
+        <AppCard key={item.title} style={{ gap: 5 }}>
+          <AppText variant="heading">{item.title}</AppText>
+          <AppText tone="muted">{item.detail}</AppText>
+        </AppCard>
       ))}
       {feature === 'coach' && <Text style={{ color: palette.muted }}>AI conversation and pronunciation scoring are not connected yet.</Text>}
       {feature === 'profile' && <>
         <Text style={{ color: palette.text, fontWeight: '700', marginTop: 14 }}>Appearance · {themeMode}</Text>
         {(['system', 'light', 'dark'] as ThemeMode[]).map((mode) => <ActionButton key={mode} label={mode === 'system' ? 'Use device setting' : `Use ${mode} theme`} onPress={() => setThemeMode(mode)} secondary={themeMode !== mode} />)}
         <ActionButton label="Sign out of demo" onPress={() => { signOut(); router.replace('/login'); }} secondary />
+        {__DEV__ && <NavLink href="/dev/showcase" label="Open design system showcase" />}
       </>}
       <Text style={{ color: palette.muted, fontSize: 12, marginTop: 20 }}>Demo content · no progress is saved yet</Text>
       {links.filter((link) => link.href !== `/${feature}`).map((link) => <NavLink key={link.href} href={link.href} label={link.label} />)}

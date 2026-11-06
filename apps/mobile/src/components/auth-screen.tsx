@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
-import { Text, TextInput, View } from 'react-native';
-import { ActionButton, NavLink, Page } from '@/components/page';
-import { useAppPalette } from '@/constants/app-theme';
+import { NavLink, Page } from '@/components/page';
+import { AppButton, AppCard, AppInput, AppText } from '@/ui';
 import { useAppStore } from '@/state/app-store';
 
 export function AuthScreen({ register }: { register: boolean }) {
-  const palette = useAppPalette();
   const completeDemoAuth = useAppStore((state) => state.completeDemoAuth);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -23,17 +21,15 @@ export function AuthScreen({ register }: { register: boolean }) {
     router.replace(register ? '/onboarding' : '/home');
   }
 
-  const inputStyle = { backgroundColor: palette.surface, color: palette.text, borderColor: palette.border, borderWidth: 1, borderRadius: 14, paddingHorizontal: 16, minHeight: 52, fontSize: 16 } as const;
   return (
     <Page eyebrow="START YOUR QUEST" title={register ? 'Create your space' : 'Welcome back'} description="Explore the learning experience with a local demo account. Real authentication arrives in a later task.">
-      {register && <TextInput accessibilityLabel="Display name" placeholder="Your name" placeholderTextColor={palette.muted} value={name} onChangeText={setName} style={inputStyle} />}
-      <TextInput accessibilityLabel="Email" placeholder="Email" placeholderTextColor={palette.muted} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" style={inputStyle} />
-      <TextInput accessibilityLabel="Password" placeholder="Password" placeholderTextColor={palette.muted} value={password} onChangeText={setPassword} secureTextEntry style={inputStyle} />
-      {error ? <Text accessibilityRole="alert" style={{ color: palette.error }}>{error}</Text> : null}
-      <ActionButton label={register ? 'Continue to onboarding' : 'Enter demo'} onPress={continueDemo} />
+      <AppCard tone="primary"><AppText variant="label" tone="primary">LOCAL DEMO</AppText><AppText tone="muted">Use sample values only. No account is created and no credentials are sent or stored.</AppText></AppCard>
+      {register && <AppInput label="Display name" placeholder="Your name" value={name} onChangeText={setName} />}
+      <AppInput label="Email" placeholder="name@example.com" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
+      <AppInput label="Password" placeholder="At least 4 characters" value={password} onChangeText={setPassword} secureTextEntry />
+      {error ? <AppText accessibilityRole="alert" tone="error">{error}</AppText> : null}
+      <AppButton label={register ? 'Continue to onboarding' : 'Enter demo'} onPress={continueDemo} size="large" />
       <NavLink href={register ? '/login' : '/register'} label={register ? 'Already have an account?' : 'Create a demo account'} />
-      <View style={{ height: 12 }} />
-      <Text style={{ color: palette.muted, fontSize: 13 }}>Demo credentials are not sent or saved. Use non-sensitive sample values.</Text>
     </Page>
   );
 }

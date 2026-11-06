@@ -1,2 +1,1 @@
-import { FeatureScreen } from '@/components/feature-screen';
-export default function Home() { return <FeatureScreen feature="home" />; }
+export { HomeScreen as default } from '@/features/demo/screens';

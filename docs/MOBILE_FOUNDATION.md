@@ -4,6 +4,8 @@
 
 Expo Router dùng `src/app` cho các route `/login`, `/register`, `/onboarding`, `/home`, `/journey`, `/explore`, `/coach`, `/profile`; `/` chuyển đến `/login`. Root layout đặt `SafeAreaProvider`, TanStack Query, theme và error boundary. `src/components` chứa màn hình dùng chung, `src/state` chứa Zustand store, `src/lib` chứa API client và dữ liệu mẫu.
 
+Hệ thiết kế và component tái sử dụng nằm trong `src/ui`; hướng dẫn tại `docs/DESIGN_SYSTEM.md`. Route `/dev/showcase` chỉ hiển thị trong development.
+
 Đăng nhập/đăng ký hiện là **demo cục bộ**: nhập giá trị mẫu để đi tới Home hoặc Onboarding; không gửi hoặc lưu mật khẩu. Nội dung các trang là mock data, chưa kết nối endpoint học tập. AI Coach chỉ đưa gợi ý luyện tập; chưa có AI, ghi âm hoặc chấm phát âm. Theme có chế độ hệ thống, sáng, tối; lựa chọn hiện chỉ tồn tại trong bộ nhớ phiên.
 
 ## Cấu hình môi trường

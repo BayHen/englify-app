@@ -1,19 +1,22 @@
 import type { ReactNode } from 'react';
 import { Link, type Href } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppPalette } from '@/constants/app-theme';
+import { designTokens } from '@englify/shared';
+import { AppButton, AppText } from '@/ui';
 
 export function Page({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
   const palette = useAppPalette();
+  const { width } = useWindowDimensions();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }} edges={['top', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        <View style={styles.content}>
-          <Text style={[styles.brand, { color: palette.primary }]}>ENGLIFY QUEST</Text>
-          <Text style={[styles.eyebrow, { color: palette.primary }]}>{eyebrow}</Text>
-          <Text accessibilityRole="header" style={[styles.title, { color: palette.text }]}>{title}</Text>
-          <Text style={[styles.description, { color: palette.muted }]}>{description}</Text>
+        <View style={[styles.content, { width: Math.min(Math.max(width - 2 * designTokens.spacing.lg, 0), 560) }]}>
+          <AppText variant="label" tone="primary" style={styles.brand}>ENGLIFY QUEST</AppText>
+          <AppText variant="caption" tone="primary" style={styles.eyebrow}>{eyebrow}</AppText>
+          <AppText variant="display" accessibilityRole="header" style={styles.title}>{title}</AppText>
+          <AppText tone="muted" style={styles.description}>{description}</AppText>
           <View style={styles.body}>{children}</View>
         </View>
       </ScrollView>
@@ -22,12 +25,7 @@ export function Page({ eyebrow, title, description, children }: { eyebrow: strin
 }
 
 export function ActionButton({ label, onPress, secondary = false }: { label: string; onPress: () => void; secondary?: boolean }) {
-  const palette = useAppPalette();
-  return (
-    <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => [styles.button, { backgroundColor: secondary ? palette.surface : palette.primary, borderColor: palette.border, opacity: pressed ? 0.78 : 1 }]}>
-      <Text style={[styles.buttonLabel, { color: secondary ? palette.text : '#FFFFFF' }]}>{label}</Text>
-    </Pressable>
-  );
+  return <AppButton label={label} onPress={onPress} variant={secondary ? 'secondary' : 'primary'} size="large" />;
 }
 
 export function NavLink({ href, label }: { href: Href; label: string }) {
@@ -35,7 +33,7 @@ export function NavLink({ href, label }: { href: Href; label: string }) {
   return (
     <Link href={href} asChild>
       <Pressable accessibilityRole="link" style={({ pressed }) => [styles.link, { borderColor: palette.border, backgroundColor: palette.surface, opacity: pressed ? 0.75 : 1 }]}>
-        <Text style={[styles.linkLabel, { color: palette.text }]}>{label}</Text>
+        <AppText variant="label" style={styles.linkLabel}>{label}</AppText>
         <Text style={{ color: palette.primary, fontSize: 18 }}>›</Text>
       </Pressable>
     </Link>
@@ -43,15 +41,13 @@ export function NavLink({ href, label }: { href: Href; label: string }) {
 }
 
 const styles = StyleSheet.create({
-  scroll: { flexGrow: 1, alignItems: 'center', paddingHorizontal: 20, paddingBottom: 24 },
-  content: { width: '100%', maxWidth: 560, paddingTop: 20 },
-  brand: { fontSize: 13, letterSpacing: 3, fontWeight: '900', marginBottom: 42 },
-  eyebrow: { fontSize: 12, letterSpacing: 2, fontWeight: '800', marginBottom: 10 },
-  title: { fontSize: 34, lineHeight: 40, fontWeight: '800', marginBottom: 12 },
-  description: { fontSize: 16, lineHeight: 24 },
-  body: { gap: 12, marginTop: 32 },
-  button: { minHeight: 52, borderRadius: 16, borderWidth: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16 },
-  buttonLabel: { fontSize: 16, fontWeight: '700' },
+  scroll: { flexGrow: 1, alignItems: 'center', paddingHorizontal: designTokens.spacing.lg, paddingBottom: designTokens.spacing.xl },
+  content: { paddingTop: 20 },
+  brand: { letterSpacing: 3, marginBottom: 42 },
+  eyebrow: { letterSpacing: 2, fontWeight: '800', marginBottom: 10 },
+  title: { marginBottom: designTokens.spacing.md },
+  description: { fontSize: designTokens.typography.size.md, lineHeight: designTokens.typography.lineHeight.md },
+  body: { gap: designTokens.spacing.md, marginTop: designTokens.spacing.xxl },
   link: { minHeight: 56, borderRadius: 16, borderWidth: 1, paddingHorizontal: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  linkLabel: { fontSize: 16, fontWeight: '700' },
+  linkLabel: { fontSize: designTokens.typography.size.md },
 });

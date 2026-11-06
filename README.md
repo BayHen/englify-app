@@ -34,7 +34,7 @@ npm.cmd run admin
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload
 ```
 
-Expo hiển thị mã QR và địa chỉ Metro; trang quản trị ở `http://localhost:3000`; kiểm tra API tại `http://127.0.0.1:8000/api/v1/health`. Android cần trình giả lập hoặc Expo Go phù hợp SDK; iOS simulator cần macOS. Xem [hướng dẫn môi trường](docs/DEVELOPMENT.md) và [nền tảng mobile](docs/MOBILE_FOUNDATION.md).
+Expo hiển thị mã QR và địa chỉ Metro; trang quản trị ở `http://localhost:3000`; kiểm tra API tại `http://127.0.0.1:8000/api/v1/health`. Android cần trình giả lập hoặc Expo Go phù hợp SDK; iOS simulator cần macOS. Xem [hướng dẫn môi trường](docs/DEVELOPMENT.md), [nền tảng mobile](docs/MOBILE_FOUNDATION.md) và [hệ thiết kế](docs/DESIGN_SYSTEM.md).
 
 ## Kiểm tra
 
