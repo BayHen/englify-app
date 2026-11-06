@@ -6,6 +6,7 @@ import { useAppPalette } from '@/constants/app-theme';
 import { useAppStore, type ThemeMode } from '@/state/app-store';
 import { AchievementBadge, AppBottomSheet, AppButton, AppCard, AppInput, AppModal, AppText, EmptyState, LessonNode, QuestCard, RewardCard, XPProgressBar } from '@/ui';
 import { useReducedMotion } from '@/ui/use-reduced-motion';
+import { useAuth } from '@/auth/provider';
 import { badges, checkDraft, featureLinks, lessons, phrases, quizQuestions, rewards, searchWords, translateSample, writingPrompts, type FeatureLink, type Lesson, type Phrase, type Reward } from './data';
 
 function DemoNotice({ children = 'Sample content · Progress is for illustration only.' }: { children?: string }) {
@@ -124,11 +125,11 @@ export function ProfileScreen() {
   const name = useAppStore((state) => state.displayName);
   const mode = useAppStore((state) => state.themeMode);
   const setMode = useAppStore((state) => state.setThemeMode);
-  const signOut = useAppStore((state) => state.signOut);
-  return <Shell eyebrow="YOUR CORNER" title="Profile" description="A demo space to personalize the learning preview."><AppCard tone="primary"><AppText variant="heading">{name ?? 'Guest explorer'}</AppText><AppText tone="muted">Local demo identity · sample Level 2 · sample 68 XP</AppText></AppCard>
+  const { signOut, profile } = useAuth();
+  return <Shell eyebrow="YOUR CORNER" title="Profile" description="Your saved learning choices and a preview of future rewards."><AppCard tone="primary"><AppText variant="heading">{name ?? 'Explorer'}</AppText><AppText tone="muted">Saved profile · sample Level 2 · sample 68 XP</AppText>{profile?.preferences && <AppText variant="caption" tone="primary">Goal: {profile.preferences.learning_goal ?? 'not selected'} · Level: {profile.preferences.initial_proficiency ?? 'not selected'} · {profile.preferences.daily_goal_minutes} min/day</AppText>}</AppCard>
     <Section title="Appearance">{(['system', 'light', 'dark'] as ThemeMode[]).map((item) => <Choice key={item} label={`${item[0].toUpperCase()}${item.slice(1)} theme`} selected={mode === item} onPress={() => setMode(item)} />)}</Section>
     <Section title="Badge preview"><View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>{badges.map((badge) => <AchievementBadge key={badge.title} {...badge} />)}</View></Section>
     <Section title="More"><FeatureGrid links={[{ title: 'Explore', detail: 'Browse all sample activities', href: '/explore', icon: '◇' }]} /><NavLink href="/dev/showcase" label="UI component showcase" /></Section>
-    <AppButton label="Leave demo account" variant="secondary" onPress={() => { signOut(); router.replace('/login'); }} />
+    <AppButton label="Sign out" variant="secondary" onPress={() => { void signOut().finally(() => router.replace('/login')); }} />
   </Shell>;
 }

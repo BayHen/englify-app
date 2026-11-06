@@ -23,7 +23,28 @@ class Settings(BaseSettings):
     environment: Literal["development", "test", "production"] = "development"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     database_url: SecretStr | None = None
+    supabase_url: str | None = None
     cors_origins: str = ""
+
+    @field_validator("supabase_url")
+    @classmethod
+    def validate_supabase_url(cls, value: str | None) -> str | None:
+        if value is None or not value.strip():
+            return None
+        parsed = urlsplit(value.rstrip("/"))
+        if (
+            parsed.scheme not in {"https", "http"}
+            or not parsed.netloc
+            or parsed.path
+            or parsed.query
+            or parsed.fragment
+            or parsed.username
+            or parsed.password
+        ):
+            raise ValueError("ENGLIFY_SUPABASE_URL must be an origin without credentials or a path")
+        if parsed.scheme == "http" and parsed.hostname not in {"localhost", "127.0.0.1"}:
+            raise ValueError("ENGLIFY_SUPABASE_URL must use HTTPS outside localhost")
+        return value.rstrip("/")
 
     @field_validator("database_url")
     @classmethod
@@ -42,6 +63,8 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_cors(self) -> "Settings":
+        if self.environment == "production" and self.supabase_url and not self.supabase_url.startswith("https://"):
+            raise ValueError("Production ENGLIFY_SUPABASE_URL must use HTTPS")
         for origin in self.allowed_origins:
             parsed = urlsplit(origin)
             if (

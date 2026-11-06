@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
+import { useAuth } from '@/auth/provider';
 import { Text } from 'react-native';
 import { ActionButton, NavLink, Page } from '@/components/page';
 import { EmptyState, ErrorState, LoadingState } from '@/components/states';
@@ -22,7 +23,7 @@ export function FeatureScreen({ feature }: { feature: FeatureKey }) {
   const displayName = useAppStore((state) => state.displayName);
   const themeMode = useAppStore((state) => state.themeMode);
   const setThemeMode = useAppStore((state) => state.setThemeMode);
-  const signOut = useAppStore((state) => state.signOut);
+  const { signOut } = useAuth();
   const content = data ?? { eyebrow: 'YOUR QUEST', title: 'Getting ready', description: 'Preparing your learning space.', items: [] };
 
   return (
@@ -37,7 +38,7 @@ export function FeatureScreen({ feature }: { feature: FeatureKey }) {
       {feature === 'profile' && <>
         <Text style={{ color: palette.text, fontWeight: '700', marginTop: 14 }}>Appearance · {themeMode}</Text>
         {(['system', 'light', 'dark'] as ThemeMode[]).map((mode) => <ActionButton key={mode} label={mode === 'system' ? 'Use device setting' : `Use ${mode} theme`} onPress={() => setThemeMode(mode)} secondary={themeMode !== mode} />)}
-        <ActionButton label="Sign out of demo" onPress={() => { signOut(); router.replace('/login'); }} secondary />
+        <ActionButton label="Sign out" onPress={() => { void signOut().finally(() => router.replace('/login')); }} secondary />
         {__DEV__ && <NavLink href="/dev/showcase" label="Open design system showcase" />}
       </>}
       <Text style={{ color: palette.muted, fontSize: 12, marginTop: 20 }}>Demo content · no progress is saved yet</Text>

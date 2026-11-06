@@ -4,7 +4,7 @@
 
 ## Nội dung mẫu
 
-- Tài khoản đăng nhập/đăng ký chỉ là trạng thái trong bộ nhớ ứng dụng. Không gửi hoặc lưu mật khẩu; hãy nhập dữ liệu thử nghiệm.
+- Đăng ký, đăng nhập và đặt lại mật khẩu dùng Supabase Auth khi đã cấu hình dự án. Mật khẩu chỉ chuyển trực tiếp tới Supabase Auth qua SDK; ứng dụng không lưu mật khẩu. Xem `docs/AUTHENTICATION.md` để cấu hình.
 - Level, XP, tiến độ bài học, nhiệm vụ mỗi ngày, huy hiệu và phần thưởng đều là **ví dụ minh họa**, không phải tiến độ của người dùng. Hoàn thành quiz hoặc nói một câu không cộng XP.
 - Dictionary tìm trong bốn mục từ có sẵn; Translation chỉ tra các cặp câu được biên soạn; Real English hiển thị bộ câu mẫu ngoại tuyến. Không gọi API dịch thuật.
 - Speaking hướng dẫn người học tự đọc; chưa ghi âm, nhận dạng tiếng nói hoặc chấm phát âm. Writing kiểm tra số từ, chữ hoa đầu câu và dấu kết câu trên thiết bị; chưa có chấm điểm AI.
@@ -28,4 +28,4 @@ npm run lint -w apps/mobile
 npm run test -w apps/mobile
 ```
 
-Có thể dùng `npm run android -w apps/mobile` hoặc `npm run ios -w apps/mobile` khi máy có emulator/simulator tương ứng. Không cần backend để xem các màn hình mẫu.
+Có thể dùng `npm run android -w apps/mobile` hoặc `npm run ios -w apps/mobile` khi máy có emulator/simulator tương ứng. Các màn hình mẫu phía sau đăng nhập nay cần Supabase Auth và backend đã cấu hình.

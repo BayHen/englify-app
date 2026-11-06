@@ -4,9 +4,10 @@ from alembic import context
 from sqlalchemy import create_engine, pool
 
 from app.core.config import Settings
-from app.db.base import Base
 
-target_metadata = Base.metadata
+# The SQL migration is canonical until all tables have ORM mappings. Using an
+# empty metadata object for autogenerate would propose dropping the new tables.
+target_metadata = None
 
 
 def run_migrations_offline() -> None:
