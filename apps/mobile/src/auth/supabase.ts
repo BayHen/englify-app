@@ -2,10 +2,11 @@ import 'react-native-url-polyfill/auto';
 import { AppState, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { createClient, type SupabaseClient, type SupportedStorage } from '@supabase/supabase-js';
+import { supabaseConfigStatus } from './config';
 
 const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const key = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-export const authConfigured = Boolean(url && key && !url.includes('your-project') && !key.includes('replace_me'));
+export const authConfigured = supabaseConfigStatus === 'ready';
 
 const secureStorage: SupportedStorage = {
   getItem: (name) => SecureStore.getItemAsync(name),
@@ -15,7 +16,7 @@ const secureStorage: SupportedStorage = {
 
 let instance: SupabaseClient | null = null;
 export function getSupabase(): SupabaseClient {
-  if (!authConfigured || !url || !key) throw new Error('Set public Supabase URL and publishable key in apps/mobile/.env');
+  if (!authConfigured || !url || !key) throw new Error('Supabase configuration is missing or invalid. See docs/setup/SUPABASE_SETUP.md');
   if (!instance) {
     instance = createClient(url, key, {
       auth: {

@@ -49,5 +49,5 @@ const styles = StyleSheet.create({
   description: { fontSize: designTokens.typography.size.md, lineHeight: designTokens.typography.lineHeight.md },
   body: { gap: designTokens.spacing.md, marginTop: designTokens.spacing.xxl },
   link: { minHeight: 56, borderRadius: 16, borderWidth: 1, paddingHorizontal: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  linkLabel: { fontSize: designTokens.typography.size.md },
+  linkLabel: { fontSize: designTokens.typography.size.md, flex: 1 },
 });

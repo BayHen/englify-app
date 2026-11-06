@@ -4,6 +4,8 @@ PostgreSQL là nguồn dữ liệu chính. Migration `20261106_01` tạo 19 bả
 
 Migration `20261106_02` thêm `learning_goal`, `initial_proficiency` và `onboarding_completed_at` vào `user_preferences`. Dữ liệu cũ giữ nguyên; lựa chọn onboarding được ghi bằng một transaction ở endpoint riêng tư.
 
+Migration `20261106_03` bổ sung IPA và nguồn/giấy phép cho từ điển, cùng chỉ mục tìm kiếm tiền tố. Chi tiết hợp đồng dữ liệu và nguồn seed ở `docs/DICTIONARY.md`.
+
 ## Sơ đồ quan hệ
 
 ```mermaid

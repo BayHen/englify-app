@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "mobile": "npm run start -w apps/mobile",
+    "start": "npm --workspace apps/mobile run start --",
+    "mobile": "npm --workspace apps/mobile run start --",
     "admin": "npm run dev -w apps/admin",
     "check": "npm run typecheck -w apps/mobile && npm run lint -w apps/mobile && npm run test -w apps/mobile && npm run typecheck -w packages/shared && npm run lint -w apps/admin && npm run build -w apps/admin"
   },

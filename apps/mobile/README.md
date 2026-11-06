@@ -1,56 +1,24 @@
-# Welcome to your Expo app 👋
+# Englify Quest Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Ứng dụng dùng Expo SDK 58 và **Expo Router**. Entry point là `expo-router/entry` trong `apps/mobile/package.json`; route đầu tiên nằm tại `src/app/index.tsx`, navigator tại `src/app/_layout.tsx`. Không cần tạo `App.tsx`.
 
-## Get started
+## Chạy trên Windows
 
-1. Install dependencies
+Từ thư mục gốc `D:\englify-app`:
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```powershell
+npm.cmd ci
+npm.cmd start -- --clear
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Hoặc từ `D:\englify-app\apps\mobile`:
 
-### Other setup steps
+```powershell
+npx.cmd expo start --clear
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Không chạy `npx expo start` trực tiếp ở thư mục gốc: Expo sẽ coi monorepo root là ứng dụng và tìm `expo/AppEntry.js` / `../../App`, trong khi ứng dụng thật nằm trong `apps/mobile`.
 
-## Learn more
+Để mở trên iPhone bằng Expo Go, cài Expo Go tương thích với SDK 58, kết nối iPhone và máy Windows vào cùng mạng, chạy lệnh trên rồi quét mã QR bằng Camera. Nếu LAN bị chặn, dùng `npx.cmd expo start --tunnel --clear` **trong `apps/mobile`**. URL API trong `apps/mobile/.env` phải truy cập được từ iPhone; `localhost` trên iPhone là chính điện thoại. Sau khi đổi `.env`, khởi động lại Expo.
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Kiểm tra entry/bundle cục bộ: `npx.cmd expo export --platform ios` từ `apps/mobile`. Kiểm tra tĩnh: `npm.cmd run typecheck -w apps/mobile`, `npm.cmd run lint -w apps/mobile`, `npm.cmd run test -w apps/mobile`. Xuất bundle không thay thế kiểm thử trên iPhone thật.

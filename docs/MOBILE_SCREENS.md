@@ -6,7 +6,7 @@
 
 - Đăng ký, đăng nhập và đặt lại mật khẩu dùng Supabase Auth khi đã cấu hình dự án. Mật khẩu chỉ chuyển trực tiếp tới Supabase Auth qua SDK; ứng dụng không lưu mật khẩu. Xem `docs/AUTHENTICATION.md` để cấu hình.
 - Level, XP, tiến độ bài học, nhiệm vụ mỗi ngày, huy hiệu và phần thưởng đều là **ví dụ minh họa**, không phải tiến độ của người dùng. Hoàn thành quiz hoặc nói một câu không cộng XP.
-- Dictionary tìm trong bốn mục từ có sẵn; Translation chỉ tra các cặp câu được biên soạn; Real English hiển thị bộ câu mẫu ngoại tuyến. Không gọi API dịch thuật.
+- Dictionary nay tìm mục từ seed qua FastAPI và có cache SQLite, từ đã lưu, lịch sử tìm kiếm, flashcards và giọng đọc thiết bị; xem `docs/DICTIONARY.md`. Translation vẫn chỉ tra các cặp câu được biên soạn; Real English vẫn hiển thị bộ câu mẫu ngoại tuyến. Không gọi API dịch thuật.
 - Speaking hướng dẫn người học tự đọc; chưa ghi âm, nhận dạng tiếng nói hoặc chấm phát âm. Writing kiểm tra số từ, chữ hoa đầu câu và dấu kết câu trên thiết bị; chưa có chấm điểm AI.
 - Quiz Arena chấm ba câu hỏi có sẵn trên thiết bị. Điểm chỉ tồn tại khi màn hình đang mở. Rewards cho xem trước, không thể đổi thưởng.
 

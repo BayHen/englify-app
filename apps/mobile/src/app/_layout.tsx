@@ -26,6 +26,7 @@ function AppNavigator() {
   return <Stack screenOptions={{ headerShown: false }}>
     <Stack.Screen name="index" />
     <Stack.Screen name="auth-callback" />
+    {__DEV__ && <Stack.Screen name="dev/auth-diagnostic" />}
     <Stack.Protected guard={!signedIn} redirectTo="/login">
       <Stack.Screen name="login" />
       <Stack.Screen name="register" />

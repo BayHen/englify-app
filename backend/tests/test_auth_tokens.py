@@ -4,6 +4,7 @@ from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from uuid import uuid4
 
+import httpx
 import jwt
 import pytest
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -77,3 +78,43 @@ def test_auth_configuration_is_required(signing_key) -> None:
     with pytest.raises(AppError) as error:
         auth.verify_access_token(token(signing_key), Settings(_env_file=None, environment="test"))
     assert error.value.status_code == 503
+
+
+def test_legacy_hs256_uses_auth_server_and_checks_identity(monkeypatch) -> None:
+    secret = "test-only-legacy-secret-long-enough-for-hs256"
+    now = datetime.now(UTC)
+    user_id = str(uuid4())
+    legacy = jwt.encode(
+        {
+            "iss": ISSUER,
+            "aud": "authenticated",
+            "sub": user_id,
+            "role": "authenticated",
+            "iat": now,
+            "exp": now + timedelta(minutes=10),
+        },
+        secret,
+        algorithm="HS256",
+    )
+    settings = Settings(
+        _env_file=None,
+        environment="test",
+        supabase_url="https://test.supabase.co",
+        supabase_publishable_key="sb_publishable_test_only",
+    )
+
+    def fake_get(self, url, **kwargs):
+        assert url == f"{ISSUER}/user"
+        assert kwargs["headers"]["Authorization"] == f"Bearer {legacy}"
+        return httpx.Response(200, json={"id": user_id}, request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(httpx.Client, "get", fake_get)
+    assert str(auth.verify_access_token(legacy, settings).id) == user_id
+
+    def other_user(self, url, **kwargs):
+        return httpx.Response(200, json={"id": str(uuid4())}, request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(httpx.Client, "get", other_user)
+    with pytest.raises(AppError) as error:
+        auth.verify_access_token(legacy, settings)
+    assert error.value.status_code == 401

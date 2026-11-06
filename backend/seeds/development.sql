@@ -1,12 +1,20 @@
 -- Idempotent, content-only development seed. No Auth users or personal progress.
 -- Run with a database owner after `alembic upgrade head`.
 BEGIN;
-INSERT INTO public.dictionary_entries (id, language, term, normalized_term, definition, translation, part_of_speech, example)
+-- Original editorial sample entries authored for this project; no third-party dataset.
+INSERT INTO public.dictionary_entries (id, language, term, normalized_term, definition, translation, part_of_speech, example, ipa, source_name, license_id)
 VALUES
-  ('11111111-1111-4111-8111-111111111101', 'en', 'curious', 'curious', 'Wanting to learn or know.', 'tò mò', 'adjective', 'I am curious about this story.'),
-  ('11111111-1111-4111-8111-111111111102', 'en', 'journey', 'journey', 'An act of traveling or progressing.', 'hành trình', 'noun', 'Every journey starts with one step.'),
-  ('11111111-1111-4111-8111-111111111103', 'en', 'practice', 'practice', 'Repeated action to improve a skill.', 'luyện tập', 'verb', 'I practice English every day.')
-ON CONFLICT (id) DO UPDATE SET term = EXCLUDED.term, normalized_term = EXCLUDED.normalized_term, definition = EXCLUDED.definition, translation = EXCLUDED.translation, part_of_speech = EXCLUDED.part_of_speech, example = EXCLUDED.example;
+  ('11111111-1111-4111-8111-111111111101', 'en', 'curious', 'curious', 'Eager to learn or find out more.', 'tò mò', 'adjective', 'I am curious about this story.', '/ˈkjʊriəs/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111102', 'en', 'journey', 'journey', 'A trip from one place to another.', 'hành trình', 'noun', 'Every journey starts with one step.', '/ˈdʒɜːrni/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111103', 'en', 'practice', 'practice', 'To do an activity repeatedly to improve.', 'luyện tập', 'verb', 'I practice English every day.', '/ˈpræktɪs/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111104', 'en', 'reward', 'reward', 'Something received for effort or achievement.', 'phần thưởng', 'noun', 'Finishing the lesson was its own reward.', '/rɪˈwɔːrd/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111105', 'en', 'explore', 'explore', 'To travel through or study something new.', 'khám phá', 'verb', 'We explore a new neighborhood on weekends.', '/ɪkˈsplɔːr/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111106', 'en', 'confident', 'confident', 'Feeling sure about your ability to do something.', 'tự tin', 'adjective', 'She feels confident speaking English.', '/ˈkɒnfɪdənt/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111107', 'en', 'listen', 'listen', 'To pay attention to a sound or speaker.', 'lắng nghe', 'verb', 'Listen carefully to the question.', '/ˈlɪsən/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111108', 'en', 'improve', 'improve', 'To become better or make something better.', 'cải thiện', 'verb', 'Reading every day can improve your vocabulary.', '/ɪmˈpruːv/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111109', 'en', 'conversation', 'conversation', 'A talk between two or more people.', 'cuộc trò chuyện', 'noun', 'We had a short conversation after class.', '/ˌkɒnvəˈseɪʃən/', 'Englify Quest editorial', 'project-owned'),
+  ('11111111-1111-4111-8111-111111111110', 'en', 'remember', 'remember', 'To keep something in your mind or recall it.', 'ghi nhớ', 'verb', 'I remember the new word by using it in a sentence.', '/rɪˈmembər/', 'Englify Quest editorial', 'project-owned')
+ON CONFLICT (id) DO UPDATE SET term = EXCLUDED.term, normalized_term = EXCLUDED.normalized_term, definition = EXCLUDED.definition, translation = EXCLUDED.translation, part_of_speech = EXCLUDED.part_of_speech, example = EXCLUDED.example, ipa = EXCLUDED.ipa, source_name = EXCLUDED.source_name, license_id = EXCLUDED.license_id;
 INSERT INTO public.courses (id, slug, title, description, level, is_published)
 VALUES ('22222222-2222-4222-8222-222222222201', 'everyday-english', 'Everyday English', 'Short conversations for beginners.', 1, true)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, level = EXCLUDED.level, is_published = EXCLUDED.is_published;

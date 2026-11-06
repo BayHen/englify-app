@@ -30,12 +30,16 @@ END $$;
 
 SET LOCAL ROLE authenticated;
 SET LOCAL request.jwt.claim.sub = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+UPDATE public.profiles SET display_name = 'Alice updated'
+WHERE id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+UPDATE public.profiles SET display_name = 'Unauthorized change'
+WHERE id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 DO $$
 DECLARE visible_names text[];
 BEGIN
   SELECT array_agg(display_name ORDER BY display_name) INTO visible_names FROM public.profiles;
-  IF visible_names <> ARRAY['Alice'] THEN RAISE EXCEPTION 'Profile isolation failed: %', visible_names; END IF;
-  IF (SELECT count(*) FROM public.dictionary_entries) <> 3 THEN RAISE EXCEPTION 'Dictionary read failed'; END IF;
+  IF visible_names <> ARRAY['Alice updated'] THEN RAISE EXCEPTION 'Profile isolation failed: %', visible_names; END IF;
+  IF (SELECT count(*) FROM public.dictionary_entries) < 3 THEN RAISE EXCEPTION 'Dictionary read failed'; END IF;
   IF (SELECT count(*) FROM public.courses) <> 1 THEN RAISE EXCEPTION 'Published course read failed'; END IF;
   IF has_table_privilege('authenticated', 'public.quiz_options', 'SELECT') THEN RAISE EXCEPTION 'Quiz answer key exposed'; END IF;
   IF has_table_privilege('authenticated', 'public.xp_events', 'INSERT') THEN RAISE EXCEPTION 'Client can award XP'; END IF;
@@ -76,6 +80,7 @@ SET LOCAL request.jwt.claim.sub = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 DO $$
 BEGIN
   IF (SELECT count(*) FROM public.profiles) <> 1 THEN RAISE EXCEPTION 'Second user profile isolation failed'; END IF;
+  IF (SELECT display_name FROM public.profiles) <> 'Bob' THEN RAISE EXCEPTION 'Cross-user profile update passed'; END IF;
   IF (SELECT count(*) FROM public.saved_vocabulary) <> 1 THEN RAISE EXCEPTION 'Second user saved word isolation failed'; END IF;
   IF (SELECT count(*) FROM public.user_preferences) <> 0 THEN RAISE EXCEPTION 'Other user preferences exposed'; END IF;
 END $$;

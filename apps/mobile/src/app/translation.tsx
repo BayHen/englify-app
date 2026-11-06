@@ -1,1 +1,1 @@
-export { TranslationScreen as default } from '@/features/demo/screens';
+export { TranslationScreen as default } from '@/features/translation/screen';

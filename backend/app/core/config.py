@@ -24,7 +24,45 @@ class Settings(BaseSettings):
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     database_url: SecretStr | None = None
     supabase_url: str | None = None
+    supabase_publishable_key: str | None = None
+    libretranslate_url: str | None = None
+    libretranslate_verified_pairs: str = ""
     cors_origins: str = ""
+
+    @field_validator("supabase_publishable_key")
+    @classmethod
+    def validate_publishable_key(cls, value: str | None) -> str | None:
+        if value is None or not value.strip():
+            return None
+        if not value.startswith("sb_publishable_"):
+            raise ValueError("ENGLIFY_SUPABASE_PUBLISHABLE_KEY must be a publishable key")
+        return value
+
+    @field_validator("libretranslate_url")
+    @classmethod
+    def validate_libre_url(cls, value: str | None) -> str | None:
+        if not value or not value.strip():
+            return None
+        parsed = urlsplit(value.rstrip("/"))
+        if (
+            parsed.scheme not in {"http", "https"}
+            or not parsed.netloc
+            or parsed.path
+            or parsed.query
+            or parsed.fragment
+            or parsed.username
+            or parsed.password
+        ):
+            raise ValueError(
+                "ENGLIFY_LIBRETRANSLATE_URL must be an origin without credentials or path"
+            )
+        if parsed.scheme == "http" and parsed.hostname not in {
+            "localhost",
+            "127.0.0.1",
+            "libretranslate",
+        }:
+            raise ValueError("ENGLIFY_LIBRETRANSLATE_URL must use HTTPS outside local development")
+        return value.rstrip("/")
 
     @field_validator("supabase_url")
     @classmethod
@@ -56,14 +94,16 @@ class Settings(BaseSettings):
         except Exception as exc:
             raise ValueError("ENGLIFY_DATABASE_URL must be a valid SQLAlchemy URL") from exc
         if url.drivername != "postgresql+psycopg" or not url.database:
-            raise ValueError(
-                "ENGLIFY_DATABASE_URL must use postgresql+psycopg and name a database"
-            )
+            raise ValueError("ENGLIFY_DATABASE_URL must use postgresql+psycopg and name a database")
         return value
 
     @model_validator(mode="after")
     def validate_cors(self) -> "Settings":
-        if self.environment == "production" and self.supabase_url and not self.supabase_url.startswith("https://"):
+        if (
+            self.environment == "production"
+            and self.supabase_url
+            and not self.supabase_url.startswith("https://")
+        ):
             raise ValueError("Production ENGLIFY_SUPABASE_URL must use HTTPS")
         for origin in self.allowed_origins:
             parsed = urlsplit(origin)
