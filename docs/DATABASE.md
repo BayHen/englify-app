@@ -1,5 +1,7 @@
 # Kiến trúc PostgreSQL – TASK 03.1
 
+Migration `20261107_11` thêm `admin_members` và `admin_audit_logs`, cùng trạng thái bản nháp/lưu trữ mềm cho các bảng nội dung. Không tự cấp quyền admin hay tạo tài khoản Auth. Các bảng admin không cấp quyền đọc/ghi trực tiếp cho client. RLS và API mobile chỉ hiển thị nội dung đã xuất bản, chưa lưu trữ; khóa đáp án vẫn riêng tư. Xem [ADMIN_DASHBOARD.md](ADMIN_DASHBOARD.md).
+
 Migration `20261107_10` bổ sung `writing_exercises`, `writing_answer_keys` và `writing_feedback`; mở rộng `writing_submissions` bằng khóa ngoại bài tập và `request_id` để chống gửi trùng. Nội dung gốc và phản hồi được lưu ở hai bảng riêng. Chỉ bài đã xuất bản được đọc qua RLS; bảng đáp án không cấp quyền đọc cho người học; phản hồi chỉ hiện cho chủ bài nộp. Xem [WRITING_PRACTICE.md](WRITING_PRACTICE.md) về API, seed và giới hạn kiểm tra ngữ pháp.
 
 Migration `20261107_09` bổ sung bốn bảng của Real English: nội dung gốc, câu hỏi ngữ cảnh, mục đã lưu và lượt làm quiz. `PROFILES ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o| REAL_ENGLISH_QUIZ_QUESTIONS`, `REAL_ENGLISH_QUIZ_QUESTIONS ||--o{ REAL_ENGLISH_QUIZ_ATTEMPTS`. Xem [REAL_ENGLISH.md](REAL_ENGLISH.md) về nguồn và quyền sử dụng nội dung.
@@ -96,3 +98,7 @@ erDiagram
     PROFILES ||--o{ REWARD_CLAIMS : user_id
     REWARD_ITEMS ||--o{ REWARD_CLAIMS : reward_id
 ```
+
+## Nội dung ngoại tuyến (migration `20261107_12`)
+
+Trigger trên `lesson_items`, `quiz_options` và `quiz_answer_keys` cập nhật dấu thời gian của bài/câu hỏi cha. API dùng dấu phiên bản để từ chối bài làm ngoại tuyến có nội dung cũ. Xem [OFFLINE_SYNC.md](OFFLINE_SYNC.md). Hàng đợi nằm trên thiết bị theo user ID; không tạo bảng PostgreSQL mới.

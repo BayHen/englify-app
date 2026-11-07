@@ -11,6 +11,7 @@ export type GamificationReward = { kind: 'xp' | 'level' | 'badge' | 'quest' | 'r
 export type QuizResult = { attempt_id: string; correct_count: number; question_count: number; passed: boolean; state: LessonState; earned_xp: number; rewards: GamificationReward[]; created_at: string };
 export type JourneySummary = { xp_total: number; level: number; xp_into_level: number; xp_for_next_level: number; completed_lessons: number; total_lessons: number };
 export type Answer = string | Record<string, string>;
+export type OfflinePackage = { lesson: LessonDetail; content_version: string };
 
 async function token(): Promise<string> {
   const { data, error } = await getSupabase().auth.getSession();
@@ -20,6 +21,8 @@ async function token(): Promise<string> {
 export async function getJourney(): Promise<JourneyCourse[]> { return privateRequest('/journey', await token()); }
 export async function getJourneySummary(): Promise<JourneySummary> { return privateRequest('/journey/summary', await token()); }
 export async function getLesson(id: string): Promise<LessonDetail> { return privateRequest(`/lessons/${encodeURIComponent(id)}`, await token()); }
+export async function downloadLesson(id: string): Promise<OfflinePackage> { return privateRequest(`/lessons/${encodeURIComponent(id)}/offline-package`, await token()); }
+export async function syncLesson(id: string, requestId: string, contentVersion: string, answers: Record<string, Answer>): Promise<QuizResult> { return privateRequest(`/lessons/${encodeURIComponent(id)}/offline-sync`, await token(), 'POST', { request_id: requestId, content_version: contentVersion, answers }); }
 export async function startLesson(id: string): Promise<JourneyLesson> { return privateRequest(`/lessons/${encodeURIComponent(id)}/start`, await token(), 'POST'); }
 export async function submitLesson(id: string, requestId: string, answers: Record<string, Answer>): Promise<QuizResult> { return privateRequest(`/lessons/${encodeURIComponent(id)}/submit`, await token(), 'POST', { request_id: requestId, answers }); }
 export async function getAttempts(id: string): Promise<QuizResult[]> { return privateRequest(`/lessons/${encodeURIComponent(id)}/attempts`, await token()); }

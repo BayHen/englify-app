@@ -85,7 +85,7 @@ def _row(db: Session, user_id: UUID, expression_id: UUID) -> Expression:
                e.example_en, e.example_vi, e.dialogue, e.formality, e.region_note,
                e.source_name, e.license_id, e.provenance_note,
                EXISTS(SELECT 1 FROM public.saved_expressions s WHERE s.expression_id = e.id AND s.user_id = :uid) AS saved
-        FROM public.real_english_expressions e WHERE e.id = :id AND e.is_published
+        FROM public.real_english_expressions e WHERE e.id = :id AND e.is_published AND e.archived_at IS NULL
     """),
             {"uid": user_id, "id": expression_id},
         )
@@ -118,7 +118,7 @@ def search_expressions(
                (s.id IS NOT NULL) AS saved
         FROM public.real_english_expressions e
         LEFT JOIN public.saved_expressions s ON s.expression_id = e.id AND s.user_id = :uid
-        WHERE e.is_published AND (CAST(:kind AS text) IS NULL OR e.kind = CAST(:kind AS text))
+        WHERE e.is_published AND e.archived_at IS NULL AND (CAST(:kind AS text) IS NULL OR e.kind = CAST(:kind AS text))
           AND (NOT :saved_only OR s.id IS NOT NULL)
           AND (CAST(:q AS text) = '' OR e.expression ILIKE '%' || CAST(:q AS text) || '%' ESCAPE '!'
                     OR e.meaning_vi ILIKE '%' || CAST(:q AS text) || '%' ESCAPE '!')
@@ -183,7 +183,7 @@ def _quiz(db: Session, expression_id: UUID):
         SELECT q.id, q.expression_id, q.prompt, q.options, q.answer_id, q.explanation
         FROM public.real_english_quiz_questions q
         JOIN public.real_english_expressions e ON e.id = q.expression_id
-        WHERE q.expression_id = :id AND e.is_published
+        WHERE q.expression_id = :id AND e.is_published AND e.archived_at IS NULL
     """),
             {"id": expression_id},
         )

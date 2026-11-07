@@ -38,6 +38,8 @@ Expo Router nằm trong `apps/mobile` (`main: expo-router/entry`). Khi đứng �
 
 Expo hiển thị mã QR và địa chỉ Metro; trang quản trị ở `http://localhost:3000`; kiểm tra API tại `http://127.0.0.1:8000/api/v1/health`. Android cần trình giả lập hoặc Expo Go phù hợp SDK; iOS simulator cần macOS. Xem [hướng dẫn môi trường](docs/DEVELOPMENT.md), [nền tảng mobile](docs/MOBILE_FOUNDATION.md) và [hệ thiết kế](docs/DESIGN_SYSTEM.md).
 
+Admin Dashboard cần thêm `apps/admin/.env.local` và tài khoản có trong `public.admin_members`; xem [hướng dẫn quản trị](docs/ADMIN_DASHBOARD.md). Tài khoản học viên thông thường không có quyền sửa nội dung.
+
 ## Kiểm tra
 
 ```powershell

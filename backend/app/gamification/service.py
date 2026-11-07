@@ -198,7 +198,8 @@ def award_lesson_completion(
         db.execute(
             text("""
         SELECT b.id, b.title, r.metric, r.target FROM public.badge_rules r
-        JOIN public.badges b ON b.id = r.badge_id ORDER BY r.target, b.id
+        JOIN public.badges b ON b.id = r.badge_id
+        WHERE b.is_published AND b.archived_at IS NULL ORDER BY r.target, b.id
     """)
         )
         .mappings()

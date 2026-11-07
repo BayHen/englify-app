@@ -7,6 +7,7 @@ import { useAppStore } from '@/state/app-store';
 import { privateRequest, type OnboardingInput, type Profile } from './api';
 import { parseAuthCallback } from './callback';
 import { authConfigured, getSupabase } from './supabase';
+import { cacheProfile, getCachedProfile } from '@/features/offline/storage';
 
 type AuthContextValue = {
   configured: boolean;
@@ -49,12 +50,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const data = await privateRequest<Profile>('/me', active.access_token);
       setProfile(data); setDisplayName(data.display_name); setProfileError(null);
+      await cacheProfile(active.user.id, data).catch(() => undefined);
       return data;
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
         await getSupabase().auth.signOut({ scope: 'local' });
         clearLocal();
         return null;
+      }
+      if (error instanceof ApiError && error.status === 0) {
+        const cached = await getCachedProfile(active.user.id).catch(() => null);
+        if (cached?.id === active.user.id) {
+          setProfile(cached); setDisplayName(cached.display_name); setProfileError(null);
+          return cached;
+        }
       }
       setProfileError(error instanceof Error ? error.message : 'Could not load your profile');
       return null;
@@ -157,6 +166,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const updated = await privateRequest<Profile>('/me/onboarding', data.session.access_token, 'PUT', input);
         setProfile(updated); setDisplayName(updated.display_name); setProfileError(null);
+        await cacheProfile(data.session.user.id, updated).catch(() => undefined);
         return updated;
       } catch (cause) {
         if (cause instanceof ApiError && cause.status === 401) {

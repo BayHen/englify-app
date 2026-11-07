@@ -59,7 +59,11 @@ def search_dictionary(
     # The authenticated identity is required even though catalog rows are shared.
     _ = user.id
     term = q.strip().casefold()
-    statement = select(DictionaryEntry).where(DictionaryEntry.language == "en")
+    statement = select(DictionaryEntry).where(
+        DictionaryEntry.language == "en",
+        DictionaryEntry.is_published,
+        DictionaryEntry.archived_at.is_(None),
+    )
     if term:
         escaped = term.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
         statement = statement.where(
@@ -78,7 +82,12 @@ def get_dictionary_word(
 ) -> ApiResponse[DictionaryWord]:
     _ = user.id
     word = db.get(DictionaryEntry, entry_id)
-    if word is None or word.language != "en":
+    if (
+        word is None
+        or word.language != "en"
+        or not word.is_published
+        or word.archived_at is not None
+    ):
         raise AppError(404, "word_not_found", "Word not found")
     return ApiResponse(data=DictionaryWord.model_validate(word))
 
@@ -91,7 +100,11 @@ def list_saved_words(
     rows = db.execute(
         select(SavedVocabulary, DictionaryEntry)
         .join(DictionaryEntry, DictionaryEntry.id == SavedVocabulary.entry_id)
-        .where(SavedVocabulary.user_id == user.id)
+        .where(
+            SavedVocabulary.user_id == user.id,
+            DictionaryEntry.is_published,
+            DictionaryEntry.archived_at.is_(None),
+        )
         .order_by(SavedVocabulary.created_at.desc())
         .limit(200)
     ).all()
@@ -106,7 +119,12 @@ def save_word(
 ) -> ApiResponse[SavedWord]:
     with db.begin():
         word = db.get(DictionaryEntry, entry_id)
-        if word is None or word.language != "en":
+        if (
+            word is None
+            or word.language != "en"
+            or not word.is_published
+            or word.archived_at is not None
+        ):
             raise AppError(404, "word_not_found", "Word not found")
         db.execute(
             insert(SavedVocabulary)

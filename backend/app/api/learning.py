@@ -3,6 +3,7 @@
 
 import json
 from datetime import datetime
+from hashlib import sha256
 from typing import Annotated, Any, Literal
 from uuid import UUID, uuid4
 
@@ -66,6 +67,16 @@ class LessonDetail(BaseModel):
 class SubmitRequest(BaseModel):
     request_id: UUID
     answers: dict[UUID, str | dict[str, str]] = Field(min_length=1, max_length=30)
+    content_version: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
+
+
+class OfflineSubmitRequest(SubmitRequest):
+    content_version: str = Field(pattern=r"^[a-f0-9]{64}$")
+
+
+class OfflinePackage(BaseModel):
+    lesson: LessonDetail
+    content_version: str
 
 
 class QuizResult(BaseModel):
@@ -97,10 +108,10 @@ def _journey_rows(db: Session, user_id: UUID):
                l.id AS lesson_id, l.title AS lesson_title, l.objective,
                l.position AS lesson_position, p.status
         FROM public.courses c
-        JOIN public.learning_units u ON u.course_id = c.id
-        JOIN public.lessons l ON l.unit_id = u.id AND l.is_published
+        JOIN public.learning_units u ON u.course_id = c.id AND u.is_published AND u.archived_at IS NULL
+        JOIN public.lessons l ON l.unit_id = u.id AND l.is_published AND l.archived_at IS NULL
         LEFT JOIN public.learning_progress p ON p.lesson_id = l.id AND p.user_id = :user_id
-        WHERE c.is_published
+        WHERE c.is_published AND c.archived_at IS NULL
         ORDER BY c.level, c.id, u.position, l.position
     """),
             {"user_id": user_id},
@@ -165,6 +176,21 @@ def _allowed(db: Session, user_id: UUID, lesson_id: UUID) -> JourneyLesson:
     raise AppError(404, "lesson_not_found", "Published lesson not found")
 
 
+def _content_version(db: Session, lesson_id: UUID) -> str:
+    """Fingerprint public content and edit timestamps, never the private answer values."""
+    snapshots = []
+    for statement in (
+        "SELECT id,title,objective,content,updated_at FROM public.lessons WHERE id=:id",
+        "SELECT id,position,kind,body,is_published FROM public.lesson_items WHERE lesson_id=:id AND is_published AND archived_at IS NULL ORDER BY position,id",
+        "SELECT id,position,kind,prompt,explanation,payload,updated_at FROM public.quiz_questions WHERE lesson_id=:id AND is_published AND archived_at IS NULL ORDER BY position,id",
+        "SELECT o.id,o.question_id,o.position,o.answer_text FROM public.quiz_options o JOIN public.quiz_questions q ON q.id=o.question_id WHERE q.lesson_id=:id AND q.is_published AND q.archived_at IS NULL ORDER BY o.question_id,o.position,o.id",
+    ):
+        snapshots.append(
+            [dict(row) for row in db.execute(text(statement), {"id": lesson_id}).mappings()]
+        )
+    return sha256(json.dumps(snapshots, sort_keys=True, default=str).encode()).hexdigest()
+
+
 @router.get("/journey", response_model=ApiResponse[list[JourneyCourse]])
 def get_journey(
     user: Annotated[CurrentUser, Depends(get_current_user)],
@@ -203,7 +229,7 @@ def get_lesson(
     items = (
         db.execute(
             text(
-                "SELECT kind, body FROM public.lesson_items WHERE lesson_id = :id ORDER BY position"
+                "SELECT kind, body FROM public.lesson_items WHERE lesson_id = :id AND is_published AND archived_at IS NULL ORDER BY position"
             ),
             {"id": lesson_id},
         )
@@ -213,7 +239,7 @@ def get_lesson(
     rows = (
         db.execute(
             text(
-                "SELECT id, kind, prompt, payload FROM public.quiz_questions WHERE lesson_id = :id ORDER BY position"
+                "SELECT id, kind, prompt, payload FROM public.quiz_questions WHERE lesson_id = :id AND is_published AND archived_at IS NULL ORDER BY position"
             ),
             {"id": lesson_id},
         )
@@ -252,6 +278,18 @@ def get_lesson(
             items=[LessonItem.model_validate(i) for i in items],
             questions=questions,
         )
+    )
+
+
+@router.get("/lessons/{lesson_id}/offline-package", response_model=ApiResponse[OfflinePackage])
+def download_lesson(
+    lesson_id: UUID,
+    user: Annotated[CurrentUser, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db_session)],
+) -> ApiResponse[OfflinePackage]:
+    detail = get_lesson(lesson_id, user, db).data
+    return ApiResponse(
+        data=OfflinePackage(lesson=detail, content_version=_content_version(db, lesson_id))
     )
 
 
@@ -314,13 +352,19 @@ def submit_lesson(
                 )
             )
         lesson = _allowed(db, user.id, lesson_id)
+        if payload.content_version and payload.content_version != _content_version(db, lesson_id):
+            raise AppError(
+                409,
+                "offline_content_changed",
+                "Lesson content changed. Download it again before retrying",
+            )
         questions = (
             db.execute(
                 text("""
             SELECT q.id, q.kind, k.answer AS answer_key
             FROM public.quiz_questions q
             LEFT JOIN public.quiz_answer_keys k ON k.question_id = q.id
-            WHERE q.lesson_id = :lesson_id ORDER BY q.position
+            WHERE q.lesson_id = :lesson_id AND q.is_published AND q.archived_at IS NULL ORDER BY q.position
         """),
                 {"lesson_id": lesson_id},
             )
@@ -435,6 +479,16 @@ def submit_lesson(
             created_at=row,
         )
     )
+
+
+@router.post("/lessons/{lesson_id}/offline-sync", response_model=ApiResponse[QuizResult])
+def sync_offline_lesson(
+    lesson_id: UUID,
+    payload: OfflineSubmitRequest,
+    user: Annotated[CurrentUser, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db_session)],
+) -> ApiResponse[QuizResult]:
+    return submit_lesson(lesson_id, payload, user, db)
 
 
 @router.get("/lessons/{lesson_id}/attempts", response_model=ApiResponse[list[QuizResult]])

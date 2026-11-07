@@ -139,6 +139,7 @@ def get_gamification(
         SELECT b.id, b.title, b.description, ub.awarded_at FROM public.badges b
         JOIN public.badge_rules br ON br.badge_id = b.id
         LEFT JOIN public.user_badges ub ON ub.badge_id = b.id AND ub.user_id = :user_id
+        WHERE b.is_published AND b.archived_at IS NULL
         ORDER BY br.target, b.title
     """),
             {"user_id": user.id},

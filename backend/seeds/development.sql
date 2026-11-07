@@ -76,4 +76,9 @@ VALUES
   ('44444444-4444-4444-8444-444444444404', '{"station":"trains","library":"books"}'::jsonb),
   ('44444444-4444-4444-8444-444444444405', '["Good morning"]'::jsonb)
 ON CONFLICT (question_id) DO UPDATE SET answer = EXCLUDED.answer;
+-- Keep the project's deterministic examples visible after admin draft defaults were introduced.
+UPDATE public.dictionary_entries SET is_published=true WHERE id::text LIKE '11111111-1111-4111-8111-%';
+UPDATE public.learning_units SET is_published=true WHERE id::text LIKE '88888888-8888-4888-8888-%';
+UPDATE public.lesson_items SET is_published=true WHERE id::text LIKE '99999999-9999-4999-8999-%';
+UPDATE public.quiz_questions SET is_published=true WHERE id::text LIKE '44444444-4444-4444-8444-%';
 COMMIT;

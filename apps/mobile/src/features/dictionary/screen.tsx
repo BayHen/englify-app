@@ -8,6 +8,9 @@ import { AppButton, AppCard, AppInput, AppText, EmptyState, ErrorState, LoadingS
 import { getCachedSavedWords, getRecentSearches, cacheSavedWords, cacheWords, rememberSearch, searchCachedWords } from './cache';
 import { listSavedWords, removeSavedWord, saveWord, searchDictionary } from './api';
 import type { DictionaryWord, SavedWord } from './types';
+import * as Crypto from 'expo-crypto';
+import { listEvents, queueEvent } from '@/features/offline/storage';
+import { SyncStatus } from '@/features/offline/sync-status';
 
 type Tab = 'search' | 'saved' | 'recent' | 'flashcards';
 
@@ -47,7 +50,9 @@ export function DictionaryScreen() {
     setSaved(cached);
     try {
       const remote = await listSavedWords();
-      setSaved(remote); await cacheSavedWords(id, remote);
+      const pendingIds = new Set((await listEvents(id)).filter((event) => event.status === 'pending' && event.kind === 'save_word').map((event) => (event.payload as { wordId: string }).wordId));
+      const merged = [...remote, ...cached.filter((item) => pendingIds.has(item.word.id) && !remote.some((entry) => entry.word.id === item.word.id))];
+      setSaved(merged); await cacheSavedWords(id, merged);
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
       setOffline(true);
@@ -67,8 +72,10 @@ export function DictionaryScreen() {
         try {
           const [remoteWords, remoteSaved] = await Promise.all([searchDictionary(''), listSavedWords()]);
           if (!live) return;
-          setResults(remoteWords); setSaved(remoteSaved); setOffline(false);
-          await Promise.all([cacheWords(remoteWords), cacheSavedWords(userId, remoteSaved)]);
+          const pendingIds = new Set((await listEvents(userId)).filter((event) => event.status === 'pending' && event.kind === 'save_word').map((event) => (event.payload as { wordId: string }).wordId));
+          const merged = [...remoteSaved, ...stored.filter((item) => pendingIds.has(item.word.id) && !remoteSaved.some((entry) => entry.word.id === item.word.id))];
+          setResults(remoteWords); setSaved(merged); setOffline(false);
+          await Promise.all([cacheWords(remoteWords), cacheSavedWords(userId, merged)]);
         } catch (cause) {
           if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
           if (live) setOffline(true);
@@ -102,13 +109,25 @@ export function DictionaryScreen() {
     if (!userId) return;
     setBusyId(word.id); setError(null);
     try {
-      if (saved.some((item) => item.word.id === word.id)) await removeSavedWord(word.id);
+      const alreadySaved = saved.some((item) => item.word.id === word.id);
+      if (offline && alreadySaved) { setError('Removing saved words requires a connection.'); return; }
+      if (offline && !alreadySaved) { await queueOfflineSave(word); return; }
+      if (alreadySaved) await removeSavedWord(word.id);
       else await saveWord(word.id);
       await loadSaved(userId);
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
+      if (cause instanceof ApiError && cause.status === 0 && !saved.some((item) => item.word.id === word.id)) { setOffline(true); await queueOfflineSave(word); return; }
       setError(cause instanceof Error ? cause.message : 'Could not change saved words');
     } finally { setBusyId(null); }
+  }
+
+  async function queueOfflineSave(word: DictionaryWord) {
+    const existing = saved.find((item) => item.word.id === word.id);
+    if (existing) return;
+    const next = [{ id: Crypto.randomUUID(), word, created_at: new Date().toISOString(), next_review_at: null }, ...saved];
+    await queueEvent({ id: Crypto.randomUUID(), userId, kind: 'save_word', payload: { wordId: word.id }, status: 'pending', attempts: 0, nextRetryAt: 0, message: null, createdAt: new Date().toISOString(), result: null });
+    setSaved(next); await cacheSavedWords(userId, next);
   }
 
   function speak(word: DictionaryWord) {
@@ -122,7 +141,8 @@ export function DictionaryScreen() {
 
   const card = saved[Math.min(flashcardIndex, Math.max(saved.length - 1, 0))];
   return <Page eyebrow="WORD LAB" title="Dictionary" description="Search real English–Vietnamese seed entries, save words, and review them offline.">
-    {offline && <AppCard tone="reward"><AppText variant="label">Offline cache</AppText><AppText tone="muted">Showing previously cached words. Saving needs a connection.</AppText></AppCard>}
+    <SyncStatus />
+    {offline && <AppCard tone="reward"><AppText variant="label">Offline cache</AppText><AppText tone="muted">Showing cached words. New saves wait for synchronization; removing words needs a connection.</AppText></AppCard>}
     <View style={{ gap: 8 }}>
       {(['search', 'saved', 'recent', 'flashcards'] as Tab[]).map((item) =>
         <AppButton key={item} label={item === 'flashcards' ? 'Flashcards' : item === 'recent' ? 'Recent' : item === 'saved' ? `Saved (${saved.length})` : 'Search'} variant={tab === item ? 'primary' : 'secondary'} onPress={() => { setTab(item); setError(null); }} />

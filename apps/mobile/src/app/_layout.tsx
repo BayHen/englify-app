@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from '@/auth/provider';
 import { Page } from '@/components/page';
 import { useAppStore } from '@/state/app-store';
 import { AppButton, ErrorState, LoadingSkeleton } from '@/ui';
+import { SyncEngine } from '@/features/offline/sync-engine';
 
 function AppNavigator() {
   const { loading, session, profile, profileError, refreshProfile, signOut, callbackTarget, clearCallbackTarget } = useAuth();
@@ -54,7 +55,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider value={dark ? DarkTheme : DefaultTheme}>
-            <AuthProvider><AppNavigator /></AuthProvider>
+            <AuthProvider><SyncEngine /><AppNavigator /></AuthProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </SafeAreaProvider>

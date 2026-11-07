@@ -8,6 +8,7 @@ from uuid import uuid4
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.admin import router as admin_router
 from app.api.dictionary import router as dictionary_router
 from app.api.gamification import router as gamification_router
 from app.api.health import router as health_router
@@ -71,6 +72,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return response
 
     register_exception_handlers(application)
+    application.include_router(admin_router)
     application.include_router(health_router)
     application.include_router(dictionary_router)
     application.include_router(me_router)

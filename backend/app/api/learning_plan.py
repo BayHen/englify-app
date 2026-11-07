@@ -89,10 +89,10 @@ def _generate(db: Session, user_id: UUID, today: date) -> UUID:
         db.execute(
             text("""
         SELECT l.id, l.title, COALESCE(p.status IN ('completed', 'mastered'), false) AS completed
-        FROM public.courses c JOIN public.learning_units u ON u.course_id = c.id
-        JOIN public.lessons l ON l.unit_id = u.id AND l.is_published
+        FROM public.courses c JOIN public.learning_units u ON u.course_id = c.id AND u.is_published AND u.archived_at IS NULL
+        JOIN public.lessons l ON l.unit_id = u.id AND l.is_published AND l.archived_at IS NULL
         LEFT JOIN public.learning_progress p ON p.lesson_id = l.id AND p.user_id = :uid
-        WHERE c.is_published ORDER BY c.level, c.id, u.position, l.position
+        WHERE c.is_published AND c.archived_at IS NULL ORDER BY c.level, c.id, u.position, l.position
     """),
             {"uid": user_id},
         )
