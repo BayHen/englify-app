@@ -1,4 +1,4 @@
-import { createElement, type ReactNode } from 'react';
+import { Children, createElement, type ReactNode } from 'react';
 
 type StubProps = {
   children?: ReactNode;
@@ -20,7 +20,12 @@ function domProps(props: StubProps) {
   };
 }
 
-export function View(props: StubProps) { return createElement('div', domProps(props), props.children); }
+export function View(props: StubProps) {
+  if (Children.toArray(props.children).some((child) => typeof child === 'string' || typeof child === 'number')) {
+    throw new Error('A text node cannot be a child of a View');
+  }
+  return createElement('div', domProps(props), props.children);
+}
 export function Text(props: StubProps) { return createElement('span', domProps(props), props.children); }
 export function Pressable(props: StubProps) { return createElement('button', domProps(props), props.children); }
 export function TextInput(props: StubProps) { return createElement('input', { ...domProps(props), value: props.value, readOnly: true }); }

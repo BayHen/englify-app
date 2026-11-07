@@ -38,7 +38,7 @@ export default function Onboarding() {
     {levels.map((item) => <AppCard key={item.value} tone={level === item.value ? 'primary' : 'surface'} onPress={() => setLevel(item.value)} accessibilityLabel={`${item.title}${level === item.value ? ', selected' : ''}`}><AppText variant="label">{item.title}</AppText></AppCard>)}
     <AppText variant="heading">Daily learning goal</AppText>
     {[5, 10, 15, 20].map((value) => <AppCard key={value} tone={minutes === value ? 'reward' : 'surface'} onPress={() => setMinutes(value)} accessibilityLabel={`${value} minutes a day${minutes === value ? ', selected' : ''}`}><AppText variant="label">{value} minutes a day</AppText></AppCard>)}
-    {error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
+    {!!error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
     <AppButton label="Save my learning plan" onPress={() => { void submit(); }} disabled={!goal || !level} loading={busy} size="large" />
   </Page>;
 }

@@ -18,7 +18,7 @@ function WordCard({ word, saved, onSave, onSpeak }: {
     <AppText variant="heading">{word.term} {word.ipa && <AppText variant="caption" tone="muted">{word.ipa}</AppText>}</AppText>
     <AppText variant="label" tone="primary">{word.part_of_speech ?? 'word'} · {word.translation ?? 'Meaning unavailable'}</AppText>
     <AppText>{word.definition}</AppText>
-    {word.example && <AppText tone="muted">“{word.example}”</AppText>}
+    {!!word.example && <AppText tone="muted">“{word.example}”</AppText>}
     <AppText variant="caption" tone="muted">{word.source_name} · {word.license_id}</AppText>
     <View style={{ gap: 8 }}>
       <AppButton label={`Pronounce ${word.term}`} variant="secondary" onPress={onSpeak} accessibilityHint="Uses the device English text-to-speech voice" />
@@ -128,7 +128,7 @@ export function DictionaryScreen() {
         <AppButton key={item} label={item === 'flashcards' ? 'Flashcards' : item === 'recent' ? 'Recent' : item === 'saved' ? `Saved (${saved.length})` : 'Search'} variant={tab === item ? 'primary' : 'secondary'} onPress={() => { setTab(item); setError(null); }} />
       )}
     </View>
-    {error && <ErrorState title="Dictionary unavailable" message={error} retry={() => { void (tab === 'search' ? search() : loadSaved(userId)); }} />}
+    {!!error && <ErrorState title="Dictionary unavailable" message={error} retry={() => { void (tab === 'search' ? search() : loadSaved(userId)); }} />}
     {tab === 'search' && <>
       <AppInput label="English word or Vietnamese meaning" placeholder="Try curious or tò mò" value={query} onChangeText={setQuery} onSubmitEditing={() => { void search(); }} returnKeyType="search" autoCapitalize="none" />
       <AppButton label="Search dictionary" onPress={() => { void search(); }} />

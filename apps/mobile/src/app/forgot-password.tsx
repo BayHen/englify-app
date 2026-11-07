@@ -17,7 +17,7 @@ export default function ForgotPassword() {
   }
   return <Page eyebrow="ACCOUNT HELP" title="Reset your password" description="Enter your email and we will send a reset link if an account exists.">
     <AppInput label="Email" value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" placeholder="name@example.com" />
-    {error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
+    {!!error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
     {sent && <AppCard tone="primary"><AppText>Check your inbox for a password reset link. The message may take a moment to arrive.</AppText></AppCard>}
     <AppButton label="Send reset link" onPress={() => { void submit(); }} disabled={!configured || !email.includes('@')} loading={busy} />
     <NavLink href="/login" label="Back to sign in" />

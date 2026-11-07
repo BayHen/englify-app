@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link, type Href } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppPalette } from '@/constants/app-theme';
 import { designTokens } from '@englify/shared';
@@ -8,11 +8,10 @@ import { AppButton, AppText } from '@/ui';
 
 export function Page({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
   const palette = useAppPalette();
-  const { width } = useWindowDimensions();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: palette.background }} edges={['top', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        <View style={[styles.content, { width: Math.min(Math.max(width - 2 * designTokens.spacing.lg, 0), 560) }]}>
+        <View style={styles.content}>
           <AppText variant="label" tone="primary" style={styles.brand}>ENGLIFY QUEST</AppText>
           <AppText variant="caption" tone="primary" style={styles.eyebrow}>{eyebrow}</AppText>
           <AppText variant="display" accessibilityRole="header" style={styles.title}>{title}</AppText>
@@ -42,7 +41,7 @@ export function NavLink({ href, label }: { href: Href; label: string }) {
 
 const styles = StyleSheet.create({
   scroll: { flexGrow: 1, alignItems: 'center', paddingHorizontal: designTokens.spacing.lg, paddingBottom: designTokens.spacing.xl },
-  content: { paddingTop: 20 },
+  content: { width: '100%', maxWidth: 560, paddingTop: 20 },
   brand: { letterSpacing: 3, marginBottom: 42 },
   eyebrow: { letterSpacing: 2, fontWeight: '800', marginBottom: 10 },
   title: { marginBottom: designTokens.spacing.md },

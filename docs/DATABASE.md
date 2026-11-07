@@ -46,12 +46,12 @@ erDiagram
 
 - Từ điển có `(language, normalized_term)` duy nhất; khóa học có `slug` duy nhất. Bài học có `(course_id, slug)` và `(course_id, position)` duy nhất; câu hỏi và đáp án có thứ tự duy nhất trong cha. Chỉ một đáp án đúng cho mỗi câu hỏi được bảo đảm bằng partial unique index; quy trình biên tập phải bảo đảm có ít nhất một đáp án đúng trước khi phát hành.
 - Tiến độ có `(user_id, lesson_id)` duy nhất và trạng thái hoàn thành phải khớp `completed_at`. Mỗi người có tối đa một kế hoạch `active`. Từ đã lưu có `(user_id, entry_id)` duy nhất. FK ghép `(saved_vocabulary_id, user_id)` ngăn lịch sử ôn tập trỏ sang từ của người khác; FK ghép ở quiz ngăn chọn đáp án của câu hỏi khác.
-- `xp_events` là sổ cái XP, duy nhất theo `(user_id, source_type, source_id)` để chống cộng trùng từ cùng một nguồn. Chỉ backend tin cậy được ghi tiến độ, kết quả quiz, XP, huy hiệu và lượt đổi thưởng. Đổi thưởng trong tương lai phải khóa hàng/balance và ghi `reward_claims` cùng bút toán XP trong **một giao dịch**; schema chưa triển khai nghiệp vụ đổi thưởng.
+- `xp_events` là sổ cái XP, duy nhất theo `(user_id, source_type, source_id)` để chống cộng trùng từ cùng một nguồn. Chỉ backend tin cậy được ghi tiến độ, kết quả quiz, XP, huy hiệu và lượt đổi thưởng. Đổi thưởng hiện được backend khóa giao dịch theo người dùng, kiểm tra cấp độ và XP khả dụng, rồi ghi `reward_claims` trong cùng giao dịch.
 - Chỉ mục bao phủ tra cứu từ, bài học theo khóa học/thứ tự, tiến độ theo người học/trạng thái, từ đến hạn ôn, lịch sử mới nhất và hoạt động gần đây. FK không nằm đầu một chỉ mục ghép được bổ sung chỉ mục riêng khi cần truy vấn từ phía bản ghi cha.
 
 ## Quyền và RLS
 
-RLS được bật trên cả 19 bảng. `anon` không được cấp quyền bảng. `authenticated` chỉ đọc nội dung được công bố và hàng cá nhân có `auth.uid() = user_id` (riêng profile so theo `id`). Người dùng có thể tự ghi `user_preferences` và `saved_vocabulary`; policy kiểm tra chủ sở hữu ở cả `USING` lẫn `WITH CHECK`. Không cấp quyền ghi trực tiếp cho các bảng tính điểm, tiến độ, bài nói/viết hay nội dung học. `quiz_options` không mở cho client vì có `is_correct`; API sau này phải trả lựa chọn đã bỏ cột đáp án và kiểm tra câu trả lời ở server.
+RLS được bật trên cả 30 bảng sau migration gamification. `anon` không được cấp quyền bảng. `authenticated` chỉ đọc nội dung được công bố và hàng cá nhân có `auth.uid() = user_id` (riêng profile so theo `id`). Người dùng có thể tự ghi `user_preferences` và `saved_vocabulary`; policy kiểm tra chủ sở hữu ở cả `USING` lẫn `WITH CHECK`. Không cấp quyền ghi trực tiếp cho các bảng tính điểm, tiến độ, bài nói/viết hay nội dung học. `quiz_options` không mở cho client vì có `is_correct`; API sau này phải trả lựa chọn đã bỏ cột đáp án và kiểm tra câu trả lời ở server.
 
 Backend dùng kết nối đặc quyền phải kiểm tra danh tính và quyền ở tầng API, vì role chủ sở hữu/service role có thể bỏ qua RLS. Không đưa service key hoặc chuỗi kết nối vào ứng dụng Expo. Các chính sách tham chiếu `(select auth.uid())` và các cột chủ sở hữu có chỉ mục phù hợp.
 
@@ -70,4 +70,23 @@ Kiểm thử RLS ở PostgreSQL cục bộ dùng fixture **chỉ cho test** `bac
 
 ## Giới hạn hiện tại
 
-Backend chưa có endpoint dữ liệu hoặc model ORM cho các bảng mới; migration SQL là nguồn schema hiện hành. Vì vậy Alembic tạm tắt `autogenerate` để metadata rỗng không đề xuất xóa bảng. Khi xây API, thêm mapping SQLAlchemy đầy đủ rồi bật lại autogenerate và kiểm tra giao dịch/ủy quyền ở endpoint. Docker Compose hiện cung cấp PostgreSQL thuần cho nền tảng backend; để chạy migration này cần môi trường Supabase hoặc fixture Auth dành riêng cho test như trên. Đừng áp dụng fixture test vào database phát triển lâu dài.
+Backend đã có API học tập và gamification; migration SQL vẫn là nguồn schema hiện hành. Alembic tạm tắt `autogenerate` vì metadata ORM chưa bao phủ toàn bộ bảng. Docker Compose hiện cung cấp PostgreSQL thuần cho nền tảng backend; để chạy migration này cần môi trường Supabase hoặc fixture Auth dành riêng cho test như trên. Đừng áp dụng fixture test vào database phát triển lâu dài.
+# Learning unit, lesson item, answer key và attempt: xem [LEARNING_ENGINE.md](LEARNING_ENGINE.md).
+
+## Gamification (migration `20261106_07`)
+
+Chi tiết quy tắc và kiểm thử: [GAMIFICATION.md](GAMIFICATION.md). Migration bổ sung cấu hình XP, cấp độ lưu bền, nhiệm vụ ngày/tuần, lượt nhận thưởng nhiệm vụ, quy tắc huy hiệu và thông báo. Sáu bảng mới đều bật RLS, đưa tổng số bảng ứng dụng có RLS lên 30. Client chỉ được đọc nhiệm vụ đang hoạt động và dữ liệu cá nhân của mình; chỉ backend ghi XP, cấp độ, huy hiệu, kết quả nhiệm vụ và thông báo.
+
+```mermaid
+erDiagram
+    PROFILES ||--o| USER_LEVELS : user_id
+    PROFILES ||--o{ XP_EVENTS : user_id
+    PROFILES ||--o{ QUEST_CLAIMS : user_id
+    QUESTS ||--o{ QUEST_CLAIMS : quest_id
+    PROFILES ||--o{ USER_BADGES : user_id
+    BADGES ||--o| BADGE_RULES : badge_id
+    BADGES ||--o{ USER_BADGES : badge_id
+    PROFILES ||--o{ REWARD_NOTIFICATIONS : user_id
+    PROFILES ||--o{ REWARD_CLAIMS : user_id
+    REWARD_ITEMS ||--o{ REWARD_CLAIMS : reward_id
+```

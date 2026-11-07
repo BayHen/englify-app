@@ -1,1 +1,1 @@
-export { RewardsScreen as default } from '@/features/demo/screens';
+export { RewardsScreen as default } from '@/features/gamification/rewards-screen';

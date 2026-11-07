@@ -24,6 +24,12 @@ Không chạy migration trên dự án production trước khi kiểm tra môi t
 
 ## 4. Khởi động và chẩn đoán
 
+Nếu đăng nhập Supabase thành công nhưng màn hình báo **Could not load your profile / Cannot reach the learning API**, kiểm tra `EXPO_PUBLIC_API_URL` trong `apps/mobile/.env` và khởi động FastAPI ở một terminal riêng. Trên web ở cùng máy, `http://localhost:8000/api/v1/health` phải trả HTTP 200. Với Expo Go trên điện thoại, thay `localhost` bằng IP LAN của máy chạy backend, cho phép cổng 8000 qua firewall và dùng `--host 0.0.0.0` khi chạy Uvicorn. Sau khi đổi `.env`, khởi động lại Expo bằng `npm.cmd run mobile -- --clear`.
+
+Health trả 200 chỉ xác nhận tiến trình API chạy; endpoint `/api/v1/me` còn cần `ENGLIFY_SUPABASE_URL` và `ENGLIFY_DATABASE_URL` trong `.env` ở thư mục gốc, migration đã áp dụng, và profile của tài khoản đã được trigger tạo. Không điền URL database hoặc khóa bí mật vào `apps/mobile/.env`. Nếu web báo lỗi CORS trong Developer Tools, thêm **đúng origin web** vào `ENGLIFY_CORS_ORIGINS` ở backend rồi khởi động lại FastAPI.
+
+Để lấy `ENGLIFY_DATABASE_URL`, mở dự án Supabase → **Connect** → sao chép chuỗi PostgreSQL. Trên mạng chỉ có IPv4, chọn **Session pooler** (cổng 5432); không tự đoán hostname pooler. Thay tiền tố `postgresql://` bằng `postgresql+psycopg://`, điền database password vào chỗ giữ chỗ và mã hóa phần trăm các ký tự đặc biệt trong mật khẩu. Chỉ lưu chuỗi này trong `.env` backend đã được Git bỏ qua. [Hướng dẫn kết nối PostgreSQL của Supabase](https://supabase.com/docs/guides/database/connecting-to-postgres) giải thích cách chọn Direct hoặc Session pooler.
+
 ```powershell
 npm.cmd start -- --clear
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload

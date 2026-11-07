@@ -21,3 +21,7 @@ Các endpoint riêng tư dùng header `Authorization: Bearer <Supabase access to
 Backend xác minh chữ ký JWT qua JWKS của dự án Supabase, cùng `iss`, `aud=authenticated`, `role=authenticated`, `sub` UUID, `iat` và `exp`. Dự án cần khóa ký bất đối xứng (RS256 hoặc ES256); backend không dùng service role key hoặc JWT secret. Khi thiếu token trả 401 `authentication_required`; token sai/hết hạn trả 401 `invalid_token`; JWKS tạm không truy cập được trả 503 `auth_unavailable`. Mọi truy vấn dữ liệu dùng UUID từ token đã xác minh, không lấy `user_id` từ request.
 
 Từ điển và từ đã lưu có các endpoint riêng tư `GET /api/v1/dictionary`, `GET /api/v1/dictionary/{id}`, `GET /api/v1/me/vocabulary`, `POST /api/v1/me/vocabulary/{id}` và `DELETE /api/v1/me/vocabulary/{id}`. Trường trả về gồm định nghĩa tiếng Anh, nghĩa tiếng Việt, IPA, loại từ, ví dụ và nguồn/giấy phép. Xem `docs/DICTIONARY.md` để biết truy vấn, cache ngoại tuyến và giới hạn bộ seed.
+# Learning Journey và quiz: xem [LEARNING_ENGINE.md](LEARNING_ENGINE.md) cho endpoint,
+# quy tắc mở khóa, chấm bài và idempotency.
+
+Gamification: xem [GAMIFICATION.md](GAMIFICATION.md) cho endpoint XP, nhiệm vụ, huy hiệu, đổi thưởng và thông báo. Mọi dữ liệu điểm và điều kiện đổi thưởng được tính ở backend.

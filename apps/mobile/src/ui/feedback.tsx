@@ -12,7 +12,7 @@ export function EmptyState({ title = 'Nothing here yet', message = 'Your next ad
   return <AppCard style={{ alignItems: 'center', gap: designTokens.spacing.sm }}>
     <AppText variant="heading">{title}</AppText>
     <AppText tone="muted" style={{ textAlign: 'center' }}>{message}</AppText>
-    {actionLabel && onAction && <AppButton label={actionLabel} onPress={onAction} variant="secondary" style={{ marginTop: designTokens.spacing.md }} />}
+    {!!actionLabel && onAction && <AppButton label={actionLabel} onPress={onAction} variant="secondary" style={{ marginTop: designTokens.spacing.md }} />}
   </AppCard>;
 }
 

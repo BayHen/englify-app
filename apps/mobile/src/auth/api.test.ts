@@ -21,4 +21,11 @@ describe('authenticated API requests', () => {
     });
     await expect(privateRequest('/me', 'expired')).rejects.toMatchObject({ status: 401, message: 'Expired' });
   });
+  it('explains a failed connection without clearing the signed-in session', async () => {
+    globalThis.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'));
+    await expect(privateRequest('/me', 'access-token')).rejects.toMatchObject({
+      status: 0,
+      message: 'Cannot reach the learning API. Check that FastAPI is running and the API URL is reachable.',
+    });
+  });
 });

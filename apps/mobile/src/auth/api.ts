@@ -22,12 +22,18 @@ export async function privateRequest<T>(path: string, accessToken: string, metho
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
   try {
-    const response = await fetch(apiUrl(path), {
-      method,
-      headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json', ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
-      body: body === undefined ? undefined : JSON.stringify(body),
-      signal: controller.signal,
-    });
+    let response: Response;
+    try {
+      response = await fetch(apiUrl(path), {
+        method,
+        headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json', ...(body === undefined ? {} : { 'Content-Type': 'application/json' }) },
+        body: body === undefined ? undefined : JSON.stringify(body),
+        signal: controller.signal,
+      });
+    } catch {
+      if (controller.signal.aborted) throw new ApiError(0, 'Learning API timed out. Check the server and try again.');
+      throw new ApiError(0, 'Cannot reach the learning API. Check that FastAPI is running and the API URL is reachable.');
+    }
     const envelope: unknown = await response.json();
     if (!response.ok) {
       const message = isErrorEnvelope(envelope) ? envelope.error.message : `Request failed (${response.status})`;

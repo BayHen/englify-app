@@ -20,7 +20,7 @@ export default function ResetPassword() {
   return <Page eyebrow="ACCOUNT RECOVERY" title="Choose a new password" description="Your recovery link has opened a secure session. Save a new password to continue.">
     <AppInput label="New password" value={password} onChangeText={setPassword} secureTextEntry />
     <AppInput label="Confirm password" value={confirm} onChangeText={setConfirm} secureTextEntry />
-    {error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
+    {!!error && <AppText tone="error" accessibilityRole="alert">{error}</AppText>}
     <AppButton label="Save new password" onPress={() => { void submit(); }} loading={busy} />
   </Page>;
 }

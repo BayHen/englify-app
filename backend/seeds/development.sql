@@ -38,4 +38,42 @@ ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.de
 INSERT INTO public.reward_items (id, code, title, description, xp_cost, is_active)
 VALUES ('77777777-7777-4777-8777-777777777701', 'starlight-frame', 'Starlight frame', 'A playful profile frame.', 120, true)
 ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, xp_cost = EXCLUDED.xp_cost, is_active = EXCLUDED.is_active;
+-- Complete first unit: four lessons and all five supported question formats.
+INSERT INTO public.learning_units(id, course_id, slug, title, position)
+VALUES ('88888888-8888-4888-8888-888888888810', '22222222-2222-4222-8222-222222222201', 'first-conversations', 'First conversations', 1)
+ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title;
+UPDATE public.lessons SET unit_id = '88888888-8888-4888-8888-888888888810'
+WHERE id IN ('33333333-3333-4333-8333-333333333301', '33333333-3333-4333-8333-333333333302');
+INSERT INTO public.lessons(id, course_id, unit_id, slug, position, title, objective, content, xp_reward, is_published)
+VALUES
+  ('33333333-3333-4333-8333-333333333303', '22222222-2222-4222-8222-222222222201', '88888888-8888-4888-8888-888888888810', 'places-and-words', 3, 'Places and words', 'Match everyday places to their meanings.', '{}'::jsonb, 25, true),
+  ('33333333-3333-4333-8333-333333333304', '22222222-2222-4222-8222-222222222201', '88888888-8888-4888-8888-888888888810', 'listen-and-reply', 4, 'Listen and reply', 'Recognize a greeting and choose a response.', '{}'::jsonb, 30, true)
+ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, objective = EXCLUDED.objective, unit_id = EXCLUDED.unit_id, is_published = EXCLUDED.is_published;
+INSERT INTO public.lesson_items(id, lesson_id, position, kind, body)
+VALUES
+  ('99999999-9999-4999-8999-999999999901', '33333333-3333-4333-8333-333333333301', 1, 'reading', '{"text":"Hello! and How is it going? are friendly greetings."}'::jsonb),
+  ('99999999-9999-4999-8999-999999999902', '33333333-3333-4333-8333-333333333302', 1, 'tip', '{"text":"Ask a short follow-up question after a greeting."}'::jsonb),
+  ('99999999-9999-4999-8999-999999999903', '33333333-3333-4333-8333-333333333303', 1, 'reading', '{"text":"A station is where you catch a train. A library is where you borrow books."}'::jsonb),
+  ('99999999-9999-4999-8999-999999999904', '33333333-3333-4333-8333-333333333304', 1, 'tip', '{"text":"Listen once for the main idea, then again for the exact words."}'::jsonb)
+ON CONFLICT (id) DO UPDATE SET body = EXCLUDED.body;
+INSERT INTO public.quiz_questions(id, lesson_id, position, kind, prompt, explanation, payload)
+VALUES
+  ('44444444-4444-4444-8444-444444444402', '33333333-3333-4333-8333-333333333302', 1, 'fill_blank', 'Complete: How ___ you?', 'Use are with you.', '{"placeholder":"Type the missing word"}'::jsonb),
+  ('44444444-4444-4444-8444-444444444403', '33333333-3333-4333-8333-333333333302', 2, 'grammar', 'Write the correct sentence: she / is / happy', 'The subject comes before is.', '{"placeholder":"Write the sentence"}'::jsonb),
+  ('44444444-4444-4444-8444-444444444404', '33333333-3333-4333-8333-333333333303', 1, 'matching', 'Match each place to its use.', 'Stations have trains; libraries have books.', '{"left":[{"id":"station","text":"station"},{"id":"library","text":"library"}],"right":[{"id":"trains","text":"catch trains"},{"id":"books","text":"borrow books"}]}'::jsonb),
+  ('44444444-4444-4444-8444-444444444405', '33333333-3333-4333-8333-333333333304', 1, 'listening', 'Listen and type the greeting.', 'The speaker says Good morning.', '{"speak_text":"Good morning","placeholder":"Type what you hear"}'::jsonb),
+  ('44444444-4444-4444-8444-444444444406', '33333333-3333-4333-8333-333333333304', 2, 'multiple_choice', 'Choose a friendly reply to Good morning.', 'Good morning is a matching reply.', '{}'::jsonb)
+ON CONFLICT (id) DO UPDATE SET kind = EXCLUDED.kind, prompt = EXCLUDED.prompt, explanation = EXCLUDED.explanation, payload = EXCLUDED.payload;
+INSERT INTO public.quiz_options(id, question_id, position, answer_text, is_correct)
+VALUES
+  ('55555555-5555-4555-8555-555555555504', '44444444-4444-4444-8444-444444444406', 1, 'Good morning!', true),
+  ('55555555-5555-4555-8555-555555555505', '44444444-4444-4444-8444-444444444406', 2, 'Good night!', false)
+ON CONFLICT (id) DO UPDATE SET answer_text = EXCLUDED.answer_text, is_correct = EXCLUDED.is_correct;
+INSERT INTO public.quiz_answer_keys(question_id, answer)
+VALUES
+  ('44444444-4444-4444-8444-444444444402', '["are"]'::jsonb),
+  ('44444444-4444-4444-8444-444444444403', '["She is happy."]'::jsonb),
+  ('44444444-4444-4444-8444-444444444404', '{"station":"trains","library":"books"}'::jsonb),
+  ('44444444-4444-4444-8444-444444444405', '["Good morning"]'::jsonb)
+ON CONFLICT (question_id) DO UPDATE SET answer = EXCLUDED.answer;
 COMMIT;

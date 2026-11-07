@@ -20,7 +20,7 @@ function AppNavigator() {
     }
   }, [loading, callbackTarget, session, profile, clearCallbackTarget]);
   if (loading || (session && !profile && !profileError)) return <Page eyebrow="RESTORING SESSION" title="Welcome back" description="Checking your account securely."><LoadingSkeleton /></Page>;
-  if (session && profileError && callbackTarget !== '/reset-password' && String(segments[0]) !== 'reset-password') return <Page eyebrow="ACCOUNT UNAVAILABLE" title="Could not load your profile" description="Check your connection and try again."><ErrorState message={profileError} retry={() => { void refreshProfile(); }} /><AppButton label="Sign out" variant="secondary" onPress={() => { void signOut(); }} /></Page>;
+  if (session && profileError && callbackTarget !== '/reset-password' && String(segments[0]) !== 'reset-password') return <Page eyebrow="ACCOUNT UNAVAILABLE" title="Could not load your profile" description="You are signed in, but the learning service could not load your profile."><ErrorState message={profileError} retry={() => { void refreshProfile(); }} /><AppButton label="Sign out" variant="secondary" onPress={() => { void signOut(); }} /></Page>;
   const signedIn = Boolean(session);
   const onboarded = Boolean(profile?.preferences?.onboarding_completed_at);
   return <Stack screenOptions={{ headerShown: false }}>
@@ -35,7 +35,7 @@ function AppNavigator() {
     <Stack.Protected guard={signedIn} redirectTo="/login"><Stack.Screen name="reset-password" /></Stack.Protected>
     <Stack.Protected guard={signedIn && !onboarded} redirectTo="/home"><Stack.Screen name="onboarding" /></Stack.Protected>
     <Stack.Protected guard={signedIn && onboarded} redirectTo={signedIn ? '/onboarding' : '/login'}>
-      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="explore" />
+      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" />
       <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
