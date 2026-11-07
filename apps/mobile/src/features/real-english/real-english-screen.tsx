@@ -84,7 +84,7 @@ export function RealEnglishScreen() {
       <AppButton label={selected.saved ? 'Remove from saved' : 'Save expression'} variant="secondary" disabled={busy} onPress={() => { void toggleSave(); }} />
       <AppButton label="Listen with device voice" variant="secondary" onPress={() => speak(selected.expression)} />
       <AppText tone="muted">Speaking practice: listen, say the expression aloud, then repeat it in your own sentence. Device speech is a model, not a pronunciation score.</AppText>
-      {error && <ErrorState message={error} retry={() => { if (quiz) setError(''); else void open(selected); }} />}
+      {!!error && <ErrorState message={error} retry={() => { if (quiz) setError(''); else void open(selected); }} />}
       {quiz ? <View style={{ gap: 8 }}><AppText variant="heading">Context quiz</AppText><AppText>{quiz.prompt}</AppText>{quiz.options.map((option) => <AppButton key={option.id} label={option.text} variant={result?.correct_option === option.id ? 'primary' : 'secondary'} disabled={busy || Boolean(result)} onPress={() => { void answer(option.id); }} />)}{result && <AppCard tone={result.is_correct ? 'reward' : 'surface'} style={{ gap: 6 }}><AppText variant="heading">{result.is_correct ? 'Correct!' : 'Good try'}</AppText><AppText>{result.explanation}</AppText><AppButton label="Try again" variant="secondary" onPress={() => setResult(null)} /></AppCard>}</View> : !error && <LoadingSkeleton lines={2} />}
       <AppButton label="Close details" variant="secondary" onPress={() => { Speech.stop(); setSelected(null); setError(''); }} />
     </AppCard>}

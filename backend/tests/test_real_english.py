@@ -127,6 +127,12 @@ def test_real_english_search_save_quiz_and_isolation(monkeypatch):
                 f"/api/v1/real-english/{expression_id}/quiz", headers=headers(alice), json=payload
             )
             assert repeat.json()["data"]["attempt_id"] == result.json()["data"]["attempt_id"]
+            changed_answer = client.post(
+                f"/api/v1/real-english/{expression_id}/quiz",
+                headers=headers(alice),
+                json={"request_id": request_id, "selected_option": "a"},
+            )
+            assert changed_answer.status_code == 409
             correct = client.post(
                 f"/api/v1/real-english/{expression_id}/quiz",
                 headers=headers(alice),

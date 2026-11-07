@@ -23,4 +23,5 @@
 ## Kiểm tra và bàn giao
 
 - Chạy kiểm tra liên quan đến phần sửa: mobile lint/typecheck; admin lint/build; backend pytest; migration và đồng bộ khi thay đổi dữ liệu.
+- Sau **mọi task sửa mobile**, kiểm tra lỗi React Native Web `Unexpected text node: A text node cannot be a child of a <View>`. Không dùng trực tiếp `{error && <Component />}`, `{count && <Component />}` hoặc biến chuỗi/số với `&&` trong JSX dưới `View`/`Pressable`/component bao ngoài: chuỗi rỗng hoặc số 0 có thể trở thành text node. Dùng `!!error`, `count > 0`, `Boolean(value)` hoặc toán tử ba ngôi trả `null`. Rà toàn bộ JSX vừa sửa, chạy lint/typecheck/test, rồi mở route bị ảnh hưởng trên web và kiểm tra Console/LogBox sau render và thao tác; bundle/export thành công **không** chứng minh runtime hết lỗi. Nếu không thể chạy browser, ghi `NOT TESTED` và hướng dẫn kiểm tra chính xác.
 - Báo tệp đã thay đổi, kết quả kiểm tra thực tế, giới hạn chưa kiểm chứng và cách chạy. Không tuyên bố kiểm tra trên thiết bị khi chỉ đóng gói web.

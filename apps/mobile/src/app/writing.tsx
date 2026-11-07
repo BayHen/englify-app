@@ -1,1 +1,1 @@
-export { WritingScreen as default } from '@/features/demo/screens';
+export { WritingScreen as default } from '@/features/writing/writing-screen';

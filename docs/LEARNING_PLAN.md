@@ -7,7 +7,7 @@ Kế hoạch học dùng quy tắc Python xác định (`algorithm_version = 1`)
 - `learning_goal`, `initial_proficiency`, `daily_goal_minutes` và `preferred_topics` lấy từ `user_preferences`. Chủ tài khoản có thể sửa qua `PUT /api/v1/learning-plan/preferences`; thao tác này tạo kế hoạch mới.
 - Bài học được lấy theo thứ tự khóa học/đơn vị; bài đã `completed` hoặc `mastered` bị loại khỏi lịch mới. Bài học vẫn phải qua quy tắc mở khóa và quiz của backend.
 - Tỷ lệ đúng của tối đa 10 lượt quiz gần nhất dưới 60% làm tăng ôn tập và giảm nhịp bài mới. Từ đã lưu đến hạn tạo phiên ôn tập. Chủ đề được luân phiên theo ngày; nội dung bài học hiện chưa có phân loại chủ đề nên chủ đề chỉ gợi ý cho phần luyện tập.
-- Thời lượng tác vụ mỗi ngày không vượt mục tiêu đã chọn. Kế hoạch ngắn 1–4 phút có một mục từ vựng nhỏ. Kế hoạch có ôn tập, từ vựng, bài học nếu còn bài, luyện nói hoặc viết tùy mục tiêu và dung lượng ngày.
+- Thời lượng tác vụ mỗi ngày không vượt mục tiêu đã chọn. Với mục tiêu 1–4 phút, lịch chọn một mục ngắn theo loại hoạt động ưu tiên của ngày; bài học cần ít nhất 5 phút. Kế hoạch có ôn tập, từ vựng, bài học nếu còn bài, luyện nói hoặc viết tùy mục tiêu và dung lượng ngày.
 
 ## Lưu trữ và bảo vệ dữ liệu
 

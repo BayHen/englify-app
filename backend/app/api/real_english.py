@@ -6,7 +6,7 @@ from typing import Annotated
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, Query
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -55,7 +55,7 @@ class ContextQuiz(BaseModel):
 class QuizSubmission(BaseModel):
     model_config = ConfigDict(extra="forbid")
     request_id: UUID
-    selected_option: str
+    selected_option: str = Field(min_length=1, max_length=80)
 
 
 class QuizResult(BaseModel):
@@ -228,7 +228,7 @@ def submit_context_quiz(
         old = (
             db.execute(
                 text("""
-            SELECT a.id, a.question_id, a.is_correct, a.created_at, q.expression_id,
+            SELECT a.id, a.question_id, a.selected_option, a.is_correct, a.created_at, q.expression_id,
                    q.answer_id, q.explanation
             FROM public.real_english_quiz_attempts a
             JOIN public.real_english_quiz_questions q ON q.id = a.question_id
@@ -240,9 +240,9 @@ def submit_context_quiz(
             .one_or_none()
         )
         if old:
-            if old["expression_id"] != expression_id:
+            if old["expression_id"] != expression_id or old["selected_option"] != payload.selected_option:
                 raise AppError(
-                    409, "request_id_reused", "Submission ID belongs to another expression"
+                    409, "request_id_reused", "Submission ID belongs to another quiz answer"
                 )
             return ApiResponse(
                 data=QuizResult(

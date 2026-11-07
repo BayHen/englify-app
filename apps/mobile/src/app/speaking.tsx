@@ -1,1 +1,1 @@
-export { SpeakingScreen as default } from '@/features/demo/screens';
+export { SpeakingScreen as default } from '@/features/speaking/speaking-screen';

@@ -1,5 +1,7 @@
 # Kiến trúc PostgreSQL – TASK 03.1
 
+Migration `20261107_10` bổ sung `writing_exercises`, `writing_answer_keys` và `writing_feedback`; mở rộng `writing_submissions` bằng khóa ngoại bài tập và `request_id` để chống gửi trùng. Nội dung gốc và phản hồi được lưu ở hai bảng riêng. Chỉ bài đã xuất bản được đọc qua RLS; bảng đáp án không cấp quyền đọc cho người học; phản hồi chỉ hiện cho chủ bài nộp. Xem [WRITING_PRACTICE.md](WRITING_PRACTICE.md) về API, seed và giới hạn kiểm tra ngữ pháp.
+
 Migration `20261107_09` bổ sung bốn bảng của Real English: nội dung gốc, câu hỏi ngữ cảnh, mục đã lưu và lượt làm quiz. `PROFILES ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o| REAL_ENGLISH_QUIZ_QUESTIONS`, `REAL_ENGLISH_QUIZ_QUESTIONS ||--o{ REAL_ENGLISH_QUIZ_ATTEMPTS`. Xem [REAL_ENGLISH.md](REAL_ENGLISH.md) về nguồn và quyền sử dụng nội dung.
 
 Kế hoạch học theo quy tắc ở migration `20261107_08` thêm `learning_plan_tasks` và chủ đề ưu tiên. Quan hệ mới: `PROFILES ||--o{ LEARNING_PLANS`, `LEARNING_PLANS ||--o{ LEARNING_PLAN_TASKS`, `LESSONS |o--o{ LEARNING_PLAN_TASKS`. Mỗi tác vụ chứa `user_id` và khóa ngoại ghép `(plan_id, user_id)` để ngăn gắn tác vụ với kế hoạch của tài khoản khác. RLS chỉ cấp đọc cho chủ sở hữu. Xem [LEARNING_PLAN.md](LEARNING_PLAN.md) để biết quy tắc tạo, dời và lưu lịch sử.

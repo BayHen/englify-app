@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     supabase_publishable_key: str | None = None
     libretranslate_url: str | None = None
     libretranslate_verified_pairs: str = ""
+    languagetool_url: str | None = None
     cors_origins: str = ""
 
     @field_validator("supabase_publishable_key")
@@ -62,6 +63,32 @@ class Settings(BaseSettings):
             "libretranslate",
         }:
             raise ValueError("ENGLIFY_LIBRETRANSLATE_URL must use HTTPS outside local development")
+        return value.rstrip("/")
+
+    @field_validator("languagetool_url")
+    @classmethod
+    def validate_languagetool_url(cls, value: str | None) -> str | None:
+        if not value or not value.strip():
+            return None
+        parsed = urlsplit(value.rstrip("/"))
+        if (
+            parsed.scheme not in {"http", "https"}
+            or not parsed.netloc
+            or parsed.path
+            or parsed.query
+            or parsed.fragment
+            or parsed.username
+            or parsed.password
+        ):
+            raise ValueError(
+                "ENGLIFY_LANGUAGETOOL_URL must be an origin without path or credentials"
+            )
+        if parsed.scheme == "http" and parsed.hostname not in {
+            "localhost",
+            "127.0.0.1",
+            "languagetool",
+        }:
+            raise ValueError("ENGLIFY_LANGUAGETOOL_URL must use HTTPS outside local development")
         return value.rstrip("/")
 
     @field_validator("supabase_url")
