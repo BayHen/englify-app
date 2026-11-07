@@ -1,5 +1,9 @@
 # Kiến trúc PostgreSQL – TASK 03.1
 
+Migration `20261107_09` bổ sung bốn bảng của Real English: nội dung gốc, câu hỏi ngữ cảnh, mục đã lưu và lượt làm quiz. `PROFILES ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o{ SAVED_EXPRESSIONS`, `REAL_ENGLISH_EXPRESSIONS ||--o| REAL_ENGLISH_QUIZ_QUESTIONS`, `REAL_ENGLISH_QUIZ_QUESTIONS ||--o{ REAL_ENGLISH_QUIZ_ATTEMPTS`. Xem [REAL_ENGLISH.md](REAL_ENGLISH.md) về nguồn và quyền sử dụng nội dung.
+
+Kế hoạch học theo quy tắc ở migration `20261107_08` thêm `learning_plan_tasks` và chủ đề ưu tiên. Quan hệ mới: `PROFILES ||--o{ LEARNING_PLANS`, `LEARNING_PLANS ||--o{ LEARNING_PLAN_TASKS`, `LESSONS |o--o{ LEARNING_PLAN_TASKS`. Mỗi tác vụ chứa `user_id` và khóa ngoại ghép `(plan_id, user_id)` để ngăn gắn tác vụ với kế hoạch của tài khoản khác. RLS chỉ cấp đọc cho chủ sở hữu. Xem [LEARNING_PLAN.md](LEARNING_PLAN.md) để biết quy tắc tạo, dời và lưu lịch sử.
+
 PostgreSQL là nguồn dữ liệu chính. Migration `20261106_01` tạo 19 bảng ứng dụng trong `public`, không tạo bảng xác thực. Supabase quản lý `auth.users`; `profiles.id` tham chiếu trực tiếp khóa chính này với `ON DELETE CASCADE`. Trigger `on_auth_user_created` tạo profile mặc định khi Auth thêm người dùng và migration bổ sung profile còn thiếu cho người dùng đã tồn tại. Chỉ sao chép `display_name` đã giới hạn 80 ký tự từ metadata; không lấy vai trò hoặc quyền từ metadata do người dùng nhập.
 
 Migration `20261106_02` thêm `learning_goal`, `initial_proficiency` và `onboarding_completed_at` vào `user_preferences`. Dữ liệu cũ giữ nguyên; lựa chọn onboarding được ghi bằng một transaction ở endpoint riêng tư.

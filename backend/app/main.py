@@ -12,6 +12,8 @@ from app.api.dictionary import router as dictionary_router
 from app.api.gamification import router as gamification_router
 from app.api.health import router as health_router
 from app.api.learning import router as learning_router
+from app.api.learning_plan import router as learning_plan_router
+from app.api.real_english import router as real_english_router
 from app.api.me import router as me_router
 from app.api.translation import router as translation_router
 from app.core.config import Settings
@@ -73,6 +75,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.include_router(me_router)
     application.include_router(translation_router)
     application.include_router(learning_router)
+    application.include_router(learning_plan_router)
+    application.include_router(real_english_router)
     application.include_router(gamification_router)
     return application
 

@@ -36,6 +36,7 @@ export function HomeScreen() {
   return <Shell eyebrow="YOUR QUEST BEGINS" title={`Hello${name ? `, ${name}` : ', explorer'}!`} description="Choose a small step and enjoy learning English today.">
     <AppCard tone="primary" style={{ gap: 14 }}><AppText variant="heading">Sample adventurer · Level 2</AppText><XPProgressBar value={68} max={100} label="Sample XP toward level 3" /><AppText variant="caption" tone="muted">This level and XP are illustrative; no progress is saved.</AppText></AppCard>
     <Section title="Daily quest preview"><QuestCard title="Learn three expressions" description="Explore everyday English phrases." rewardXp={25} progress={1} target={3} onPress={() => router.push('/real-english' as Href)} /></Section>
+    <NavLink href={'/learning-plan' as Href} label="Open your learning plan" />
     <Section title="Pick your next adventure"><FeatureGrid links={featureLinks} /></Section>
     <Section title="Badge preview"><View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>{badges.map((badge) => <AchievementBadge key={badge.title} {...badge} />)}</View></Section>
     <FeatureGrid links={[{ title: 'Profile', detail: 'Theme and demo account', href: '/profile', icon: '◉' }, { title: 'AI Coach preview', detail: 'Guided speaking and writing', href: '/coach', icon: '✧' }]} />

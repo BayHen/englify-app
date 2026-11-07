@@ -35,7 +35,7 @@ function AppNavigator() {
     <Stack.Protected guard={signedIn} redirectTo="/login"><Stack.Screen name="reset-password" /></Stack.Protected>
     <Stack.Protected guard={signedIn && !onboarded} redirectTo="/home"><Stack.Screen name="onboarding" /></Stack.Protected>
     <Stack.Protected guard={signedIn && onboarded} redirectTo={signedIn ? '/onboarding' : '/login'}>
-      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" />
+      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" />
       <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
