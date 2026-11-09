@@ -16,13 +16,14 @@ export async function syncOutbox(userId: string): Promise<{ synced: number; pend
       // A previous account's queue must never be submitted with a new account's JWT.
       const { data, error } = await getSupabase().auth.getSession();
       if (error || !data.session || data.session.user.id !== userId || event.userId !== userId) break;
+      const accessToken = data.session.access_token;
       try {
         let result = null;
         if (event.kind === 'lesson_submission') {
           const payload = event.payload as { lessonId: string; contentVersion: string; answers: Record<string, string | Record<string, string>> };
-          result = await syncLesson(payload.lessonId, event.id, payload.contentVersion, payload.answers);
+          result = await syncLesson(payload.lessonId, event.id, payload.contentVersion, payload.answers, accessToken);
         } else {
-          await saveWord((event.payload as { wordId: string }).wordId);
+          await saveWord((event.payload as { wordId: string }).wordId, accessToken);
         }
         await updateEvent({ ...event, status: 'synced', result, message: null }); synced += 1;
       } catch (cause) {

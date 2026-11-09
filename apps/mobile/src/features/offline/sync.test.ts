@@ -11,7 +11,7 @@ const submit = vi.hoisted(() => vi.fn());
 const authState = vi.hoisted(() => ({ userId: 'user-a' }));
 vi.mock('@/features/learning/api', () => ({ syncLesson: submit }));
 vi.mock('@/features/dictionary/api', () => ({ saveWord: vi.fn() }));
-vi.mock('@/auth/supabase', () => ({ getSupabase: () => ({ auth: { getSession: async () => ({ data: { session: { user: { id: authState.userId } } }, error: null }) } }) }));
+vi.mock('@/auth/supabase', () => ({ getSupabase: () => ({ auth: { getSession: async () => ({ data: { session: { user: { id: authState.userId }, access_token: `token-${authState.userId}` } }, error: null }) } }) }));
 
 function event(id: string): OutboxEvent {
   return { id, userId: 'user-a', kind: 'lesson_submission', payload: { lessonId: id, contentVersion: 'a'.repeat(64), answers: {} }, status: 'pending', attempts: 0, nextRetryAt: 0, message: null, createdAt: id, result: null };
@@ -41,5 +41,17 @@ describe('offline synchronization', () => {
     authState.userId = 'user-b';
     expect((await syncOutbox('user-a')).pending).toBe(1);
     expect(submit).not.toHaveBeenCalled();
+  });
+  it('sends each event with the token from the session whose user ID was checked', async () => {
+    state.events = [event('a'), event('b')];
+    submit.mockImplementationOnce(async () => {
+      authState.userId = 'user-b';
+      return { attempt_id: 'attempt-a', rewards: [] };
+    });
+    const result = await syncOutbox('user-a');
+    expect(result.synced).toBe(1);
+    expect(result.pending).toBe(1);
+    expect(submit).toHaveBeenCalledTimes(1);
+    expect(submit.mock.calls[0][4]).toBe('token-user-a');
   });
 });

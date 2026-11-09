@@ -46,6 +46,9 @@ function AppNavigator() {
       <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
+      <Stack.Screen name="account-settings" /><Stack.Screen name="edit-profile" />
+      <Stack.Screen name="change-avatar" /><Stack.Screen name="change-password" />
+      <Stack.Screen name="learning-preferences" />
       <Stack.Screen name="dev/showcase" />
     </Stack.Protected>
   </Stack>;

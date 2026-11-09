@@ -36,6 +36,12 @@
       "expo-secure-store",
       "expo-sqlite",
       [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Englify Quest to choose a photo for your profile."
+        }
+      ],
+      [
         "expo-audio",
         {
           "microphonePermission": "Allow Englify Quest to record your speaking practice on this device.",

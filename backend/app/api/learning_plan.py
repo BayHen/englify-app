@@ -21,7 +21,7 @@ router = APIRouter(prefix="/api/v1/learning-plan", tags=["learning-plan"])
 
 class PlanPreferences(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    learning_goal: Literal["conversation", "travel", "work", "exams"]
+    learning_goal: Literal["conversation", "travel", "work", "exams", "real_english"]
     initial_proficiency: Literal["beginner", "intermediate", "advanced"]
     daily_goal_minutes: int = Field(ge=1, le=180)
     preferred_topics: list[str] = Field(default_factory=list, max_length=8)

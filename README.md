@@ -31,7 +31,7 @@ Trong PowerShell bị chặn script, dùng `npm.cmd` thay cho `npm`. Mỗi dịc
 ```powershell
 npm.cmd run mobile
 npm.cmd run admin
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --reload
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload
 ```
 
 Expo Router nằm trong `apps/mobile` (`main: expo-router/entry`). Khi đứng ở thư mục gốc, dùng `npm.cmd start -- --clear` hoặc `npm.cmd run mobile -- --clear`; không chạy `npx.cmd expo start` trực tiếp tại root vì Expo sẽ tìm `App` của root thay vì route `apps/mobile/src/app`. Xem [hướng dẫn mobile](apps/mobile/README.md) để mở bằng Expo Go trên iPhone.

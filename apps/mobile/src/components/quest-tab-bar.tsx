@@ -22,7 +22,7 @@ export function QuestTabBar() {
   const active = path === '/dictionary' || path === '/translation' || path === '/real-english' ? '/explore'
     : path === '/speaking' || path === '/writing' || path === '/quiz-arena' ? '/practice'
     : path === '/learning-plan' || path.startsWith('/lesson/') ? '/journey'
-    : path === '/rewards' ? '/profile' : path === '/dev/ui-v2-preview' ? (screen === 'journey' ? '/journey' : screen === 'explore' ? '/explore' : screen === 'practice' ? '/practice' : '/home') : path;
+    : path === '/rewards' ? '/profile' : path === '/dev/ui-v2-preview' ? (screen === 'journey' ? '/journey' : screen === 'explore' ? '/explore' : screen === 'practice' || screen === 'voice' ? '/practice' : '/home') : path;
   return <View accessibilityRole="tablist" style={{ flexDirection: 'row', backgroundColor: palette.surface, borderTopWidth: 1, borderColor: palette.border, paddingTop: 8, paddingBottom: 4, paddingHorizontal: 8 }}>
     {tabs.map((tab) => {
       const selected = active === tab.href;

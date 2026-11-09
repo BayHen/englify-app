@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import type { Session } from '@supabase/supabase-js';
 import { ApiError } from '@/lib/api';
 import { useAppStore } from '@/state/app-store';
-import { privateRequest, type OnboardingInput, type Profile } from './api';
+import { privateRequest, type OnboardingInput, type Profile, type ProfileChanges, type PreferenceChanges } from './api';
 import { parseAuthCallback } from './callback';
 import { authConfigured, getSupabase } from './supabase';
 import { cacheProfile, getCachedProfile } from '@/features/offline/storage';
@@ -25,6 +25,8 @@ type AuthContextValue = {
   updatePassword: (password: string) => Promise<void>;
   refreshProfile: () => Promise<Profile | null>;
   saveOnboarding: (input: OnboardingInput) => Promise<Profile>;
+  saveProfile: (input: ProfileChanges) => Promise<Profile>;
+  savePreferences: (input: PreferenceChanges) => Promise<Profile>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -76,6 +78,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(data.session);
     return loadProfile(data.session);
   }, [clearLocal, loadProfile]);
+
+  const saveOwnData = useCallback(async (path: string, input: ProfileChanges | PreferenceChanges) => {
+    const { data, error } = await getSupabase().auth.getSession();
+    if (error || !data.session) { clearLocal(); throw new Error('Session expired. Please sign in again.'); }
+    try {
+      const updated = await privateRequest<Profile>(path, data.session.access_token, 'PATCH', input);
+      setProfile(updated); setDisplayName(updated.display_name); setProfileError(null);
+      await cacheProfile(data.session.user.id, updated).catch(() => undefined);
+      return updated;
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 401) {
+        await getSupabase().auth.signOut({ scope: 'local' }); clearLocal();
+      }
+      throw cause;
+    }
+  }, [clearLocal, setDisplayName]);
 
   useEffect(() => {
     if (!authConfigured) return;
@@ -175,7 +193,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw cause;
       }
     },
-  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, setDisplayName]);
+    saveProfile: (input) => saveOwnData('/me/profile', input),
+    savePreferences: (input) => saveOwnData('/me/preferences', input),
+  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, saveOwnData, setDisplayName]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -102,3 +102,6 @@ erDiagram
 ## Nội dung ngoại tuyến (migration `20261107_12`)
 
 Trigger trên `lesson_items`, `quiz_options` và `quiz_answer_keys` cập nhật dấu thời gian của bài/câu hỏi cha. API dùng dấu phiên bản để từ chối bài làm ngoại tuyến có nội dung cũ. Xem [OFFLINE_SYNC.md](OFFLINE_SYNC.md). Hàng đợi nằm trên thiết bị theo user ID; không tạo bảng PostgreSQL mới.
+## Profile V2 (20261109_13)
+
+`public.profiles` giữ `username` (unique không phân biệt chữ hoa/thường), `bio` và đường dẫn ảnh riêng tư trong `avatar_url`. `public.user_preferences` có `current_cefr`, `preferred_accent`, `interface_language`; `learning_goal` hỗ trợ thêm `real_english`. Các cột mới không thay đổi lịch sử học. Chi tiết API, RLS và bucket ở [PROFILE_ACCOUNT_SETTINGS.md](features/PROFILE_ACCOUNT_SETTINGS.md).

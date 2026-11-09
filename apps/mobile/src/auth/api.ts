@@ -2,16 +2,25 @@ import { apiUrl, ApiError } from '@/lib/api';
 
 export type LearningGoal = 'conversation' | 'travel' | 'work' | 'exams';
 export type Proficiency = 'beginner' | 'intermediate' | 'advanced';
+export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export type Profile = {
   id: string;
   display_name: string;
+  username?: string | null;
+  bio?: string | null;
+  avatar_url?: string | null;
   preferences: null | {
-    learning_goal: LearningGoal | null;
+    learning_goal: LearningGoal | 'real_english' | null;
     initial_proficiency: Proficiency | null;
     daily_goal_minutes: number;
     onboarding_completed_at: string | null;
+    current_cefr: CefrLevel | null;
+    preferred_accent: 'en-US' | 'en-GB' | 'en-AU';
+    interface_language: 'en' | 'vi';
   };
 };
+export type ProfileChanges = Partial<Pick<Profile, 'display_name' | 'username' | 'bio' | 'avatar_url'>>;
+export type PreferenceChanges = Partial<Pick<NonNullable<Profile['preferences']>, 'learning_goal' | 'current_cefr' | 'daily_goal_minutes' | 'preferred_accent' | 'interface_language'>>;
 export type OnboardingInput = {
   learning_goal: LearningGoal;
   initial_proficiency: Proficiency;

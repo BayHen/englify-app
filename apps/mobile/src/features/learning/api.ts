@@ -22,7 +22,7 @@ export async function getJourney(): Promise<JourneyCourse[]> { return privateReq
 export async function getJourneySummary(): Promise<JourneySummary> { return privateRequest('/journey/summary', await token()); }
 export async function getLesson(id: string): Promise<LessonDetail> { return privateRequest(`/lessons/${encodeURIComponent(id)}`, await token()); }
 export async function downloadLesson(id: string): Promise<OfflinePackage> { return privateRequest(`/lessons/${encodeURIComponent(id)}/offline-package`, await token()); }
-export async function syncLesson(id: string, requestId: string, contentVersion: string, answers: Record<string, Answer>): Promise<QuizResult> { return privateRequest(`/lessons/${encodeURIComponent(id)}/offline-sync`, await token(), 'POST', { request_id: requestId, content_version: contentVersion, answers }); }
+export async function syncLesson(id: string, requestId: string, contentVersion: string, answers: Record<string, Answer>, accessToken?: string): Promise<QuizResult> { return privateRequest(`/lessons/${encodeURIComponent(id)}/offline-sync`, accessToken ?? await token(), 'POST', { request_id: requestId, content_version: contentVersion, answers }); }
 export async function startLesson(id: string): Promise<JourneyLesson> { return privateRequest(`/lessons/${encodeURIComponent(id)}/start`, await token(), 'POST'); }
 export async function submitLesson(id: string, requestId: string, answers: Record<string, Answer>): Promise<QuizResult> { return privateRequest(`/lessons/${encodeURIComponent(id)}/submit`, await token(), 'POST', { request_id: requestId, answers }); }
 export async function getAttempts(id: string): Promise<QuizResult[]> { return privateRequest(`/lessons/${encodeURIComponent(id)}/attempts`, await token()); }

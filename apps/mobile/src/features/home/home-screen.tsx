@@ -12,6 +12,7 @@ import { getJourney, type JourneyCourse } from '@/features/learning/api';
 import { getCachedJourney } from '@/features/offline/storage';
 import { nextLesson } from './next-lesson';
 import { AnimatedXPProgress } from '@/features/gamification/animated-xp-progress';
+import { ProfileAvatar } from '@/features/profile/profile-avatar';
 
 const tools = [
   { title: 'Dictionary', detail: 'Find a word', href: '/dictionary', icon: { ios: 'text.book.closed.fill', android: 'menu_book', web: 'menu_book' }, tint: 'primary' },
@@ -66,7 +67,7 @@ export function HomeScreen({ preview }: { preview?: { overview: GamificationOver
   const unlocked = overview?.badges.filter((badge) => badge.unlocked).slice(0, 3) ?? [];
   const given = profile?.display_name?.trim().split(/\s+/)[0] || 'Explorer';
   const compact = width < 370;
-  const headerAccessory = <Pressable accessibilityRole="button" accessibilityLabel="Open profile and appearance settings" onPress={() => router.push('/profile')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.7 : 1 })}><View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: palette.rewardSoft, alignItems: 'center', justifyContent: 'center' }}><AppText variant="label">{given.slice(0, 1).toUpperCase()}</AppText></View><SymbolView name={{ ios: 'gearshape.fill', android: 'settings', web: 'settings' }} size={20} tintColor={palette.muted} /></Pressable>;
+  const headerAccessory = <Pressable accessibilityRole="button" accessibilityLabel="Open profile and appearance settings" onPress={() => router.push('/profile')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.7 : 1 })}><ProfileAvatar name={given} path={profile?.avatar_url} size={36} /><SymbolView name={{ ios: 'gearshape.fill', android: 'settings', web: 'settings' }} size={20} tintColor={palette.muted} /></Pressable>;
   return <Page eyebrow="A NEW DAY TO GROW" title={`Hi, ${given}!`} description="A little English every day goes a long way." compact headerAccessory={headerAccessory}>
     {preview ? <View style={{ backgroundColor: palette.rewardSoft, padding: 8, borderRadius: 12 }}><AppText variant="caption">DESIGN PREVIEW · SAMPLE DATA · No progress is saved</AppText></View> : null}
     {loading ? <LoadingSkeleton lines={6} /> : error && !overview && !courses.length ? <ErrorState message={error} retry={() => { void load(); }} /> : <>

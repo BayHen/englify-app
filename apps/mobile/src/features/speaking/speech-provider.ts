@@ -4,7 +4,7 @@ import * as Speech from 'expo-speech';
 import { File } from 'expo-file-system';
 import { AudioModule, RecordingPresets, setAudioModeAsync, useAudioPlayer, useAudioRecorder, useAudioRecorderState } from 'expo-audio';
 
-export type SpeechVoice = { identifier: string; name: string; language: string };
+export type SpeechVoice = { id: string; name: string; language: string; locale: string; quality?: string };
 export type RecordingResult = { uri: string; durationMillis: number };
 
 export interface SpeechProvider {
@@ -61,12 +61,12 @@ export function useExpoSpeechProvider(): SpeechProvider {
   return {
     async getVoices() {
       const voices = await Speech.getAvailableVoicesAsync();
-      return voices.filter((voice) => voice.language.toLowerCase().startsWith('en')).map(({ identifier, name, language }) => ({ identifier, name, language }));
+      return voices.map(({ identifier, name, language, quality }) => ({ id: identifier, name, language, locale: language, quality }));
     },
     async speak(text, voiceId) {
       await Speech.stop();
       player.pause();
-      Speech.speak(text, { language: 'en-US', voice: voiceId ?? undefined, rate: 0.85 });
+      Speech.speak(text, { language: voiceId ? undefined : 'en-US', voice: voiceId ?? undefined, rate: 0.85 });
     },
     stopSpeech: () => Speech.stop(),
     async startRecording() {

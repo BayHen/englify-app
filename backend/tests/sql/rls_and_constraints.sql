@@ -43,6 +43,18 @@ SET LOCAL ROLE authenticated;
 SET LOCAL request.jwt.claim.sub = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 UPDATE public.profiles SET display_name = 'Alice updated'
 WHERE id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+UPDATE public.profiles SET username = 'alice_qa', bio = 'Profile V2'
+WHERE id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+UPDATE public.profiles SET username = 'stolen'
+WHERE id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
+DO $$ BEGIN
+  IF (SELECT username FROM public.profiles) <> 'alice_qa' THEN
+    RAISE EXCEPTION 'Profile V2 owner update failed';
+  END IF;
+  IF has_column_privilege('authenticated', 'public.profiles', 'id', 'UPDATE') THEN
+    RAISE EXCEPTION 'Client can update profile identity';
+  END IF;
+END $$;
 UPDATE public.profiles SET display_name = 'Unauthorized change'
 WHERE id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 DO $$

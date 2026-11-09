@@ -4,6 +4,13 @@ import { ExploreScreen, PracticeScreen } from '@/features/home/tool-hub';
 import { AdventurePath } from '@/features/learning/adventure-path';
 import { Page } from '@/components/page';
 import { AppText } from '@/ui';
+import { VoicePreview } from '@/features/speaking/voice-preview';
+import AccountSettings from '@/app/account-settings';
+import EditProfile from '@/app/edit-profile';
+import ChangeAvatar from '@/app/change-avatar';
+import ChangePassword from '@/app/change-password';
+import LearningPreferences from '@/app/learning-preferences';
+import { ProfileScreen } from '@/features/home/profile-screen';
 import type { GamificationOverview } from '@/features/gamification/api';
 import type { JourneyCourse } from '@/features/learning/api';
 
@@ -26,6 +33,13 @@ export default function UiV2Preview() {
   const { screen } = useLocalSearchParams<{ screen?: string }>();
   if (!__DEV__) return <Redirect href="/login" />;
   if (screen === 'explore') return <ExploreScreen />;
+  if (screen === 'voice') return <VoicePreview />;
+  if (screen === 'profile') return <ProfileScreen preview={overview} />;
+  if (screen === 'account-settings') return <AccountSettings />;
+  if (screen === 'edit-profile') return <EditProfile />;
+  if (screen === 'change-avatar') return <ChangeAvatar />;
+  if (screen === 'change-password') return <ChangePassword />;
+  if (screen === 'learning-preferences') return <LearningPreferences />;
   if (screen === 'practice') return <PracticeScreen />;
   if (screen === 'journey') return <Page eyebrow="DESIGN PREVIEW · SAMPLE DATA" title="Your adventure" description="No progress is saved." compact><AppText variant="heading">Everyday English</AppText><AdventurePath unit={courses[0].units[0]} /></Page>;
   return <HomeScreen preview={{ overview, courses }} />;

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Modal, Pressable, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
@@ -11,14 +11,15 @@ export type AppBottomSheetProps = {
   title: string;
   onClose: () => void;
   children: ReactNode;
+  scrollable?: boolean;
 };
 
-export function AppBottomSheet({ visible, title, onClose, children }: AppBottomSheetProps) {
+export function AppBottomSheet({ visible, title, onClose, children, scrollable = true }: AppBottomSheetProps) {
   const palette = useAppPalette();
   const reduced = useReducedMotion();
   return <Modal visible={visible} transparent animationType={reduced ? 'none' : 'slide'} onRequestClose={onClose}>
     <SafeAreaProvider>
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, justifyContent: 'flex-end' }}>
         <Pressable accessibilityRole="button" accessibilityLabel="Close sheet" onPress={onClose} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: palette.overlay }} />
         <SafeAreaView edges={['bottom']} style={{ backgroundColor: palette.elevated, borderTopLeftRadius: designTokens.radius.xl, borderTopRightRadius: designTokens.radius.xl, maxHeight: '85%' }}>
           <View accessibilityViewIsModal style={{ padding: designTokens.spacing.xl, gap: designTokens.spacing.lg }}>
@@ -27,10 +28,10 @@ export function AppBottomSheet({ visible, title, onClose, children }: AppBottomS
               <AppText variant="heading" accessibilityRole="header">{title}</AppText>
               <Pressable accessibilityRole="button" accessibilityLabel="Close sheet" onPress={onClose} hitSlop={12}><AppText tone="primary" variant="label">Close</AppText></Pressable>
             </View>
-            <ScrollView contentContainerStyle={{ gap: designTokens.spacing.md }}>{children}</ScrollView>
+            {scrollable ? <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ gap: designTokens.spacing.md }}>{children}</ScrollView> : <View style={{ minHeight: 0, flexShrink: 1 }}>{children}</View>}
           </View>
         </SafeAreaView>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaProvider>
   </Modal>;
 }

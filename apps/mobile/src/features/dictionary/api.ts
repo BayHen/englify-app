@@ -15,8 +15,8 @@ export async function searchDictionary(query: string): Promise<DictionaryWord[]>
 export async function listSavedWords(): Promise<SavedWord[]> {
   return privateRequest<SavedWord[]>('/me/vocabulary', await token());
 }
-export async function saveWord(id: string): Promise<SavedWord> {
-  return privateRequest<SavedWord>(`/me/vocabulary/${encodeURIComponent(id)}`, await token(), 'POST');
+export async function saveWord(id: string, accessToken?: string): Promise<SavedWord> {
+  return privateRequest<SavedWord>(`/me/vocabulary/${encodeURIComponent(id)}`, accessToken ?? await token(), 'POST');
 }
 export async function removeSavedWord(id: string): Promise<void> {
   await privateRequest<{ removed: boolean }>(`/me/vocabulary/${encodeURIComponent(id)}`, await token(), 'DELETE');

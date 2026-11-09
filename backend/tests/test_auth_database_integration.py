@@ -95,6 +95,39 @@ def test_authenticated_profile_onboarding_and_isolation(monkeypatch) -> None:
             )
             assert changed.status_code == 200
             assert changed.json()["data"]["display_name"] == "Alicia"
+            detailed = client.patch(
+                "/api/v1/me/profile", headers=headers(alice),
+                json={"username": "Alice_01", "bio": "Hello\nworld"},
+            )
+            assert detailed.status_code == 200
+            assert detailed.json()["data"]["username"] == "alice_01"
+            assert detailed.json()["data"]["bio"] == "Hello\nworld"
+            assert client.patch(
+                "/api/v1/me/profile", headers=headers(bob),
+                json={"username": "ALICE_01"},
+            ).status_code == 409
+            assert client.patch(
+                "/api/v1/me/profile", headers=headers(alice),
+                json={"avatar_url": f"{bob}/wrong.jpg"},
+            ).status_code == 422
+            assert client.patch(
+                "/api/v1/me/profile", json={"bio": "Unauthenticated"},
+            ).status_code == 401
+            preferences = client.patch(
+                "/api/v1/me/preferences", headers=headers(alice),
+                json={"learning_goal": "real_english", "current_cefr": "B2",
+                      "daily_goal_minutes": 20, "preferred_accent": "en-GB",
+                      "interface_language": "vi"},
+            )
+            assert preferences.status_code == 200
+            assert (
+                preferences.json()["data"]["preferences"]["initial_proficiency"]
+                == "intermediate"
+            )
+            assert client.patch(
+                "/api/v1/me/preferences", headers=headers(alice),
+                json={"total_xp": 999},
+            ).status_code == 422
             bob_profile = client.get("/api/v1/me", headers=headers(bob)).json()["data"]
             assert bob_profile["display_name"] == "Bob"
             cross_user = client.put(
