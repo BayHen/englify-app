@@ -53,4 +53,5 @@ describe('gamified design system', () => {
     </>);
     for (const label of ['Explorer', 'Daily quest', 'Two lessons', '40 XP', 'Avatar', 'Hello', 'First step']) expect(html).toContain(label);
   });
+
 });

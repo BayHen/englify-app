@@ -4,3 +4,12 @@ export function validateAuthInput(email: string, password: string, name?: string
   if (name !== undefined && !name.trim()) return 'Enter a display name.';
   return null;
 }
+
+export function validateAuthFields(input: { email: string; password: string; name?: string; confirm?: string }) {
+  const errors: { name?: string; email?: string; password?: string; confirm?: string } = {};
+  if (input.name !== undefined && !input.name.trim()) errors.name = 'Enter a display name.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) errors.email = 'Enter a valid email address.';
+  if (input.password.length < 8) errors.password = 'Use at least 8 characters.';
+  if (input.confirm !== undefined && input.password !== input.confirm) errors.confirm = 'Passwords do not match.';
+  return errors;
+}

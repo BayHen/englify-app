@@ -1,8 +1,9 @@
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider, router, useSegments, type Href } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import { Platform, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
 
 import { AppErrorBoundary } from '@/components/app-error-boundary';
 import { AuthProvider, useAuth } from '@/auth/provider';
@@ -10,6 +11,10 @@ import { Page } from '@/components/page';
 import { useAppStore } from '@/state/app-store';
 import { AppButton, ErrorState, LoadingSkeleton } from '@/ui';
 import { SyncEngine } from '@/features/offline/sync-engine';
+
+const noSubscription = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
 function AppNavigator() {
   const { loading, session, profile, profileError, refreshProfile, signOut, callbackTarget, clearCallbackTarget } = useAuth();
@@ -28,6 +33,7 @@ function AppNavigator() {
     <Stack.Screen name="index" />
     <Stack.Screen name="auth-callback" />
     {__DEV__ && <Stack.Screen name="dev/auth-diagnostic" />}
+    {__DEV__ && <Stack.Screen name="dev/ui-v2-preview" />}
     <Stack.Protected guard={!signedIn} redirectTo="/login">
       <Stack.Screen name="login" />
       <Stack.Screen name="register" />
@@ -36,7 +42,7 @@ function AppNavigator() {
     <Stack.Protected guard={signedIn} redirectTo="/login"><Stack.Screen name="reset-password" /></Stack.Protected>
     <Stack.Protected guard={signedIn && !onboarded} redirectTo="/home"><Stack.Screen name="onboarding" /></Stack.Protected>
     <Stack.Protected guard={signedIn && onboarded} redirectTo={signedIn ? '/onboarding' : '/login'}>
-      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" />
+      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" /><Stack.Screen name="practice" />
       <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
@@ -46,10 +52,20 @@ function AppNavigator() {
 }
 
 export default function RootLayout() {
+  // The web theme and stored settings are client state; keep SSR and the hydration pass identical.
+  const hydrated = useSyncExternalStore(noSubscription, clientReady, serverReady);
+  const [fontsReady, fontError] = useFonts({
+    Nunito_400Regular: require('@expo-google-fonts/nunito/400Regular/Nunito_400Regular.ttf'),
+    Nunito_600SemiBold: require('@expo-google-fonts/nunito/600SemiBold/Nunito_600SemiBold.ttf'),
+    Nunito_700Bold: require('@expo-google-fonts/nunito/700Bold/Nunito_700Bold.ttf'),
+    Nunito_800ExtraBold: require('@expo-google-fonts/nunito/800ExtraBold/Nunito_800ExtraBold.ttf'),
+    Baloo2_700Bold: require('@expo-google-fonts/baloo-2/700Bold/Baloo2_700Bold.ttf'),
+  });
   const systemScheme = useColorScheme();
   const themeMode = useAppStore((state) => state.themeMode);
   const dark = themeMode === 'system' ? systemScheme === 'dark' : themeMode === 'dark';
   const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { retry: 1 } } }));
+  if ((Platform.OS === 'web' && !hydrated) || (!fontsReady && !fontError)) return null;
   return (
     <AppErrorBoundary>
       <SafeAreaProvider>

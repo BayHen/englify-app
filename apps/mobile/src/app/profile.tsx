@@ -1,1 +1,1 @@
-export { ProfileScreen as default } from '@/features/demo/screens';
+export { ProfileScreen as default } from '@/features/home/profile-screen';

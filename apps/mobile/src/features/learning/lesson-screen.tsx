@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
-import { Animated, View } from 'react-native';
+import { View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Speech from 'expo-speech';
 import * as Crypto from 'expo-crypto';
 import { Page, NavLink } from '@/components/page';
@@ -23,15 +24,8 @@ function MatchingQuestion({ question, answer, onChange }: { question: Question; 
 
 function RewardFeedback({ rewards }: { rewards: QuizResult['rewards'] }) {
   const reduced = useReducedMotion();
-  const [opacity] = useState(() => new Animated.Value(0));
-  useEffect(() => {
-    if (reduced) { opacity.setValue(1); return; }
-    const animation = Animated.timing(opacity, { toValue: 1, duration: 450, useNativeDriver: true });
-    animation.start();
-    return () => animation.stop();
-  }, [opacity, reduced]);
   if (!rewards.length) return null;
-  return <Animated.View style={{ opacity, gap: 8 }} accessibilityLiveRegion="polite">
+  return <Animated.View entering={reduced ? undefined : FadeIn.duration(420)} style={{ gap: 8 }} accessibilityLiveRegion="polite">
     {rewards.map((reward, index) => <AppCard key={`${reward.kind}-${reward.title}-${index}`} tone={reward.kind === 'xp' ? 'primary' : 'reward'} style={{ gap: 5 }}>
       <AppText variant="heading">{reward.kind === 'level' ? 'Level up! ' : reward.kind === 'badge' ? 'Badge unlocked! ' : reward.kind === 'quest' ? 'Quest complete! ' : ''}{reward.title}</AppText>
       <AppText>{reward.message}{reward.amount > 0 && reward.kind !== 'xp' ? ` +${reward.amount} XP` : ''}</AppText>

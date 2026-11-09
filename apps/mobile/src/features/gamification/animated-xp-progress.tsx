@@ -1,26 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { useEffect } from 'react';
+import { View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppText } from '@/ui';
 import { progressRatio } from '@/ui/xp-progress-bar';
 import { useReducedMotion } from '@/ui/use-reduced-motion';
 
-export function AnimatedXPProgress({ value, max }: { value: number; max: number }) {
+export function AnimatedXPProgress({ value, max, hero = false }: { value: number; max: number; hero?: boolean }) {
   const palette = useAppPalette();
   const reduced = useReducedMotion();
-  const [progress] = useState(() => new Animated.Value(0));
   const ratio = progressRatio(value, max);
+  const progress = useSharedValue(ratio);
   useEffect(() => {
-    if (reduced) { progress.setValue(ratio); return; }
-    const animation = Animated.timing(progress, { toValue: ratio, duration: 650, useNativeDriver: false });
-    animation.start();
-    return () => animation.stop();
+    progress.value = reduced ? ratio : withTiming(ratio, { duration: designTokens.motion.relaxed });
   }, [progress, ratio, reduced]);
+  const fill = useAnimatedStyle(() => ({ width: `${progress.value * 100}%` }));
   return <View style={{ gap: designTokens.spacing.sm }}>
-    <AppText variant="label">{value} / {max} XP to next level</AppText>
-    <View accessibilityRole="progressbar" accessibilityLabel="XP to next level" accessibilityValue={{ min: 0, max: Math.max(1, max), now: Math.min(value, max) }} style={{ height: 12, borderRadius: designTokens.radius.pill, backgroundColor: palette.primarySoft, overflow: 'hidden' }}>
-      <Animated.View style={{ width: progress.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] }), height: '100%', borderRadius: designTokens.radius.pill, backgroundColor: palette.reward }} />
+    {!hero ? <AppText variant="label">{value} / {max} XP to next level</AppText> : null}
+    <View accessibilityRole="progressbar" accessibilityLabel="XP to next level" accessibilityValue={{ min: 0, max: Math.max(1, max), now: Math.min(value, max) }} style={{ height: 12, borderRadius: designTokens.radius.pill, backgroundColor: hero ? 'rgba(255,255,255,0.42)' : palette.primarySoft, overflow: 'hidden' }}>
+      <Animated.View style={[fill, { height: '100%', borderRadius: designTokens.radius.pill, backgroundColor: palette.reward }]} />
     </View>
   </View>;
 }

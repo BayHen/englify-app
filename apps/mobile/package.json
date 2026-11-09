@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@expo-google-fonts/baloo-2": "^0.4.2",
+    "@expo-google-fonts/nunito": "^0.4.2",
     "@expo/ui": "~58.0.27",
     "@supabase/supabase-js": "^2.119.0",
     "@tanstack/react-query": "^5.106.1",

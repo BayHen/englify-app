@@ -40,6 +40,10 @@ Expo hiển thị mã QR và địa chỉ Metro; trang quản trị ở `http://
 
 Admin Dashboard cần thêm `apps/admin/.env.local` và tài khoản có trong `public.admin_members`; xem [hướng dẫn quản trị](docs/ADMIN_DASHBOARD.md). Tài khoản học viên thông thường không có quyền sửa nội dung.
 
+Giao diện mobile V2 có Home, Journey, Explore, Practice và Profile; xem [hướng dẫn UI V2](docs/UI_REDESIGN_V2.md). Bản xem trước `/dev/ui-v2-preview` chỉ chạy trong development và luôn gắn nhãn dữ liệu mẫu.
+
+Giao diện đăng nhập, đăng ký và khôi phục mật khẩu V4 được mô tả tại [tài liệu Auth UI V4](docs/AUTH_UI_V4.md).
+
 ## Kiểm tra
 
 ```powershell

@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
-import { router, useFocusEffect, type Href } from 'expo-router';
+import { useFocusEffect } from 'expo-router';
 import { View } from 'react-native';
 import { Page, NavLink } from '@/components/page';
-import { AppButton, AppCard, AppText, EmptyState, ErrorState, LessonNode, LoadingSkeleton, XPProgressBar } from '@/ui';
+import { AppButton, AppCard, AppText, EmptyState, ErrorState, LoadingSkeleton, XPProgressBar } from '@/ui';
 import { getJourney, getJourneySummary, type JourneyCourse, type JourneySummary } from './api';
 import { useAuth } from '@/auth/provider';
 import { cacheJourney, getCachedJourney } from '@/features/offline/storage';
 import { SyncStatus } from '@/features/offline/sync-status';
+import { AdventurePath } from './adventure-path';
 
 export function JourneyScreen() {
   const { profile } = useAuth();
@@ -23,18 +24,16 @@ export function JourneyScreen() {
     finally { setLoading(false); }
   }, [userId]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
-  return <Page eyebrow="YOUR JOURNEY" title="Learning path" description="Complete each lesson to unlock the next. Your progress is saved to your account.">
+  return <Page eyebrow="THE LEARNING TRAIL" title="Your adventure" description="Every lesson moves your story forward." compact>
     <SyncStatus />
     {offline ? <AppCard tone="reward"><AppText variant="label">Offline journey</AppText><AppText tone="muted">Showing the last downloaded map. Unlocks and XP update after synchronization.</AppText></AppCard> : null}
     {loading ? <LoadingSkeleton lines={5} /> : error ? <ErrorState message={error} retry={() => { void load(); }} /> : courses.length ? <>
-      {summary && <AppCard tone="primary" style={{ gap: 8 }}><AppText variant="heading">Level {summary.level} · {summary.xp_total} XP</AppText><XPProgressBar value={summary.xp_into_level} max={summary.xp_for_next_level} label="XP toward next level" /><AppText tone="muted">{summary.completed_lessons} / {summary.total_lessons} lessons complete · Replay to improve mastery.</AppText></AppCard>}
+      {summary ? <AppCard tone="primary" style={{ gap: 8 }}><AppText variant="heading">Level {summary.level} · {summary.xp_total} XP</AppText><XPProgressBar value={summary.xp_into_level} max={summary.xp_for_next_level} label="XP toward next level" /><AppText tone="muted">{summary.completed_lessons} / {summary.total_lessons} lessons complete · Replay to improve mastery.</AppText></AppCard> : null}
       {courses.map((course) => <View key={course.id} style={{ gap: 14 }}><AppText variant="heading">{course.title}</AppText>
-        {course.units.map((unit) => <AppCard key={unit.id} style={{ gap: 10 }}><AppText variant="label" tone="primary">UNIT {unit.position} · {unit.title}</AppText>
-          {unit.lessons.map((lesson) => <LessonNode key={lesson.id} order={lesson.position} title={lesson.title} status={lesson.state} onPress={() => router.push(`/lesson/${lesson.id}` as Href)} />)}
-        </AppCard>)}
+        {course.units.map((unit) => <AdventurePath key={unit.id} unit={unit} />)}
       </View>)}
     </> : <EmptyState title="No published lessons yet" message="Load the development seed data after applying migrations." />}
     <AppButton label="Refresh journey" variant="secondary" onPress={() => { void load(); }} />
-    <NavLink href="/home" label="Back to dashboard" />
+    <NavLink href="/learning-plan" label="See your learning plan" />
   </Page>;
 }
