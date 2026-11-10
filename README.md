@@ -1,5 +1,9 @@
 # Englify Quest
 
+> Việc chuyển hoàn toàn khỏi FastAPI sang Supabase đang triển khai. Xem [audit migration](docs/SUPABASE_MIGRATION_AUDIT.md) và [báo cáo kiểm thử](docs/SUPABASE_MIGRATION_TEST_REPORT.md). Hiện tại không xóa `backend/` hoặc bỏ lệnh chạy API khi các màn hình vẫn gọi FastAPI.
+
+Auth/profile/onboarding, từ điển và Real English trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho Azure AI Translator; [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Dịch thật chưa được xác nhận khi chưa có khóa Azure; ứng dụng không trả bản dịch mẫu khi provider chưa sẵn sàng. Journey, XP, kế hoạch học, writing và admin vẫn cần FastAPI. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
+
 Kho mã chung cho ứng dụng học tiếng Anh trên Expo, trang quản trị Next.js và API FastAPI. Mobile đã có điều hướng và nội dung mẫu; xác thực thật, nội dung học tập từ server và cơ sở dữ liệu sẽ được triển khai ở các nhiệm vụ tiếp theo.
 
 ## Cấu trúc
@@ -29,8 +33,12 @@ python -m venv .venv
 Trong PowerShell bị chặn script, dùng `npm.cmd` thay cho `npm`. Mỗi dịch vụ chạy ở một cửa sổ riêng:
 
 ```powershell
-npm.cmd run mobile
-npm.cmd run admin
+winget install ngrok -s msstore
+ngrok help
+ngrok config add-authtoken "<AUTHTOKEN_CỦA_BẠN>"
+ngrok http 8000
+cd apps/mobile
+npx.cmd expo start --tunnel --clear
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload
 ```
 
