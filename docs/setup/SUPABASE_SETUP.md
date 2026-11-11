@@ -14,7 +14,7 @@ Trong **Authentication → Providers**, bật Email. Trong **Authentication → 
 
 ## 3. Schema và RLS
 
-**Alembic trong `backend/migrations/versions` là nguồn chân lý duy nhất cho schema ứng dụng.** Supabase quản lý `auth.users`; migration không tạo lại bảng Auth. Migration đầu tạo `profiles`, `user_preferences`, trigger cấp profile khi đăng ký và các policy RLS. Migration `20261106_04` cho phép người dùng cập nhật chỉ `display_name`, `avatar_url` trên profile của chính họ. Dùng PostgreSQL URL của dự án Supabase **chỉ ở backend** và chạy:
+**Giai đoạn chuyển đổi:** Alembic trong `backend/migrations/versions` vẫn quản lý DB hiện hữu đến revision `20261110_15`; `supabase/migrations` có baseline và migration đã thử trên local, nhưng baseline chưa được ghi nhận vào history remote. Không chạy baseline `CREATE TABLE` trên project đã có dữ liệu. Supabase quản lý `auth.users`; migration không tạo lại bảng Auth. Revision 14 khóa quyền trên bảng Alembic metadata; revision 15 thêm kiểm tra đường dẫn avatar và RPC onboarding. Dùng PostgreSQL URL của dự án Supabase **chỉ ở môi trường quản trị**, và chạy Alembic chỉ khi revision hiện tại đã được kiểm tra:
 
 ```powershell
 .\.venv\Scripts\python.exe -m alembic -c backend/alembic.ini upgrade head

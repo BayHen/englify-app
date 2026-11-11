@@ -4,7 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import type { Session } from '@supabase/supabase-js';
 import { ApiError } from '@/lib/api';
 import { useAppStore } from '@/state/app-store';
-import { privateRequest, type OnboardingInput, type Profile, type ProfileChanges, type PreferenceChanges } from './api';
+import type { OnboardingInput, Profile, ProfileChanges, PreferenceChanges } from './api';
+import { completeOnboarding, readProfile, updateOwnPreferences, updateOwnProfile } from './profile-repository';
 import { parseAuthCallback } from './callback';
 import { authConfigured, getSupabase } from './supabase';
 import { cacheProfile, getCachedProfile } from '@/features/offline/storage';
@@ -50,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadProfile = useCallback(async (active: Session): Promise<Profile | null> => {
     try {
-      const data = await privateRequest<Profile>('/me', active.access_token);
+      const data = await readProfile(active.user.id);
       setProfile(data); setDisplayName(data.display_name); setProfileError(null);
       await cacheProfile(active.user.id, data).catch(() => undefined);
       return data;
@@ -74,16 +75,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshProfile = useCallback(async () => {
     const { data, error } = await getSupabase().auth.getSession();
-    if (error || !data.session) { clearLocal(); return null; }
+    if (error) {
+      setProfileError('Could not restore your session. Check your connection and try again.');
+      return null;
+    }
+    if (!data.session) { clearLocal(); return null; }
     setSession(data.session);
     return loadProfile(data.session);
   }, [clearLocal, loadProfile]);
 
-  const saveOwnData = useCallback(async (path: string, input: ProfileChanges | PreferenceChanges) => {
+  const commitProfile = useCallback(async (operation: () => Promise<Profile>) => {
     const { data, error } = await getSupabase().auth.getSession();
-    if (error || !data.session) { clearLocal(); throw new Error('Session expired. Please sign in again.'); }
+    if (error) throw new Error('Could not restore your session. Check your connection and try again.');
+    if (!data.session) { clearLocal(); throw new Error('Session expired. Please sign in again.'); }
     try {
-      const updated = await privateRequest<Profile>(path, data.session.access_token, 'PATCH', input);
+      const updated = await operation();
       setProfile(updated); setDisplayName(updated.display_name); setProfileError(null);
       await cacheProfile(data.session.user.id, updated).catch(() => undefined);
       return updated;
@@ -132,10 +138,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           const { data, error } = await supabase.auth.getSession();
           if (!live) return;
-          if (error || !data.session) clearLocal();
+          if (error) setProfileError('Could not restore your session. Check your connection and try again.');
+          else if (!data.session) clearLocal();
           else { setSession(data.session); await loadProfile(data.session); }
         }
-      } catch { if (live) clearLocal(); }
+      } catch { if (live) setProfileError('Could not restore your session. Check your connection and try again.'); }
       finally { if (live) setLoading(false); }
     })();
     return () => { live = false; subscription.unsubscribe(); link.remove(); };
@@ -180,9 +187,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     refreshProfile,
     saveOnboarding: async (input) => {
       const { data, error } = await getSupabase().auth.getSession();
-      if (error || !data.session) { clearLocal(); throw new Error('Session expired. Please sign in again.'); }
+      if (error) throw new Error('Could not restore your session. Check your connection and try again.');
+      if (!data.session) { clearLocal(); throw new Error('Session expired. Please sign in again.'); }
       try {
-        const updated = await privateRequest<Profile>('/me/onboarding', data.session.access_token, 'PUT', input);
+        const updated = await completeOnboarding(input);
         setProfile(updated); setDisplayName(updated.display_name); setProfileError(null);
         await cacheProfile(data.session.user.id, updated).catch(() => undefined);
         return updated;
@@ -193,9 +201,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw cause;
       }
     },
-    saveProfile: (input) => saveOwnData('/me/profile', input),
-    savePreferences: (input) => saveOwnData('/me/preferences', input),
-  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, saveOwnData, setDisplayName]);
+    saveProfile: (input) => commitProfile(() => updateOwnProfile(input)),
+    savePreferences: (input) => commitProfile(() => updateOwnPreferences(input)),
+  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, commitProfile, setDisplayName]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

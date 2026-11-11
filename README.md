@@ -2,7 +2,7 @@
 
 > Việc chuyển hoàn toàn khỏi FastAPI sang Supabase đang triển khai. Xem [audit migration](docs/SUPABASE_MIGRATION_AUDIT.md) và [báo cáo kiểm thử](docs/SUPABASE_MIGRATION_TEST_REPORT.md). Hiện tại không xóa `backend/` hoặc bỏ lệnh chạy API khi các màn hình vẫn gọi FastAPI.
 
-Auth/profile/onboarding, từ điển và Real English trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho Azure AI Translator; [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Dịch thật chưa được xác nhận khi chưa có khóa Azure; ứng dụng không trả bản dịch mẫu khi provider chưa sẵn sàng. Journey, XP, kế hoạch học, writing và admin vẫn cần FastAPI. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
+Auth/profile/onboarding, từ điển, Real English, Journey/quiz và XP trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho MyMemory; Function `translate` đã triển khai ngày 11/11/2026. Sau bản sửa kết quả từ/cụm ngắn, người dùng xác nhận trên Expo Go `License → Giấy phép.` và `giấy phép → License`. Xem [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Ứng dụng không trả bản dịch mẫu khi provider không sẵn sàng. Kế hoạch học và Writing đã có bản Supabase nhưng mobile còn giữ FastAPI mặc định cho đến khi Edge Function được triển khai/kiểm tra; [Admin Supabase](docs/ADMIN_SUPABASE_MIGRATION.md) mới được kiểm thử cục bộ, cờ chuyển đổi đang tắt. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
 
 Kho mã chung cho ứng dụng học tiếng Anh trên Expo, trang quản trị Next.js và API FastAPI. Mobile đã có điều hướng và nội dung mẫu; xác thực thật, nội dung học tập từ server và cơ sở dữ liệu sẽ được triển khai ở các nhiệm vụ tiếp theo.
 
@@ -37,8 +37,8 @@ winget install ngrok -s msstore
 ngrok help
 ngrok config add-authtoken "<AUTHTOKEN_CỦA_BẠN>"
 ngrok http 8000
-cd apps/mobile
-npx.cmd expo start --tunnel --clear
+cd apps/mobilnpx.cmd expo start --tunnel --cleare
+
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload
 ```
 
