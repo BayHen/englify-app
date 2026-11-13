@@ -1,14 +1,28 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getWritingHistory, submitWriting } from './api';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getExercises, getWritingHistory, submitWriting } from './api';
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => state.client }));
-vi.mock('@/auth/api', () => ({ privateRequest: vi.fn() }));
 const auth = { getSession: async () => ({ data: { session: { user: { id: 'learner-1' }, access_token: 'token' } }, error: null }) };
-beforeEach(() => { vi.stubEnv('EXPO_PUBLIC_SUPABASE_WRITING_ENABLED', 'true'); state.client = null; });
-afterEach(() => vi.unstubAllEnvs());
+beforeEach(() => { state.client = null; });
 
 describe('writing Supabase client', () => {
+  it('loads published exercises directly from Supabase', async () => {
+    const exercises = [{ id: 'exercise-1', kind: 'sentence', prompt: 'Write a greeting.', hint: 'Be friendly.', tokens: [] }];
+    const orderById = vi.fn().mockResolvedValue({ data: exercises, error: null, status: 200 });
+    const orderByKind = vi.fn().mockReturnValue({ order: orderById });
+    const eq = vi.fn().mockReturnValue({ order: orderByKind });
+    const select = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ select });
+    state.client = { auth, from };
+
+    await expect(getExercises()).resolves.toEqual(exercises);
+    expect(from).toHaveBeenCalledWith('writing_exercises');
+    expect(eq).toHaveBeenCalledWith('is_published', true);
+    expect(orderByKind).toHaveBeenCalledWith('kind');
+    expect(orderById).toHaveBeenCalledWith('id');
+  });
+
   it('keeps rule feedback when optional grammar Edge service is unavailable', async () => {
     const saved = { id: 'submission-1', body: 'Hello.', feedback: { rule_result: 'matched', grammar_status: 'unavailable' } };
     const rpc = vi.fn().mockResolvedValue({ data: saved, error: null, status: 200 });

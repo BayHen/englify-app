@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import * as Speech from 'expo-speech';
-import { Linking, View } from 'react-native';
+import { View } from 'react-native';
 import { getSupabase } from '@/auth/supabase';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
 import { AppButton, AppCard, AppModal, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
@@ -12,7 +12,7 @@ import { normalizePublishedLessonRelations } from './lesson-relations';
 type Phrase = { id: string; english_text: string; vietnamese_translation: string; formality: string; usage_context: string; ipa: string | null };
 type Line = { id: string; speaker: string; english_text: string; vietnamese_translation: string; sort_order: number };
 type Dialogue = { id: string; title: string; real_english_dialogue_lines: Line[] };
-type Source = { id: string; attribution_text: string; source_url: string; translation_url: string; english_license: string; vietnamese_license: string };
+type Source = { id: string; attribution_text: string; english_license: string; vietnamese_license: string };
 type Lesson = { id: string; title: string; description: string; difficulty: string; content_type: string;
   real_english_phrases: Phrase[]; real_english_dialogues: Dialogue[]; real_english_source_references: Source[] };
 type Progress = { lesson_id: string; status: 'in_progress' | 'completed'; is_bookmarked: boolean };
@@ -51,7 +51,7 @@ export function RealEnglishLibrary({ expressions, expressionsLoading, expression
     try {
       const userId = await currentUserId();
       const [rows, saved] = await Promise.all([
-        getSupabase().from('real_english_lessons').select('id,title,description,difficulty,content_type,real_english_phrases(id,english_text,vietnamese_translation,formality,usage_context,ipa),real_english_dialogues(id,title,real_english_dialogue_lines(id,speaker,english_text,vietnamese_translation,sort_order)),real_english_source_references(id,attribution_text,source_url,translation_url,english_license,vietnamese_license)')
+        getSupabase().from('real_english_lessons').select('id,title,description,difficulty,content_type,real_english_phrases(id,english_text,vietnamese_translation,formality,usage_context,ipa),real_english_dialogues(id,title,real_english_dialogue_lines(id,speaker,english_text,vietnamese_translation,sort_order)),real_english_source_references(id,attribution_text,english_license,vietnamese_license)')
           .eq('status', 'published').order('published_at', { ascending: false }),
         getSupabase().from('real_english_user_progress').select('lesson_id,status,is_bookmarked').eq('user_id', userId),
       ]);
@@ -152,8 +152,6 @@ export function RealEnglishLibrary({ expressions, expressionsLoading, expression
         {selectedLesson.real_english_source_references.map((source) => <View key={source.id} style={{ gap: 5 }}>
           <AppText variant="caption" tone="muted">{source.attribution_text}</AppText>
           <AppText variant="caption" tone="muted">English: {source.english_license} · Vietnamese: {source.vietnamese_license}</AppText>
-          <AppButton label="View Tatoeba source" variant="secondary" onPress={() => { void Linking.openURL(source.source_url); }} />
-          <AppButton label="View Vietnamese translation source" variant="secondary" onPress={() => { void Linking.openURL(source.translation_url); }} />
         </View>)}
         <AppButton label={progress[selectedLesson.id]?.is_bookmarked ? 'Remove bookmark' : 'Bookmark lesson'}
           variant="secondary" disabled={busy} onPress={() => {

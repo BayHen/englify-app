@@ -43,7 +43,13 @@ export async function privateRequest<T>(path: string, accessToken: string, metho
       if (controller.signal.aborted) throw new ApiError(0, 'Learning API timed out. Check the server and try again.');
       throw new ApiError(0, 'Cannot reach the learning API. Check that FastAPI is running and the API URL is reachable.');
     }
-    const envelope: unknown = await response.json();
+    let envelope: unknown;
+    try { envelope = await response.json(); }
+    catch {
+      throw new ApiError(response.status, response.ok
+        ? 'Invalid API response. Expected JSON data.'
+        : `Learning API returned an invalid response (${response.status}).`);
+    }
     if (!response.ok) {
       const message = isErrorEnvelope(envelope) ? envelope.error.message : `Request failed (${response.status})`;
       throw new ApiError(response.status, message);

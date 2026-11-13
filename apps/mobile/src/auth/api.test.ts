@@ -28,4 +28,14 @@ describe('authenticated API requests', () => {
       message: 'Cannot reach the learning API. Check that FastAPI is running and the API URL is reachable.',
     });
   });
+  it('does not expose a raw JSON parser error for a text response', async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false, status: 502,
+      json: async () => { throw new SyntaxError('Unexpected character: T'); },
+    });
+    await expect(privateRequest('/me', 'access-token')).rejects.toMatchObject({
+      status: 502,
+      message: 'Learning API returned an invalid response (502).',
+    });
+  });
 });
