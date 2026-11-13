@@ -1,6 +1,7 @@
 import { getSupabase } from '@/auth/supabase';
 import { ApiError } from '@/lib/api';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
+import { normalizeSearchText } from './library-utils';
 
 export type ExpressionKind = 'slang' | 'idiom' | 'phrasal_verb' | 'casual_expression' | 'everyday_conversation' | 'movie_style_dialogue';
 export type DialogueLine = { speaker: string; line: string };
@@ -10,7 +11,6 @@ export type QuizResult = { attempt_id: string; question_id: string; is_correct: 
 
 const COLUMNS = 'id,slug,kind,expression,meaning_vi,context_explanation,example_en,example_vi,dialogue,formality,region_note,source_name,license_id,provenance_note';
 const published = () => getSupabase().from('real_english_expressions').select(COLUMNS).eq('is_published', true).is('archived_at', null);
-const escapeLike = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('%', '\\%').replaceAll('_', '\\_');
 
 async function expression(id: string): Promise<Expression> {
   const [row, saved] = await Promise.all([
@@ -30,15 +30,14 @@ export async function searchExpressions(query = '', kind?: ExpressionKind, saved
   if (savedOnly && !savedIds.size) return [];
   let rows: Record<string, unknown>[];
   if (term) {
-    const pattern = `%${escapeLike(term)}%`;
-    const makeQuery = (column: 'expression' | 'meaning_vi') => {
-      let request = published().ilike(column, pattern);
-      if (kind) request = request.eq('kind', kind);
-      if (savedOnly) request = request.in('id', [...savedIds]);
-      return request.order('expression').limit(50);
-    };
-    const [english, vietnamese] = await Promise.all([makeQuery('expression'), makeQuery('meaning_vi')]);
-    rows = [...dataOrThrow(english), ...dataOrThrow(vietnamese)];
+    let request = published();
+    if (kind) request = request.eq('kind', kind);
+    if (savedOnly) request = request.in('id', [...savedIds]);
+    const normalizedTerm = normalizeSearchText(term);
+    rows = dataOrThrow(await request.order('expression').limit(1000)).filter((row) => normalizeSearchText([
+      row.expression, row.meaning_vi, row.context_explanation, row.example_en, row.example_vi,
+      row.region_note, JSON.stringify(row.dialogue ?? []),
+    ].map((value) => String(value ?? '')).join(' ')).includes(normalizedTerm));
   } else {
     let request = published();
     if (kind) request = request.eq('kind', kind);

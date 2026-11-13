@@ -1,5 +1,7 @@
 # Real English — nội dung và cách vận hành
 
+> Tài liệu này mô tả luồng Real English cũ trong checkout còn FastAPI. Kiến trúc Supabase Hybrid V2 và trạng thái kích hoạt hiện tại nằm trong [REAL_ENGLISH_HYBRID_V2.md](REAL_ENGLISH_HYBRID_V2.md). Không dùng lệnh Alembic bên dưới để áp migration V2.
+
 Module `/real-english` giới thiệu tiếng Anh theo ngữ cảnh: slang, idiom, phrasal verb, cách nói thân mật, hội thoại thường ngày và cảnh thoại mang phong cách phim **được viết mới**. Mỗi mục có nghĩa tiếng Việt, giải thích ngữ cảnh, ví dụ song ngữ, mức độ trang trọng, ghi chú vùng miền, nguồn và thông tin quyền sử dụng. Các câu thoại không lấy từ kịch bản phim, không có video hoặc tệp âm thanh của bên thứ ba.
 
 ## Nguồn gốc và quyền sử dụng
