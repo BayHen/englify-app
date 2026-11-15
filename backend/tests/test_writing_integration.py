@@ -168,7 +168,8 @@ def test_writing_history_feedback_idempotency_and_isolation(monkeypatch) -> None
                     {"uid": str(alice)},
                 )
                 assert connection.execute(text("SELECT count(*) FROM public.writing_feedback")).scalar_one() == 2
-                assert connection.execute(text("SELECT has_table_privilege('authenticated', 'public.writing_answer_keys', 'SELECT')")).scalar_one() is False
+                # Admin editors use SELECT with an admin-only RLS policy.
+                assert connection.execute(text("SELECT count(*) FROM public.writing_answer_keys")).scalar_one() == 0
     finally:
         with engine.begin() as connection:
             connection.execute(

@@ -22,7 +22,7 @@ export function getSupabase(): SupabaseClient {
       auth: {
         ...(Platform.OS === 'web' ? {} : { storage: secureStorage }),
         autoRefreshToken: true,
-        persistSession: Platform.OS !== 'web',
+        persistSession: true,
         detectSessionInUrl: false,
         flowType: 'pkce',
       },

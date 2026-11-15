@@ -1,5 +1,7 @@
 # Admin Dashboard — TASK 08.1
 
+> Giao diện Content Studio tối tím hiện dùng chung cho mọi module Admin. Xem [hướng dẫn giao diện và kiểm tra](ADMIN_UI_STUDIO.md).
+
 ## Quyền truy cập
 
 Admin đăng nhập bằng Supabase Auth email/mật khẩu đang có. FastAPI xác minh access token như các endpoint riêng tư khác, sau đó kiểm tra `public.admin_members` theo `auth.users.id` ở **mọi** endpoint `/api/v1/admin`. Vai trò admin không lấy từ metadata hay dữ liệu do client tự gửi. Bảng `admin_members` và `admin_audit_logs` bật RLS nhưng không cấp quyền cho `anon`/`authenticated`; thao tác quản trị chỉ đi qua backend với kết nối database được bảo vệ. Không dùng service role key trên web hoặc mobile.

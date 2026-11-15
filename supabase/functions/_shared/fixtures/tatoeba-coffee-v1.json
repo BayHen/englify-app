@@ -1,0 +1,403 @@
+{
+  "_fixture": {
+    "source": "https://api.tatoeba.org/v1/sentences?lang=eng&q=coffee&trans%3Alang=vie&trans%3Ais_direct=yes&showtrans=matching&sort=relevance&limit=20",
+    "retrieved_at_utc": "2026-11-11T16:15:20.408106+00:00",
+    "note": "Real public Tatoeba API v1 response subset; CC BY 2.0 FR or CC0 per sentence, owner and source ID retained."
+  },
+  "data": [
+    {
+      "id": 10700137,
+      "text": "\"Hello.\" \"Coffee.\"",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "shekitten",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 14032841,
+          "text": "\"Xin chào\", \"Cà phê\".",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "nhuttan2004",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 6614309,
+      "text": "More coffee?",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "Eccles17",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13333868,
+          "text": "Thêm cà phê không?",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 10535131,
+      "text": "Coffee's ready.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13339868,
+          "text": "Cà phê được rồi.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 9819687,
+      "text": "\"Good morning.\" \"Coffee.\"",
+      "lang": "eng",
+      "license": "CC0 1.0",
+      "owner": "shekitten",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13341866,
+          "text": "\"Chào buổi sáng.\" \"Cà phê.\"",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 9695004,
+      "text": "Coffee is life.",
+      "lang": "eng",
+      "license": "CC0 1.0",
+      "owner": "shekitten",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13344047,
+          "text": "Cà phê là cuộc sống.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 5840355,
+      "text": "I sell coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13598598,
+          "text": "Tôi bán cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 5147311,
+      "text": "Tom sells coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13598641,
+          "text": "Tom bán cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 4080710,
+      "text": "I smell coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13634518,
+          "text": "Tôi ngửi cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 7254994,
+      "text": "The coffee's ready.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "Hybrid",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13666094,
+          "text": "Cà phê được rồi đấy.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 6119720,
+      "text": "I like hot coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "shekitten",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13769932,
+          "text": "Tôi thích cà phê nóng.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 5874290,
+      "text": "The coffee is great.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "mailohilohi",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 11426539,
+          "text": "Cà phê thật tuyệt.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "chaule3",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 5851166,
+      "text": "I seldom drink coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 14028880,
+          "text": "Tôi hầu như không uống cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 11063900,
+      "text": "Shall I make some coffee?",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "sundown",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 12132348,
+          "text": "Tôi pha cà phê nhé?",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "phongvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 6438485,
+      "text": "Tom spilled coffee on himself.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 12132271,
+          "text": "Tom đã tự đổ cà phê lên người.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "phongvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 33536,
+      "text": "I don't like coffee.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 9006329,
+          "text": "Tôi không thích cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "dotheduyet1999",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 13725405,
+      "text": "Well, just drink coffee or something.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "terrywallwork",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 13726535,
+          "text": "Thì, cứ uống tạm cà phê hay gì đó đi.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "leucammieuvu",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 11373429,
+      "text": "It’s Lyly’s Coffee shop.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "chaule3",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 11373431,
+          "text": "Nó là quán cà phê Lyly.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "chaule3",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 9311521,
+      "text": "I like coffee more than tea.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "Nylez",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 11304587,
+          "text": "Tôi thích cà phê hơn trà.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "chaule3",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 7492838,
+      "text": "This coffee isn't hot enough.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": "CK",
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 8997635,
+          "text": "Cà phê này nguội nhỉ.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "dotheduyet1999",
+          "is_unapproved": false,
+          "is_direct": true
+        },
+        {
+          "id": 8997636,
+          "text": "Cà phê này không đủ nóng.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "dotheduyet1999",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    },
+    {
+      "id": 4702960,
+      "text": "I will eat coffee flavored pudding.",
+      "lang": "eng",
+      "license": "CC BY 2.0 FR",
+      "owner": null,
+      "is_unapproved": false,
+      "translations": [
+        {
+          "id": 9037742,
+          "text": "Tôi sẽ ăn món pudding cà phê.",
+          "lang": "vie",
+          "license": "CC BY 2.0 FR",
+          "owner": "dotheduyet1999",
+          "is_unapproved": false,
+          "is_direct": true
+        }
+      ]
+    }
+  ],
+  "paging": {
+    "total": 62,
+    "has_next": true,
+    "next": "https://api.tatoeba.org/v1/sentences?lang=eng&q=coffee&trans%3Alang=vie&trans%3Ais_direct=yes&showtrans=matching&sort=relevance&limit=20&after=10094%2C4702960"
+  }
+}

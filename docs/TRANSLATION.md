@@ -1,20 +1,13 @@
-# Công cụ dịch miễn phí
+# Dịch tiếng Anh – tiếng Việt
 
-## Trạng thái hiện tại
+Màn hình Translate hỗ trợ hai chiều English ↔ Vietnamese, chọn ngôn ngữ nguồn thủ công, đổi chiều, copy và lưu câu hữu ích trên thiết bị. Mobile gọi Supabase Edge Function `translate`; Function xác thực Supabase Auth, giữ quota trong PostgreSQL và gọi MyMemory `get` với chính nội dung đã nhập. Không gọi FastAPI, không dùng phrasebook hoặc mock làm bản dịch mới.
 
-API `POST /api/v1/translate` nhận `{ "source": "en", "target": "vi", "text": "Hello." }` (hoặc đổi chiều). API yêu cầu Supabase access token và trả về `data.status` là `translated` hoặc `unavailable`. `scope=exact_phrase` chỉ có nghĩa là khớp nguyên cụm trong bộ phrasebook tự biên soạn của dự án. Đây **không phải** dịch văn bản tự do. Cụm không khớp trả `unavailable`, không ghép từ hoặc bịa bản dịch.
+MyMemory giới hạn 500 byte UTF-8 mỗi request và 5.000 ký tự/ngày cho truy cập ẩn danh. Ứng dụng báo lỗi khi vượt giới hạn; không cắt nội dung. Kết quả dịch máy có thể sai ngữ cảnh. Nếu API không sẵn sàng, ứng dụng hiển thị lỗi thay vì tạo bản dịch giả. Kết quả đã lưu từ trước vẫn hiển thị ở danh sách local.
 
-`GET /api/v1/translation/phrases` trả các câu gợi ý. Màn hình mobile có chọn chiều dịch, nhập văn bản, kết quả, sao chép và lưu tối đa 100 cụm trên **thiết bị hiện tại** bằng Expo SQLite KV. Dữ liệu lưu này chưa đồng bộ tài khoản; xóa dữ liệu ứng dụng sẽ xóa các cụm đã lưu.
+Với một từ tiếng Anh, mobile gọi riêng [Free Dictionary API](https://dictionaryapi.dev/) để lấy IPA, audio, loại từ, định nghĩa tiếng Anh, ví dụ và từ liên quan nếu có. Với chiều Việt → Anh, chỉ tra từ điển khi bản dịch tiếng Anh là một từ. API từ điển trả 404 hoặc lỗi thì vẫn giữ bản dịch MyMemory. Ví dụ tiếng Việt chỉ xuất hiện sau khi người dùng chọn **Translate example to Vietnamese** và nhận kết quả thực từ Edge Function; thao tác này dùng quota MyMemory. Audio từ API từ điển được ưu tiên; nếu tệp báo lỗi hoặc không bắt đầu phát trong 3,5 giây, ứng dụng tự chuyển sang Expo Speech. Trong lần kiểm tra này, hai URL audio UK/US của từ `love` đều trả HTTP 502; người dùng đã xác nhận giọng đọc thiết bị phát được trên iPhone. Nếu iPhone vẫn im lặng khi dùng Expo Speech, kiểm tra Silent Mode và âm lượng media. Không tự tạo IPA hoặc nội dung từ điển.
 
-## LibreTranslate tự lưu trữ (tùy chọn)
+Dữ liệu Free Dictionary API trả về có trường `license` và `sourceUrls`; màn hình hiển thị nguồn và liên kết giấy phép cạnh nội dung từ điển. Trong lần kiểm tra, mục `license` trả [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). Mã nguồn dịch vụ có [giấy phép GPL-3.0](https://github.com/meetDeveloper/freeDictionaryAPI/blob/master/LICENSE); ứng dụng chỉ dùng API, không sao chép mã nguồn dịch vụ. [Điều khoản MyMemory](https://mymemory.translated.net/terms-and-conditions) không nêu yêu cầu dòng ghi nguồn trong mỗi thẻ kết quả, nên dòng giới thiệu MyMemory đã được bỏ khỏi thẻ; nguồn dịch vẫn ghi trong tài liệu. Nội dung nhập gửi đến MyMemory, còn từ tiếng Anh riêng lẻ được gửi đến Free Dictionary API. Tránh nhập dữ liệu nhạy cảm.
 
-[Danh sách model chính thức](https://github.com/LibreTranslate/Documentation/blob/main/src/content/docs/guides/supported_languages.md) liệt kê model `en→vi` và `vi→en` phiên bản 1.9. Có model không đảm bảo instance cụ thể đã cài hoặc chất lượng đạt yêu cầu. Provider kiểm tra `GET /languages` và `targets` trước mỗi lần gọi `POST /translate`; timeout 5 giây và lỗi upstream trả `unavailable`. Không gửi văn bản tới dịch vụ trả phí.
+Các mục đã lưu giữ khóa lưu trữ cũ; bản ghi mới có thể thêm IPA, loại từ và URL audio. Bản ghi cũ thiếu các trường này vẫn đọc được. Cache từ điển trong bộ nhớ giữ tối đa 100 mục trong 24 giờ, 404 trong 10 phút; không coi cache là bản lưu lâu dài.
 
-Chưa có instance LibreTranslate đang chạy để kiểm tra chất lượng đầu ra thực tế cho dự án này. Vì vậy **dịch toàn văn EN↔VI đang hoãn**, mặc định không kích hoạt. Khi có instance tự lưu trữ:
-
-1. Cài cả hai model EN↔VI theo tài liệu LibreTranslate. Không chạy script cài đặt không rõ nguồn gốc.
-2. Gọi `/languages` của chính instance và xác nhận `en.targets` có `vi`, `vi.targets` có `en`.
-3. Dịch và người biết hai ngôn ngữ đánh giá tối thiểu: “I am learning English.”, “Where is the train station?”, “The bank is closed today.”, “Tôi đang học tiếng Anh.”, “Tôi cần đặt vé tàu.”; kiểm tra nghĩa, dấu tiếng Việt và trường hợp đa nghĩa. Ghi nhận kết quả thực tế trước khi bật.
-4. Đặt `ENGLIFY_LIBRETRANSLATE_URL=http://localhost:5000` (hoặc HTTPS origin) và chỉ liệt kê chiều đã kiểm chứng trong `ENGLIFY_LIBRETRANSLATE_VERIFIED_PAIRS=en:vi,vi:en`. Khởi động lại API. Không đặt URL này trong cấu hình mobile: văn bản đi qua backend.
-
-Ứng dụng vẫn gắn nhãn kết quả máy dịch để người dùng tự kiểm tra. Model có thể dịch sai ngữ cảnh, thành ngữ hoặc thuật ngữ chuyên ngành. Cụm phrasebook do nhóm dự án tự soạn; không dùng dữ liệu từ từ điển thương mại.
+Cấu hình, quyền riêng tư và cách kiểm tra: [TRANSLATION_API_SETUP.md](TRANSLATION_API_SETUP.md).

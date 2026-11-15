@@ -214,14 +214,18 @@ def test_admin_crud_publish_mobile_visibility_and_audit(monkeypatch) -> None:
                     ).scalar_one()
                     is False
                 )
+                # Admin editors need SELECT on answer keys; RLS must still hide
+                # them from an ordinary authenticated learner.
+                connection.execute(text("SET LOCAL ROLE authenticated"))
+                connection.execute(
+                    text("SELECT set_config('request.jwt.claim.sub', :uid, true)"),
+                    {"uid": str(learner_id)},
+                )
                 assert (
                     connection.execute(
-                        text(
-                            "SELECT has_table_privilege("
-                            "'authenticated','public.quiz_answer_keys','SELECT')"
-                        )
+                        text("SELECT count(*) FROM public.quiz_answer_keys")
                     ).scalar_one()
-                    is False
+                    == 0
                 )
             assert all(
                 item["title"] != "Test journey"
