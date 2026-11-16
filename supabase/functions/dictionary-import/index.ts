@@ -19,6 +19,25 @@ function publicKey(): string | undefined {
   } catch { return undefined; }
 }
 
+async function vietnameseMeaning(url: string, key: string, bearer: string, word: string): Promise<string | null> {
+  try {
+    // Reuse the authenticated, quota-controlled translation function. Never call MyMemory
+    // directly with a service-role key or bypass the existing per-user quota.
+    const response = await fetch(`${url}/functions/v1/translate`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: bearer, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: word, sourceLanguage: 'en', targetLanguage: 'vi' }),
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!response.ok) return null;
+    const result = await response.json() as { status?: string; translatedText?: unknown; targetLanguage?: string; provider?: string };
+    if (result.status !== 'translated' || result.provider !== 'mymemory' || result.targetLanguage !== 'vi'
+      || typeof result.translatedText !== 'string') return null;
+    const translated = result.translatedText.trim();
+    return translated && translated.toLowerCase() !== word && translated.length <= 500 ? translated : null;
+  } catch { return null; }
+}
+
 Deno.serve(async (request) => {
   const origin = request.headers.get('Origin') ?? undefined;
   const allowed = (Deno.env.get('EDGE_ALLOWED_ORIGINS') ?? '').split(',').map((item) => item.trim()).filter(Boolean);
@@ -54,12 +73,22 @@ Deno.serve(async (request) => {
   const headers = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
   const path = `${url}/rest/v1/dictionary_entries`;
   try {
-    const query = `?language=eq.en&normalized_term=eq.${encodeURIComponent(word)}&select=id,is_published&limit=1`;
+    const query = `?language=eq.en&normalized_term=eq.${encodeURIComponent(word)}&select=id,is_published,source_name,translation&limit=1`;
     const existing = await fetch(path + query, { headers, signal: AbortSignal.timeout(7000) });
     if (!existing.ok) return reply({ error: 'Dictionary storage unavailable.' }, 503, origin);
-    const rows = await existing.json() as { id: string; is_published: boolean }[];
-    if (rows.length) return rows[0].is_published ? reply({ id: rows[0].id }, 200, origin)
-      : reply({ error: 'Word is awaiting editorial approval.' }, 409, origin);
+    const rows = await existing.json() as { id: string; is_published: boolean; source_name: string; translation: string | null }[];
+    if (rows.length) {
+      if (!rows[0].is_published) return reply({ error: 'Word is awaiting editorial approval.' }, 409, origin);
+      // Backfill only previously imported terms, never edit a curated translation.
+      if (rows[0].source_name === 'Free Dictionary API' && !rows[0].translation) {
+        const translation = await vietnameseMeaning(url, key, bearer, word);
+        if (translation) await fetch(`${path}?id=eq.${rows[0].id}&source_name=eq.Free%20Dictionary%20API&translation=is.null`, {
+          method: 'PATCH', headers: { ...headers, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ translation }), signal: AbortSignal.timeout(7000),
+        });
+      }
+      return reply({ id: rows[0].id }, 200, origin);
+    }
 
     const provider = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`, {
       signal: AbortSignal.timeout(7000),
@@ -78,9 +107,10 @@ Deno.serve(async (request) => {
     }
     const audio = first.phonetics?.map((entry) => entry.audio).find((value) =>
       typeof value === 'string' && value.startsWith('https://')) ?? null;
+    const translation = await vietnameseMeaning(url, key, bearer, word);
     const record = {
       language: 'en', term: first.word.slice(0, 80), normalized_term: word,
-      definition: sense.definition.slice(0, 2000), translation: null,
+      definition: sense.definition.slice(0, 2000), translation,
       part_of_speech: sense.partOfSpeech?.slice(0, 60) ?? null,
       example: sense.example?.slice(0, 1000) ?? null, ipa: first.phonetic?.slice(0, 120) ?? null,
       audio_url: audio, source_name: 'Free Dictionary API',

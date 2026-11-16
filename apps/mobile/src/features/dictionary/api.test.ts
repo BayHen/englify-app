@@ -3,6 +3,8 @@ import { saveWord, searchDictionary } from './api';
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => state.client }));
+const translation = vi.hoisted(() => ({ translateText: vi.fn() }));
+vi.mock('@/features/translation/api', () => ({ translateText: translation.translateText }));
 vi.mock('@/features/translation/dictionary', () => ({
   englishLookupWord: (value: string) => /^[a-z]+$/i.test(value) ? value : null,
   lookupEnglishWord: vi.fn(async () => ({ word: 'curious', ipa: '/ˈkjʊriəs/', audioUrl: null,
@@ -24,7 +26,11 @@ function query<T>(data: T, error: { message: string } | null = null, status = 20
   return builder;
 }
 
-beforeEach(() => { state.client = null; });
+beforeEach(() => {
+  state.client = null;
+  translation.translateText.mockReset();
+  translation.translateText.mockResolvedValue({ status: 'translated', translated_text: 'tò mò' });
+});
 
 describe('dictionary Supabase repository', () => {
   it('reads published English words without calling FastAPI', async () => {
@@ -66,7 +72,17 @@ describe('dictionary Supabase repository', () => {
     state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, from: () => words };
     const result = await searchDictionary('curious');
     expect(result).toMatchObject([{ id: 'external:curious', term: 'curious', definition: 'Eager to learn.',
-      source_name: 'Free Dictionary API', translation: null }]);
+      source_name: 'Free Dictionary API', translation: 'tò mò' }]);
+    expect(translation.translateText).toHaveBeenCalledWith({ source: 'en', target: 'vi', text: 'curious' });
+  });
+
+  it('keeps English definitions when MyMemory is unavailable', async () => {
+    translation.translateText.mockRejectedValue(new Error('Quota reached'));
+    state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) },
+      from: () => query([]) };
+    await expect(searchDictionary('curious')).resolves.toMatchObject([
+      { id: 'external:curious', translation: null, definition: 'Eager to learn.' },
+    ]);
   });
 
   it('resolves external words to a database ID before saving', async () => {

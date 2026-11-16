@@ -3,6 +3,7 @@ import { ApiError } from '@/lib/api';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
 import type { DictionaryWord, SavedWord } from './types';
 import { englishLookupWord, lookupEnglishWord } from '@/features/translation/dictionary';
+import { translateText } from '@/features/translation/api';
 
 const WORD_COLUMNS = 'id,term,definition,translation,ipa,part_of_speech,example,audio_url,source_name,license_id';
 
@@ -34,9 +35,18 @@ export async function searchDictionary(query: string): Promise<DictionaryWord[]>
     try {
       const details = await lookupEnglishWord(term);
       if (details?.senses.length && ![...words.values()].some((word) => word.term.toLowerCase() === term)) {
+        // Translation is optional: a quota or network error must not remove the English definition.
+        let translation: string | null = null;
+        try {
+          const translated = await translateText({ source: 'en', target: 'vi', text: term });
+          if (translated.status === 'translated' && translated.translated_text
+            && translated.translated_text.toLocaleLowerCase() !== term) {
+            translation = translated.translated_text;
+          }
+        } catch { /* Keep the original English entry available. */ }
         words.set(`external:${term}`, {
           id: `external:${term}`, term: details.word, definition: details.senses[0].definition,
-          translation: null, ipa: details.ipa, part_of_speech: details.senses[0].partOfSpeech || null,
+          translation, ipa: details.ipa, part_of_speech: details.senses[0].partOfSpeech || null,
           example: details.senses.find((sense) => sense.example)?.example ?? null,
           audio_url: details.audioUrl, source_name: 'Free Dictionary API',
           license_id: details.licenseName ?? 'See source license',
