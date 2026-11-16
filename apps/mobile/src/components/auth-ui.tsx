@@ -6,6 +6,7 @@ import { SymbolView } from 'expo-symbols';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppText } from '@/ui';
+import { useI18n } from '@/i18n/context';
 
 const space = designTokens.spacing;
 
@@ -32,18 +33,23 @@ export function AuthBrandHeader() {
 
 export function AuthTextInput({ label, error, hint, right, style, ...props }: TextInputProps & { label: string; error?: string; hint?: string; right?: ReactNode }) {
   const palette = useAppPalette();
+  const { l } = useI18n();
+  const localizedLabel = l(label);
   const [focused, setFocused] = useState(false);
-  return <View style={{ gap: space.sm }}><AppText variant="label">{label}</AppText><View style={{ minHeight: 54, flexDirection: 'row', alignItems: 'center', borderRadius: designTokens.radius.md, borderWidth: focused ? 2 : 1, borderColor: error ? palette.error : focused ? palette.primary : palette.border, backgroundColor: palette.input }}><TextInput {...props} accessibilityLabel={label} accessibilityHint={error || hint} placeholderTextColor={palette.muted} onFocus={(event) => { setFocused(true); props.onFocus?.(event); }} onBlur={(event) => { setFocused(false); props.onBlur?.(event); }} style={[{ flex: 1, minWidth: 0, minHeight: 52, paddingHorizontal: space.lg, color: palette.text, fontFamily: designTokens.typography.family.regular, fontSize: designTokens.typography.size.md }, style]} />{right}</View>{error ? <AppText variant="caption" tone="error" accessibilityRole="alert">{error}</AppText> : hint ? <AppText variant="caption" tone="muted">{hint}</AppText> : null}</View>;
+  return <View style={{ gap: space.sm }}><AppText variant="label">{localizedLabel}</AppText><View style={{ minHeight: 54, flexDirection: 'row', alignItems: 'center', borderRadius: designTokens.radius.md, borderWidth: focused ? 2 : 1, borderColor: error ? palette.error : focused ? palette.primary : palette.border, backgroundColor: palette.input }}><TextInput {...props} placeholder={props.placeholder ? l(props.placeholder) : undefined} accessibilityLabel={localizedLabel} accessibilityHint={error || hint} placeholderTextColor={palette.muted} onFocus={(event) => { setFocused(true); props.onFocus?.(event); }} onBlur={(event) => { setFocused(false); props.onBlur?.(event); }} style={[{ flex: 1, minWidth: 0, minHeight: 52, paddingHorizontal: space.lg, color: palette.text, fontFamily: designTokens.typography.family.regular, fontSize: designTokens.typography.size.md }, style]} />{right}</View>{error ? <AppText variant="caption" tone="error" accessibilityRole="alert">{error}</AppText> : hint ? <AppText variant="caption" tone="muted">{hint}</AppText> : null}</View>;
 }
 
 export function AuthPasswordInput({ label = 'Password', visible, onToggle, ...props }: Omit<ComponentProps<typeof AuthTextInput>, 'right' | 'secureTextEntry' | 'label'> & { label?: string; visible: boolean; onToggle: () => void }) {
   const palette = useAppPalette();
-  return <AuthTextInput {...props} label={label} secureTextEntry={!visible} right={<Pressable accessibilityRole="button" accessibilityLabel={visible ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`} onPress={onToggle} style={({ pressed }) => ({ width: 52, minHeight: 52, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.65 : 1 })}><SymbolView name={{ ios: visible ? 'eye.slash' : 'eye', android: visible ? 'visibility_off' : 'visibility', web: visible ? 'visibility_off' : 'visibility' }} size={21} tintColor={palette.muted} /></Pressable>} />;
+  const { l } = useI18n();
+  return <AuthTextInput {...props} label={label} secureTextEntry={!visible} right={<Pressable accessibilityRole="button" accessibilityLabel={`${visible ? l('Hide') : l('Show')} ${l(label).toLowerCase()}`} onPress={onToggle} style={({ pressed }) => ({ width: 52, minHeight: 52, alignItems: 'center', justifyContent: 'center', opacity: pressed ? 0.65 : 1 })}><SymbolView name={{ ios: visible ? 'eye.slash' : 'eye', android: visible ? 'visibility_off' : 'visibility', web: visible ? 'visibility_off' : 'visibility' }} size={21} tintColor={palette.muted} /></Pressable>} />;
 }
 
 export function AuthPrimaryButton({ label, onPress, busy = false, disabled = false }: { label: string; onPress: () => void; busy?: boolean; disabled?: boolean }) {
   const palette = useAppPalette();
-  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: busy || disabled, busy }} disabled={busy || disabled} onPress={onPress} style={({ pressed }) => ({ minHeight: 54, borderRadius: designTokens.radius.md, backgroundColor: palette.primary, justifyContent: 'center', alignItems: 'center', opacity: disabled ? 0.55 : pressed ? 0.82 : 1 })}><AppText variant="label" style={{ color: palette.primaryOn, fontSize: designTokens.typography.size.md }}>{busy ? 'Please wait…' : label}</AppText></Pressable>;
+  const { l } = useI18n();
+  const localizedLabel = l(label);
+  return <Pressable accessibilityRole="button" accessibilityLabel={localizedLabel} accessibilityState={{ disabled: busy || disabled, busy }} disabled={busy || disabled} onPress={onPress} style={({ pressed }) => ({ minHeight: 54, borderRadius: designTokens.radius.md, backgroundColor: palette.primary, justifyContent: 'center', alignItems: 'center', opacity: disabled ? 0.55 : pressed ? 0.82 : 1 })}><AppText variant="label" style={{ color: palette.primaryOn, fontSize: designTokens.typography.size.md }}>{busy ? l('Please wait…') : localizedLabel}</AppText></Pressable>;
 }
 
 export function AuthInlineLink({ href, label, prefix }: { href: Href; label: string; prefix?: string }) {

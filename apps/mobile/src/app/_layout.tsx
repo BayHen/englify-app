@@ -11,6 +11,7 @@ import { Page } from '@/components/page';
 import { useAppStore } from '@/state/app-store';
 import { AppButton, ErrorState, LoadingSkeleton } from '@/ui';
 import { SyncEngine } from '@/features/offline/sync-engine';
+import { I18nProvider, useI18n } from '@/i18n';
 
 const noSubscription = () => () => {};
 const clientReady = () => true;
@@ -44,6 +45,7 @@ function AppNavigator() {
     <Stack.Protected guard={signedIn && onboarded} redirectTo={signedIn ? '/onboarding' : '/login'}>
       <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" /><Stack.Screen name="practice" />
       <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
+      <Stack.Screen name="vocabulary-review" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
       <Stack.Screen name="account-settings" /><Stack.Screen name="edit-profile" />
@@ -52,6 +54,16 @@ function AppNavigator() {
       <Stack.Screen name="dev/showcase" />
     </Stack.Protected>
   </Stack>;
+}
+
+function LocalizedApplication({ dark, queryClient }: { dark: boolean; queryClient: QueryClient }) {
+  const { ready } = useI18n();
+  if (!ready) return null;
+  return <QueryClientProvider client={queryClient}>
+    <ThemeProvider value={dark ? DarkTheme : DefaultTheme}>
+      <AuthProvider><SyncEngine /><AppNavigator /></AuthProvider>
+    </ThemeProvider>
+  </QueryClientProvider>;
 }
 
 export default function RootLayout() {
@@ -70,14 +82,10 @@ export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { retry: 1 } } }));
   if ((Platform.OS === 'web' && !hydrated) || (!fontsReady && !fontError)) return null;
   return (
-    <AppErrorBoundary>
-      <SafeAreaProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={dark ? DarkTheme : DefaultTheme}>
-            <AuthProvider><SyncEngine /><AppNavigator /></AuthProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </SafeAreaProvider>
-    </AppErrorBoundary>
+    <SafeAreaProvider>
+      <I18nProvider>
+        <AppErrorBoundary><LocalizedApplication dark={dark} queryClient={queryClient} /></AppErrorBoundary>
+      </I18nProvider>
+    </SafeAreaProvider>
   );
 }

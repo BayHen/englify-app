@@ -3,10 +3,8 @@ import { completePlanTask, getPlan, regeneratePlan, reschedulePlan, savePlanPref
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => state.client }));
-const privateRequest = vi.hoisted(() => vi.fn());
-vi.mock('@/auth/api', () => ({ privateRequest }));
 const plan: { id: string; tasks: never[]; preferences: PlanPreferences } = { id: 'plan-1', tasks: [], preferences: { learning_goal: 'conversation', initial_proficiency: 'beginner', daily_goal_minutes: 10, preferred_topics: [] } };
-beforeEach(() => { state.client = null; privateRequest.mockReset(); vi.stubEnv('EXPO_PUBLIC_SUPABASE_PLAN_ENABLED', 'true'); });
+beforeEach(() => { state.client = null; });
 afterEach(() => vi.unstubAllEnvs());
 
 describe('Supabase learning plan client', () => {
@@ -32,13 +30,10 @@ describe('Supabase learning plan client', () => {
     state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, functions: { invoke } };
     await expect(getPlan()).rejects.toMatchObject({ status: 409, message: 'Complete onboarding first.' });
   });
-  it('preserves the existing plan service until the Edge Function is deployed', async () => {
-    vi.stubEnv('EXPO_PUBLIC_SUPABASE_PLAN_ENABLED', 'false');
-    privateRequest.mockResolvedValue(plan);
-    const invoke = vi.fn();
-    state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' }, access_token: 'session-token' } }, error: null }) }, functions: { invoke } };
-    await expect(getPlan()).resolves.toBe(plan);
-    expect(privateRequest).toHaveBeenCalledWith('/learning-plan', 'session-token');
-    expect(invoke).not.toHaveBeenCalled();
+  it('does not fall back to the removed FastAPI endpoint when the function is missing', async () => {
+    const invoke = vi.fn().mockResolvedValue({ data: null, error: { context: new Response('{"error":"Function not found"}', { status: 404 }) } });
+    state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, functions: { invoke } };
+    await expect(getPlan()).rejects.toMatchObject({ status: 404, message: 'Function not found' });
+    expect(invoke).toHaveBeenCalledWith('study-plan', { body: { action: 'get' } });
   });
 });

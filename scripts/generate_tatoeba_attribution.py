@@ -3,7 +3,6 @@
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 fixture = json.loads(
     (ROOT / "supabase/functions/_shared/fixtures/tatoeba-coffee-v1.json").read_text(
@@ -13,10 +12,10 @@ fixture = json.loads(
 lines = [
     "# Ghi công mẫu kiểm thử Tatoeba",
     "",
-    "Mẫu `tatoeba-coffee-v1.json` lấy từ Tatoeba API v1 ngày 11/11/2026. "
+    ("Mẫu `tatoeba-coffee-v1.json` lấy từ Tatoeba API v1 ngày 11/11/2026. "
     "Chỉ dùng để kiểm thử hợp đồng. Mỗi câu giữ ID, tác giả và giấy phép trong JSON. "
     "Giấy phép: [CC BY 2.0 FR](https://creativecommons.org/licenses/by/2.0/fr/deed.en) "
-    "hoặc [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).",
+    "hoặc [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)."),
     "",
     "| Câu Anh | Tác giả / giấy phép | Bản dịch Việt | Tác giả / giấy phép |",
     "|---|---|---|---|",

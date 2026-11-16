@@ -4,6 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppBottomSheet, AppButton, AppText } from '@/ui';
+import { useI18n } from '@/i18n/context';
 import { accentLabels, availableAccents, filterVoices, voiceLocaleLabel, type Accent } from './voice-catalog';
 import type { SpeechVoice } from './speech-provider';
 
@@ -26,6 +27,7 @@ function VoiceListItem({ voice, selected, onPress }: { voice: SpeechVoice; selec
 
 export function VoicePickerSheet({ visible, voices, selectedId, loading, error, emptyMessage, onSelect, onClose, onRetry }: { visible: boolean; voices: SpeechVoice[]; selectedId: string | null; loading: boolean; error: string; emptyMessage: string; onSelect: (voice: SpeechVoice) => void; onClose: () => void; onRetry: () => void }) {
   const palette = useAppPalette();
+  const { l } = useI18n();
   const { height } = useWindowDimensions();
   const [query, setQuery] = useState('');
   const [accent, setAccent] = useState<Accent>('all');
@@ -33,7 +35,7 @@ export function VoicePickerSheet({ visible, voices, selectedId, loading, error, 
   const filtered = useMemo(() => filterVoices(voices, query, accent), [voices, query, accent]);
   return <AppBottomSheet visible={visible} title="Choose a voice" onClose={onClose} scrollable={false}>
     <View style={{ gap: designTokens.spacing.md }}>
-      <TextInput accessibilityLabel="Search voices" placeholder="Search name or locale" placeholderTextColor={palette.muted} value={query} onChangeText={setQuery} autoCorrect={false} style={{ minHeight: 48, borderRadius: designTokens.radius.md, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.input, color: palette.text, fontSize: designTokens.typography.size.md, paddingHorizontal: designTokens.spacing.lg }} />
+      <TextInput accessibilityLabel={l('Search voices')} placeholder={l('Search name or locale')} placeholderTextColor={palette.muted} value={query} onChangeText={setQuery} autoCorrect={false} style={{ minHeight: 48, borderRadius: designTokens.radius.md, borderWidth: 1, borderColor: palette.border, backgroundColor: palette.input, color: palette.text, fontSize: designTokens.typography.size.md, paddingHorizontal: designTokens.spacing.lg }} />
       {voices.length > 0 ? <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: designTokens.spacing.sm }}>{accents.map((item) => <Pressable key={item} accessibilityRole="radio" accessibilityLabel={`${accentLabels[item]} accent`} accessibilityState={{ selected: accent === item }} onPress={() => setAccent(item)} style={({ pressed }) => ({ minHeight: 40, minWidth: 44, paddingHorizontal: designTokens.spacing.md, justifyContent: 'center', alignItems: 'center', borderRadius: designTokens.radius.pill, backgroundColor: accent === item ? palette.primarySoft : palette.surface, borderWidth: 1, borderColor: accent === item ? palette.primary : palette.border, opacity: pressed ? 0.7 : 1 })}><AppText variant="caption" style={{ color: accent === item ? palette.primary : palette.text }}>{accentLabels[item]}</AppText></Pressable>)}</View> : null}
       {loading ? <AppText tone="muted">Loading device voices…</AppText> : error ? <View style={{ gap: designTokens.spacing.sm }}><AppText tone="error" accessibilityRole="alert">{error}</AppText><AppButton label="Try again" variant="secondary" onPress={onRetry} /></View> : voices.length === 0 ? <View style={{ gap: designTokens.spacing.sm }}><AppText tone="muted">{emptyMessage}</AppText><AppButton label="Refresh device voices" variant="secondary" onPress={onRetry} /></View> : filtered.length === 0 ? <AppText tone="muted">No voices match your search.</AppText> : <FlatList data={filtered} keyExtractor={(voice) => voice.id} renderItem={({ item }) => <VoiceListItem voice={item} selected={item.id === selectedId} onPress={() => onSelect(item)} />} style={{ maxHeight: Math.max(150, Math.min(350, height * 0.42)) }} initialNumToRender={10} windowSize={5} keyboardShouldPersistTaps="handled" contentInsetAdjustmentBehavior="automatic" />}
     </View>

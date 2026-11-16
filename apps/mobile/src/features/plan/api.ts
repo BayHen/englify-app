@@ -1,5 +1,4 @@
 import { getSupabase } from '@/auth/supabase';
-import { privateRequest } from '@/auth/api';
 import { ApiError } from '@/lib/api';
 import { currentUserId } from '@/lib/supabase-query';
 
@@ -11,17 +10,6 @@ export type LearningPlan = { id: string; starts_on: string; algorithm_version: n
 
 async function planAction(action: 'get' | 'regenerate' | 'reschedule' | 'preferences' | 'complete', values: Record<string, unknown> = {}): Promise<LearningPlan> {
   await currentUserId();
-  // Keep the existing plan service active until this function is deployed to the configured project.
-  if (process.env.EXPO_PUBLIC_SUPABASE_PLAN_ENABLED !== 'true') {
-    const { data } = await getSupabase().auth.getSession();
-    const token = data.session?.access_token;
-    if (!token) throw new ApiError(401, 'Session expired. Please sign in again.');
-    if (action === 'get') return privateRequest('/learning-plan', token);
-    if (action === 'regenerate') return privateRequest('/learning-plan/regenerate', token, 'POST');
-    if (action === 'reschedule') return privateRequest('/learning-plan/reschedule', token, 'POST');
-    if (action === 'preferences') return privateRequest('/learning-plan/preferences', token, 'PUT', values.preferences);
-    return privateRequest(`/learning-plan/tasks/${encodeURIComponent(String(values.taskId))}/complete`, token, 'POST');
-  }
   const { data, error } = await getSupabase().functions.invoke<LearningPlan>('study-plan', { body: { action, ...values } });
   if (error) {
     const response = 'context' in error && error.context instanceof Response ? error.context : null;

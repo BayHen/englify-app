@@ -105,3 +105,29 @@ Trigger trên `lesson_items`, `quiz_options` và `quiz_answer_keys` cập nhật
 ## Profile V2 (20261109_13)
 
 `public.profiles` giữ `username` (unique không phân biệt chữ hoa/thường), `bio` và đường dẫn ảnh riêng tư trong `avatar_url`. `public.user_preferences` có `current_cefr`, `preferred_accent`, `interface_language`; `learning_goal` hỗ trợ thêm `real_english`. Các cột mới không thay đổi lịch sử học. Chi tiết API, RLS và bucket ở [PROFILE_ACCOUNT_SETTINGS.md](features/PROFILE_ACCOUNT_SETTINGS.md).
+
+## Phase 2 — Learning Experience & Content System (`20261115020000`)
+
+Migration cộng thêm này không đổi ID nội dung hoặc xóa lịch sử:
+
+- `englify_search_real_english` tìm kiếm English/Vietnamese không phân biệt dấu, lọc CEFR/topic/category/saved và phân trang phía PostgreSQL. Danh sách chỉ trả summary; phrase/dialogue/source được tải khi mở bài.
+- `real_english_user_progress` dùng các trạng thái `reading`, `read`, `practiced`, `passed`, `mastered`. Dữ liệu `in_progress` cũ được chuyển thành `reading`; `completed` chuyển thành `read` và giữ `completed_at`.
+- `real_english_comprehension_questions`, bảng key riêng tư và attempts hỗ trợ câu hỏi đọc hiểu. RPC chấm phía server, request UUID chống gửi trùng; client không đọc answer key.
+- `dictionary_entries` có metadata CEFR, topic, ví dụ Việt, usage notes, nguồn URL và quality status A1–C2.
+- `saved_vocabulary` có lịch SRS riêng theo user; `review_history.request_id` chống chấm lặp khi đồng bộ ngoại tuyến.
+- `content_import_batches/items` là vùng staging admin-only cho CSV/JSON. Trạng thái đi theo `draft → validated → in_review → approved → published`; pipeline không tự xuất bản.
+
+### Lịch ôn từ vựng
+
+Phiên bản thuật toán `1` dùng lịch xác định theo nguyên tắc SM-2, được rút gọn để chạy giống nhau trong PostgreSQL và outbox ngoại tuyến:
+
+- `Again`: ôn lại sau khoảng 10 phút, tăng lapse và difficulty.
+- `Hard`: khoảng ngắn, tối thiểu một ngày.
+- `Good`: một ngày ở lượt đầu, sau đó mở rộng theo stability/difficulty.
+- `Easy`: bốn ngày ở lượt đầu và khoảng dài hơn ở các lượt sau.
+
+Không gọi đây là FSRS đầy đủ. Lý do chọn biến thể SM-2 xác định: không cần model huấn luyện, giải thích/kiểm thử được, phù hợp dữ liệu ban đầu ít và đồng bộ idempotent. Khi đủ review history có thể thêm thuật toán version mới mà không viết lại lịch sử version 1.
+
+### Import nội dung
+
+`scripts/import_educational_content.py` đọc UTF-8 CSV hoặc JSON, kiểm tra trường bắt buộc, CEFR, duplicate ID và hash chuẩn hóa; toàn bộ batch được stage trong một transaction. Lệnh mặc định chỉ chấp nhận database loopback. Cần `--allow-remote` rõ ràng khi dùng staging; không dùng trực tiếp trên production trước khi backup/reconcile migration.

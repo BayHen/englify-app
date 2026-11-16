@@ -9,6 +9,7 @@ import { completeOnboarding, readProfile, updateOwnPreferences, updateOwnProfile
 import { parseAuthCallback } from './callback';
 import { authConfigured, getSupabase } from './supabase';
 import { cacheProfile, getCachedProfile } from '@/features/offline/storage';
+import { useI18n } from '@/i18n';
 
 type AuthContextValue = {
   configured: boolean;
@@ -43,6 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [callbackTarget, setCallbackTarget] = useState<'/login' | '/reset-password' | '/home' | '/onboarding' | null>(null);
   const setDisplayName = useAppStore((state) => state.setDisplayName);
   const queryClient = useQueryClient();
+  const { reconcileRemoteLanguage, markLanguageSynced } = useI18n();
 
   const clearLocal = useCallback(() => {
     setSession(null); setProfile(null); setProfileError(null); setCallbackTarget(null);
@@ -51,7 +53,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadProfile = useCallback(async (active: Session): Promise<Profile | null> => {
     try {
-      const data = await readProfile(active.user.id);
+      let data = await readProfile(active.user.id);
+      const remoteLanguage = data.preferences?.interface_language;
+      if (remoteLanguage) {
+        const pendingLanguage = reconcileRemoteLanguage(remoteLanguage);
+        if (pendingLanguage) {
+          try {
+            data = await updateOwnPreferences({ interface_language: pendingLanguage });
+            markLanguageSynced(pendingLanguage);
+          } catch (cause) {
+            // Keep the local language and retry synchronization after the next authenticated load.
+            if (__DEV__) console.warn('Interface language synchronization deferred:', cause instanceof Error ? cause.message : 'unknown error');
+          }
+        }
+      }
       setProfile(data); setDisplayName(data.display_name); setProfileError(null);
       await cacheProfile(active.user.id, data).catch(() => undefined);
       return data;
@@ -71,7 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setProfileError(error instanceof Error ? error.message : 'Could not load your profile');
       return null;
     }
-  }, [clearLocal, setDisplayName]);
+  }, [clearLocal, markLanguageSynced, reconcileRemoteLanguage, setDisplayName]);
 
   const refreshProfile = useCallback(async () => {
     const { data, error } = await getSupabase().auth.getSession();
@@ -202,8 +217,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     },
     saveProfile: (input) => commitProfile(() => updateOwnProfile(input)),
-    savePreferences: (input) => commitProfile(() => updateOwnPreferences(input)),
-  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, commitProfile, setDisplayName]);
+    savePreferences: async (input) => {
+      const updated = await commitProfile(() => updateOwnPreferences(input));
+      if (input.interface_language && updated.preferences?.interface_language === input.interface_language) {
+        markLanguageSynced(input.interface_language);
+      }
+      return updated;
+    },
+  }), [loading, session, profile, profileError, callbackError, callbackTarget, clearLocal, loadProfile, refreshProfile, commitProfile, markLanguageSynced, setDisplayName]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

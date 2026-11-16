@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Keyboard, Linking, Pressable, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, View, type TextInputInstance } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import { SymbolView } from 'expo-symbols';
 import { Page, NavLink } from '@/components/page';
@@ -30,6 +30,7 @@ export function TranslationScreen() {
   const [notice, setNotice] = useState('');
   const pending = useRef(false);
   const requestVersion = useRef(0);
+  const inputRef = useRef<TextInputInstance>(null);
 
   useEffect(() => {
     let live = true;
@@ -76,7 +77,7 @@ export function TranslationScreen() {
   async function submit() {
     if (!input.trim() || pending.current) return;
     pending.current = true;
-    Keyboard.dismiss();
+    inputRef.current?.blur();
     clearOutput();
     const version = requestVersion.current;
     setLoading(true);
@@ -137,7 +138,7 @@ export function TranslationScreen() {
       </View>
       <AppButton label="Swap languages" variant="secondary" onPress={() => { setSource(target); setTarget(source); clearOutput(); }} />
     </AppCard>
-    <AppInput label="Text to translate" placeholder={source === 'vi' ? 'Thử: Giấy phép' : 'Try: License'} value={input}
+    <AppInput ref={inputRef} label="Text to translate" placeholder={source === 'vi' ? 'Thử: Giấy phép' : 'Try: License'} value={input}
       onChangeText={(value) => { setInput(value); clearOutput(); }} multiline
       style={{ minHeight: 100, textAlignVertical: 'top', paddingVertical: 14 }}
       hint={`${utf8ByteLength(input.trim())}/500 UTF-8 bytes`} />
@@ -148,6 +149,8 @@ export function TranslationScreen() {
     {loading && <LoadingSkeleton accessibilityLabel="Translating" />}
     {!!error && <ErrorState title="Translation unavailable" message={error} retry={() => { void submit(); }} />}
     {!loading && !error && !result && <EmptyState title="Ready to translate" message="Enter English or Vietnamese text and choose Translate." />}
+    {!loading && !error && result?.status === 'unavailable' && <EmptyState
+      title="No translation found" message={result.message} />}
     {result?.status === 'translated' && <AppCard tone="primary" style={{ gap: 18, padding: 20 }}>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
         <View style={{ flex: 1, gap: 5 }}>

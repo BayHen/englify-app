@@ -56,13 +56,14 @@ describe('translation mobile integration', () => {
       .rejects.toMatchObject({ status: 404,
         message: 'Translation is not available yet: the Supabase translate function has not been deployed.' });
   });
-  it('does not present unchanged upstream text as a translated result', async () => {
+  it('returns a neutral unavailable result instead of presenting unchanged text as a translation', async () => {
     const invoke = vi.fn().mockResolvedValue({ data: {
-      translatedText: 'License', sourceLanguage: 'en', targetLanguage: 'vi', provider: 'mymemory',
+      status: 'unavailable', translatedText: null, sourceLanguage: 'en', targetLanguage: 'vi', provider: 'mymemory',
+      message: 'No distinct translation was found. Try a short phrase with more context.',
     }, error: null });
     withInvoke(invoke);
     await expect(translateText({ source: 'en', target: 'vi', text: 'License' }))
-      .rejects.toMatchObject({ status: 502 });
+      .resolves.toMatchObject({ status: 'unavailable', translated_text: null, method: 'mymemory' });
   });
   it('reports missing provider configuration for both known and new text', async () => {
     const invoke = vi.fn().mockResolvedValue({ data: null, error: { context: new Response('{"error":"Unavailable"}', { status: 503 }) } });

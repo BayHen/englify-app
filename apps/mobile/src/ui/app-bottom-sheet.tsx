@@ -5,6 +5,7 @@ import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppText } from './app-text';
 import { useReducedMotion } from './use-reduced-motion';
+import { useI18n } from '@/i18n/context';
 
 export type AppBottomSheetProps = {
   visible: boolean;
@@ -16,17 +17,18 @@ export type AppBottomSheetProps = {
 
 export function AppBottomSheet({ visible, title, onClose, children, scrollable = true }: AppBottomSheetProps) {
   const palette = useAppPalette();
+  const { l } = useI18n();
   const reduced = useReducedMotion();
   return <Modal visible={visible} transparent animationType={reduced ? 'none' : 'slide'} onRequestClose={onClose}>
     <SafeAreaProvider>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1, justifyContent: 'flex-end' }}>
-        <Pressable accessibilityRole="button" accessibilityLabel="Close sheet" onPress={onClose} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: palette.overlay }} />
+        <Pressable accessibilityRole="button" accessibilityLabel={l('Close sheet')} onPress={onClose} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: palette.overlay }} />
         <SafeAreaView edges={['bottom']} style={{ backgroundColor: palette.elevated, borderTopLeftRadius: designTokens.radius.xl, borderTopRightRadius: designTokens.radius.xl, maxHeight: '85%' }}>
           <View accessibilityViewIsModal style={{ padding: designTokens.spacing.xl, gap: designTokens.spacing.lg }}>
             <View style={{ width: 42, height: 5, borderRadius: designTokens.radius.pill, backgroundColor: palette.border, alignSelf: 'center' }} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
               <AppText variant="heading" accessibilityRole="header">{title}</AppText>
-              <Pressable accessibilityRole="button" accessibilityLabel="Close sheet" onPress={onClose} hitSlop={12}><AppText tone="primary" variant="label">Close</AppText></Pressable>
+              <Pressable accessibilityRole="button" accessibilityLabel={l('Close sheet')} onPress={onClose} hitSlop={12}><AppText tone="primary" variant="label">Close</AppText></Pressable>
             </View>
             {scrollable ? <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ gap: designTokens.spacing.md }}>{children}</ScrollView> : <View style={{ minHeight: 0, flexShrink: 1 }}>{children}</View>}
           </View>

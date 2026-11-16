@@ -1,15 +1,16 @@
-import { useCallback, useRef, useState } from 'react';
-import { useFocusEffect } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
 import * as Speech from 'expo-speech';
 import { randomUUID } from 'expo-crypto';
 import { View } from 'react-native';
 import { Page, NavLink } from '@/components/page';
 import { AppButton, AppCard, AppInput, AppModal, AppText, ErrorState, LoadingSkeleton } from '@/ui';
-import { getContextQuiz, saveExpression, searchExpressions, submitContextQuiz, unsaveExpression, type ContextQuiz, type Expression, type ExpressionKind, type QuizResult } from './api';
-import { RealEnglishLibrary } from './real-english-library';
+import { getContextQuiz, getExpression, listRealEnglishTopics, saveExpression, submitContextQuiz, unsaveExpression,
+  type CefrLevel, type ContextQuiz, type Expression, type LibraryCategory, type QuizResult, type TopicOption } from './api';
+import { RealEnglishLibraryV2 } from './real-english-library-v2';
 
-const kinds: { value: ExpressionKind | 'all'; label: string }[] = [
-  { value: 'all', label: 'All' }, { value: 'slang', label: 'Slang' },
+const kinds: { value: LibraryCategory | 'all'; label: string }[] = [
+  { value: 'all', label: 'All' }, { value: 'expression', label: 'Lessons' }, { value: 'dialogue', label: 'Dialogues' },
+  { value: 'scenario', label: 'Scenarios' }, { value: 'slang', label: 'Slang' },
   { value: 'idiom', label: 'Idioms' }, { value: 'phrasal_verb', label: 'Phrasal verbs' },
   { value: 'casual_expression', label: 'Casual' },
   { value: 'everyday_conversation', label: 'Everyday' },
@@ -19,28 +20,22 @@ const kinds: { value: ExpressionKind | 'all'; label: string }[] = [
 export function RealEnglishScreen() {
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState('');
-  const [kind, setKind] = useState<ExpressionKind | 'all'>('all');
+  const [kind, setKind] = useState<LibraryCategory | 'all'>('all');
+  const [cefr, setCefr] = useState<CefrLevel | 'all'>('all');
+  const [topic, setTopic] = useState('');
+  const [topics, setTopics] = useState<TopicOption[]>([]);
   const [savedOnly, setSavedOnly] = useState(false);
-  const [items, setItems] = useState<Expression[]>([]);
   const [selected, setSelected] = useState<Expression | null>(null);
   const [quiz, setQuiz] = useState<ContextQuiz | null>(null);
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
-  const [listError, setListError] = useState('');
   const [detailError, setDetailError] = useState('');
   const pendingRequestId = useRef<string | null>(null);
-  const load = useCallback(async () => {
-    setLoading(true);
-    try { setItems(await searchExpressions(submitted, kind === 'all' ? undefined : kind, savedOnly)); setListError(''); }
-    catch (cause) { setListError(cause instanceof Error ? cause.message : 'Could not load expressions.'); }
-    finally { setLoading(false); }
-  }, [submitted, kind, savedOnly]);
-  useFocusEffect(useCallback(() => { void load(); }, [load]));
-  async function open(item: Expression) {
-    setSelected(item); setQuiz(null); setResult(null); setDetailError('');
+  useEffect(() => { void listRealEnglishTopics().then(setTopics).catch(() => setTopics([])); }, []);
+  async function open(id: string) {
+    setQuiz(null); setResult(null); setDetailError('');
     pendingRequestId.current = null;
-    try { setQuiz(await getContextQuiz(item.id)); }
+    try { const item = await getExpression(id); setSelected(item); setQuiz(await getContextQuiz(item.id)); }
     catch (cause) { setDetailError(cause instanceof Error ? cause.message : 'Could not load the context quiz.'); }
   }
   async function toggleSave() {
@@ -48,7 +43,7 @@ export function RealEnglishScreen() {
     setBusy(true);
     try {
       const updated = selected.saved ? await unsaveExpression(selected.id) : await saveExpression(selected.id);
-      setSelected(updated); setItems((old) => old.map((item) => item.id === updated.id ? updated : item).filter((item) => !savedOnly || item.saved));
+      setSelected(updated);
       setDetailError('');
     } catch (cause) { setDetailError(cause instanceof Error ? cause.message : 'Could not save this expression.'); }
     finally { setBusy(false); }
@@ -76,11 +71,14 @@ export function RealEnglishScreen() {
   return <Page eyebrow="REAL ENGLISH" title="English in context" description="Explore original examples and dialogues. Save expressions and practice a context question.">
     <AppInput label="Search lessons, expressions or Vietnamese" value={query} onChangeText={setQuery} placeholder="Try baking, bột mì, or no biggie" onSubmitEditing={() => setSubmitted(query.trim())} />
     <AppButton label="Search" onPress={() => setSubmitted(query.trim())} />
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{(['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const).map((level) =>
+      <AppButton key={level} label={level === 'all' ? 'All levels' : level} size="medium" variant={cefr === level ? 'primary' : 'secondary'} onPress={() => setCefr(level)} />)}</View>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}><AppButton label="All topics" size="medium" variant={!topic ? 'primary' : 'secondary'} onPress={() => setTopic('')} />
+      {topics.map((entry) => <AppButton key={entry.slug} label={entry.title} size="medium" variant={topic === entry.slug ? 'primary' : 'secondary'} onPress={() => setTopic(entry.slug)} />)}</View>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{kinds.map((entry) => <AppButton key={entry.value} label={entry.label} size="medium" variant={kind === entry.value ? 'primary' : 'secondary'} onPress={() => setKind(entry.value)} />)}</View>
     <AppButton label={savedOnly ? 'Show all readings' : 'Show saved readings'} variant="secondary" onPress={() => setSavedOnly(!savedOnly)} />
-    <RealEnglishLibrary expressions={items} expressionsLoading={loading} expressionError={listError}
-      query={submitted} kind={kind} savedOnly={savedOnly} onOpenExpression={(item) => { void open(item); }}
-      retryExpressions={() => { void load(); }} />
+    <RealEnglishLibraryV2 key={`${submitted}|${cefr}|${topic}|${kind}|${savedOnly}`} query={submitted} cefr={cefr} topic={topic} category={kind} savedOnly={savedOnly}
+      onOpenExpression={(id) => { void open(id); }} />
     <AppModal visible={Boolean(selected)} title={selected?.expression ?? 'Expression'} onClose={closeDetails}>
     {selected ? <View style={{ gap: 12 }}>
       <AppText variant="caption" tone="primary">{selected.kind.replaceAll('_', ' ').toUpperCase()} · {selected.formality}</AppText>
@@ -94,7 +92,7 @@ export function RealEnglishScreen() {
       <AppButton label={selected.saved ? 'Remove from saved' : 'Save expression'} variant="secondary" disabled={busy} onPress={() => { void toggleSave(); }} />
       <AppButton label="Listen with device voice" variant="secondary" onPress={() => speak(selected.expression)} />
       <AppText tone="muted">Speaking practice: listen, say the expression aloud, then repeat it in your own sentence. Device speech is a model, not a pronunciation score.</AppText>
-      {Boolean(detailError) ? <ErrorState message={detailError} retry={() => { if (quiz) setDetailError(''); else void open(selected); }} /> : null}
+      {Boolean(detailError) ? <ErrorState message={detailError} retry={() => { if (quiz) setDetailError(''); else void open(selected.id); }} /> : null}
       {quiz ? <View style={{ gap: 8 }}><AppText variant="heading">Context quiz</AppText><AppText>{quiz.prompt}</AppText>{quiz.options.map((option) => <AppButton key={option.id} label={option.text} variant={result?.correct_option === option.id ? 'primary' : 'secondary'} disabled={busy || Boolean(result)} onPress={() => { void answer(option.id); }} />)}{result ? <AppCard tone={result.is_correct ? 'reward' : 'surface'} style={{ gap: 6 }}><AppText variant="heading">{result.is_correct ? 'Correct!' : 'Good try'}</AppText><AppText>{result.explanation}</AppText><AppButton label="Try again" variant="secondary" onPress={() => setResult(null)} /></AppCard> : null}</View> : !detailError ? <LoadingSkeleton lines={2} /> : null}
     </View> : null}
     </AppModal>

@@ -54,4 +54,32 @@ describe('dictionary Supabase repository', () => {
     state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, from: () => words };
     await expect(searchDictionary('')).rejects.toMatchObject({ status: 0 });
   });
+
+  it('imports only a missing exact English word and returns its persistent UUID', async () => {
+    const words = query([]);
+    const imported = {
+      id: '11111111-1111-4111-8111-111111111111', term: 'license', definition: 'An official permit.',
+      translation: 'giấy phép', ipa: null, part_of_speech: 'noun', example: null, audio_url: null,
+      source_name: 'Free Dictionary API', license_id: 'CC BY-SA 3.0',
+    };
+    const invoke = vi.fn().mockResolvedValue({ data: { word: imported }, error: null });
+    state.client = {
+      auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) },
+      from: vi.fn().mockReturnValue(words), functions: { invoke },
+    };
+    await expect(searchDictionary('license')).resolves.toEqual([imported]);
+    expect(invoke).toHaveBeenCalledWith('dictionary-import', { body: { word: 'license' } });
+  });
+
+  it('does not call the provider when Supabase already has the exact word', async () => {
+    const existing = { id: 'word-1', term: 'license', definition: 'curated' };
+    const words = query([existing]);
+    const invoke = vi.fn();
+    state.client = {
+      auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) },
+      from: vi.fn().mockReturnValue(words), functions: { invoke },
+    };
+    await expect(searchDictionary('license')).resolves.toEqual([existing]);
+    expect(invoke).not.toHaveBeenCalled();
+  });
 });

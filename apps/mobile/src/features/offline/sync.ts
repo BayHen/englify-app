@@ -2,6 +2,7 @@ import { ApiError } from '@/lib/api';
 import { getSupabase } from '@/auth/supabase';
 import { saveWord } from '@/features/dictionary/api';
 import { syncLesson } from '@/features/learning/api';
+import { reviewVocabulary } from '@/features/vocabulary-review/api';
 import { listEvents, updateEvent } from './storage';
 import { retryDelay, type OutboxEvent } from './types';
 
@@ -22,8 +23,11 @@ export async function syncOutbox(userId: string): Promise<{ synced: number; pend
         if (event.kind === 'lesson_submission') {
           const payload = event.payload as { lessonId: string; contentVersion: string; answers: Record<string, string | Record<string, string>> };
           result = await syncLesson(payload.lessonId, event.id, payload.contentVersion, payload.answers, accessToken);
-        } else {
+        } else if (event.kind === 'save_word') {
           await saveWord((event.payload as { wordId: string }).wordId, accessToken);
+        } else {
+          const payload = event.payload as { savedVocabularyId: string; rating: 1 | 2 | 3 | 4 };
+          result = await reviewVocabulary(payload.savedVocabularyId, payload.rating, event.id);
         }
         await updateEvent({ ...event, status: 'synced', result, message: null }); synced += 1;
       } catch (cause) {
