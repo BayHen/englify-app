@@ -2,6 +2,7 @@ import { getSupabase } from '@/auth/supabase';
 import { ApiError } from '@/lib/api';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
 import type { DictionaryWord, SavedWord } from './types';
+import { englishLookupWord, lookupEnglishWord } from '@/features/translation/dictionary';
 
 const WORD_COLUMNS = 'id,term,definition,translation,ipa,part_of_speech,example,audio_url,source_name,license_id';
 
@@ -27,7 +28,33 @@ export async function searchDictionary(query: string): Promise<DictionaryWord[]>
   ]);
   const words = new Map<string, DictionaryWord>();
   for (const word of [...dataOrThrow(byTerm), ...dataOrThrow(byTranslation)] as DictionaryWord[]) words.set(word.id, word);
+  // The public provider supports exact English words, not Vietnamese or autocomplete.
+  // Keep curated translations and existing records; only add an external result if absent.
+  if (englishLookupWord(term)) {
+    try {
+      const details = await lookupEnglishWord(term);
+      if (details?.senses.length && ![...words.values()].some((word) => word.term.toLowerCase() === term)) {
+        words.set(`external:${term}`, {
+          id: `external:${term}`, term: details.word, definition: details.senses[0].definition,
+          translation: null, ipa: details.ipa, part_of_speech: details.senses[0].partOfSpeech || null,
+          example: details.senses.find((sense) => sense.example)?.example ?? null,
+          audio_url: details.audioUrl, source_name: 'Free Dictionary API',
+          license_id: details.licenseName ?? 'See source license',
+        });
+      }
+    } catch {
+      // Provider outages must not hide successfully retrieved Supabase entries.
+    }
+  }
   return [...words.values()].sort((a, b) => a.term.localeCompare(b.term)).slice(0, 50);
+}
+
+async function publishExternalWord(term: string): Promise<string> {
+  const { data, error } = await getSupabase().functions.invoke<{ id: string; error?: string }>('dictionary-import', {
+    body: { word: term },
+  });
+  if (error || !data?.id) throw new ApiError(503, data?.error ?? 'Could not save this API word. Try again later.');
+  return data.id;
 }
 export async function listSavedWords(): Promise<SavedWord[]> {
   const userId = await currentUserId();
@@ -44,6 +71,7 @@ export async function listSavedWords(): Promise<SavedWord[]> {
 }
 export async function saveWord(id: string, _accessToken?: string): Promise<SavedWord> {
   const userId = await currentUserId();
+  if (id.startsWith('external:')) id = await publishExternalWord(id.slice('external:'.length));
   const word = dataOrThrow<DictionaryWord>(await publishedWords().eq('id', id).maybeSingle());
   const inserted = await getSupabase().from('saved_vocabulary')
     .upsert({ user_id: userId, entry_id: id, note: '' }, { onConflict: 'user_id,entry_id', ignoreDuplicates: true });

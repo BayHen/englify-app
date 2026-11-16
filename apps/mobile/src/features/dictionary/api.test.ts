@@ -3,6 +3,12 @@ import { saveWord, searchDictionary } from './api';
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => state.client }));
+vi.mock('@/features/translation/dictionary', () => ({
+  englishLookupWord: (value: string) => /^[a-z]+$/i.test(value) ? value : null,
+  lookupEnglishWord: vi.fn(async () => ({ word: 'curious', ipa: '/ˈkjʊriəs/', audioUrl: null,
+    senses: [{ partOfSpeech: 'adjective', definition: 'Eager to learn.', example: 'A curious student.' }],
+    licenseName: 'CC BY-SA 3.0', sourceUrl: null })),
+}));
 
 function query<T>(data: T, error: { message: string } | null = null, status = 200) {
   const builder = {
@@ -53,5 +59,27 @@ describe('dictionary Supabase repository', () => {
     const words = query(null, { message: 'fetch failed' }, 0);
     state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, from: () => words };
     await expect(searchDictionary('')).rejects.toMatchObject({ status: 0 });
+  });
+
+  it('adds a free API definition without replacing existing published words', async () => {
+    const words = query([]);
+    state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, from: () => words };
+    const result = await searchDictionary('curious');
+    expect(result).toMatchObject([{ id: 'external:curious', term: 'curious', definition: 'Eager to learn.',
+      source_name: 'Free Dictionary API', translation: null }]);
+  });
+
+  it('resolves external words to a database ID before saving', async () => {
+    const catalog = query({ id: 'persisted-1', term: 'curious' });
+    const insert = query(null);
+    const saved = query({ id: 'saved-1', created_at: '2026-11-16T00:00:00Z', next_review_at: null });
+    const from = vi.fn().mockReturnValueOnce(catalog).mockReturnValueOnce(insert).mockReturnValueOnce(saved);
+    const invoke = vi.fn().mockResolvedValue({ data: { id: 'persisted-1' }, error: null });
+    state.client = { auth: { getSession: async () => ({ data: { session: { user: { id: 'user-1' } } }, error: null }) }, from,
+      functions: { invoke } };
+    const result = await saveWord('external:curious');
+    expect(result.word.id).toBe('persisted-1');
+    expect(invoke).toHaveBeenCalledWith('dictionary-import', { body: { word: 'curious' } });
+    expect(insert.upsert).toHaveBeenCalledWith(expect.objectContaining({ entry_id: 'persisted-1' }), expect.anything());
   });
 });

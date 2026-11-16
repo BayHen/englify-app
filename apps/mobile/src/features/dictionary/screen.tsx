@@ -128,13 +128,14 @@ export function DictionaryScreen() {
     try {
       const alreadySaved = saved.some((item) => item.word.id === word.id);
       if (offline && alreadySaved) { setError('Removing saved words requires a connection.'); return; }
-      if (offline && !alreadySaved) { await queueOfflineSave(word); return; }
+      if (offline && !alreadySaved && !word.id.startsWith('external:')) { await queueOfflineSave(word); return; }
+      if (offline && word.id.startsWith('external:')) { setError('Connect to the internet to save this API word.'); return; }
       if (alreadySaved) await removeSavedWord(word.id);
       else await saveWord(word.id);
       await loadSaved(userId);
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
-      if (cause instanceof ApiError && cause.status === 0 && !saved.some((item) => item.word.id === word.id)) { setOffline(true); await queueOfflineSave(word); return; }
+      if (cause instanceof ApiError && cause.status === 0 && !word.id.startsWith('external:') && !saved.some((item) => item.word.id === word.id)) { setOffline(true); await queueOfflineSave(word); return; }
       setError(cause instanceof Error ? cause.message : 'Could not change saved words');
     } finally { setBusyId(null); }
   }
@@ -159,7 +160,7 @@ export function DictionaryScreen() {
   const card = saved[Math.min(flashcardIndex, Math.max(saved.length - 1, 0))];
   const pagedResults = paginateDictionary(results, searchPage);
   const pagedSaved = paginateDictionary(saved, savedPage);
-  return <Page eyebrow="WORD LAB" title="Dictionary" description="Search real English–Vietnamese seed entries, save words, and review them offline.">
+  return <Page eyebrow="WORD LAB" title="Dictionary" description="Search English definitions from Free Dictionary API and curated English–Vietnamese entries.">
     <SyncStatus />
     <NavLink href={'/vocabulary-review' as Href} label="Review due vocabulary" />
     {offline && <AppCard tone="reward"><AppText variant="label">Offline cache</AppText><AppText tone="muted">Showing cached words. New saves wait for synchronization; removing words needs a connection.</AppText></AppCard>}
