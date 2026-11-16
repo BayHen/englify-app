@@ -8,6 +8,11 @@ type Preferences = { learning_goal: string; initial_proficiency: string; daily_g
 type Lesson = { id: string; title: string; unit_id: string; position: number };
 type Unit = { id: string; course_id: string; position: number };
 type Course = { id: string; level: number };
+type PlanTaskRow = {
+  id: string; kind: string; title: string; scheduled_on: string; original_date: string;
+  duration_minutes: number; target_count: number | null; topic: string | null;
+  lesson_id: string | null; status: string; position: number;
+};
 class PlanError extends Error { constructor(public status: number, message: string) { super(message); } }
 const allowedOrigin = (origin?: string) => !origin || (Deno.env.get('EDGE_ALLOWED_ORIGINS') ?? '').split(',').map((x) => x.trim()).includes(origin);
 const json = (value: unknown, status = 200, origin?: string) => new Response(JSON.stringify(value), { status, headers: {
@@ -127,7 +132,7 @@ Deno.serve(async (request) => {
     const pref = await preferences(); const plan = await activePlan();
     if (!plan) throw new PlanError(404, 'Learning plan not found.');
     const [tasks, current] = await Promise.all([
-      select<Row>('learning_plan_tasks', { select: 'id,kind,title,scheduled_on,original_date,duration_minutes,target_count,topic,lesson_id,status,position',
+      select<PlanTaskRow>('learning_plan_tasks', { select: 'id,kind,title,scheduled_on,original_date,duration_minutes,target_count,topic,lesson_id,status,position',
         user_id: `eq.${userId}`, plan_id: `eq.${plan.id}`, order: 'scheduled_on.asc,position.asc' }), catalog(),
     ]);
     const mapped = tasks.map((item) => {

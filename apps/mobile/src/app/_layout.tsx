@@ -11,6 +11,7 @@ import { Page } from '@/components/page';
 import { useAppStore } from '@/state/app-store';
 import { AppButton, ErrorState, LoadingSkeleton } from '@/ui';
 import { SyncEngine } from '@/features/offline/sync-engine';
+import { I18nProvider, useI18n } from '@/i18n';
 
 const noSubscription = () => () => {};
 const clientReady = () => true;
@@ -55,6 +56,16 @@ function AppNavigator() {
   </Stack>;
 }
 
+function LocalizedApplication({ dark, queryClient }: { dark: boolean; queryClient: QueryClient }) {
+  const { ready } = useI18n();
+  if (!ready) return null;
+  return <QueryClientProvider client={queryClient}>
+    <ThemeProvider value={dark ? DarkTheme : DefaultTheme}>
+      <AuthProvider><SyncEngine /><AppNavigator /></AuthProvider>
+    </ThemeProvider>
+  </QueryClientProvider>;
+}
+
 export default function RootLayout() {
   // The web theme and stored settings are client state; keep SSR and the hydration pass identical.
   const hydrated = useSyncExternalStore(noSubscription, clientReady, serverReady);
@@ -71,14 +82,10 @@ export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { retry: 1 } } }));
   if ((Platform.OS === 'web' && !hydrated) || (!fontsReady && !fontError)) return null;
   return (
-    <AppErrorBoundary>
-      <SafeAreaProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={dark ? DarkTheme : DefaultTheme}>
-            <AuthProvider><SyncEngine /><AppNavigator /></AuthProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </SafeAreaProvider>
-    </AppErrorBoundary>
+    <SafeAreaProvider>
+      <I18nProvider>
+        <AppErrorBoundary><LocalizedApplication dark={dark} queryClient={queryClient} /></AppErrorBoundary>
+      </I18nProvider>
+    </SafeAreaProvider>
   );
 }

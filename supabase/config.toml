@@ -433,6 +433,9 @@ enabled = true
 [functions.translate]
 verify_jwt = true
 
+[functions.dictionary-import]
+verify_jwt = true
+
 [functions.study-plan]
 verify_jwt = true
 

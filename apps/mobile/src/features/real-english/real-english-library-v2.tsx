@@ -10,12 +10,14 @@ import {
   type LessonDetail, type LibraryCategory, type LibraryItem, type LibraryPage, type ReadingProgress,
 } from './api';
 import { normalizePublishedLessonRelations } from './lesson-relations';
+import { useI18n } from '@/i18n/context';
 
 type Props = { query: string; cefr: CefrLevel | 'all'; topic: string; category: LibraryCategory | 'all'; savedOnly: boolean; onOpenExpression: (id: string) => void };
 const emptyPage: LibraryPage = { items: [], total: 0, page: 1, page_size: 5, page_count: 1 };
 const progressLabels: Record<string, string> = { reading: 'Reading', read: 'Read', practiced: 'Practiced', passed: 'Passed', mastered: 'Mastered' };
 
 export function RealEnglishLibraryV2({ query, cefr, topic, category, savedOnly, onOpenExpression }: Props) {
+  const { language, l } = useI18n();
   const [result, setResult] = useState<LibraryPage>(emptyPage);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -88,7 +90,7 @@ export function RealEnglishLibraryV2({ query, cefr, topic, category, savedOnly, 
 
   return <View style={{ gap: 12 }}>
     <View style={{ gap: 4 }}><AppText variant="heading">Reading library</AppText>
-      <AppText tone="muted">Published expressions and lessons · {result.total} result{result.total === 1 ? '' : 's'}</AppText></View>
+      <AppText tone="muted">{language === 'vi' ? `${result.total} mẫu câu và bài học đã xuất bản` : `Published expressions and lessons · ${result.total} result${result.total === 1 ? '' : 's'}`}</AppText></View>
     {loading ? <LoadingSkeleton lines={5} /> : error ? <ErrorState message={error} retry={() => { void load(); }} />
       : result.items.length === 0 ? <EmptyState title="No reading found" message="Try another keyword, level, topic, or category." />
         : result.items.map((item) => <AppCard key={`${item.item_type}-${item.id}`}
@@ -98,7 +100,7 @@ export function RealEnglishLibraryV2({ query, cefr, topic, category, savedOnly, 
           <AppText variant="heading">{item.title}{item.saved ? ' ★' : ''}</AppText><AppText tone="muted">{item.subtitle}</AppText>
           {item.progress_status ? <AppText variant="caption" tone="success">{progressLabels[item.progress_status]}</AppText> : null}
         </AppCard>)}
-    {!loading && !error && result.total > 0 ? <View style={{ gap: 8 }}><AppText variant="caption" tone="muted" style={{ textAlign: 'center' }}>Page {result.page} of {result.page_count}</AppText>
+    {!loading && !error && result.total > 0 ? <View style={{ gap: 8 }}><AppText variant="caption" tone="muted" style={{ textAlign: 'center' }}>{l(`Page ${result.page} of ${result.page_count}`)}</AppText>
       <View style={{ flexDirection: 'row', gap: 8 }}><AppButton label="Previous" variant="secondary" disabled={result.page <= 1} style={{ flex: 1 }} onPress={() => setPage(Math.max(1, result.page - 1))} />
         <AppButton label="Next" variant="secondary" disabled={result.page >= result.page_count} style={{ flex: 1 }} onPress={() => setPage(result.page + 1)} /></View></View> : null}
 

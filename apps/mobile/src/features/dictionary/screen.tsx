@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import type { Href } from 'expo-router';
-import * as Speech from 'expo-speech';
 import { Page, NavLink } from '@/components/page';
 import { useAuth } from '@/auth/provider';
 import { ApiError } from '@/lib/api';
@@ -13,6 +12,8 @@ import * as Crypto from 'expo-crypto';
 import { listEvents, queueEvent } from '@/features/offline/storage';
 import { SyncStatus } from '@/features/offline/sync-status';
 import { paginateDictionary } from './pagination';
+import { usePronunciation } from '@/features/translation/use-pronunciation';
+import { useI18n } from '@/i18n/context';
 
 type Tab = 'search' | 'saved' | 'recent' | 'flashcards';
 
@@ -20,13 +21,13 @@ function WordCard({ word, saved, onSave, onSpeak }: {
   word: DictionaryWord; saved: boolean; onSave: () => void; onSpeak: () => void;
 }) {
   return <AppCard style={{ gap: 8 }}>
-    <AppText variant="heading">{word.term} {word.ipa && <AppText variant="caption" tone="muted">{word.ipa}</AppText>}</AppText>
+    <AppText variant="heading">{word.term} {word.ipa ? <AppText variant="caption" tone="muted">{word.ipa}</AppText> : null}</AppText>
     <AppText variant="label" tone="primary">{word.part_of_speech ?? 'word'} · {word.translation ?? 'Meaning unavailable'}</AppText>
     <AppText>{word.definition}</AppText>
     {!!word.example && <AppText tone="muted">“{word.example}”</AppText>}
-    <AppText variant="caption" tone="muted">{word.source_name} · {word.license_id}</AppText>
     <View style={{ gap: 8 }}>
-      <AppButton label={`Pronounce ${word.term}`} variant="secondary" onPress={onSpeak} accessibilityHint="Uses the device English text-to-speech voice" />
+      <AppButton label={`Pronounce ${word.term}`} variant="secondary" onPress={onSpeak}
+        accessibilityHint={word.audio_url ? 'Plays dictionary audio with the device English voice as fallback' : 'Uses the device English voice'} />
       <AppButton label={saved ? 'Remove from saved words' : 'Save word'} variant={saved ? 'ghost' : 'primary'} onPress={onSave} />
     </View>
   </AppCard>;
@@ -35,11 +36,12 @@ function WordCard({ word, saved, onSave, onSpeak }: {
 function DictionaryPagination({ page, totalPages, onChange }: {
   page: number; totalPages: number; onChange: (page: number) => void;
 }) {
+  const { l } = useI18n();
   if (totalPages <= 1) return null;
   return <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
     <AppButton label="Previous" variant="secondary" disabled={page <= 1}
       style={{ flex: 1 }} onPress={() => onChange(page - 1)} />
-    <AppText variant="caption" tone="muted" accessibilityRole="text">Page {page} of {totalPages}</AppText>
+    <AppText variant="caption" tone="muted" accessibilityRole="text">{l(`Page ${page} of ${totalPages}`)}</AppText>
     <AppButton label="Next" variant="secondary" disabled={page >= totalPages}
       style={{ flex: 1 }} onPress={() => onChange(page + 1)} />
   </View>;
@@ -47,6 +49,7 @@ function DictionaryPagination({ page, totalPages, onChange }: {
 
 export function DictionaryScreen() {
   const { profile, signOut } = useAuth();
+  const pronunciation = usePronunciation();
   const userId = profile?.id ?? '';
   const [tab, setTab] = useState<Tab>('search');
   const [query, setQuery] = useState('');
@@ -115,8 +118,11 @@ export function DictionaryScreen() {
         setResults(remote); setOffline(false); await cacheWords(remote);
       } catch (cause) {
         if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
-        setOffline(true);
-        if (!cached.length) setError('Could not reach the dictionary. This word has not been cached yet.');
+        const networkUnavailable = cause instanceof ApiError ? cause.status === 0 : true;
+        setOffline(networkUnavailable);
+        if (!cached.length) setError(networkUnavailable
+          ? 'Could not reach the dictionary. This word has not been cached yet.'
+          : cause instanceof Error ? cause.message : 'Dictionary lookup failed.');
       }
     } catch (cause) { setError(cause instanceof Error ? cause.message : 'Search failed'); }
     finally { setLoading(false); setTab('search'); }
@@ -128,14 +134,13 @@ export function DictionaryScreen() {
     try {
       const alreadySaved = saved.some((item) => item.word.id === word.id);
       if (offline && alreadySaved) { setError('Removing saved words requires a connection.'); return; }
-      if (offline && !alreadySaved && !word.id.startsWith('external:')) { await queueOfflineSave(word); return; }
-      if (offline && word.id.startsWith('external:')) { setError('Connect to the internet to save this API word.'); return; }
+      if (offline && !alreadySaved) { await queueOfflineSave(word); return; }
       if (alreadySaved) await removeSavedWord(word.id);
       else await saveWord(word.id);
       await loadSaved(userId);
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 401) { void signOut(); return; }
-      if (cause instanceof ApiError && cause.status === 0 && !word.id.startsWith('external:') && !saved.some((item) => item.word.id === word.id)) { setOffline(true); await queueOfflineSave(word); return; }
+      if (cause instanceof ApiError && cause.status === 0 && !saved.some((item) => item.word.id === word.id)) { setOffline(true); await queueOfflineSave(word); return; }
       setError(cause instanceof Error ? cause.message : 'Could not change saved words');
     } finally { setBusyId(null); }
   }
@@ -150,17 +155,13 @@ export function DictionaryScreen() {
 
   function speak(word: DictionaryWord) {
     setError(null);
-    Speech.stop();
-    Speech.speak(word.term, {
-      language: 'en-US', rate: 0.9,
-      onError: () => setError('Device pronunciation is unavailable right now.'),
-    });
+    void pronunciation.play(word.term, word.audio_url);
   }
 
   const card = saved[Math.min(flashcardIndex, Math.max(saved.length - 1, 0))];
   const pagedResults = paginateDictionary(results, searchPage);
   const pagedSaved = paginateDictionary(saved, savedPage);
-  return <Page eyebrow="WORD LAB" title="Dictionary" description="Search English definitions from Free Dictionary API and curated English–Vietnamese entries.">
+  return <Page eyebrow="WORD LAB" title="Dictionary" description="Search real English–Vietnamese seed entries, save words, and review them offline.">
     <SyncStatus />
     <NavLink href={'/vocabulary-review' as Href} label="Review due vocabulary" />
     {offline && <AppCard tone="reward"><AppText variant="label">Offline cache</AppText><AppText tone="muted">Showing cached words. New saves wait for synchronization; removing words needs a connection.</AppText></AppCard>}

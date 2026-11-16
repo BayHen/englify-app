@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Text, type TextProps, type TextStyle } from 'react-native';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
+import { useI18n } from '@/i18n/context';
 
 export type TextVariant = 'display' | 'title' | 'heading' | 'body' | 'label' | 'caption';
 export type TextTone = 'default' | 'muted' | 'primary' | 'reward' | 'success' | 'error';
@@ -24,7 +25,9 @@ const typography: Record<TextVariant, TextStyle> = {
 
 export function AppText({ children, variant = 'body', tone = 'default', weight, style, ...props }: AppTextProps) {
   const palette = useAppPalette();
+  const { l } = useI18n();
   const color = tone === 'default' ? palette.text : tone === 'muted' ? palette.muted : palette[tone];
   const fontFamily = weight === 'regular' ? designTokens.typography.family.regular : weight === 'medium' || weight === 'semibold' ? designTokens.typography.family.semibold : weight === 'bold' ? designTokens.typography.family.bold : weight === 'heavy' ? designTokens.typography.family.heavy : undefined;
-  return <Text allowFontScaling {...props} style={[typography[variant], { color }, fontFamily && { fontFamily }, style]}>{children}</Text>;
+  const localizedChildren = typeof children === 'string' ? l(children) : children;
+  return <Text allowFontScaling {...props} style={[typography[variant], { color }, fontFamily && { fontFamily }, style]}>{localizedChildren}</Text>;
 }

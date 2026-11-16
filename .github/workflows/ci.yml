@@ -28,7 +28,9 @@ jobs:
           python-version: '3.13'
       - run: pip install -e './backend[dev]'
       - run: ruff check backend scripts
-      - run: pytest backend/tests scripts/test_import_educational_content.py
+      # `python -m` keeps the repository root on sys.path so active tooling under
+      # scripts/ can be imported consistently on GitHub-hosted runners.
+      - run: python -m pytest backend/tests scripts/test_import_educational_content.py
   supabase:
     runs-on: ubuntu-latest
     steps:
@@ -52,6 +54,7 @@ jobs:
         run: >-
           deno check
           supabase/functions/real-english-generate/index.ts
+          supabase/functions/dictionary-import/index.ts
           supabase/functions/study-plan/index.ts
           supabase/functions/translate/index.ts
           supabase/functions/writing-grammar/index.ts

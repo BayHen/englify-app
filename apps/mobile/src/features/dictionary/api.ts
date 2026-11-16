@@ -2,8 +2,6 @@ import { getSupabase } from '@/auth/supabase';
 import { ApiError } from '@/lib/api';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
 import type { DictionaryWord, SavedWord } from './types';
-import { englishLookupWord, lookupEnglishWord } from '@/features/translation/dictionary';
-import { translateText } from '@/features/translation/api';
 
 const WORD_COLUMNS = 'id,term,definition,translation,ipa,part_of_speech,example,audio_url,source_name,license_id';
 
@@ -14,6 +12,44 @@ function publishedWords() {
 
 function escapeLike(value: string): string {
   return value.replaceAll('\\', '\\\\').replaceAll('%', '\\%').replaceAll('_', '\\_');
+}
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
+
+function exactEnglishWord(value: string): string | null {
+  return /^[a-z]+(?:['’\-][a-z]+)*$/iu.test(value) ? value.replaceAll('’', "'") : null;
+}
+
+function isDictionaryWord(value: unknown): value is DictionaryWord {
+  if (!value || typeof value !== 'object') return false;
+  const word = value as Record<string, unknown>;
+  return UUID_PATTERN.test(String(word.id ?? ''))
+    && typeof word.term === 'string' && !!word.term.trim()
+    && typeof word.definition === 'string' && !!word.definition.trim()
+    && (word.translation === null || typeof word.translation === 'string')
+    && (word.ipa === null || typeof word.ipa === 'string')
+    && (word.part_of_speech === null || typeof word.part_of_speech === 'string')
+    && (word.example === null || typeof word.example === 'string')
+    && (word.audio_url === null || typeof word.audio_url === 'string')
+    && typeof word.source_name === 'string'
+    && typeof word.license_id === 'string';
+}
+
+async function importExactWord(word: string): Promise<DictionaryWord | null> {
+  const result = await getSupabase().functions.invoke('dictionary-import', { body: { word } });
+  if (result.error) {
+    const context = (result.error as { context?: { status?: number } }).context;
+    const status = context?.status ?? 0;
+    if (status === 404) return null;
+    throw new ApiError(status, status === 429
+      ? 'Dictionary provider limit reached. Try again later.'
+      : status === 401 ? 'Session expired. Please sign in again.'
+        : status === 504 ? 'Dictionary lookup timed out. Try again.'
+          : 'Dictionary lookup is unavailable. Try again later.');
+  }
+  const payload = result.data as { word?: unknown } | null;
+  if (!isDictionaryWord(payload?.word)) throw new ApiError(502, 'Dictionary returned invalid data.');
+  return payload.word;
 }
 
 export async function searchDictionary(query: string): Promise<DictionaryWord[]> {
@@ -29,42 +65,13 @@ export async function searchDictionary(query: string): Promise<DictionaryWord[]>
   ]);
   const words = new Map<string, DictionaryWord>();
   for (const word of [...dataOrThrow(byTerm), ...dataOrThrow(byTranslation)] as DictionaryWord[]) words.set(word.id, word);
-  // The public provider supports exact English words, not Vietnamese or autocomplete.
-  // Keep curated translations and existing records; only add an external result if absent.
-  if (englishLookupWord(term)) {
-    try {
-      const details = await lookupEnglishWord(term);
-      if (details?.senses.length && ![...words.values()].some((word) => word.term.toLowerCase() === term)) {
-        // Translation is optional: a quota or network error must not remove the English definition.
-        let translation: string | null = null;
-        try {
-          const translated = await translateText({ source: 'en', target: 'vi', text: term });
-          if (translated.status === 'translated' && translated.translated_text
-            && translated.translated_text.toLocaleLowerCase() !== term) {
-            translation = translated.translated_text;
-          }
-        } catch { /* Keep the original English entry available. */ }
-        words.set(`external:${term}`, {
-          id: `external:${term}`, term: details.word, definition: details.senses[0].definition,
-          translation, ipa: details.ipa, part_of_speech: details.senses[0].partOfSpeech || null,
-          example: details.senses.find((sense) => sense.example)?.example ?? null,
-          audio_url: details.audioUrl, source_name: 'Free Dictionary API',
-          license_id: details.licenseName ?? 'See source license',
-        });
-      }
-    } catch {
-      // Provider outages must not hide successfully retrieved Supabase entries.
-    }
+  const exact = exactEnglishWord(term);
+  const hasExact = exact !== null && [...words.values()].some((word) => word.term.toLocaleLowerCase() === exact);
+  if (exact && !hasExact) {
+    const imported = await importExactWord(exact);
+    if (imported) words.set(imported.id, imported);
   }
   return [...words.values()].sort((a, b) => a.term.localeCompare(b.term)).slice(0, 50);
-}
-
-async function publishExternalWord(term: string): Promise<string> {
-  const { data, error } = await getSupabase().functions.invoke<{ id: string; error?: string }>('dictionary-import', {
-    body: { word: term },
-  });
-  if (error || !data?.id) throw new ApiError(503, data?.error ?? 'Could not save this API word. Try again later.');
-  return data.id;
 }
 export async function listSavedWords(): Promise<SavedWord[]> {
   const userId = await currentUserId();
@@ -81,7 +88,6 @@ export async function listSavedWords(): Promise<SavedWord[]> {
 }
 export async function saveWord(id: string, _accessToken?: string): Promise<SavedWord> {
   const userId = await currentUserId();
-  if (id.startsWith('external:')) id = await publishExternalWord(id.slice('external:'.length));
   const word = dataOrThrow<DictionaryWord>(await publishedWords().eq('id', id).maybeSingle());
   const inserted = await getSupabase().from('saved_vocabulary')
     .upsert({ user_id: userId, entry_id: id, note: '' }, { onConflict: 'user_id,entry_id', ignoreDuplicates: true });

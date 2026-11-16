@@ -9,11 +9,16 @@ import { useAppStore, type ThemeMode } from '@/state/app-store';
 import { AppButton, AppText, ErrorState, LoadingSkeleton } from '@/ui';
 import { getGamification, type GamificationOverview } from '@/features/gamification/api';
 import { ProfileAvatar } from '@/features/profile/profile-avatar';
+import { useI18n, type TranslationKey } from '@/i18n';
 
-const modes: { value: ThemeMode; label: string }[] = [{ value: 'system', label: 'System' }, { value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }];
+const goalKeys = {
+  conversation: 'preferences.goal.conversation', travel: 'preferences.goal.travel', work: 'preferences.goal.work',
+  exams: 'preferences.goal.exams', real_english: 'preferences.goal.realEnglish',
+} as const satisfies Record<string, TranslationKey>;
 
 export function ProfileScreen({ preview }: { preview?: GamificationOverview }) {
   const { profile, signOut } = useAuth();
+  const { t } = useI18n();
   const palette = useAppPalette();
   const mode = useAppStore((state) => state.themeMode);
   const setMode = useAppStore((state) => state.setThemeMode);
@@ -24,21 +29,23 @@ export function ProfileScreen({ preview }: { preview?: GamificationOverview }) {
     if (preview) return;
     setLoading(true); setError('');
     try { setOverview(await getGamification()); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : 'Could not load learning statistics.'); }
+    catch { setError(t('profile.error.statistics')); }
     finally { setLoading(false); }
-  }, [preview]);
+  }, [preview, t]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
-  const name = profile?.display_name || 'Explorer';
+  const name = profile?.display_name || t('profile.explorer');
   const preferences = profile?.preferences;
-  return <Page eyebrow="YOUR BASE CAMP" title="Your profile" description="Your goals and achievements, all in one place." compact>
-    {preview ? <AppText variant="caption" tone="muted">DESIGN PREVIEW · SAMPLE DATA · No progress is saved</AppText> : null}
-    <View style={{ backgroundColor: palette.primarySoft, borderRadius: 26, padding: 20, flexDirection: 'row', alignItems: 'center', gap: 15 }}><ProfileAvatar name={name} path={profile?.avatar_url} /><View style={{ flex: 1, gap: 3 }}><AppText variant="heading">{name}</AppText><AppText tone="muted">{profile?.username ? `@${profile.username}` : preferences?.learning_goal ? `Learning for ${preferences.learning_goal}` : 'Choose a learning goal'}</AppText></View></View>
+  const goalLabel = preferences?.learning_goal ? t(goalKeys[preferences.learning_goal]) : t('profile.notSelected');
+  const modes: { value: ThemeMode; label: string }[] = [{ value: 'system', label: t('profile.theme.system') }, { value: 'light', label: t('profile.theme.light') }, { value: 'dark', label: t('profile.theme.dark') }];
+  return <Page eyebrow={t('profile.eyebrow')} title={t('profile.title')} description={t('profile.description')} compact>
+    {preview ? <AppText variant="caption" tone="muted">{t('profile.preview')}</AppText> : null}
+    <View style={{ backgroundColor: palette.primarySoft, borderRadius: 26, padding: 20, flexDirection: 'row', alignItems: 'center', gap: 15 }}><ProfileAvatar name={name} path={profile?.avatar_url} /><View style={{ flex: 1, gap: 3 }}><AppText variant="heading">{name}</AppText><AppText tone="muted">{profile?.username ? `@${profile.username}` : preferences?.learning_goal ? `${t('profile.learningFor')} · ${goalLabel}` : t('profile.chooseGoal')}</AppText></View></View>
     {profile?.bio ? <AppText tone="muted">{profile.bio}</AppText> : null}
-    <AppButton label="Account settings" variant="secondary" onPress={() => router.push('/account-settings' as Href)} />
-    {loading ? <LoadingSkeleton lines={3} /> : overview ? <View style={{ flexDirection: 'row', gap: 10 }}><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.level}</AppText><AppText variant="caption" tone="muted">Level</AppText></View><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.total_xp}</AppText><AppText variant="caption" tone="muted">Total XP</AppText></View><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.statistics.completed_lessons}</AppText><AppText variant="caption" tone="muted">Lessons</AppText></View></View> : <ErrorState message={error} retry={() => { void load(); }} />}
-    <View style={{ gap: 10 }}><AppText variant="heading">Your learning setup</AppText><View style={{ backgroundColor: palette.surface, borderRadius: 20, padding: 16, gap: 8 }}><AppText>Goal · {preferences?.learning_goal ?? 'Not selected'}</AppText><AppText>Starting level · {preferences?.current_cefr ?? preferences?.initial_proficiency ?? 'Not selected'}</AppText><AppText>Daily time · {preferences?.daily_goal_minutes ?? '—'} minutes</AppText></View><AppButton label="View learning plan" variant="secondary" onPress={() => router.push('/learning-plan')} /></View>
-    <Pressable accessibilityRole="button" accessibilityLabel="View badges and rewards" onPress={() => router.push('/rewards')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 17, backgroundColor: palette.rewardSoft, borderRadius: 20, opacity: pressed ? 0.76 : 1 })}><SymbolView name={{ ios: 'star.fill', android: 'star', web: 'star' }} size={25} tintColor={palette.rewardOn} /><View style={{ flex: 1 }}><AppText variant="label">Badges and rewards</AppText><AppText variant="caption" tone="muted">See what you have earned</AppText></View><AppText>→</AppText></Pressable>
-    <View style={{ gap: 11 }}><AppText variant="heading">Appearance</AppText><View style={{ flexDirection: 'row', gap: 8 }}>{modes.map((item) => <Pressable key={item.value} accessibilityRole="button" accessibilityLabel={`${item.label} theme`} accessibilityState={{ selected: mode === item.value }} onPress={() => setMode(item.value)} style={({ pressed }) => ({ flex: 1, alignItems: 'center', paddingVertical: 12, backgroundColor: mode === item.value ? palette.primarySoft : palette.surface, borderRadius: 15, borderWidth: mode === item.value ? 2 : 0, borderColor: palette.primary, opacity: pressed ? 0.75 : 1 })}><AppText variant="label" tone={mode === item.value ? 'primary' : 'default'}>{item.label}</AppText></Pressable>)}</View></View>
-    <AppButton label="Sign out" variant="secondary" onPress={() => { void signOut().finally(() => router.replace('/login')); }} />
+    <AppButton label={t('profile.accountSettings')} variant="secondary" onPress={() => router.push('/account-settings' as Href)} />
+    {loading ? <LoadingSkeleton lines={3} /> : overview ? <View style={{ flexDirection: 'row', gap: 10 }}><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.level}</AppText><AppText variant="caption" tone="muted">{t('profile.level')}</AppText></View><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.total_xp}</AppText><AppText variant="caption" tone="muted">{t('profile.totalXp')}</AppText></View><View style={{ flex: 1, backgroundColor: palette.surface, borderRadius: 20, padding: 14 }}><AppText variant="heading" tone="primary">{overview.statistics.completed_lessons}</AppText><AppText variant="caption" tone="muted">{t('profile.lessons')}</AppText></View></View> : <ErrorState message={error} retry={() => { void load(); }} />}
+    <View style={{ gap: 10 }}><AppText variant="heading">{t('profile.learningSetup')}</AppText><View style={{ backgroundColor: palette.surface, borderRadius: 20, padding: 16, gap: 8 }}><AppText>{t('profile.goal')} · {goalLabel}</AppText><AppText>{t('profile.startingLevel')} · {preferences?.current_cefr ?? preferences?.initial_proficiency ?? t('profile.notSelected')}</AppText><AppText>{t('profile.dailyTime')} · {preferences?.daily_goal_minutes ?? '—'} {t('profile.minutes')}</AppText></View><AppButton label={t('profile.viewPlan')} variant="secondary" onPress={() => router.push('/learning-plan')} /></View>
+    <Pressable accessibilityRole="button" accessibilityLabel={t('profile.badges')} onPress={() => router.push('/rewards')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 17, backgroundColor: palette.rewardSoft, borderRadius: 20, opacity: pressed ? 0.76 : 1 })}><SymbolView name={{ ios: 'star.fill', android: 'star', web: 'star' }} size={25} tintColor={palette.rewardOn} /><View style={{ flex: 1 }}><AppText variant="label">{t('profile.badges')}</AppText><AppText variant="caption" tone="muted">{t('profile.badgesDetail')}</AppText></View><AppText>→</AppText></Pressable>
+    <View style={{ gap: 11 }}><AppText variant="heading">{t('profile.appearance')}</AppText><View style={{ flexDirection: 'row', gap: 8 }}>{modes.map((item) => <Pressable key={item.value} accessibilityRole="button" accessibilityLabel={`${item.label} ${t('profile.themeSuffix')}`} accessibilityState={{ selected: mode === item.value }} onPress={() => setMode(item.value)} style={({ pressed }) => ({ flex: 1, alignItems: 'center', paddingVertical: 12, backgroundColor: mode === item.value ? palette.primarySoft : palette.surface, borderRadius: 15, borderWidth: mode === item.value ? 2 : 0, borderColor: palette.primary, opacity: pressed ? 0.75 : 1 })}><AppText variant="label" tone={mode === item.value ? 'primary' : 'default'}>{item.label}</AppText></Pressable>)}</View></View>
+    <AppButton label={t('profile.signOut')} variant="secondary" onPress={() => { void signOut().finally(() => router.replace('/login')); }} />
   </Page>;
 }
