@@ -74,14 +74,15 @@ describe('translation Edge Function contract', () => {
       expect((await invoke(input)).status).toBe(status);
     }
   });
-  it('does not return source text as a successful translation', async () => {
+  it('returns a neutral unavailable result without returning source text as a translation', async () => {
     const fetcher = vi.fn()
       .mockResolvedValueOnce(new Response('{"id":"user-1"}', { status: 200 }))
       .mockResolvedValueOnce(new Response(null, { status: 204 }))
       .mockResolvedValueOnce(new Response('{"responseStatus":200,"responseData":{"translatedText":"License"}}', { status: 200 }));
     vi.stubGlobal('fetch', fetcher);
     const response = await invoke({ text: 'License', sourceLanguage: 'en', targetLanguage: 'vi' });
-    expect(response.status).toBe(422);
-    expect(await response.json()).toMatchObject({ error: expect.stringContaining('No distinct translation') });
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({ status: 'unavailable', translatedText: null,
+      message: expect.stringContaining('No distinct translation') });
   });
 });

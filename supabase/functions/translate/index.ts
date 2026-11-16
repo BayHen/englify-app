@@ -73,14 +73,18 @@ Deno.serve(async (request) => {
   }
   try {
     const translated = await translateWithMyMemory(text, source, target);
-    return json({ translatedText: translated.translatedText,
+    return json({ status: 'translated', translatedText: translated.translatedText,
       sourceLanguage: source, targetLanguage: target, provider: 'mymemory' }, 200, origin);
   } catch (cause) {
     const kind = cause instanceof ProviderError ? cause.kind : 'upstream';
+    if (kind === 'no_translation') {
+      return json({ status: 'unavailable', translatedText: null, sourceLanguage: source,
+        targetLanguage: target, provider: 'mymemory',
+        message: 'No distinct translation was found. Try a short phrase with more context.' }, 200, origin);
+    }
     return json({ error: kind === 'timeout' ? 'Translation timed out.' : kind === 'rate_limited'
-      ? 'Translation provider daily limit reached. Try again later.' : kind === 'no_translation'
-      ? 'No distinct translation was found. Try a short phrase with more context.' : 'Translation provider unavailable.' },
+      ? 'Translation provider daily limit reached. Try again later.' : 'Translation provider unavailable.' },
     kind === 'timeout' ? 504 : kind === 'rate_limited' ? 429
-      : kind === 'invalid_input' || kind === 'no_translation' ? 422 : 502, origin);
+      : kind === 'invalid_input' ? 422 : 502, origin);
   }
 });

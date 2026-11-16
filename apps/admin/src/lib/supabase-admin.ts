@@ -45,10 +45,31 @@ async function row(client: SupabaseClient, resource: Resource, id: string): Prom
   }
   return item;
 }
-async function write(client: SupabaseClient, resource: Resource, id: string | null, raw: Record<string, unknown>): Promise<Row> {
+async function write(
+  client: SupabaseClient,
+  resource: Resource,
+  id: string | null,
+  raw: Record<string, unknown>,
+  requestId?: string,
+): Promise<Row> {
   const data = { ...raw };
   if (!Object.keys(data).length || Object.keys(data).some((key) => !(key in schema[resource]))) {
     throw new Error('Unknown or empty content fields.');
+  }
+  if (process.env.NEXT_PUBLIC_ADMIN_ATOMIC_CRUD_ENABLED === 'true' && (resource === 'quiz-questions' || resource === 'badges')) {
+    if (!requestId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId)) {
+      throw new Error('A valid mutation request ID is required.');
+    }
+    const recordId = id ?? crypto.randomUUID();
+    const functionName = resource === 'quiz-questions'
+      ? 'englify_admin_upsert_quiz_question'
+      : 'englify_admin_upsert_badge';
+    const idName = resource === 'quiz-questions' ? 'p_question_id' : 'p_badge_id';
+    return checked(await client.rpc(functionName, {
+      p_request_id: requestId,
+      [idName]: recordId,
+      p_data: data,
+    })) as Row;
   }
   const answer = resource === 'quiz-questions' ? data.answer : undefined;
   const metric = resource === 'badges' ? data.metric : undefined;
@@ -111,12 +132,12 @@ export async function supabaseAdminRequest<T>(client: SupabaseClient, path: stri
   }
   if (method === 'GET' && parts[2] && !parts[3]) return await row(client, resource, parts[2]) as T;
   if (method === 'POST' && !parts[2]) {
-    const payload = JSON.parse(String(init.body ?? '{}')) as { data?: Record<string, unknown> };
-    return await write(client, resource, null, payload.data ?? {}) as T;
+    const payload = JSON.parse(String(init.body ?? '{}')) as { data?: Record<string, unknown>; request_id?: string };
+    return await write(client, resource, null, payload.data ?? {}, payload.request_id) as T;
   }
   if (method === 'PATCH' && parts[2] && !parts[3]) {
-    const payload = JSON.parse(String(init.body ?? '{}')) as { data?: Record<string, unknown> };
-    return await write(client, resource, parts[2], payload.data ?? {}) as T;
+    const payload = JSON.parse(String(init.body ?? '{}')) as { data?: Record<string, unknown>; request_id?: string };
+    return await write(client, resource, parts[2], payload.data ?? {}, payload.request_id) as T;
   }
   if (method === 'POST' && parts[2] && parts[3] === 'publish' && resource !== 'quiz-options') {
     const published = url.searchParams.get('published') !== 'false';

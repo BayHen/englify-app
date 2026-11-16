@@ -8,9 +8,11 @@ vi.mock('./storage', () => ({
   updateEvent: async (value: OutboxEvent) => { state.events = state.events.map((item) => item.id === value.id ? value : item); },
 }));
 const submit = vi.hoisted(() => vi.fn());
+const review = vi.hoisted(() => vi.fn());
 const authState = vi.hoisted(() => ({ userId: 'user-a' }));
 vi.mock('@/features/learning/api', () => ({ syncLesson: submit }));
 vi.mock('@/features/dictionary/api', () => ({ saveWord: vi.fn() }));
+vi.mock('@/features/vocabulary-review/api', () => ({ reviewVocabulary: review }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => ({ auth: { getSession: async () => ({ data: { session: { user: { id: authState.userId }, access_token: `token-${authState.userId}` } }, error: null }) } }) }));
 
 function event(id: string): OutboxEvent {
@@ -18,7 +20,7 @@ function event(id: string): OutboxEvent {
 }
 
 describe('offline synchronization', () => {
-  beforeEach(() => { state.events = []; submit.mockReset(); authState.userId = 'user-a'; });
+  beforeEach(() => { state.events = []; submit.mockReset(); review.mockReset(); authState.userId = 'user-a'; });
   it('keeps a failed event and does not send later locked lessons out of order', async () => {
     state.events = [event('a'), event('b')];
     submit.mockRejectedValueOnce(new Error('network unavailable'));
@@ -53,5 +55,14 @@ describe('offline synchronization', () => {
     expect(result.pending).toBe(1);
     expect(submit).toHaveBeenCalledTimes(1);
     expect(submit.mock.calls[0][4]).toBe('token-user-a');
+  });
+  it('syncs an offline vocabulary rating once with the outbox id as idempotency key', async () => {
+    state.events = [{ ...event('review-request'), kind: 'vocabulary_review',
+      payload: { savedVocabularyId: 'saved-word-a', rating: 3 } }];
+    review.mockResolvedValue({ saved_vocabulary_id: 'saved-word-a', rating: 3, next_review_at: '2026-11-16' });
+    expect((await syncOutbox('user-a')).synced).toBe(1);
+    expect(review).toHaveBeenCalledWith('saved-word-a', 3, 'review-request');
+    await syncOutbox('user-a');
+    expect(review).toHaveBeenCalledTimes(1);
   });
 });

@@ -11,7 +11,8 @@ export type TranslateResult = {
   method: 'phrasebook' | 'libretranslate' | 'mymemory' | null;
   scope: 'exact_phrase' | 'full_text' | null; message: string;
 };
-type ProviderResponse = { translatedText: string; sourceLanguage: Language; targetLanguage: Language; provider: string };
+type ProviderResponse = { status?: 'translated' | 'unavailable'; translatedText: string | null;
+  sourceLanguage: Language; targetLanguage: Language; provider: string; message?: string };
 const recent = new Map<string, { result: TranslateResult; expires: number }>();
 type HttpResponse = { status: number; clone: () => { json: () => Promise<unknown> } };
 function isHttpResponse(value: unknown): value is HttpResponse {
@@ -47,7 +48,7 @@ export async function translateText(request: TranslateRequest): Promise<Translat
       || !['en', 'vi'].includes(request.target) || request.source === request.target) {
     throw new ApiError(422, 'Enter a sentence of at most 500 UTF-8 bytes and choose English/Vietnamese languages.');
   }
-  const cacheKey = JSON.stringify(['mymemory-validated-v2', userId, request.source, request.target, text]);
+  const cacheKey = JSON.stringify(['mymemory-validated-v3', userId, request.source, request.target, text]);
   const cached = recent.get(cacheKey);
   if (cached && cached.expires > Date.now()) return cached.result;
   const controller = new AbortController();
@@ -66,8 +67,20 @@ export async function translateText(request: TranslateRequest): Promise<Translat
     if (controller.signal.aborted) throw new ApiError(504, 'Translation timed out.');
     throw await translationError(error);
   }
-  if (!data || data.provider !== 'mymemory' || typeof data.translatedText !== 'string'
-      || !data.translatedText.trim() || !['en', 'vi'].includes(data.sourceLanguage) || data.targetLanguage !== request.target) {
+  if (!data || data.provider !== 'mymemory' || !['en', 'vi'].includes(data.sourceLanguage)
+      || data.sourceLanguage !== request.source || data.targetLanguage !== request.target) {
+    throw new ApiError(502, 'Translation provider returned invalid data.');
+  }
+  if (data.status === 'unavailable') {
+    if (data.translatedText !== null) throw new ApiError(502, 'Translation provider returned invalid data.');
+    const unavailable: TranslateResult = { status: 'unavailable', source: data.sourceLanguage, target: data.targetLanguage,
+      source_text: text, translated_text: null, method: 'mymemory', scope: 'full_text',
+      message: data.message?.trim() || 'No translation was found. Try a short phrase with more context.' };
+    if (recent.size >= 100) recent.delete(recent.keys().next().value!);
+    recent.set(cacheKey, { result: unavailable, expires: Date.now() + 10 * 60 * 1000 });
+    return unavailable;
+  }
+  if (typeof data.translatedText !== 'string' || !data.translatedText.trim()) {
     throw new ApiError(502, 'Translation provider returned invalid data.');
   }
   if (data.translatedText.trim().toLocaleLowerCase() === text.toLocaleLowerCase()) {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import type { Href } from 'expo-router';
 import * as Speech from 'expo-speech';
 import { Page, NavLink } from '@/components/page';
 import { useAuth } from '@/auth/provider';
@@ -11,6 +12,7 @@ import type { DictionaryWord, SavedWord } from './types';
 import * as Crypto from 'expo-crypto';
 import { listEvents, queueEvent } from '@/features/offline/storage';
 import { SyncStatus } from '@/features/offline/sync-status';
+import { paginateDictionary } from './pagination';
 
 type Tab = 'search' | 'saved' | 'recent' | 'flashcards';
 
@@ -30,6 +32,19 @@ function WordCard({ word, saved, onSave, onSpeak }: {
   </AppCard>;
 }
 
+function DictionaryPagination({ page, totalPages, onChange }: {
+  page: number; totalPages: number; onChange: (page: number) => void;
+}) {
+  if (totalPages <= 1) return null;
+  return <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+    <AppButton label="Previous" variant="secondary" disabled={page <= 1}
+      style={{ flex: 1 }} onPress={() => onChange(page - 1)} />
+    <AppText variant="caption" tone="muted" accessibilityRole="text">Page {page} of {totalPages}</AppText>
+    <AppButton label="Next" variant="secondary" disabled={page >= totalPages}
+      style={{ flex: 1 }} onPress={() => onChange(page + 1)} />
+  </View>;
+}
+
 export function DictionaryScreen() {
   const { profile, signOut } = useAuth();
   const userId = profile?.id ?? '';
@@ -44,6 +59,8 @@ export function DictionaryScreen() {
   const [offline, setOffline] = useState(false);
   const [flashcardIndex, setFlashcardIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [searchPage, setSearchPage] = useState(1);
+  const [savedPage, setSavedPage] = useState(1);
 
   async function loadSaved(id: string) {
     const cached = await getCachedSavedWords(id);
@@ -88,7 +105,7 @@ export function DictionaryScreen() {
 
   async function search(value = query) {
     const term = value.trim();
-    setQuery(value); setLoading(true); setError(null);
+    setQuery(value); setSearchPage(1); setLoading(true); setError(null);
     try {
       const cached = await searchCachedWords(term);
       setResults(cached);
@@ -140,8 +157,11 @@ export function DictionaryScreen() {
   }
 
   const card = saved[Math.min(flashcardIndex, Math.max(saved.length - 1, 0))];
+  const pagedResults = paginateDictionary(results, searchPage);
+  const pagedSaved = paginateDictionary(saved, savedPage);
   return <Page eyebrow="WORD LAB" title="Dictionary" description="Search real English–Vietnamese seed entries, save words, and review them offline.">
     <SyncStatus />
+    <NavLink href={'/vocabulary-review' as Href} label="Review due vocabulary" />
     {offline && <AppCard tone="reward"><AppText variant="label">Offline cache</AppText><AppText tone="muted">Showing cached words. New saves wait for synchronization; removing words needs a connection.</AppText></AppCard>}
     <View style={{ gap: 8 }}>
       {(['search', 'saved', 'recent', 'flashcards'] as Tab[]).map((item) =>
@@ -150,11 +170,19 @@ export function DictionaryScreen() {
     </View>
     {!!error && <ErrorState title="Dictionary unavailable" message={error} retry={() => { void (tab === 'search' ? search() : loadSaved(userId)); }} />}
     {tab === 'search' && <>
-      <AppInput label="English word or Vietnamese meaning" placeholder="Try curious or tò mò" value={query} onChangeText={setQuery} onSubmitEditing={() => { void search(); }} returnKeyType="search" autoCapitalize="none" />
+      <AppInput label="English word or Vietnamese meaning" placeholder="Try curious or tò mò" value={query}
+        onChangeText={(value) => { setQuery(value); setSearchPage(1); }} onSubmitEditing={() => { void search(); }}
+        returnKeyType="search" autoCapitalize="none" />
       <AppButton label="Search dictionary" onPress={() => { void search(); }} />
-      {loading ? <LoadingSkeleton lines={4} /> : results.length ? results.map((word) => <WordCard key={word.id} word={word} saved={saved.some((item) => item.word.id === word.id)} onSave={() => { if (!busyId) void toggleSaved(word); }} onSpeak={() => speak(word)} />) : <EmptyState title="No matching word" message={offline ? 'This word is not in the offline cache.' : 'Try another English word or Vietnamese meaning.'} />}
+      {loading ? <LoadingSkeleton lines={4} /> : results.length ? <>
+        {pagedResults.items.map((word) => <WordCard key={word.id} word={word} saved={saved.some((item) => item.word.id === word.id)} onSave={() => { if (!busyId) void toggleSaved(word); }} onSpeak={() => speak(word)} />)}
+        <DictionaryPagination page={pagedResults.page} totalPages={pagedResults.totalPages} onChange={setSearchPage} />
+      </> : <EmptyState title="No matching word" message={offline ? 'This word is not in the offline cache.' : 'Try another English word or Vietnamese meaning.'} />}
     </>}
-    {tab === 'saved' && (saved.length ? saved.map((item) => <WordCard key={item.id} word={item.word} saved onSave={() => { if (!busyId) void toggleSaved(item.word); }} onSpeak={() => speak(item.word)} />) : <EmptyState title="No saved words" message="Save a word from search to make it available for flashcards." actionLabel="Find a word" onAction={() => setTab('search')} />)}
+    {tab === 'saved' && (saved.length ? <>
+      {pagedSaved.items.map((item) => <WordCard key={item.id} word={item.word} saved onSave={() => { if (!busyId) void toggleSaved(item.word); }} onSpeak={() => speak(item.word)} />)}
+      <DictionaryPagination page={pagedSaved.page} totalPages={pagedSaved.totalPages} onChange={setSavedPage} />
+    </> : <EmptyState title="No saved words" message="Save a word from search to make it available for flashcards." actionLabel="Find a word" onAction={() => setTab('search')} />)}
     {tab === 'recent' && (recent.length ? recent.map((term) => <AppCard key={term} onPress={() => { void search(term); }}><AppText variant="label">{term}</AppText></AppCard>) : <EmptyState title="No recent searches" message="Words you search for will appear here on this device." />)}
     {tab === 'flashcards' && (card ? <AppCard tone="primary" style={{ gap: 14 }}><AppText variant="caption" tone="primary">CARD {Math.min(flashcardIndex + 1, saved.length)} / {saved.length}</AppText><AppText variant="display" style={{ textAlign: 'center' }}>{card.word.term}</AppText><AppText tone="muted" style={{ textAlign: 'center' }}>{card.word.ipa}</AppText>{revealed ? <><AppText variant="heading" style={{ textAlign: 'center' }}>{card.word.translation}</AppText><AppText style={{ textAlign: 'center' }}>{card.word.definition}</AppText><AppText tone="muted" style={{ textAlign: 'center' }}>{card.word.example}</AppText></> : <AppButton label="Reveal meaning" onPress={() => setRevealed(true)} variant="reward" />}<AppButton label="Pronounce word" onPress={() => speak(card.word)} variant="secondary" /><AppButton label="Next card" onPress={() => { setFlashcardIndex((flashcardIndex + 1) % saved.length); setRevealed(false); }} variant="secondary" /></AppCard> : <EmptyState title="Your deck is empty" message="Save vocabulary first to build your personal flashcards." actionLabel="Search words" onAction={() => setTab('search')} />)}
     <NavLink href="/home" label="Back to dashboard" />

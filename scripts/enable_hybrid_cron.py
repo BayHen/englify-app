@@ -16,9 +16,7 @@ import tempfile
 from pathlib import Path
 
 import psycopg
-
 from deploy_hybrid_migrations import target_url
-
 
 PROJECT = 'agoydsinleaiovsgbxxf'
 ROOT = Path(__file__).resolve().parents[1]
@@ -95,6 +93,6 @@ def main() -> None:
 if __name__ == '__main__':
     try:
         main()
-    except Exception as error:
+    except (OSError, ValueError, KeyError, IndexError, RuntimeError, subprocess.SubprocessError, psycopg.Error) as error:
         print(f'Cron setup failed: {type(error).__name__}: {error}', file=sys.stderr)
         raise SystemExit(1) from None

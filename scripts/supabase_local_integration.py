@@ -5,7 +5,11 @@ Only runs against the CLI's loopback API. Never prints keys, passwords or JWTs.
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import hmac
 import json
+import os
 import secrets
 import subprocess
 from datetime import UTC, datetime, timedelta
@@ -13,6 +17,28 @@ from urllib.parse import urlsplit
 from uuid import uuid4
 
 import httpx
+
+NPX = "npx.cmd" if os.name == "nt" else "npx"
+
+
+def expired_token(secret: str, user_id: str) -> str:
+    def encode(value: dict[str, object]) -> str:
+        raw = json.dumps(value, separators=(",", ":")).encode()
+        return base64.urlsafe_b64encode(raw).rstrip(b"=").decode()
+
+    header = encode({"alg": "HS256", "typ": "JWT"})
+    now = int(datetime.now(UTC).timestamp())
+    payload = encode({
+        "aud": "authenticated",
+        "exp": now - 60,
+        "iat": now - 120,
+        "iss": "supabase-demo",
+        "role": "authenticated",
+        "sub": user_id,
+    })
+    signature = hmac.new(secret.encode(), f"{header}.{payload}".encode(), hashlib.sha256).digest()
+    encoded_signature = base64.urlsafe_b64encode(signature).rstrip(b"=").decode()
+    return f"{header}.{payload}.{encoded_signature}"
 
 
 def require_status(response: httpx.Response, allowed: set[int], label: str) -> None:
@@ -23,7 +49,7 @@ def require_status(response: httpx.Response, allowed: set[int], label: str) -> N
 
 def main() -> int:
     result = subprocess.run(
-        ["npx.cmd", "supabase", "status", "--output", "json"],
+        [NPX, "supabase", "status", "--output", "json"],
         check=True,
         capture_output=True,
         text=True,
@@ -35,12 +61,14 @@ def main() -> int:
         raise RuntimeError("Refusing to test a non-local Supabase project")
     public_key = config["ANON_KEY"]
     admin_key = config["SERVICE_ROLE_KEY"]
+    jwt_secret = config["JWT_SECRET"]
     admin_headers = {"apikey": admin_key, "Authorization": f"Bearer {admin_key}"}
     public_headers = {"apikey": public_key, "Authorization": f"Bearer {public_key}"}
     accounts: list[str] = []
     admin_content_ids: list[str] = []
     admin_question_ids: list[str] = []
     admin_lesson_ids: list[str] = []
+    avatar_path = ""
     with httpx.Client(base_url=base, timeout=15) as client:
         try:
             sessions = []
@@ -67,6 +95,19 @@ def main() -> int:
             alice, bob = accounts
             alice_headers, bob_headers = sessions
 
+            invalid_jwt = client.get(
+                "/rest/v1/profiles",
+                headers={"apikey": public_key, "Authorization": "Bearer invalid.jwt.value"},
+            )
+            if invalid_jwt.status_code != 401:
+                raise RuntimeError(f"invalid JWT returned HTTP {invalid_jwt.status_code}")
+            expired_jwt = client.get(
+                "/rest/v1/profiles",
+                headers={"apikey": public_key, "Authorization": f"Bearer {expired_token(jwt_secret, alice)}"},
+            )
+            if expired_jwt.status_code != 401:
+                raise RuntimeError(f"expired JWT returned HTTP {expired_jwt.status_code}")
+
             own = client.get("/rest/v1/profiles", params={"select": "id"}, headers=alice_headers)
             require_status(own, {200}, "own profile")
             if [row["id"] for row in own.json()] != [alice]:
@@ -80,6 +121,32 @@ def main() -> int:
             anonymous = client.get("/rest/v1/profiles", params={"select": "id"}, headers=public_headers)
             if anonymous.is_success and anonymous.json():
                 raise RuntimeError("anonymous profile access was exposed")
+
+            avatar_path = f"{alice}/{uuid4()}.jpg"
+            own_upload = client.post(
+                f"/storage/v1/object/avatars/{avatar_path}",
+                headers={**alice_headers, "Content-Type": "image/jpeg"},
+                content=b"englify-local-avatar",
+            )
+            require_status(own_upload, {200}, "upload own avatar")
+            own_avatar = client.get(
+                f"/storage/v1/object/authenticated/avatars/{avatar_path}",
+                headers=alice_headers,
+            )
+            require_status(own_avatar, {200}, "read own avatar")
+            cross_avatar = client.get(
+                f"/storage/v1/object/authenticated/avatars/{avatar_path}",
+                headers=bob_headers,
+            )
+            if cross_avatar.is_success:
+                raise RuntimeError("another learner read a private avatar")
+            forged_avatar = client.post(
+                f"/storage/v1/object/avatars/{alice}/{uuid4()}.jpg",
+                headers={**bob_headers, "Content-Type": "image/jpeg"},
+                content=b"forged-avatar",
+            )
+            if forged_avatar.is_success:
+                raise RuntimeError("another learner wrote into an avatar folder")
 
             onboarding = {
                 "p_learning_goal": "conversation",
@@ -743,6 +810,11 @@ def main() -> int:
                 raise RuntimeError("admin audit history leaked to learner")
             print("PASS: local Auth/RLS, profile, dictionary, Real English, quotas, plan, gamification, full Journey unit, writing, admin RLS/draft/publish/audit")
         finally:
+            if avatar_path:
+                client.delete(
+                    f"/storage/v1/object/avatars/{avatar_path}",
+                    headers=admin_headers,
+                )
             if accounts:
                 removed_logs = client.delete("/rest/v1/admin_audit_logs", headers=admin_headers,
                                              params={"actor_id": f"eq.{accounts[0]}"})

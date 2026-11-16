@@ -54,7 +54,7 @@ export function LessonScreen() {
     if (!id || !userId) return;
     void listEvents(userId).then((events) => {
       const latest = events.filter((event) => event.kind === 'lesson_submission' && (event.payload as { lessonId: string }).lessonId === id).at(-1);
-      if (latest?.status === 'synced' && latest.result && requestId.current === latest.id) { setResult(latest.result); setQueued(false); }
+      if (latest?.kind === 'lesson_submission' && latest.status === 'synced' && latest.result && requestId.current === latest.id) { setResult(latest.result as QuizResult); setQueued(false); }
       else if (latest?.status === 'pending') setQueued(true);
       else if (latest?.status === 'conflict' || latest?.status === 'rejected') { setQueued(false); setError(latest.message ?? 'Offline attempt requires review.'); }
     });

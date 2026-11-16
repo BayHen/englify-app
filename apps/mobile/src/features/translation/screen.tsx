@@ -148,6 +148,8 @@ export function TranslationScreen() {
     {loading && <LoadingSkeleton accessibilityLabel="Translating" />}
     {!!error && <ErrorState title="Translation unavailable" message={error} retry={() => { void submit(); }} />}
     {!loading && !error && !result && <EmptyState title="Ready to translate" message="Enter English or Vietnamese text and choose Translate." />}
+    {!loading && !error && result?.status === 'unavailable' && <EmptyState
+      title="No translation found" message={result.message} />}
     {result?.status === 'translated' && <AppCard tone="primary" style={{ gap: 18, padding: 20 }}>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
         <View style={{ flex: 1, gap: 5 }}>
