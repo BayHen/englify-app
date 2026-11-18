@@ -131,15 +131,28 @@ DO $$ DECLARE v_today date; v_exercise uuid; BEGIN
     ('c5000000-0000-4000-8000-000000000001','c3333333-3333-4333-8333-333333333333','c6000000-0000-4000-8000-000000000001',v_today-1,10),
     ('c5000000-0000-4000-8000-000000000002','c3333333-3333-4333-8333-333333333333','c6000000-0000-4000-8000-000000000002',v_today-2,10);
 END $$;
+-- The daily selector may choose either an answer-key exercise or an open response.
+-- Prepare the fixture as the database owner; learners cannot read private answer keys.
+SELECT set_config('test.daily_writing_response',
+  CASE WHEN coalesce(jsonb_array_length(k.accepted_answers),0)>0
+    THEN k.accepted_answers->>0
+    ELSE btrim(repeat('I practice writing every day. ',greatest(1,coalesce(e.min_words,1))))
+  END,true)
+FROM public.writing_daily_assignments a
+JOIN public.writing_exercises e ON e.id=a.exercise_id
+LEFT JOIN public.writing_answer_keys k ON k.exercise_id=e.id
+WHERE a.user_id='c3333333-3333-4333-8333-333333333333'
+ORDER BY a.challenge_date DESC LIMIT 1;
+
 SELECT set_config('request.jwt.claim.sub','c3333333-3333-4333-8333-333333333333',true);
 SET LOCAL ROLE authenticated;
 DO $$ DECLARE v_assignment uuid; v_result jsonb; BEGIN
   SELECT id INTO v_assignment FROM public.writing_daily_assignments WHERE user_id=auth.uid()
     ORDER BY challenge_date DESC LIMIT 1;
   v_result:=public.englify_submit_daily_writing(v_assignment,gen_random_uuid(),
-    'I write a clear daily response with enough words to complete this challenge successfully today.',false);
+    current_setting('test.daily_writing_response'),false);
   IF NOT (v_result->>'completed')::boolean OR (v_result#>>'{overview,streak,current_streak}')::integer<>3 THEN
-    RAISE EXCEPTION 'Third consecutive Daily Writing completion failed'; END IF;
+    RAISE EXCEPTION 'Third consecutive Daily Writing completion failed: %',v_result; END IF;
   IF NOT EXISTS(SELECT 1 FROM public.user_badges ub JOIN public.badges b ON b.id=ub.badge_id
       WHERE ub.user_id=auth.uid() AND b.code='writing-three-day') THEN
     RAISE EXCEPTION 'Three-Day Writer milestone was not awarded'; END IF;

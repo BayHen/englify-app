@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { designTokens } from '@englify/shared';
 import { useAppPalette } from '@/constants/app-theme';
 import { AchievementBadge, AppButton, AppCard, AppInput, AppText, EmptyState } from '@/ui';
@@ -22,6 +22,8 @@ const dateLabel = (value: string) => {
 export function DailyWritingPanel({ overview, timezoneDraft, timezoneBusy, onTimezoneChange,
   onSaveTimezone, onStart, onReview }: Props) {
   const palette = useAppPalette();
+  const { width: windowWidth } = useWindowDimensions();
+  const milestoneBasis = windowWidth < 320 ? '100%' : '40%';
   const challenge = overview.challenge;
   return <View style={{ gap: designTokens.spacing.lg }}>
     <AppCard tone="reward" style={{ gap: designTokens.spacing.md }}>
@@ -74,8 +76,8 @@ export function DailyWritingPanel({ overview, timezoneDraft, timezoneBusy, onTim
     <AppCard style={{ gap: designTokens.spacing.md }}>
       <AppText variant="heading">Writing milestones</AppText>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: designTokens.spacing.lg }}>
-        {overview.milestones.map((milestone) => <View key={milestone.id} style={{ gap: designTokens.spacing.xs }}>
-          <AchievementBadge title={milestone.title} description={milestone.description} unlocked={milestone.unlocked}/>
+        {overview.milestones.map((milestone) => <View key={milestone.id} style={{ flexGrow: 1, flexShrink: 1, flexBasis: milestoneBasis, gap: designTokens.spacing.xs }}>
+          <AchievementBadge title={milestone.title} description={milestone.description} unlocked={milestone.unlocked} style={{ width: '100%' }}/>
           <AppText variant="caption" tone="muted" style={{ textAlign: 'center' }}>{milestone.progress}/{milestone.target}</AppText>
         </View>)}
       </View>
