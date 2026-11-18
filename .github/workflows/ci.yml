@@ -48,6 +48,12 @@ jobs:
       - run: npm ci
       - run: pip install httpx 'psycopg[binary]>=3.2,<4'
       - run: npx supabase start
+      - name: Verify Writing V2 upgrade preserves historical data
+        run: |
+          npx supabase db reset --version 20261116010000 --no-seed
+          python scripts/supabase_writing_upgrade_fixture.py seed
+          npx supabase migration up
+          python scripts/supabase_writing_upgrade_fixture.py verify
       - run: npx supabase db reset
       - run: npx supabase db lint --level error
       - name: Check Edge Functions
@@ -58,15 +64,23 @@ jobs:
           supabase/functions/study-plan/index.ts
           supabase/functions/translate/index.ts
           supabase/functions/writing-grammar/index.ts
+          supabase/functions/writing-ai-coach/index.ts
+          supabase/functions/writing-ai-rewrite/index.ts
       - name: Run SQL transaction smoke tests
         run: >-
           python scripts/run_local_sql_test.py
           supabase/tests/security_definer_privileges_smoke.sql
           supabase/tests/admin_atomic_crud_smoke.sql
           supabase/tests/phase2_learning_content_smoke.sql
+          supabase/tests/writing_ai_v2_smoke.sql
+          supabase/tests/writing_v2_2_smoke.sql
+          supabase/tests/writing_v2_3_smoke.sql
+          supabase/tests/writing_v2_4_smoke.sql
       - name: Run Auth, RLS and publishing integration tests
         run: python scripts/supabase_local_integration.py
       - name: Run concurrent Admin retry test
         run: python scripts/supabase_admin_atomic_concurrency.py
+      - name: Run concurrent Daily Writing reward test
+        run: python scripts/supabase_writing_daily_concurrency.py
       - if: always()
         run: npx supabase stop --no-backup

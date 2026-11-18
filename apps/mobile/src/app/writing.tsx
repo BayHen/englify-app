@@ -1,1 +1,1 @@
-export { WritingScreen as default } from '@/features/writing/writing-screen';
+export { WritingLibraryScreen as default } from '@/features/writing/writing-library-screen';

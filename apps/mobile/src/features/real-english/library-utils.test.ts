@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lessonMatchesQuery, paginate, type SearchableLesson } from './library-utils';
+import { compactTopics, lessonMatchesQuery, paginate, type SearchableLesson } from './library-utils';
 
 const lesson: SearchableLesson = {
   title: 'Buying Baking Supplies',
@@ -24,5 +24,21 @@ describe('Real English unified library', () => {
     expect(paginate(values, 1).items).toEqual([1, 2, 3, 4, 5]);
     expect(paginate(values, 3)).toEqual({ page: 3, pageCount: 3, items: [11, 12] });
     expect(paginate(values, 99).page).toBe(3);
+  });
+
+  it('removes duplicate topics and limits the visible topic chips', () => {
+    const topics = [
+      { slug: 'coffee', title: 'Coffee conversation' },
+      { slug: 'coffee', title: 'Coffee duplicate' },
+      { slug: 'daily-chat', title: 'Coffee conversation' },
+      { slug: 'shopping', title: 'Shopping' },
+      { slug: 'travel', title: 'Travel' },
+      { slug: 'friends', title: 'Friends' },
+      { slug: 'workplace', title: 'Workplace' },
+      { slug: 'extra', title: 'Extra topic' },
+    ];
+    expect(compactTopics(topics)).toEqual([
+      topics[0], topics[3], topics[4], topics[5], topics[6],
+    ]);
   });
 });

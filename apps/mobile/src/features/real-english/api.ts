@@ -86,17 +86,113 @@ export async function listRealEnglishTopics(): Promise<TopicOption[]> {
     .eq('is_active', true).order('difficulty').order('title')) as TopicOption[];
 }
 
+function isMissingLibrarySearchRpc(error: { code?: string; message?: string } | null) {
+  if (!error) return false;
+  return error.code === 'PGRST202'
+    || (error.message?.includes('englify_search_real_english')
+      && error.message.includes('schema cache'));
+}
+
+function matchesLibraryCategory(item: LibraryItem, category?: LibraryCategory) {
+  if (!category) return true;
+  if (category === 'expression') return item.item_type === 'expression' || item.category === 'expression';
+  if (category === 'dialogue') {
+    return item.category === 'dialogue'
+      || item.category === 'everyday_conversation'
+      || item.category === 'movie_style_dialogue';
+  }
+  return item.category === category;
+}
+
+async function searchRealEnglishLibraryFallback(input: {
+  query?: string; cefr?: CefrLevel; topic?: string; category?: LibraryCategory; savedOnly?: boolean; page?: number;
+}, userId: string): Promise<LibraryPage> {
+  const [expressionsResult, lessonsResult, topicsResult, savesResult, progressResult] = await Promise.all([
+    published().order('expression').limit(500),
+    getSupabase().from('real_english_lessons')
+      .select('id,title,description,difficulty,content_type,topic_id,real_english_phrases(english_text,vietnamese_translation,usage_context),real_english_dialogues(title,real_english_dialogue_lines(speaker,english_text,vietnamese_translation))')
+      .eq('status', 'published').order('published_at', { ascending: false }).limit(500),
+    getSupabase().from('real_english_topics').select('id,slug').eq('is_active', true),
+    getSupabase().from('saved_expressions').select('expression_id').eq('user_id', userId),
+    getSupabase().from('real_english_user_progress')
+      .select('lesson_id,status,is_bookmarked').eq('user_id', userId),
+  ]);
+  const expressionRows = dataOrThrow(expressionsResult) as Record<string, unknown>[];
+  const lessonRows = dataOrThrow(lessonsResult) as Record<string, unknown>[];
+  const topicRows = dataOrThrow(topicsResult) as { id: string; slug: string }[];
+  const savedExpressionIds = new Set((dataOrThrow(savesResult) as { expression_id: string }[])
+    .map((row) => row.expression_id));
+  const progressRows = dataOrThrow(progressResult) as {
+    lesson_id: string; status: ReadingStatus; is_bookmarked: boolean;
+  }[];
+  const topicById = new Map(topicRows.map((row) => [row.id, row.slug]));
+  const progressByLesson = new Map(progressRows.map((row) => [row.lesson_id, row]));
+
+  const expressions: LibraryItem[] = expressionRows.map((row) => ({
+    item_type: 'expression',
+    id: String(row.id),
+    title: String(row.expression ?? ''),
+    subtitle: String(row.meaning_vi ?? ''),
+    // Legacy projects may not have the optional Phase 2 metadata columns yet.
+    cefr_level: null,
+    topic_slug: null,
+    category: row.kind as LibraryCategory,
+    formality: row.formality as LibraryItem['formality'],
+    saved: savedExpressionIds.has(String(row.id)),
+    progress_status: null,
+  }));
+  const lessons: LibraryItem[] = lessonRows.map((row) => {
+    const progress = progressByLesson.get(String(row.id));
+    return {
+      item_type: 'lesson',
+      id: String(row.id),
+      title: String(row.title ?? ''),
+      subtitle: String(row.description ?? ''),
+      cefr_level: row.difficulty as CefrLevel,
+      topic_slug: topicById.get(String(row.topic_id)) ?? null,
+      category: row.content_type as LibraryCategory,
+      formality: null,
+      saved: Boolean(progress?.is_bookmarked),
+      progress_status: progress?.status ?? null,
+    };
+  });
+  const rawRows = [...expressionRows, ...lessonRows];
+  const searchableById = new Map(rawRows.map((row) => [String(row.id), normalizeSearchText(JSON.stringify(row))]));
+  const term = normalizeSearchText(input.query?.trim() ?? '');
+  const filtered = [...expressions, ...lessons]
+    .filter((item) => !term || searchableById.get(item.id)?.includes(term))
+    .filter((item) => !input.cefr || item.cefr_level === input.cefr)
+    .filter((item) => !input.topic || item.topic_slug === input.topic)
+    .filter((item) => matchesLibraryCategory(item, input.category))
+    .filter((item) => !input.savedOnly || item.saved)
+    .sort((left, right) => left.title.localeCompare(right.title));
+  const pageSize = 5;
+  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const page = Math.min(Math.max(1, input.page ?? 1), pageCount);
+  return {
+    items: filtered.slice((page - 1) * pageSize, page * pageSize),
+    total: filtered.length,
+    page,
+    page_size: pageSize,
+    page_count: pageCount,
+  };
+}
+
 export async function searchRealEnglishLibrary(input: {
   query?: string; cefr?: CefrLevel; topic?: string; category?: LibraryCategory; savedOnly?: boolean; page?: number;
 }): Promise<LibraryPage> {
-  await currentUserId();
+  const userId = await currentUserId();
   const query = input.query?.trim() ?? '';
   if (query.length > 80) throw new ApiError(422, 'Search term is too long.');
-  return dataOrThrow(await getSupabase().rpc('englify_search_real_english', {
+  const result = await getSupabase().rpc('englify_search_real_english', {
     p_query: query, p_cefr: input.cefr ?? null, p_topic: input.topic ?? null,
     p_category: input.category ?? null, p_saved_only: input.savedOnly ?? false,
     p_page: input.page ?? 1, p_page_size: 5,
-  })) as LibraryPage;
+  });
+  if (isMissingLibrarySearchRpc(result.error)) {
+    return searchRealEnglishLibraryFallback({ ...input, query }, userId);
+  }
+  return dataOrThrow(result) as LibraryPage;
 }
 
 export async function getPublishedLesson(id: string): Promise<{ lesson: LessonDetail; progress: ReadingProgress | null }> {

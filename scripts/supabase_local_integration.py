@@ -659,10 +659,18 @@ def main() -> int:
             if alice_attempts.json():
                 raise RuntimeError("another learner's quiz attempts leaked")
             exercises = client.get("/rest/v1/writing_exercises", headers=alice_headers,
-                                   params={"select": "id,kind", "is_published": "eq.true"})
+                                   params={"select": "id,kind,cefr_level", "is_published": "eq.true",
+                                           "archived_at": "is.null"})
             require_status(exercises, {200}, "published writing exercises")
-            if len(exercises.json()) != 4:
-                raise RuntimeError("writing development exercises are missing")
+            writing_catalog = exercises.json()
+            if len(writing_catalog) < 50:
+                raise RuntimeError("writing development catalog has fewer than 50 exercises")
+            for cefr_level in ("A1", "A2", "B1", "B2", "C1"):
+                level_total = sum(item["cefr_level"] == cefr_level for item in writing_catalog)
+                if level_total < 10:
+                    raise RuntimeError(
+                        f"writing development catalog has fewer than 10 {cefr_level} exercises"
+                    )
             writing_input = {"p_request_id": str(uuid4()),
                              "p_exercise_id": "44444444-4444-4444-8444-444444444401",
                              "p_body": " i practice english every day! ", "p_grammar_check": True}

@@ -7,14 +7,13 @@ import { AppButton, AppCard, AppInput, AppModal, AppText, ErrorState, LoadingSke
 import { getContextQuiz, getExpression, listRealEnglishTopics, saveExpression, submitContextQuiz, unsaveExpression,
   type CefrLevel, type ContextQuiz, type Expression, type LibraryCategory, type QuizResult, type TopicOption } from './api';
 import { RealEnglishLibraryV2 } from './real-english-library-v2';
+import { compactTopics } from './library-utils';
 
 const kinds: { value: LibraryCategory | 'all'; label: string }[] = [
-  { value: 'all', label: 'All' }, { value: 'expression', label: 'Lessons' }, { value: 'dialogue', label: 'Dialogues' },
-  { value: 'scenario', label: 'Scenarios' }, { value: 'slang', label: 'Slang' },
-  { value: 'idiom', label: 'Idioms' }, { value: 'phrasal_verb', label: 'Phrasal verbs' },
-  { value: 'casual_expression', label: 'Casual' },
-  { value: 'everyday_conversation', label: 'Everyday' },
-  { value: 'movie_style_dialogue', label: 'Original scenes' },
+  { value: 'all', label: 'All content' },
+  { value: 'expression', label: 'Expressions' },
+  { value: 'dialogue', label: 'Dialogues' },
+  { value: 'scenario', label: 'Scenarios' },
 ];
 
 export function RealEnglishScreen() {
@@ -73,8 +72,10 @@ export function RealEnglishScreen() {
     <AppButton label="Search" onPress={() => setSubmitted(query.trim())} />
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{(['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const).map((level) =>
       <AppButton key={level} label={level === 'all' ? 'All levels' : level} size="medium" variant={cefr === level ? 'primary' : 'secondary'} onPress={() => setCefr(level)} />)}</View>
+    <AppText variant="label">Topics</AppText>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}><AppButton label="All topics" size="medium" variant={!topic ? 'primary' : 'secondary'} onPress={() => setTopic('')} />
-      {topics.map((entry) => <AppButton key={entry.slug} label={entry.title} size="medium" variant={topic === entry.slug ? 'primary' : 'secondary'} onPress={() => setTopic(entry.slug)} />)}</View>
+      {compactTopics(topics).map((entry) => <AppButton key={entry.slug} label={entry.title} size="medium" variant={topic === entry.slug ? 'primary' : 'secondary'} onPress={() => setTopic(entry.slug)} />)}</View>
+    <AppText variant="label">Content type</AppText>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{kinds.map((entry) => <AppButton key={entry.value} label={entry.label} size="medium" variant={kind === entry.value ? 'primary' : 'secondary'} onPress={() => setKind(entry.value)} />)}</View>
     <AppButton label={savedOnly ? 'Show all readings' : 'Show saved readings'} variant="secondary" onPress={() => setSavedOnly(!savedOnly)} />
     <RealEnglishLibraryV2 key={`${submitted}|${cefr}|${topic}|${kind}|${savedOnly}`} query={submitted} cefr={cefr} topic={topic} category={kind} savedOnly={savedOnly}

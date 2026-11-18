@@ -14,6 +14,19 @@ export function normalizeSearchText(value: string) {
     .toLocaleLowerCase('vi').trim();
 }
 
+export function compactTopics<T extends { slug: string; title: string }>(entries: T[], limit = 5): T[] {
+  const seenSlugs = new Set<string>();
+  const seenTitles = new Set<string>();
+  return entries.filter((entry) => {
+    const slug = normalizeSearchText(entry.slug);
+    const title = normalizeSearchText(entry.title);
+    if (!slug || !title || seenSlugs.has(slug) || seenTitles.has(title)) return false;
+    seenSlugs.add(slug);
+    seenTitles.add(title);
+    return true;
+  }).slice(0, Math.max(0, limit));
+}
+
 export function lessonMatchesQuery(lesson: SearchableLesson, query: string) {
   const term = normalizeSearchText(query);
   if (!term) return true;

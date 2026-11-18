@@ -40,6 +40,20 @@ BEGIN
     OR pg_catalog.has_table_privilege('authenticated', 'public.xp_events', 'DELETE') THEN
     RAISE EXCEPTION 'Learners can mutate XP directly';
   END IF;
+  IF pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_assignments', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_assignments', 'UPDATE')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_completions', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_completions', 'UPDATE')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_completions', 'DELETE') THEN
+    RAISE EXCEPTION 'Daily Writing assignment or completion ledger is client-mutable';
+  END IF;
+  IF pg_catalog.has_table_privilege('authenticated', 'public.writing_ai_feedback', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_ai_feedback', 'UPDATE')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_ai_rewrites', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_ai_usage', 'SELECT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.writing_revisions', 'INSERT') THEN
+    RAISE EXCEPTION 'Writing AI server-owned data is mutable or exposed to learners';
+  END IF;
   IF pg_catalog.has_table_privilege('anon', 'public.quiz_answer_keys', 'SELECT')
     OR pg_catalog.has_table_privilege('anon', 'public.writing_answer_keys', 'SELECT') THEN
     RAISE EXCEPTION 'Anonymous users can read private answer keys';

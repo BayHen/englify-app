@@ -1,0 +1,14 @@
+import { beforeEach,describe,expect,it,vi } from 'vitest';
+import { deleteWritingDraft,getWritingDraft,listWritingDrafts,saveWritingDraft,writingDraftContext } from './draft-storage.web';
+
+const values=new Map<string,string>();
+beforeEach(()=>{values.clear();vi.stubGlobal('localStorage',{getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>values.set(key,value),removeItem:(key:string)=>values.delete(key)});});
+const draft=(userId:string,contextKey:string,revision:number,content=`revision ${revision}`)=>({id:`${userId}-${contextKey}`,userId,contextKey,exerciseId:'exercise-1',challengeAssignmentId:null,content,selectedTokens:[],createdAt:'2026-01-01T00:00:00Z',updatedAt:`2026-01-01T00:00:0${revision}Z`,revision});
+describe('Writing draft storage',()=>{
+  it('creates, updates and restores one draft per context',async()=>{const key=writingDraftContext('exercise-1',null);await saveWritingDraft(draft('user-a',key,1));await saveWritingDraft(draft('user-a',key,2));await expect(getWritingDraft('user-a',key)).resolves.toMatchObject({revision:2,content:'revision 2'});});
+  it('rejects stale writes and stale submission cleanup',async()=>{const key=writingDraftContext('exercise-1',null);await saveWritingDraft(draft('user-a',key,5));await saveWritingDraft(draft('user-a',key,4,'old'));await deleteWritingDraft('user-a',key,4);await expect(getWritingDraft('user-a',key)).resolves.toMatchObject({revision:5});});
+  it('isolates users and multiple exercise contexts',async()=>{await saveWritingDraft(draft('user-c','exercise:one',1));await saveWritingDraft(draft('user-c','exercise:two',1));await saveWritingDraft(draft('user-d','exercise:one',1));expect(await listWritingDrafts('user-c')).toHaveLength(2);expect(await listWritingDrafts('user-d')).toHaveLength(1);});
+  it('clears only the submitted context while another exercise is active',async()=>{await saveWritingDraft(draft('user-switch','exercise:submitted',5));await saveWritingDraft(draft('user-switch','exercise:active',1));await deleteWritingDraft('user-switch','exercise:submitted',5);await expect(getWritingDraft('user-switch','exercise:submitted')).resolves.toBeNull();await expect(getWritingDraft('user-switch','exercise:active')).resolves.toMatchObject({content:'revision 1',revision:1});});
+  it('surfaces failed durable writes',async()=>{vi.stubGlobal('localStorage',{getItem:()=>null,setItem:()=>{throw new Error('quota');},removeItem:()=>undefined});await expect(saveWritingDraft(draft('user-e','exercise:one',1))).rejects.toThrow('Local draft storage is unavailable');});
+  it('ignores malformed or cross-account records',async()=>{values.set('englify:writing:draft:user-f:exercise:one',JSON.stringify({...draft('other','exercise:one',1),userId:'other'}));await expect(getWritingDraft('user-f','exercise:one')).resolves.toBeNull();});
+});

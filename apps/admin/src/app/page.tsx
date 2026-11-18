@@ -31,6 +31,8 @@ type Section =
   | "quiz-options"
   | "real-english"
   | "hybrid-real-english"
+  | "writing-topics"
+  | "writing-exercises"
   | "imports"
   | "badges"
   | "analytics"
@@ -47,6 +49,8 @@ const nav: { id: Section; label: string; group: string }[] = [
   { id: "quiz-options", label: "Quiz options", group: "Content" },
   { id: "real-english", label: "Real English", group: "Content" },
   { id: "hybrid-real-english", label: "AI lesson review", group: "Content" },
+  { id: "writing-topics", label: "Writing topics", group: "Content" },
+  { id: "writing-exercises", label: "Writing exercises", group: "Content" },
   { id: "imports", label: "Import review", group: "Content" },
   { id: "badges", label: "Badge rules", group: "Content" },
   { id: "analytics", label: "Learning analytics", group: "Operations" },
@@ -56,6 +60,7 @@ const nav: { id: Section; label: string; group: string }[] = [
 const choices: Record<string, string[]> = {
   formality: ["informal", "neutral", "formal"],
   metric: ["completed_lessons", "total_xp"],
+  cefr_level: ["A1", "A2", "B1", "B2", "C1"],
 };
 const kinds: Record<string, string[]> = {
   "lesson-items": ["reading", "tip"],
@@ -74,6 +79,7 @@ const kinds: Record<string, string[]> = {
     "everyday_conversation",
     "movie_style_dialogue",
   ],
+  "writing-exercises": ["sentence", "fill_blank", "sentence_order", "paragraph", "email", "opinion", "essay"],
 };
 const sectionDescriptions: Record<Section, string> = {
   dashboard: "A live overview of published learning content.",
@@ -86,6 +92,8 @@ const sectionDescriptions: Record<Section, string> = {
   "quiz-options": "Manage the possible answers for each question.",
   "real-english": "Curate everyday expressions and authentic examples.",
   "hybrid-real-english": "Review AI drafts and their source attribution.",
+  "writing-topics": "Organize the CEFR writing library into learner-facing topics.",
+  "writing-exercises": "Create, validate, publish, and archive CEFR writing exercises.",
   imports:
     "Inspect staged educational content and provenance before publication.",
   badges: "Configure achievements and reward milestones.",

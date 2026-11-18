@@ -1,5 +1,9 @@
 # Kiến trúc PostgreSQL – TASK 03.1
 
+Migration `20261117020000` mở rộng Writing V2.2 bằng `writing_topics`, metadata CEFR A1–C1 trên `writing_exercises` và `user_preferences.writing_cefr_level` độc lập với cấp độ chung. Hai RPC thư viện/chủ đề thực hiện tìm kiếm, lọc và phân trang phía PostgreSQL. Seed phát triển có tối thiểu 10 bài cho mỗi cấp; RLS chỉ cho người học đọc nội dung đã xuất bản và giữ answer key riêng tư. Xem [WRITING_V2_2.md](WRITING_V2_2.md).
+
+Migration `20261117030000` bổ sung Daily Writing Challenge theo timezone IANA, assignment ổn định theo người/ngày, completion ledger, Writing streak và milestone dùng chung `badges`/`user_badges`. Hoàn thành, XP event và cập nhật cấp độ nằm trong một RPC transaction; khóa unique trên assignment/completion/XP ngăn thưởng trùng. Xem [WRITING_V2_3.md](WRITING_V2_3.md).
+
 Migration `20261107_11` thêm `admin_members` và `admin_audit_logs`, cùng trạng thái bản nháp/lưu trữ mềm cho các bảng nội dung. Không tự cấp quyền admin hay tạo tài khoản Auth. Các bảng admin không cấp quyền đọc/ghi trực tiếp cho client. RLS và API mobile chỉ hiển thị nội dung đã xuất bản, chưa lưu trữ; khóa đáp án vẫn riêng tư. Xem [ADMIN_DASHBOARD.md](ADMIN_DASHBOARD.md).
 
 Migration `20261107_10` bổ sung `writing_exercises`, `writing_answer_keys` và `writing_feedback`; mở rộng `writing_submissions` bằng khóa ngoại bài tập và `request_id` để chống gửi trùng. Nội dung gốc và phản hồi được lưu ở hai bảng riêng. Chỉ bài đã xuất bản được đọc qua RLS; bảng đáp án không cấp quyền đọc cho người học; phản hồi chỉ hiện cho chủ bài nộp. Xem [WRITING_PRACTICE.md](WRITING_PRACTICE.md) về API, seed và giới hạn kiểm tra ngữ pháp.
@@ -75,6 +79,12 @@ psql -v ON_ERROR_STOP=1 -d "$env:ENGLIFY_PSQL_URL" -f backend/seeds/development.
 `ENGLIFY_PSQL_URL` là URL PostgreSQL thuần (`postgresql://...`), không dùng URL SQLAlchemy có `+psycopg`. Có thể đặt `PG*` environment variables hoặc dùng Supabase SQL editor để nạp seed. Seed chỉ chứa nội dung học mẫu và chạy lại được; không tạo Auth user hoặc tiến độ giả. File seed bọc trong `BEGIN`/`COMMIT`.
 
 Kiểm thử RLS ở PostgreSQL cục bộ dùng fixture **chỉ cho test** `backend/tests/fixtures/supabase_auth_stub.sql` trên database tạm, sau đó chạy migration, seed, và `backend/tests/sql/rls_and_constraints.sql`. Không chạy fixture này trên Supabase thật. Bài test kiểm tra tạo profile, quyền `anon`, cô lập hai người dùng, ghi sai chủ sở hữu, quyền ghi XP/progress, FK ghép và uniqueness. Không dùng tài khoản hoặc bí mật thật.
+
+## Writing V2.4 — analytics theo dữ liệu thật
+
+Migration `20261117040000_writing_analytics.sql` chụp snapshot CEFR, topic, loại bài và timezone trên mỗi Writing submission, bổ sung index theo user/thời gian và cung cấp các RPC analytics có kiểm tra `auth.uid()`. Summary/progress chỉ tính submission vượt qua rule server; history vẫn giữ bài cần sửa để người học xem lại. AI feedback lấy bản mới nhất trên mỗi bài gốc; rewrite/revision không làm tăng số bài, số từ, XP hoặc streak. Chi tiết hợp đồng, giới hạn và quy trình kiểm thử ở [WRITING_V2_4.md](WRITING_V2_4.md).
+
+Writing V2.5 không đổi PostgreSQL. Draft chưa nộp nằm trong SQLite riêng `englify-writing.db` trên native và localStorage trên web, luôn khóa theo user/context; dữ liệu này không tự đồng bộ Supabase và không được mã hóa ở trạng thái nghỉ. Xem [WRITING_V2_5.md](WRITING_V2_5.md).
 
 ## Giới hạn hiện tại
 

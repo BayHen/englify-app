@@ -2,11 +2,7 @@
 
 > Việc chuyển hoàn toàn khỏi FastAPI sang Supabase đang triển khai. Xem [audit migration](docs/SUPABASE_MIGRATION_AUDIT.md) và [báo cáo kiểm thử](docs/SUPABASE_MIGRATION_TEST_REPORT.md). Hiện tại không xóa `backend/` hoặc bỏ lệnh chạy API khi các màn hình vẫn gọi FastAPI.
 
-Auth/profile/onboarding, từ điển, Real English, Journey/quiz và XP trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho MyMemory; Function `translate` đã triển khai ngày 11/11/2026. Sau bản sửa kết quả từ/cụm ngắn, người dùng xác nhận trên Expo Go `License → Giấy phép.` và `giấy phép → License`. Xem [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Ứng dụng không trả bản dịch mẫu khi provider không sẵn sàng. Kế hoạch học và Writing đã có bản Supabase nhưng mobile còn giữ FastAPI mặc định cho đến khi Edge Function được triển khai/kiểm tra; [Admin Supabase](docs/ADMIN_SUPABASE_MIGRATION.md) mới được kiểm thử cục bộ, cờ chuyển đổi đang tắt. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
-
-Real English Hybrid V2 đã có migration, hàng chờ duyệt Admin và Edge Function trên Supabase đang dùng; cờ giao diện Admin cục bộ đã bật. Tạo bài AI và feed mobile chưa được xác nhận đầu cuối; Cron vẫn tắt. Xem [kế hoạch kích hoạt và giới hạn kiểm chứng](docs/REAL_ENGLISH_HYBRID_V2.md).
-
-Trong Admin, mục **AI lesson review** nay luôn hiện. Ngày 12/11/2026 đã áp migration Admin RLS và Real English V2, triển khai Function `real-english-generate` với JWT verification, và bật cờ giao diện trong `apps/admin/.env.local` cục bộ. Admin gọi Function qua route Next.js cùng origin để không cần mở CORS production cho localhost. Dòng “V2 lesson table: Ready” sai trước đó đã được sửa bằng GET thật. Người dùng đã xác nhận hàng chờ và biểu mẫu mới hiện sau khi khởi động lại Admin. Đã bật thử Free tier thủ công tối đa 1 yêu cầu/ngày với chủ đề “Coffee conversation”; chưa xác nhận tạo bài đầu cuối hoặc duyệt/xuất bản.
+Auth/profile/onboarding, từ điển, Real English, Journey/quiz và XP trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho MyMemory; [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Dịch thật cần xác nhận sau khi deploy Edge Function; ứng dụng không trả bản dịch mẫu khi provider chưa sẵn sàng. Kế hoạch học và Writing đã có bản Supabase nhưng mobile còn giữ FastAPI mặc định cho đến khi Edge Function được triển khai/kiểm tra; [Admin Supabase](docs/ADMIN_SUPABASE_MIGRATION.md) mới được kiểm thử cục bộ, cờ chuyển đổi đang tắt. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
 
 Kho mã chung cho ứng dụng học tiếng Anh trên Expo, trang quản trị Next.js và API FastAPI. Mobile đã có điều hướng và nội dung mẫu; xác thực thật, nội dung học tập từ server và cơ sở dữ liệu sẽ được triển khai ở các nhiệm vụ tiếp theo.
 
@@ -37,13 +33,14 @@ python -m venv .venv
 Trong PowerShell bị chặn script, dùng `npm.cmd` thay cho `npm`. Mỗi dịch vụ chạy ở một cửa sổ riêng:
 
 ```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
+npm.cmd run dev -w apps/admin
 winget install ngrok -s msstore
 ngrok help
 ngrok config add-authtoken "<AUTHTOKEN_CỦA_BẠN>"
 ngrok http 8000
-cd apps/mobilnpx.cmd expo start --tunnel --cleare
-
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload
+cd apps/mobile
+npx.cmd expo start --tunnel --clear
 ```
 
 Expo Router nằm trong `apps/mobile` (`main: expo-router/entry`). Khi đứng ở thư mục gốc, dùng `npm.cmd start -- --clear` hoặc `npm.cmd run mobile -- --clear`; không chạy `npx.cmd expo start` trực tiếp tại root vì Expo sẽ tìm `App` của root thay vì route `apps/mobile/src/app`. Xem [hướng dẫn mobile](apps/mobile/README.md) để mở bằng Expo Go trên iPhone.

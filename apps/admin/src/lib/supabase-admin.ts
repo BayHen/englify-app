@@ -11,12 +11,15 @@ const schema = {
   'quiz-questions': { lesson_id: 'uuid', position: 'positive', kind: 'question_kind', prompt: 'text', explanation: 'optional', payload: 'object', answer: 'json' },
   'quiz-options': { question_id: 'uuid', position: 'positive', answer_text: 'text', is_correct: 'boolean' },
   'real-english': { slug: 'slug', kind: 'expression_kind', expression: 'text', meaning_vi: 'text', context_explanation: 'text', example_en: 'text', example_vi: 'text', dialogue: 'array', formality: 'formality', region_note: 'text', source_name: 'text', license_id: 'text', provenance_note: 'text' },
+  'writing-topics': { slug: 'slug', title: 'text', description: 'text', icon: 'optional', sort_order: 'positive', is_published: 'boolean' },
+  'writing-exercises': { slug: 'slug', topic_id: 'uuid', cefr_level: 'cefr_level', kind: 'writing_kind', title: 'text', prompt: 'text', instructions: 'optional', hint: 'optional', min_words: 'positive', recommended_words: 'positive', estimated_minutes: 'positive', difficulty: 'positive', tokens: 'array', accepted_answers: 'array', is_published: 'boolean' },
   badges: { code: 'slug', title: 'text', description: 'optional', metric: 'badge_metric', target: 'positive' },
 } as const;
 const tables: Record<Resource, string> = {
   vocabulary: 'dictionary_entries', courses: 'courses', units: 'learning_units', lessons: 'lessons',
   'lesson-items': 'lesson_items', 'quiz-questions': 'quiz_questions', 'quiz-options': 'quiz_options',
   'real-english': 'real_english_expressions', badges: 'badges',
+  'writing-topics': 'writing_topics', 'writing-exercises': 'writing_exercises',
 };
 const searchFields = ['title', 'term', 'expression', 'prompt', 'answer_text', 'kind', 'slug', 'code'] as const;
 
@@ -42,6 +45,10 @@ async function row(client: SupabaseClient, resource: Resource, id: string): Prom
   if (resource === 'badges') {
     const rule = checked(await client.from('badge_rules').select('metric,target').eq('badge_id', id).maybeSingle()) as { metric: string; target: number } | null;
     item.metric = rule?.metric ?? null; item.target = rule?.target ?? null;
+  }
+  if (resource === 'writing-exercises') {
+    const answer = checked(await client.from('writing_answer_keys').select('accepted_answers').eq('exercise_id', id).maybeSingle()) as { accepted_answers: unknown } | null;
+    item.accepted_answers = answer?.accepted_answers ?? [];
   }
   return item;
 }
@@ -74,7 +81,8 @@ async function write(
   const answer = resource === 'quiz-questions' ? data.answer : undefined;
   const metric = resource === 'badges' ? data.metric : undefined;
   const target = resource === 'badges' ? data.target : undefined;
-  delete data.answer; delete data.metric; delete data.target;
+  const acceptedAnswers = resource === 'writing-exercises' ? data.accepted_answers : undefined;
+  delete data.answer; delete data.metric; delete data.target; delete data.accepted_answers;
   if (resource === 'vocabulary' && typeof data.term === 'string') {
     data.normalized_term = data.term.toLocaleLowerCase('en');
   }
@@ -92,6 +100,10 @@ async function write(
     const nextMetric = metric ?? current?.metric; const nextTarget = target ?? current?.target;
     if (!nextMetric || !nextTarget) throw new Error('Badge rule needs metric and target.');
     noError(await client.from('badge_rules').upsert({ badge_id: id, metric: nextMetric, target: nextTarget }, { onConflict: 'badge_id' }));
+  }
+  if (resource === 'writing-exercises' && acceptedAnswers !== undefined) {
+    if (!Array.isArray(acceptedAnswers)) throw new Error('Accepted answers must be an array.');
+    noError(await client.from('writing_answer_keys').upsert({ exercise_id: id, accepted_answers: acceptedAnswers }, { onConflict: 'exercise_id' }));
   }
   return row(client, resource, id);
 }
