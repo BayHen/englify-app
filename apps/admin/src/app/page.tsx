@@ -14,6 +14,11 @@ import {
 } from "./hybrid-real-english-panel";
 import { PublishedRealEnglishLibrary } from "./published-real-english-library";
 import { ContentImportReview } from "./content-import-review";
+import { ArenaSeasonManagement } from "./arena-season-management";
+import { ArenaQuestionManagement } from "./arena-question-management";
+import { ArenaQuestionGenerator } from "./arena-question-generator";
+import { ArenaTopicManagement } from "./arena-topic-management";
+import { ArenaQuestionAnalytics } from "./arena-question-analytics";
 
 const hybridReady =
   process.env.NEXT_PUBLIC_REAL_ENGLISH_HYBRID_ENABLED === "true";
@@ -37,7 +42,9 @@ type Section =
   | "badges"
   | "analytics"
   | "publishing"
-  | "audit";
+  | "audit"
+  | "arena-seasons"
+  | "arena-questions";
 const nav: { id: Section; label: string; group: string }[] = [
   { id: "dashboard", label: "Dashboard", group: "Overview" },
   { id: "vocabulary", label: "Vocabulary", group: "Content" },
@@ -55,6 +62,8 @@ const nav: { id: Section; label: string; group: string }[] = [
   { id: "badges", label: "Badge rules", group: "Content" },
   { id: "analytics", label: "Learning analytics", group: "Operations" },
   { id: "publishing", label: "Publishing", group: "Operations" },
+  { id: "arena-seasons", label: "Arena seasons", group: "Operations" },
+  { id: "arena-questions", label: "Arena questions", group: "Operations" },
   { id: "audit", label: "Audit log", group: "Operations" },
 ];
 const choices: Record<string, string[]> = {
@@ -100,6 +109,8 @@ const sectionDescriptions: Record<Section, string> = {
   analytics: "Read aggregate learning activity without exposing learners.",
   publishing: "Review drafts before they appear in the app.",
   audit: "See recent content changes and their actors.",
+  "arena-seasons": "Manage ranked rules, season lifecycle, standings, rewards, and security review.",
+  "arena-questions": "Create, validate, import, review, publish, and audit versioned Arena questions.",
 };
 const content = (section: Section) =>
   ![
@@ -109,6 +120,8 @@ const content = (section: Section) =>
     "audit",
     "hybrid-real-english",
     "imports",
+    "arena-seasons",
+    "arena-questions",
   ].includes(section);
 const format = (value: unknown) =>
   typeof value === "object" && value !== null
@@ -177,7 +190,7 @@ export default function AdminPage() {
     if (access !== "admin") return;
     setLoading(true);
     try {
-      if (section === "hybrid-real-english" || section === "imports") {
+      if (section === "hybrid-real-english" || section === "imports" || section === "arena-seasons" || section === "arena-questions") {
         // The dedicated panel reads its own RLS-protected lesson list.
       } else if (content(section)) {
         const result = await adminRequest<Catalog>(
@@ -461,7 +474,7 @@ export default function AdminPage() {
             onOpenReview={() => navigate("hybrid-real-english")}
           />
         ) : null}
-        {!["hybrid-real-english", "imports"].includes(section) ? (
+        {!["hybrid-real-english", "imports", "arena-seasons", "arena-questions"].includes(section) ? (
           <div className="studio-intro">
             <div>
               <p className="eyebrow">ENGLIFY CONTENT STUDIO</p>
@@ -483,7 +496,11 @@ export default function AdminPage() {
             </span>
           </div>
         ) : null}
-        {section === "imports" ? (
+        {section === "arena-questions" ? (
+          <><ArenaQuestionManagement /><ArenaQuestionAnalytics /><ArenaQuestionGenerator /><ArenaTopicManagement /></>
+        ) : section === "arena-seasons" ? (
+          <ArenaSeasonManagement />
+        ) : section === "imports" ? (
           <ContentImportReview />
         ) : section === "hybrid-real-english" ? (
           hybridReady ? (

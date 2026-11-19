@@ -48,7 +48,7 @@ function AppNavigator() {
       <Stack.Screen name="vocabulary-review" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="writing-progress" /><Stack.Screen name="writing-progress/[id]" />
-      <Stack.Screen name="quiz-arena" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
+      <Stack.Screen name="quiz-arena" /><Stack.Screen name="quiz-practice/[id]" /><Stack.Screen name="time-attack/[id]" /><Stack.Screen name="ranked-arena/[id]" /><Stack.Screen name="mistakes" /><Stack.Screen name="mistake-review/[id]" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
       <Stack.Screen name="account-settings" /><Stack.Screen name="edit-profile" />
       <Stack.Screen name="change-avatar" /><Stack.Screen name="change-password" />
       <Stack.Screen name="learning-preferences" />

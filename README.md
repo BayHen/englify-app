@@ -53,6 +53,16 @@ Giao diện mobile V2 có Home, Journey, Explore, Practice và Profile; xem [hư
 
 Giao diện đăng nhập, đăng ký và khôi phục mật khẩu V4 được mô tả tại [tài liệu Auth UI V4](docs/AUTH_UI_V4.md).
 
+Quiz Arena V2.1 có Practice Mode độc lập, Question Bank A1–C1, sáu loại câu hỏi, giải thích tiếng Việt, lịch sử và thưởng XP giới hạn phía server. Xem [hướng dẫn Quiz Arena](docs/QUIZ_ARENA_V2_1.md). Journey và XP bài học hiện có được giữ nguyên.
+
+Quiz Arena V2.2 thêm Time Attack, countdown theo server, lives, combo/speed points, personal records và review. Điểm Arena không chuyển thành XP; Practice/Journey giữ chính sách thưởng hiện có. Xem [hướng dẫn V2.2](docs/QUIZ_ARENA_V2_2.md).
+
+Quiz Arena V2.3 thêm Ranked Arena bất đồng bộ, Arena Rating riêng, tier, weekly/season leaderboard, season lifecycle, match history và season badge idempotent. Không có PvP trực tiếp và không cấp XP từ ranked. Xem [hướng dẫn V2.3](docs/QUIZ_ARENA_V2_3.md).
+
+Quiz Arena V2.4 thêm kho lỗi thật từ Journey, Practice, Time Attack và Ranked; phiên ôn 5/10/tất cả câu đến hạn; lịch SRS 1/3/7/14/30 ngày; mastery và gợi ý có thể giải thích. Review không cấp XP, Arena score hay rating. Xem [hướng dẫn V2.4](docs/QUIZ_ARENA_V2_4.md).
+
+Quiz Arena V2.5 bổ sung Question Management trong Admin: lifecycle/revision, validation phía server, CSV/XLSX staging, duplicate detection, Gemini draft review, topic, analytics và learner reports. Xem [tài liệu V2.5](docs/QUIZ_ARENA_V2_5.md).
+
 ## Kiểm tra
 
 ```powershell
