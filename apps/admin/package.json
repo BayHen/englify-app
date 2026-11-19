@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test src/app/real-english-relations.test.mjs src/lib/supabase-admin.test.mjs"
+    "test": "node --test src/app/real-english-relations.test.mjs src/app/arena-question-import.test.mjs src/lib/supabase-admin.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",
+    "exceljs": "^4.4.0",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0"

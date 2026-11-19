@@ -2,11 +2,7 @@
 
 > Việc chuyển hoàn toàn khỏi FastAPI sang Supabase đang triển khai. Xem [audit migration](docs/SUPABASE_MIGRATION_AUDIT.md) và [báo cáo kiểm thử](docs/SUPABASE_MIGRATION_TEST_REPORT.md). Hiện tại không xóa `backend/` hoặc bỏ lệnh chạy API khi các màn hình vẫn gọi FastAPI.
 
-Auth/profile/onboarding, từ điển, Real English, Journey/quiz và XP trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho MyMemory; Function `translate` đã triển khai ngày 11/11/2026. Sau bản sửa kết quả từ/cụm ngắn, người dùng xác nhận trên Expo Go `License → Giấy phép.` và `giấy phép → License`. Xem [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Ứng dụng không trả bản dịch mẫu khi provider không sẵn sàng. Kế hoạch học và Writing đã có bản Supabase nhưng mobile còn giữ FastAPI mặc định cho đến khi Edge Function được triển khai/kiểm tra; [Admin Supabase](docs/ADMIN_SUPABASE_MIGRATION.md) mới được kiểm thử cục bộ, cờ chuyển đổi đang tắt. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
-
-Real English Hybrid V2 đã có migration, hàng chờ duyệt Admin và Edge Function trên Supabase đang dùng; cờ giao diện Admin cục bộ đã bật. Tạo bài AI và feed mobile chưa được xác nhận đầu cuối; Cron vẫn tắt. Xem [kế hoạch kích hoạt và giới hạn kiểm chứng](docs/REAL_ENGLISH_HYBRID_V2.md).
-
-Trong Admin, mục **AI lesson review** nay luôn hiện. Ngày 12/11/2026 đã áp migration Admin RLS và Real English V2, triển khai Function `real-english-generate` với JWT verification, và bật cờ giao diện trong `apps/admin/.env.local` cục bộ. Admin gọi Function qua route Next.js cùng origin để không cần mở CORS production cho localhost. Dòng “V2 lesson table: Ready” sai trước đó đã được sửa bằng GET thật. Người dùng đã xác nhận hàng chờ và biểu mẫu mới hiện sau khi khởi động lại Admin. Đã bật thử Free tier thủ công tối đa 1 yêu cầu/ngày với chủ đề “Coffee conversation”; chưa xác nhận tạo bài đầu cuối hoặc duyệt/xuất bản.
+Auth/profile/onboarding, từ điển, Real English, Journey/quiz và XP trên mobile đã gọi Supabase trực tiếp. Màn hình Translate đã nối Supabase Edge Function cho MyMemory; [cách cấu hình provider và quota](docs/TRANSLATION_API_SETUP.md). Dịch thật cần xác nhận sau khi deploy Edge Function; ứng dụng không trả bản dịch mẫu khi provider chưa sẵn sàng. Kế hoạch học và Writing đã có bản Supabase nhưng mobile còn giữ FastAPI mặc định cho đến khi Edge Function được triển khai/kiểm tra; [Admin Supabase](docs/ADMIN_SUPABASE_MIGRATION.md) mới được kiểm thử cục bộ, cờ chuyển đổi đang tắt. Xem [trạng thái migration V3](docs/SUPABASE_FINAL_MIGRATION_V3.md).
 
 Kho mã chung cho ứng dụng học tiếng Anh trên Expo, trang quản trị Next.js và API FastAPI. Mobile đã có điều hướng và nội dung mẫu; xác thực thật, nội dung học tập từ server và cơ sở dữ liệu sẽ được triển khai ở các nhiệm vụ tiếp theo.
 
@@ -37,13 +33,14 @@ python -m venv .venv
 Trong PowerShell bị chặn script, dùng `npm.cmd` thay cho `npm`. Mỗi dịch vụ chạy ở một cửa sổ riêng:
 
 ```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
+npm.cmd run dev -w apps/admin
 winget install ngrok -s msstore
 ngrok help
 ngrok config add-authtoken "<AUTHTOKEN_CỦA_BẠN>"
 ngrok http 8000
-cd apps/mobilnpx.cmd expo start --tunnel --cleare
-
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port 8000 --reload
+cd apps/mobile
+npx.cmd expo start --tunnel --clear
 ```
 
 Expo Router nằm trong `apps/mobile` (`main: expo-router/entry`). Khi đứng ở thư mục gốc, dùng `npm.cmd start -- --clear` hoặc `npm.cmd run mobile -- --clear`; không chạy `npx.cmd expo start` trực tiếp tại root vì Expo sẽ tìm `App` của root thay vì route `apps/mobile/src/app`. Xem [hướng dẫn mobile](apps/mobile/README.md) để mở bằng Expo Go trên iPhone.
@@ -55,6 +52,16 @@ Admin Dashboard cần thêm `apps/admin/.env.local` và tài khoản có trong `
 Giao diện mobile V2 có Home, Journey, Explore, Practice và Profile; xem [hướng dẫn UI V2](docs/UI_REDESIGN_V2.md). Bản xem trước `/dev/ui-v2-preview` chỉ chạy trong development và luôn gắn nhãn dữ liệu mẫu.
 
 Giao diện đăng nhập, đăng ký và khôi phục mật khẩu V4 được mô tả tại [tài liệu Auth UI V4](docs/AUTH_UI_V4.md).
+
+Quiz Arena V2.1 có Practice Mode độc lập, Question Bank A1–C1, sáu loại câu hỏi, giải thích tiếng Việt, lịch sử và thưởng XP giới hạn phía server. Xem [hướng dẫn Quiz Arena](docs/QUIZ_ARENA_V2_1.md). Journey và XP bài học hiện có được giữ nguyên.
+
+Quiz Arena V2.2 thêm Time Attack, countdown theo server, lives, combo/speed points, personal records và review. Điểm Arena không chuyển thành XP; Practice/Journey giữ chính sách thưởng hiện có. Xem [hướng dẫn V2.2](docs/QUIZ_ARENA_V2_2.md).
+
+Quiz Arena V2.3 thêm Ranked Arena bất đồng bộ, Arena Rating riêng, tier, weekly/season leaderboard, season lifecycle, match history và season badge idempotent. Không có PvP trực tiếp và không cấp XP từ ranked. Xem [hướng dẫn V2.3](docs/QUIZ_ARENA_V2_3.md).
+
+Quiz Arena V2.4 thêm kho lỗi thật từ Journey, Practice, Time Attack và Ranked; phiên ôn 5/10/tất cả câu đến hạn; lịch SRS 1/3/7/14/30 ngày; mastery và gợi ý có thể giải thích. Review không cấp XP, Arena score hay rating. Xem [hướng dẫn V2.4](docs/QUIZ_ARENA_V2_4.md).
+
+Quiz Arena V2.5 bổ sung Question Management trong Admin: lifecycle/revision, validation phía server, CSV/XLSX staging, duplicate detection, Gemini draft review, topic, analytics và learner reports. Xem [tài liệu V2.5](docs/QUIZ_ARENA_V2_5.md).
 
 ## Kiểm tra
 

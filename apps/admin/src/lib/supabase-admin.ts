@@ -11,12 +11,15 @@ const schema = {
   'quiz-questions': { lesson_id: 'uuid', position: 'positive', kind: 'question_kind', prompt: 'text', explanation: 'optional', payload: 'object', answer: 'json' },
   'quiz-options': { question_id: 'uuid', position: 'positive', answer_text: 'text', is_correct: 'boolean' },
   'real-english': { slug: 'slug', kind: 'expression_kind', expression: 'text', meaning_vi: 'text', context_explanation: 'text', example_en: 'text', example_vi: 'text', dialogue: 'array', formality: 'formality', region_note: 'text', source_name: 'text', license_id: 'text', provenance_note: 'text' },
+  'writing-topics': { slug: 'slug', title: 'text', description: 'text', icon: 'optional', sort_order: 'positive', is_published: 'boolean' },
+  'writing-exercises': { slug: 'slug', topic_id: 'uuid', cefr_level: 'cefr_level', kind: 'writing_kind', title: 'text', prompt: 'text', instructions: 'optional', hint: 'optional', min_words: 'positive', recommended_words: 'positive', estimated_minutes: 'positive', difficulty: 'positive', tokens: 'array', accepted_answers: 'array', is_published: 'boolean' },
   badges: { code: 'slug', title: 'text', description: 'optional', metric: 'badge_metric', target: 'positive' },
 } as const;
 const tables: Record<Resource, string> = {
   vocabulary: 'dictionary_entries', courses: 'courses', units: 'learning_units', lessons: 'lessons',
   'lesson-items': 'lesson_items', 'quiz-questions': 'quiz_questions', 'quiz-options': 'quiz_options',
   'real-english': 'real_english_expressions', badges: 'badges',
+  'writing-topics': 'writing_topics', 'writing-exercises': 'writing_exercises',
 };
 const searchFields = ['title', 'term', 'expression', 'prompt', 'answer_text', 'kind', 'slug', 'code'] as const;
 
@@ -42,6 +45,10 @@ async function row(client: SupabaseClient, resource: Resource, id: string): Prom
   if (resource === 'badges') {
     const rule = checked(await client.from('badge_rules').select('metric,target').eq('badge_id', id).maybeSingle()) as { metric: string; target: number } | null;
     item.metric = rule?.metric ?? null; item.target = rule?.target ?? null;
+  }
+  if (resource === 'writing-exercises') {
+    const answer = checked(await client.from('writing_answer_keys').select('accepted_answers').eq('exercise_id', id).maybeSingle()) as { accepted_answers: unknown } | null;
+    item.accepted_answers = answer?.accepted_answers ?? [];
   }
   return item;
 }
@@ -74,7 +81,8 @@ async function write(
   const answer = resource === 'quiz-questions' ? data.answer : undefined;
   const metric = resource === 'badges' ? data.metric : undefined;
   const target = resource === 'badges' ? data.target : undefined;
-  delete data.answer; delete data.metric; delete data.target;
+  const acceptedAnswers = resource === 'writing-exercises' ? data.accepted_answers : undefined;
+  delete data.answer; delete data.metric; delete data.target; delete data.accepted_answers;
   if (resource === 'vocabulary' && typeof data.term === 'string') {
     data.normalized_term = data.term.toLocaleLowerCase('en');
   }
@@ -92,6 +100,10 @@ async function write(
     const nextMetric = metric ?? current?.metric; const nextTarget = target ?? current?.target;
     if (!nextMetric || !nextTarget) throw new Error('Badge rule needs metric and target.');
     noError(await client.from('badge_rules').upsert({ badge_id: id, metric: nextMetric, target: nextTarget }, { onConflict: 'badge_id' }));
+  }
+  if (resource === 'writing-exercises' && acceptedAnswers !== undefined) {
+    if (!Array.isArray(acceptedAnswers)) throw new Error('Accepted answers must be an array.');
+    noError(await client.from('writing_answer_keys').upsert({ exercise_id: id, accepted_answers: acceptedAnswers }, { onConflict: 'exercise_id' }));
   }
   return row(client, resource, id);
 }
@@ -111,6 +123,78 @@ export async function supabaseAdminRequest<T>(client: SupabaseClient, path: stri
   if (parts[0] === 'audit' && method === 'GET') {
     return checked(await client.from('admin_audit_logs').select('id,actor_id,action,resource,record_id,created_at')
       .order('created_at', { ascending: false }).order('id', { ascending: false }).limit(30)) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'overview' && method === 'GET') {
+    return checked(await client.rpc('englify_admin_arena_overview')) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'seasons' && method === 'POST' && !parts[2]) {
+    const payload = JSON.parse(String(init.body ?? '{}')) as { code?:string;title?:string;ruleset_version?:number;starts_at?:string;ends_at?:string };
+    return checked(await client.rpc('englify_admin_upsert_arena_season',{p_id:null,p_code:payload.code,p_title:payload.title,p_ruleset:payload.ruleset_version,p_starts_at:payload.starts_at,p_ends_at:payload.ends_at})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'seasons' && parts[2] && parts[3] === 'transition' && method === 'POST') {
+    const payload = JSON.parse(String(init.body ?? '{}')) as { status?:string };
+    return checked(await client.rpc('englify_admin_transition_arena_season',{p_id:parts[2],p_status:payload.status})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'rulesets' && method === 'POST') {
+    const p = JSON.parse(String(init.body ?? '{}')) as Record<string, unknown>;
+    return checked(await client.rpc('englify_admin_upsert_ranked_ruleset',{
+      p_version:p.version,p_name:p.name,p_question_count:p.question_count,p_time_limit_seconds:p.time_limit_seconds,
+      p_initial_lives:p.initial_lives,p_base_points:p.base_points,p_initial_rating:p.initial_rating,
+      p_max_rating_change:p.max_rating_change,p_reference_score:p.reference_score,p_cefr_level:p.cefr_level,p_enabled:p.enabled,
+    })) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'rewards' && method === 'POST') {
+    const p = JSON.parse(String(init.body ?? '{}')) as Record<string, unknown>;
+    return checked(await client.rpc('englify_admin_set_season_reward',{p_season_id:p.season_id,p_reward_code:p.reward_code,p_badge_id:p.badge_id,p_enabled:p.enabled})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && parts[2] === 'overview' && method === 'GET') {
+    return checked(await client.rpc('englify_admin_question_management_overview')) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && method === 'GET' && !parts[2]) {
+    return checked(await client.rpc('englify_admin_question_list', {
+      p_page: Number(url.searchParams.get('page') ?? '1'), p_page_size: Number(url.searchParams.get('page_size') ?? '20'),
+      p_search: url.searchParams.get('q') || null, p_cefr: url.searchParams.get('cefr') || null,
+      p_topic: url.searchParams.get('topic') || null, p_kind: url.searchParams.get('kind') || null,
+      p_status: url.searchParams.get('status') || null,
+      p_difficulty: url.searchParams.get('difficulty') ? Number(url.searchParams.get('difficulty')) : null,
+    })) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && parts[2] && method === 'GET' && !parts[3]) {
+    return checked(await client.rpc('englify_admin_question_detail', { p_id: parts[2] })) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && method === 'POST' && !parts[2]) {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string;id?:string|null;data?:Record<string,unknown>;change_note?:string};
+    return checked(await client.rpc('englify_admin_save_arena_question',{p_request_id:p.request_id,p_id:p.id??null,p_data:p.data,p_change_note:p.change_note??''})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && parts[2] && parts[3] === 'transition' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {status?:string;note?:string};
+    return checked(await client.rpc('englify_admin_transition_arena_question',{p_id:parts[2],p_status:p.status,p_note:p.note??''})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && parts[2] && parts[3] === 'duplicate' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string};
+    return checked(await client.rpc('englify_admin_duplicate_arena_question',{p_id:parts[2],p_request_id:p.request_id})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'questions' && parts[2] && parts[3] === 'analytics' && method === 'GET') {
+    return checked(await client.rpc('englify_admin_question_analytics',{p_question:parts[2]})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'imports' && parts[2] === 'stage' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string;filename?:string;format?:string;rows?:unknown[]};
+    return checked(await client.rpc('englify_admin_stage_arena_import',{p_request_id:p.request_id,p_filename:p.filename,p_format:p.format,p_rows:p.rows})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'imports' && parts[2] && parts[3] === 'commit' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string;row_ids?:string[]};
+    return checked(await client.rpc('englify_admin_commit_arena_import',{p_batch:parts[2],p_row_ids:p.row_ids??[],p_request_id:p.request_id})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'reports' && parts[2] && parts[3] === 'resolve' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {status?:string;note?:string};
+    return checked(await client.rpc('englify_admin_resolve_question_report',{p_id:parts[2],p_status:p.status,p_note:p.note??''})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'generate' && method === 'POST') {
+    return checked(await client.functions.invoke('arena-question-generate',{body:JSON.parse(String(init.body??'{}'))})) as T;
+  }
+  if (parts[0] === 'arena' && parts[1] === 'topics' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {slug?:string;title?:string;description?:string;sort_order?:number;status?:string};
+    return checked(await client.rpc('englify_admin_upsert_arena_topic',{p_slug:p.slug,p_title:p.title,p_description:p.description??'',p_sort_order:p.sort_order??0,p_status:p.status??'published'})) as T;
   }
   if (parts[0] !== 'catalog' || !parts[1]) throw new Error('Unknown admin operation.');
   const resource = resourceOf(parts[1]);

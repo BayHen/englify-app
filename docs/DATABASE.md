@@ -1,5 +1,15 @@
 # Kiến trúc PostgreSQL – TASK 03.1
 
+Migrations 20261118040000–20261118040200 thêm Ranked Arena: ruleset versioned, season lifecycle, match/answer server-authoritative, rating ledger, leaderboard projection, immutable standings, reward config/ledger và security review signals. Arena Rating độc lập XP; finalization/reward idempotent và learner không ghi trực tiếp dữ liệu xếp hạng. Xem [QUIZ_ARENA_V2_3.md](QUIZ_ARENA_V2_3.md).
+
+Migration `20261118030000` mở rộng session/snapshot Arena bằng mode discriminator và ba bảng Time Attack: rules có version, timed state và answer events unique theo session/question/request. RLS/lock bảo vệ score, lives, combo, timing và personal records; không cấp thêm XP. Helper grading dùng chung giữ nguyên Practice. Xem [QUIZ_ARENA_V2_2.md](QUIZ_ARENA_V2_2.md).
+
+Migration `20261118020000` bổ sung Question Bank và Practice session độc lập cho Quiz Arena: `arena_questions`, `arena_answer_keys`, `arena_sessions`, `arena_session_questions`, `arena_reward_claims`. Snapshot/key riêng tư, RLS theo owner và claim unique theo ngày UTC bảo vệ lịch sử, chấm điểm và XP. Source type `arena` dùng cùng ledger/level hiện có; không đổi dữ liệu hoặc cách chấm Journey. Xem [QUIZ_ARENA_V2_1.md](QUIZ_ARENA_V2_1.md).
+
+Migration `20261117020000` mở rộng Writing V2.2 bằng `writing_topics`, metadata CEFR A1–C1 trên `writing_exercises` và `user_preferences.writing_cefr_level` độc lập với cấp độ chung. Hai RPC thư viện/chủ đề thực hiện tìm kiếm, lọc và phân trang phía PostgreSQL. Seed phát triển có tối thiểu 10 bài cho mỗi cấp; RLS chỉ cho người học đọc nội dung đã xuất bản và giữ answer key riêng tư. Xem [WRITING_V2_2.md](WRITING_V2_2.md).
+
+Migration `20261117030000` bổ sung Daily Writing Challenge theo timezone IANA, assignment ổn định theo người/ngày, completion ledger, Writing streak và milestone dùng chung `badges`/`user_badges`. Hoàn thành, XP event và cập nhật cấp độ nằm trong một RPC transaction; khóa unique trên assignment/completion/XP ngăn thưởng trùng. Xem [WRITING_V2_3.md](WRITING_V2_3.md).
+
 Migration `20261107_11` thêm `admin_members` và `admin_audit_logs`, cùng trạng thái bản nháp/lưu trữ mềm cho các bảng nội dung. Không tự cấp quyền admin hay tạo tài khoản Auth. Các bảng admin không cấp quyền đọc/ghi trực tiếp cho client. RLS và API mobile chỉ hiển thị nội dung đã xuất bản, chưa lưu trữ; khóa đáp án vẫn riêng tư. Xem [ADMIN_DASHBOARD.md](ADMIN_DASHBOARD.md).
 
 Migration `20261107_10` bổ sung `writing_exercises`, `writing_answer_keys` và `writing_feedback`; mở rộng `writing_submissions` bằng khóa ngoại bài tập và `request_id` để chống gửi trùng. Nội dung gốc và phản hồi được lưu ở hai bảng riêng. Chỉ bài đã xuất bản được đọc qua RLS; bảng đáp án không cấp quyền đọc cho người học; phản hồi chỉ hiện cho chủ bài nộp. Xem [WRITING_PRACTICE.md](WRITING_PRACTICE.md) về API, seed và giới hạn kiểm tra ngữ pháp.
@@ -75,6 +85,20 @@ psql -v ON_ERROR_STOP=1 -d "$env:ENGLIFY_PSQL_URL" -f backend/seeds/development.
 `ENGLIFY_PSQL_URL` là URL PostgreSQL thuần (`postgresql://...`), không dùng URL SQLAlchemy có `+psycopg`. Có thể đặt `PG*` environment variables hoặc dùng Supabase SQL editor để nạp seed. Seed chỉ chứa nội dung học mẫu và chạy lại được; không tạo Auth user hoặc tiến độ giả. File seed bọc trong `BEGIN`/`COMMIT`.
 
 Kiểm thử RLS ở PostgreSQL cục bộ dùng fixture **chỉ cho test** `backend/tests/fixtures/supabase_auth_stub.sql` trên database tạm, sau đó chạy migration, seed, và `backend/tests/sql/rls_and_constraints.sql`. Không chạy fixture này trên Supabase thật. Bài test kiểm tra tạo profile, quyền `anon`, cô lập hai người dùng, ghi sai chủ sở hữu, quyền ghi XP/progress, FK ghép và uniqueness. Không dùng tài khoản hoặc bí mật thật.
+
+## Writing V2.4 — analytics theo dữ liệu thật
+
+Migration `20261117040000_writing_analytics.sql` chụp snapshot CEFR, topic, loại bài và timezone trên mỗi Writing submission, bổ sung index theo user/thời gian và cung cấp các RPC analytics có kiểm tra `auth.uid()`. Summary/progress chỉ tính submission vượt qua rule server; history vẫn giữ bài cần sửa để người học xem lại. AI feedback lấy bản mới nhất trên mỗi bài gốc; rewrite/revision không làm tăng số bài, số từ, XP hoặc streak. Chi tiết hợp đồng, giới hạn và quy trình kiểm thử ở [WRITING_V2_4.md](WRITING_V2_4.md).
+
+Writing V2.5 không đổi PostgreSQL. Draft chưa nộp nằm trong SQLite riêng `englify-writing.db` trên native và localStorage trên web, luôn khóa theo user/context; dữ liệu này không tự đồng bộ Supabase và không được mã hóa ở trạng thái nghỉ. Xem [WRITING_V2_5.md](WRITING_V2_5.md).
+
+## Quiz Arena V2.4 — Mistake Review
+
+Hai migration `20261118050000` và `20261118050100` thêm ledger câu trả lời bất biến, tiến độ lỗi theo người học, phiên review và event idempotent. Trigger chỉ ingest lượt làm đã được lưu từ Journey, Practice, Time Attack và Ranked; không tạo lịch sử giả. Answer key và lựa chọn phiên không được cấp quyền đọc trực tiếp cho client. RPC chấm phía server, dùng UTC và lịch cố định 1/3/7/14/30 ngày; trả lời sai quay về stage 0 và hẹn lại sau 10 phút. Review không ghi `xp_events`, score, combo hoặc rating.
+
+## Quiz Arena V2.5 — Question Management
+
+Các migration `20261118050400`–`20261118050600` mở rộng `arena_questions` bằng lifecycle, normalized prompt, origin và version; thêm revision bất biến, topic metadata, import batch/rows, Gemini generation jobs và question reports. `arena_session_questions.revision_id` gắn report với đúng snapshot. Admin mutation dùng RPC security-definer có kiểm tra `englify_is_admin`; learner không được đọc draft/key/review queue. Chi tiết tại [QUIZ_ARENA_V2_5.md](QUIZ_ARENA_V2_5.md).
 
 ## Giới hạn hiện tại
 

@@ -1,5 +1,7 @@
 # Luyện viết tiếng Anh
 
+> Tài liệu này mô tả nền tảng Writing ban đầu. Thư viện CEFR A1–C1, 10 chủ đề, 7 dạng bài, Admin CRUD và các lệnh Supabase hiện hành được mô tả tại [WRITING_V2_2.md](WRITING_V2_2.md). AI Coach/Rewrite xem tại [WRITING_AI_V2_1.md](WRITING_AI_V2_1.md).
+
 ## Chức năng
 
 Màn hình `/writing` cung cấp bốn dạng bài: viết câu, điền từ, sắp xếp từ và viết đoạn văn. Các bài có cấu trúc được so với đáp án chấp nhận bằng quy tắc xác định (bỏ qua khác biệt chữ hoa, khoảng trắng và dấu câu cuối). Kết quả `matched` chỉ có nghĩa là trùng một đáp án mẫu, không đánh giá toàn diện chất lượng câu. Đoạn văn nhận gợi ý tự rà soát; hệ thống không chấm điểm bài luận hoặc khẳng định đã đánh giá năng lực viết.

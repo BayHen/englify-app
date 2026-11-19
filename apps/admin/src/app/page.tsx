@@ -14,6 +14,11 @@ import {
 } from "./hybrid-real-english-panel";
 import { PublishedRealEnglishLibrary } from "./published-real-english-library";
 import { ContentImportReview } from "./content-import-review";
+import { ArenaSeasonManagement } from "./arena-season-management";
+import { ArenaQuestionManagement } from "./arena-question-management";
+import { ArenaQuestionGenerator } from "./arena-question-generator";
+import { ArenaTopicManagement } from "./arena-topic-management";
+import { ArenaQuestionAnalytics } from "./arena-question-analytics";
 
 const hybridReady =
   process.env.NEXT_PUBLIC_REAL_ENGLISH_HYBRID_ENABLED === "true";
@@ -31,11 +36,15 @@ type Section =
   | "quiz-options"
   | "real-english"
   | "hybrid-real-english"
+  | "writing-topics"
+  | "writing-exercises"
   | "imports"
   | "badges"
   | "analytics"
   | "publishing"
-  | "audit";
+  | "audit"
+  | "arena-seasons"
+  | "arena-questions";
 const nav: { id: Section; label: string; group: string }[] = [
   { id: "dashboard", label: "Dashboard", group: "Overview" },
   { id: "vocabulary", label: "Vocabulary", group: "Content" },
@@ -47,15 +56,20 @@ const nav: { id: Section; label: string; group: string }[] = [
   { id: "quiz-options", label: "Quiz options", group: "Content" },
   { id: "real-english", label: "Real English", group: "Content" },
   { id: "hybrid-real-english", label: "AI lesson review", group: "Content" },
+  { id: "writing-topics", label: "Writing topics", group: "Content" },
+  { id: "writing-exercises", label: "Writing exercises", group: "Content" },
   { id: "imports", label: "Import review", group: "Content" },
   { id: "badges", label: "Badge rules", group: "Content" },
   { id: "analytics", label: "Learning analytics", group: "Operations" },
   { id: "publishing", label: "Publishing", group: "Operations" },
+  { id: "arena-seasons", label: "Arena seasons", group: "Operations" },
+  { id: "arena-questions", label: "Arena questions", group: "Operations" },
   { id: "audit", label: "Audit log", group: "Operations" },
 ];
 const choices: Record<string, string[]> = {
   formality: ["informal", "neutral", "formal"],
   metric: ["completed_lessons", "total_xp"],
+  cefr_level: ["A1", "A2", "B1", "B2", "C1"],
 };
 const kinds: Record<string, string[]> = {
   "lesson-items": ["reading", "tip"],
@@ -74,6 +88,7 @@ const kinds: Record<string, string[]> = {
     "everyday_conversation",
     "movie_style_dialogue",
   ],
+  "writing-exercises": ["sentence", "fill_blank", "sentence_order", "paragraph", "email", "opinion", "essay"],
 };
 const sectionDescriptions: Record<Section, string> = {
   dashboard: "A live overview of published learning content.",
@@ -86,12 +101,16 @@ const sectionDescriptions: Record<Section, string> = {
   "quiz-options": "Manage the possible answers for each question.",
   "real-english": "Curate everyday expressions and authentic examples.",
   "hybrid-real-english": "Review AI drafts and their source attribution.",
+  "writing-topics": "Organize the CEFR writing library into learner-facing topics.",
+  "writing-exercises": "Create, validate, publish, and archive CEFR writing exercises.",
   imports:
     "Inspect staged educational content and provenance before publication.",
   badges: "Configure achievements and reward milestones.",
   analytics: "Read aggregate learning activity without exposing learners.",
   publishing: "Review drafts before they appear in the app.",
   audit: "See recent content changes and their actors.",
+  "arena-seasons": "Manage ranked rules, season lifecycle, standings, rewards, and security review.",
+  "arena-questions": "Create, validate, import, review, publish, and audit versioned Arena questions.",
 };
 const content = (section: Section) =>
   ![
@@ -101,6 +120,8 @@ const content = (section: Section) =>
     "audit",
     "hybrid-real-english",
     "imports",
+    "arena-seasons",
+    "arena-questions",
   ].includes(section);
 const format = (value: unknown) =>
   typeof value === "object" && value !== null
@@ -169,7 +190,7 @@ export default function AdminPage() {
     if (access !== "admin") return;
     setLoading(true);
     try {
-      if (section === "hybrid-real-english" || section === "imports") {
+      if (section === "hybrid-real-english" || section === "imports" || section === "arena-seasons" || section === "arena-questions") {
         // The dedicated panel reads its own RLS-protected lesson list.
       } else if (content(section)) {
         const result = await adminRequest<Catalog>(
@@ -453,7 +474,7 @@ export default function AdminPage() {
             onOpenReview={() => navigate("hybrid-real-english")}
           />
         ) : null}
-        {!["hybrid-real-english", "imports"].includes(section) ? (
+        {!["hybrid-real-english", "imports", "arena-seasons", "arena-questions"].includes(section) ? (
           <div className="studio-intro">
             <div>
               <p className="eyebrow">ENGLIFY CONTENT STUDIO</p>
@@ -475,7 +496,11 @@ export default function AdminPage() {
             </span>
           </div>
         ) : null}
-        {section === "imports" ? (
+        {section === "arena-questions" ? (
+          <><ArenaQuestionManagement /><ArenaQuestionAnalytics /><ArenaQuestionGenerator /><ArenaTopicManagement /></>
+        ) : section === "arena-seasons" ? (
+          <ArenaSeasonManagement />
+        ) : section === "imports" ? (
           <ContentImportReview />
         ) : section === "hybrid-real-english" ? (
           hybridReady ? (

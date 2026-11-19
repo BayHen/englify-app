@@ -60,6 +60,11 @@ CREATE INDEX real_english_dialogue_lines_search_idx ON public.real_english_dialo
 
 ALTER TABLE public.real_english_user_progress DROP CONSTRAINT real_english_user_progress_status_check;
 ALTER TABLE public.real_english_user_progress DROP CONSTRAINT real_english_progress_completed;
+-- The V1 guard correctly prevents learners from rewriting completed history,
+-- but this one-time status vocabulary migration must translate that history.
+-- Drop only the guard trigger inside this migration transaction and recreate it
+-- immediately after installing the monotonic Phase 2 guard below.
+DROP TRIGGER IF EXISTS real_english_progress_guard ON public.real_english_user_progress;
 UPDATE public.real_english_user_progress SET status = CASE status WHEN 'completed' THEN 'read' ELSE 'reading' END;
 ALTER TABLE public.real_english_user_progress
   ADD COLUMN reading_percent smallint NOT NULL DEFAULT 0,
@@ -97,6 +102,8 @@ BEGIN
   RETURN NEW;
 END $$;
 REVOKE ALL ON FUNCTION public.englify_real_english_progress_guard() FROM PUBLIC,anon,authenticated;
+CREATE TRIGGER real_english_progress_guard BEFORE INSERT OR UPDATE ON public.real_english_user_progress
+  FOR EACH ROW EXECUTE FUNCTION public.englify_real_english_progress_guard();
 
 REVOKE INSERT, UPDATE ON public.real_english_user_progress FROM authenticated;
 CREATE OR REPLACE FUNCTION public.englify_record_real_english_reading(
