@@ -1,3 +1,4 @@
+/// <reference lib="deno.ns" />
 import {generateJourneyLesson,JourneyGenerationError,type JourneyGenerationInput} from '../_shared/journey-lesson-generator.ts';
 const headers={'Content-Type':'application/json','Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'authorization, apikey, content-type'};
 const json=(value:unknown,status=200)=>new Response(JSON.stringify(value),{status,headers});

@@ -1,3 +1,4 @@
+/// <reference lib="deno.ns" />
 import { assertEquals, assertRejects } from 'jsr:@std/assert@1';
 import { ArenaGenerationError, generateArenaQuestions } from './arena-question-generator.ts';
 const input={cefr_level:'B1',topic:'grammar',kind:'multiple_choice',difficulty:2,count:1,learning_objective:'Test present perfect'};

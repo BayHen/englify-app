@@ -22,6 +22,8 @@
 
 ## Kiểm tra và bàn giao
 
+- Khi sửa Edge Function hoặc thêm entrypoint, chạy nguyên lệnh `deno check` của bước **Check Edge Functions** và các lệnh `deno test` liên quan trong workflow CI. Entrypoint dùng `Deno.serve` hoặc `Deno.env` cần có kiểu runtime Deno. Giữ bật kiểm tra kiểu.
+
 - Trước khi commit hoặc push, đối chiếu `.github/workflows/ci.yml` và chạy các kiểm tra liên quan. Khi sửa Python, chạy `ruff check backend scripts` và bộ pytest của CI. Khi thêm migration, seed hoặc Edge Function, kiểm tra trên Supabase local trống với cùng phiên bản CLI trong lockfile, rồi chạy upgrade fixture, reset/seed, lint và smoke test tương ứng. Kiểm tra trên database đã chạy sẵn không thay thế lần khởi tạo sạch. Nếu CI đỏ, xem bước lỗi đầu tiên và tái hiện bước đó trước khi sửa. Ghi rõ các bước chưa chạy.
 
 - Chạy kiểm tra liên quan đến phần sửa: mobile lint/typecheck; admin lint/build; backend pytest; migration và đồng bộ khi thay đổi dữ liệu.
