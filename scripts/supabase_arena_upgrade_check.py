@@ -168,6 +168,11 @@ with psycopg.connect(url, autocommit=True) as admin:
                 )
                 raise psycopg.Rollback()
             print("PASS: Arena migration on empty pre-Arena application schema")
+            # A schema-only dump omits the reference row installed by Journey V2.1.
+            c.execute(
+                "INSERT INTO public.journey_curriculum_versions(version,title,status,published_at) "
+                "VALUES (1,'Legacy-compatible curriculum','active',transaction_timestamp())"
+            )
             for seed in ["development.sql", "gamification_development.sql"]:
                 c.execute(Path("supabase/seeds", seed).read_text(encoding="utf-8"))
             user = "a2999999-9999-4999-8999-999999999999"

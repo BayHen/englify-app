@@ -535,7 +535,16 @@ def main() -> int:
                 raise RuntimeError("own notification was not marked read")
             journey = client.post("/rest/v1/rpc/englify_journey", headers=alice_headers, json={})
             require_status(journey, {200}, "journey RPC")
-            lessons = [lesson for course in journey.json() for unit in course["units"] for lesson in unit["lessons"]]
+            # The hard-coded answers below belong to the legacy development seed.
+            fixture_course_id = "22222222-2222-4222-8222-222222222201"
+
+            def fixture_lessons(response):
+                return [
+                    lesson for course in response.json() if course["id"] == fixture_course_id
+                    for unit in course["units"] for lesson in unit["lessons"]
+                ]
+
+            lessons = fixture_lessons(journey)
             if len(lessons) < 2 or lessons[0]["state"] != "available" or lessons[1]["state"] != "locked":
                 raise RuntimeError("initial lesson unlock order is incorrect")
             locked = client.post("/rest/v1/rpc/englify_lesson_detail", headers=alice_headers,
@@ -554,7 +563,8 @@ def main() -> int:
                 raise RuntimeError("content fingerprint has the wrong format")
             summary = client.post("/rest/v1/rpc/englify_journey_summary", headers=alice_headers, json={})
             require_status(summary, {200}, "journey summary")
-            if summary.json()["total_lessons"] != len(lessons):
+            catalog_count = sum(len(unit["lessons"]) for course in journey.json() for unit in course["units"])
+            if summary.json()["total_lessons"] != catalog_count:
                 raise RuntimeError("journey summary lesson count is inconsistent")
             anonymous_journey = client.post("/rest/v1/rpc/englify_journey", headers=public_headers, json={})
             if anonymous_journey.is_success:
@@ -587,12 +597,17 @@ def main() -> int:
                 raise RuntimeError("first lesson completion was not rewarded")
             repeated = client.post("/rest/v1/rpc/englify_submit_lesson", headers=bob_headers, json=submission)
             require_status(repeated, {200}, "duplicate quiz submission")
-            if repeated.json() != correct.json():
+            # Unlock notifications describe this call's state transition, not the stored attempt.
+            replayed_result = repeated.json()
+            original_result = correct.json()
+            if replayed_result.pop("newly_unlocked", []):
+                raise RuntimeError("duplicate quiz request emitted another unlock notification")
+            original_result.pop("newly_unlocked", None)
+            if replayed_result != original_result:
                 raise RuntimeError("duplicate quiz request changed the result")
             unlocked = client.post("/rest/v1/rpc/englify_journey", headers=bob_headers, json={})
             require_status(unlocked, {200}, "journey after quiz completion")
-            next_lesson = [lesson for course in unlocked.json() for unit in course["units"]
-                           for lesson in unit["lessons"]][1]
+            next_lesson = fixture_lessons(unlocked)[1]
             if next_lesson["state"] != "available":
                 raise RuntimeError("next lesson remained locked after passing quiz")
             stale = client.post("/rest/v1/rpc/englify_submit_lesson", headers=bob_headers,
@@ -626,8 +641,7 @@ def main() -> int:
                     raise RuntimeError("seeded lesson did not pass with expected answers")
             final_journey = client.post("/rest/v1/rpc/englify_journey", headers=bob_headers, json={})
             require_status(final_journey, {200}, "completed unit journey")
-            unit_lessons = [lesson for course in final_journey.json() for unit in course["units"]
-                            for lesson in unit["lessons"]]
+            unit_lessons = fixture_lessons(final_journey)
             if any(lesson["state"] not in {"completed", "mastered"} for lesson in unit_lessons):
                 raise RuntimeError("seeded learning unit is not fully completed")
             bob_xp = client.get("/rest/v1/xp_events", headers=bob_headers,
@@ -765,9 +779,10 @@ def main() -> int:
             if len(visible.json()) != 1:
                 raise RuntimeError("published admin entry is not visible to mobile learner")
             draft_lesson_id = str(uuid4())
+            fixture_course = next(course for course in journey.json() if course["id"] == fixture_course_id)
             draft_lesson = client.post("/rest/v1/lessons", headers=alice_headers,
-                                       json={"id": draft_lesson_id, "course_id": journey.json()[0]["id"],
-                                             "unit_id": journey.json()[0]["units"][0]["id"],
+                                       json={"id": draft_lesson_id, "course_id": fixture_course_id,
+                                             "unit_id": fixture_course["units"][0]["id"],
                                              "slug": f"admin-qa-{draft_lesson_id[:8]}", "position": 5,
                                              "title": "Admin QA lesson", "objective": "Test editorial workflow"})
             require_status(draft_lesson, {201}, "admin creates draft lesson")
