@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The hiker was walking through the thick forest when ________ a bear appeared behind a tree.",
+    "choices": [
+      "eventually",
+      "suddenly",
+      "meanwhile"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'suddenly' diễn tả một hành động xảy ra bất ngờ ngắt quãng một hành động đang tiếp diễn."
+  },
+  {
+    "prompt": "I spent hours looking for my keys; ________, I found them inside my own coat pocket.",
+    "choices": [
+      "suddenly",
+      "eventually",
+      "meanwhile"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'eventually' được dùng để chỉ kết quả sau một quá trình nỗ lực hoặc chờ đợi lâu."
+  },
+  {
+    "prompt": "Mom was cooking dinner in the kitchen, and ________, Dad was cleaning the garage.",
+    "choices": [
+      "meanwhile",
+      "suddenly",
+      "eventually"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'meanwhile' dùng để chỉ hai hành động xảy ra cùng lúc tại các địa điểm khác nhau."
+  },
+  {
+    "prompt": "While the children ________, the rain started to fall heavily.",
+    "choices": [
+      "were playing",
+      "are playing",
+      "played"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'while' đi với thì quá khứ tiếp diễn để tả hành động đang diễn ra khi có hành động khác xen vào."
+  },
+  {
+    "prompt": "I ________ my homework when the phone rang loudly.",
+    "choices": [
+      "was doing",
+      "have done",
+      "did"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng thì quá khứ tiếp diễn để chỉ hành động đang xảy ra thì bị gián đoạn."
+  },
+  {
+    "prompt": "We ________ lunch when the waiter dropped a tray of glasses.",
+    "choices": [
+      "eating",
+      "were eating",
+      "ate"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Hành động ăn trưa đang diễn ra thì bị ngắt quãng bởi một sự kiện khác."
+  },
+  {
+    "prompt": "A: Did you see the thief run away? B: No, I ________ a book in the living room.",
+    "choices": [
+      "was reading",
+      "did read",
+      "read"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời cần dùng quá khứ tiếp diễn để giải thích hành động đang diễn ra tại thời điểm đó."
+  },
+  {
+    "prompt": "A: What happened to your bike? B: I ________ to school when I hit a bump.",
+    "choices": [
+      "cycled",
+      "was cycling",
+      "cycle"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Hành động đang đạp xe là nền tảng cho việc gặp sự cố, nên dùng quá khứ tiếp diễn."
+  },
+  {
+    "prompt": "A: Why was the house so messy? B: Because we ________ for the party all day.",
+    "choices": [
+      "prepare",
+      "prepared",
+      "were preparing"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng quá khứ tiếp diễn để nhấn mạnh tính kéo dài của hành động trước khi có kết quả."
+  },
+  {
+    "prompt": "She ________ the flowers when it suddenly began to snow.",
+    "choices": [
+      "watered",
+      "was watering",
+      "waters"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Hành động tưới cây đang xảy ra thì bị sự kiện tuyết rơi làm gián đoạn."
+  },
+  {
+    "prompt": "I ________ to the store, and my sister was waiting at home.",
+    "choices": [
+      "walk",
+      "was walking",
+      "walked"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đây là hai hành động độc lập trong quá khứ, không phải hành động ngắt quãng."
+  },
+  {
+    "prompt": "________ the teacher was explaining the lesson, a student opened the window.",
+    "choices": [
+      "Eventually",
+      "Suddenly",
+      "While"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ nối 'while' phù hợp nhất để giới thiệu một mệnh đề đang diễn ra."
+  },
+  {
+    "prompt": "The sun ________ when we arrived at the beach.",
+    "choices": [
+      "was shining",
+      "shine",
+      "shone"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thời tiết là bối cảnh đang diễn ra khi hành động khác (đến nơi) xảy ra."
+  },
+  {
+    "prompt": "They tried to open the locked door for ten minutes; ________, they decided to call a locksmith.",
+    "choices": [
+      "suddenly",
+      "meanwhile",
+      "eventually"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sau một thời gian cố gắng không thành, kết quả đạt được được diễn tả bằng 'eventually'."
+  },
+  {
+    "prompt": "I was checking my emails ________ my brother was washing the dishes.",
+    "choices": [
+      "meanwhile",
+      "suddenly",
+      "while"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'while' liên kết hai mệnh đề cùng diễn ra trong quá khứ."
+  }
+]

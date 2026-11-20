@@ -7,12 +7,14 @@ import * as Crypto from 'expo-crypto';
 import { Page, NavLink } from '@/components/page';
 import { AppButton, AppCard, AppInput, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
 import { useReducedMotion } from '@/ui/use-reduced-motion';
-import { getAttempts, getLesson, startLesson, submitLesson, type Answer, type LessonDetail, type QuizResult, type Question } from './api';
+import { getAttempts, getLesson, saveLessonNote, saveLessonResume, startLesson, submitCheckpoint, submitLesson, toggleLessonBookmark, type Answer, type LessonDetail, type QuizResult, type Question } from './api';
 import { downloadLesson } from './api';
 import { useAuth } from '@/auth/provider';
 import { ApiError } from '@/lib/api';
 import { cacheLesson, getCachedLesson, listEvents, queueEvent } from '@/features/offline/storage';
 import { SyncStatus } from '@/features/offline/sync-status';
+import { initialBlockIndex, LessonPlayer } from './lesson-player';
+import { formatReviewAnswer } from './answer-review';
 
 function MatchingQuestion({ question, answer, onChange }: { question: Question; answer: Record<string, string>; onChange: (value: Record<string, string>) => void }) {
   const left = Array.isArray(question.payload.left) ? question.payload.left as { id: string; text: string }[] : [];
@@ -48,8 +50,14 @@ export function LessonScreen() {
   const [offline, setOffline] = useState(false);
   const [contentVersion, setContentVersion] = useState<string | null>(null);
   const [queued, setQueued] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [visibleHints, setVisibleHints] = useState<Record<string, boolean>>({});
   const requestId = useRef<string | null>(null);
   const submitting = useRef(false);
+  const answersRef = useRef<Record<string, Answer>>({});
+  const revisionId = lesson?.revision_id;
+  const perfect = Boolean(result?.passed && result.question_count > 0 && result.correct_count === result.question_count);
+  const nextLesson = result?.newly_unlocked?.find((item) => item.id !== id && item.state === 'available');
   useFocusEffect(useCallback(() => {
     if (!id || !userId) return;
     void listEvents(userId).then((events) => {
@@ -65,7 +73,7 @@ export function LessonScreen() {
     void (async () => {
       try {
         const [detail, history, cached] = await Promise.all([getLesson(id), getAttempts(id), userId ? getCachedLesson(userId, id) : Promise.resolve(null)]);
-        if (live) { setLesson(detail); setAttempts(history); setContentVersion(cached?.contentVersion ?? null); setOffline(false); }
+        if (live) { setLesson(detail); setAttempts(history); setBookmarked(detail.personal?.bookmarked ?? false); const restored = detail.personal?.resume?.answers ?? {}; setAnswers(restored); answersRef.current = restored; setContentVersion(detail.content_version ?? cached?.contentVersion ?? null); setOffline(false); }
       } catch (cause) { const cached = userId ? await getCachedLesson(userId, id) : null; if (live) { if (cached) { setLesson(cached.lesson); setContentVersion(cached.contentVersion); setOffline(true); } else setError(cause instanceof Error ? cause.message : 'Could not load lesson'); } }
       finally { if (live) setLoading(false); }
     })();
@@ -78,7 +86,11 @@ export function LessonScreen() {
     catch (cause) { setError(cause instanceof Error ? cause.message : 'Download failed'); }
     finally { setBusy(false); }
   }
-  function setAnswer(questionId: string, value: Answer) { setAnswers((old) => ({ ...old, [questionId]: value })); requestId.current = null; setResult(null); }
+  function setAnswer(questionId: string, value: Answer) { setAnswers((old) => { const next = { ...old, [questionId]: value }; answersRef.current = next; return next; }); requestId.current = null; setResult(null); }
+  const savePosition = useCallback((block: NonNullable<LessonDetail['blocks']>[number]) => {
+    if (!id || !revisionId || offline) return;
+    void saveLessonResume(id, revisionId, block.id, answersRef.current).catch(() => undefined);
+  }, [id, revisionId, offline]);
   async function begin() {
     if (!lesson || !id) return;
     setBusy(true); setError('');
@@ -98,7 +110,7 @@ export function LessonScreen() {
         if (!existing) await queueEvent({ id: requestId.current, userId, kind: 'lesson_submission', payload: { lessonId: id, contentVersion, answers }, status: 'pending', attempts: 0, nextRetryAt: 0, message: null, createdAt: new Date().toISOString(), result: null });
         setQueued(true); return;
       }
-      const graded = await submitLesson(id, requestId.current, answers);
+      const graded = lesson.kind === 'checkpoint' ? await submitCheckpoint(id, requestId.current, answers) : await submitLesson(id, requestId.current, answers);
       setResult(graded); setLesson({ ...lesson, state: graded.state }); setAttempts([graded, ...attempts]);
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 0 && userId && contentVersion) {
@@ -111,20 +123,51 @@ export function LessonScreen() {
   return <Page eyebrow="LESSON" title={lesson?.title ?? 'Loading lesson'} description={lesson?.objective ?? 'Preparing your learning activity.'}>
     <SyncStatus />
     {loading ? <LoadingSkeleton lines={5} /> : error && !lesson ? <ErrorState message={error} /> : lesson ? <>
-      <AppCard tone="primary"><AppText variant="label">Status: {lesson.state.replace('_', ' ')}</AppText><AppText tone="muted">Answers are checked by the server. Passing requires at least 70% correct.</AppText>{offline ? <AppText tone="muted">Offline copy. Results and XP appear after server validation.</AppText> : null}</AppCard>
+      <AppCard tone="primary" style={{ gap: 5 }}><AppText variant="label">{lesson.kind === 'checkpoint' ? 'Unit checkpoint' : 'Lesson'} · {lesson.state.replace('_', ' ')}</AppText>
+        <AppText tone="muted">{[lesson.cefr_level, lesson.topic, lesson.estimated_minutes ? `${lesson.estimated_minutes} min` : null, `${lesson.exercise_count ?? lesson.questions.length} exercises`].filter(Boolean).join(' · ')}</AppText>
+        <AppText tone="muted">Server-checked · {lesson.passing_percent ?? 70}% to pass · up to {lesson.xp_reward ?? 0} base XP on the first pass.</AppText>
+        {lesson.prerequisites?.length ? <AppText tone="muted">Prerequisites: {lesson.prerequisites.map((item) => item.title).join(', ')}</AppText> : null}
+        {offline ? <AppText tone="muted">Offline copy. Results and XP appear after server validation.</AppText> : null}</AppCard>
       {!offline ? <AppButton label={contentVersion ? 'Update offline download' : 'Download for offline use'} variant="secondary" onPress={() => { void download(); }} loading={busy} /> : null}
-      {lesson.state === 'available' && <AppButton label="Start lesson" onPress={() => { void begin(); }} loading={busy} />}
-      {lesson.items.map((item, index) => <AppCard key={index} style={{ gap: 5 }}><AppText variant="caption" tone="primary">{item.kind.toUpperCase()}</AppText><AppText>{item.body.text ?? ''}</AppText></AppCard>)}
-      {lesson.questions.length ? lesson.questions.map((question, index) => <AppCard key={question.id} style={{ gap: 10 }}><AppText variant="caption" tone="primary">QUESTION {index + 1} · {question.kind.replace('_', ' ')}</AppText><AppText variant="heading">{question.prompt}</AppText>
-        {question.kind === 'multiple_choice' ? question.options.map((option) => <AppButton key={option.id} label={option.text} variant={answers[question.id] === option.id ? 'primary' : 'secondary'} onPress={() => setAnswer(question.id, option.id)} />) :
+      {lesson.state === 'available' ? <AppButton label="Start lesson" onPress={() => { void begin(); }} loading={busy} /> : null}
+      {lesson.blocks?.length ? <LessonPlayer blocks={lesson.blocks} initialIndex={initialBlockIndex(lesson.blocks, lesson.personal?.resume?.block_id)} bookmarked={bookmarked} onPosition={savePosition}
+        onBookmark={async () => { if (!id) return; const next = await toggleLessonBookmark(id); setBookmarked(next.bookmarked); }}
+        onNote={async (block, note) => { if (!id) return; await saveLessonNote(id, block.id, note); }} /> : null}
+      {!lesson.blocks?.length ? lesson.items.map((item, index) => <AppCard key={index} style={{ gap: 5 }}><AppText variant="caption" tone="primary">{item.kind.toUpperCase()}</AppText><AppText>{item.body.text ?? ''}</AppText></AppCard>) : null}
+      {lesson.questions.length ? lesson.questions.map((question, index) => {
+        const review = result?.review?.find((entry) => entry.question_id === question.id);
+        const explanation = review?.explanation_vi?.trim() || review?.explanation_en?.trim();
+        return <AppCard key={question.id} style={{ gap: 10 }}><AppText variant="caption" tone="primary">QUESTION {index + 1} · {question.kind.replace('_', ' ')}</AppText><AppText variant="heading">{question.prompt}</AppText>
+        {review ? <View style={{ gap: 4 }} accessibilityLiveRegion="polite">
+          <AppText variant="label" tone={review.is_correct ? 'success' : 'error'}>
+            {review.is_correct ? 'Correct' : 'Incorrect'} · {formatReviewAnswer(review.learner_answer, question)}
+          </AppText>
+          {review.is_correct && explanation ? <AppText variant="caption" tone="muted">{explanation}</AppText> : null}
+        </View> : null}
+        {review?.is_correct ? null : <>
+        {Boolean(question.hint_en || question.hint_vi) ? <AppButton label={visibleHints[question.id] ? 'Hide hint' : 'Show hint'} size="medium" variant="secondary" onPress={() => setVisibleHints((old) => ({ ...old, [question.id]: !old[question.id] }))} /> : null}
+        {visibleHints[question.id] ? <AppText tone="muted">{question.hint_en}{question.hint_vi ? ` · ${question.hint_vi}` : ''}</AppText> : null}
+        {question.kind === 'multiple_choice' ? question.options.map((option) => {
+          const selected = answers[question.id] === option.id;
+          return <AppButton key={option.id} label={option.text}
+            variant={selected ? review ? 'incorrect' : 'primary' : 'secondary'}
+            disabled={busy || queued}
+            onPress={() => { if (!selected) setAnswer(question.id, option.id); }} />;
+        }) :
          question.kind === 'matching' ? <MatchingQuestion question={question} answer={typeof answers[question.id] === 'object' ? answers[question.id] as Record<string, string> : {}} onChange={(value) => setAnswer(question.id, value)} /> : <>
           {question.kind === 'listening' && <AppButton label="Play audio with device voice" variant="secondary" onPress={() => { Speech.stop(); Speech.speak(String(question.payload.speak_text ?? ''), { language: 'en-US' }); }} />}
           <AppInput label="Your answer" placeholder={String(question.payload.placeholder ?? 'Type your answer')} value={typeof answers[question.id] === 'string' ? answers[question.id] as string : ''} onChangeText={(text) => setAnswer(question.id, text)} autoCapitalize="none" />
         </>}
-      </AppCard>) : <EmptyState title="No quiz ready" message="This lesson has no questions yet." />}
+        </>}
+      </AppCard>;
+      }) : <EmptyState title="No quiz ready" message="This lesson has no questions yet." />}
       {!!error && <ErrorState message={error} retry={() => { void submit(); }} />}
-      {!!result && <AppCard tone={result.passed ? 'reward' : 'surface'} style={{ gap: 8 }}><AppText variant="heading">{result.passed ? 'Lesson complete!' : 'Keep practicing'}</AppText><AppText>{result.correct_count} / {result.question_count} correct · {result.earned_xp} XP earned</AppText><AppText tone="muted">{result.state === 'mastered' ? 'Mastered after a perfect replay.' : result.passed ? 'The next lesson is now available.' : 'Reach 70% to unlock the next lesson.'}</AppText><AppButton label="Back to journey" onPress={() => router.replace('/journey')} /></AppCard>}
+      {!!result && <AppCard tone={result.passed ? 'reward' : 'surface'} style={{ gap: 8 }}><AppText variant="heading">{result.passed ? lesson.kind === 'checkpoint' ? 'Checkpoint passed!' : 'Lesson complete!' : 'Keep practicing'}</AppText><AppText>{result.correct_count} / {result.question_count} correct · {result.earned_xp} XP earned</AppText><AppText tone="muted">{result.state === 'mastered' ? 'Mastered after a perfect replay.' : result.passed ? result.newly_unlocked?.length ? `Unlocked: ${result.newly_unlocked.map((item) => item.title).join(', ')}` : 'Progress saved. Your Journey map is up to date.' : `Reach ${lesson.passing_percent ?? 70}% to pass.`}</AppText><AppButton label="Back to journey" onPress={() => router.replace('/journey')} /></AppCard>}
       {!!result && <RewardFeedback rewards={result.rewards} />}
+      {perfect ? <AppButton label={nextLesson ? 'Next lesson' : 'Continue Journey'} onPress={() => {
+        if (nextLesson) router.replace({ pathname: '/lesson/[id]', params: { id: nextLesson.id } });
+        else router.replace('/journey');
+      }} /> : null}
       {queued ? <AppCard tone="reward"><AppText variant="label">Attempt saved on this device</AppText><AppText tone="muted">Waiting for server validation. No XP has been awarded yet.</AppText></AppCard> : null}
       {lesson.questions.length > 0 && !result && !queued ? <AppButton label={offline ? 'Save attempt for sync' : 'Submit answers'} onPress={() => { void submit(); }} loading={busy} /> : null}
       {attempts.length > 0 && <AppCard><AppText variant="label">Previous attempts: {attempts.length}</AppText><AppText tone="muted">Latest: {attempts[0].correct_count}/{attempts[0].question_count} correct</AppText></AppCard>}

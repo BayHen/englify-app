@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Look at the letter 'B'. What is the most common sound it makes in a word like 'bat'?",
+    "choices": [
+      "/p/",
+      "/b/",
+      "/d/"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Âm /b/ là âm cơ bản đại diện cho chữ cái 'B' trong từ 'bat'."
+  },
+  {
+    "prompt": "If you want to know how to write a word correctly, what do you ask a friend?",
+    "choices": [
+      "What is this sound?",
+      "Is this a letter?",
+      "How do you spell it?"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'How do you spell it?' được dùng khi muốn hỏi cách viết chính tả của một từ."
+  },
+  {
+    "prompt": "Which of these is a letter of the English alphabet?",
+    "choices": [
+      "Z",
+      "Apple",
+      "Sound"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Z là một chữ cái trong bảng chữ cái tiếng Anh, trong khi các từ còn lại là từ vựng hoặc khái niệm."
+  },
+  {
+    "prompt": "Your teacher says /b/ aloud. Which sentence describes what you do with your ears?",
+    "choices": [
+      "I write the sound.",
+      "I hear the sound.",
+      "I make a spell."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'hear the sound' diễn tả việc lắng nghe và nhận diện âm thanh của chữ cái."
+  },
+  {
+    "prompt": "Complete the sentence: 'The letter A __________ the sound /æ/ in apple.'",
+    "choices": [
+      "make",
+      "makes",
+      "spells"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'makes' chia ở ngôi thứ ba số ít cho chủ ngữ 'The letter A'."
+  },
+  {
+    "prompt": "Which phrase is grammatically correct to describe a letter?",
+    "choices": [
+      "This are a letter.",
+      "These is a sound.",
+      "That is a sound."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'That is a...' là đúng ngữ pháp khi chỉ một chữ cái duy nhất."
+  },
+  {
+    "prompt": "Person A: 'What letter is this?' Person B: '__________'",
+    "choices": [
+      "It makes M.",
+      "I spell M.",
+      "It is letter M."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời 'It is letter M' cung cấp thông tin chính xác cho câu hỏi định danh chữ cái."
+  },
+  {
+    "prompt": "Person A: 'How do you spell cat?' Person B: '__________'",
+    "choices": [
+      "It is a sound.",
+      "I know the letter.",
+      "C-A-T."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc đánh vần các chữ cái tạo nên từ 'cat' là câu trả lời trực tiếp cho câu hỏi 'How do you spell'."
+  },
+  {
+    "prompt": "Pointing to the T in 'top', A asks, 'Does this letter make a /t/ sound?' B replies, '__________'",
+    "choices": [
+      "Yes, it does.",
+      "Yes, it letter.",
+      "No, it spell."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời 'Yes, it does' phù hợp với câu hỏi bắt đầu bằng trợ động từ 'Does'."
+  },
+  {
+    "prompt": "Which letter comes right before 'B' in the alphabet?",
+    "choices": [
+      "A",
+      "C",
+      "D"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chữ cái A nằm ngay trước B trong thứ tự bảng chữ cái."
+  },
+  {
+    "prompt": "If you hear the /s/ sound at the start of 'sun', which letter is it?",
+    "choices": [
+      "S",
+      "C",
+      "T"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Âm /s/ trong từ 'sun' được thể hiện bằng chữ cái S."
+  },
+  {
+    "prompt": "What is the primary purpose of learning letter sounds?",
+    "choices": [
+      "To count letters.",
+      "To read new words.",
+      "To change the alphabet."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc học âm của chữ cái giúp người học kết hợp chúng lại để đọc các từ mới."
+  },
+  {
+    "prompt": "How many letters are in the English word 'dog'?",
+    "choices": [
+      "Two",
+      "One",
+      "Three"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'dog' được cấu tạo bởi ba chữ cái riêng biệt là D, O, và G."
+  },
+  {
+    "prompt": "Which letter represents the /m/ sound?",
+    "choices": [
+      "N",
+      "M",
+      "W"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chữ cái M là biểu tượng chính cho âm mũi /m/."
+  },
+  {
+    "prompt": "Which word describes the action of saying each letter of a word in order?",
+    "choices": [
+      "Spelling",
+      "Sounding",
+      "Listening"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hành động nêu tên các chữ cái theo thứ tự của một từ được gọi là đánh vần (spelling)."
+  }
+]

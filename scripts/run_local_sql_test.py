@@ -24,7 +24,7 @@ def main() -> int:
         capture_output=True,
         text=True,
     )
-    database_url = json.loads(result.stdout)["DB_URL"]
+    database_url = os.getenv("SUPABASE_DB_URL") or json.loads(result.stdout)["DB_URL"]
     parsed = urlsplit(database_url)
     if parsed.hostname not in {"127.0.0.1", "localhost"} or parsed.port != 54322:
         raise RuntimeError("Refusing to execute SQL against a non-local database")

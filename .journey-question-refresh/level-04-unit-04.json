@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our new office is much _____ than the old one; we have enough space for everyone now.",
+    "choices": [
+      "bigger",
+      "biggest",
+      "big"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc so sánh hơn với 'than' yêu cầu tính từ ngắn thêm đuôi -er."
+  },
+  {
+    "prompt": "This restaurant is the _____ place in town to eat because they use fresh local ingredients.",
+    "choices": [
+      "best",
+      "better",
+      "good"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc so sánh nhất đi với 'the' yêu cầu dạng so sánh nhất."
+  },
+  {
+    "prompt": "Traveling by train is _____ than taking the bus because it is faster and more comfortable.",
+    "choices": [
+      "more good",
+      "the best",
+      "better"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dạng so sánh hơn của 'good' là 'better', không dùng 'more good'."
+  },
+  {
+    "prompt": "My sister is the _____ runner in her school; she wins every race she enters.",
+    "choices": [
+      "faster",
+      "fastest",
+      "fast"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong ngữ cảnh so sánh với cả nhóm (trường học), ta dùng so sánh nhất."
+  },
+  {
+    "prompt": "Today is _____ than yesterday, so please wear a warmer coat outside.",
+    "choices": [
+      "coldest",
+      "colder",
+      "more cold"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tính từ ngắn 'cold' khi so sánh hơn cần thêm đuôi -er."
+  },
+  {
+    "prompt": "Of all the movies we watched this year, this one was definitely the _____ interesting.",
+    "choices": [
+      "most",
+      "more",
+      "very"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tính từ dài 'interesting' dùng 'most' để tạo thành dạng so sánh nhất."
+  },
+  {
+    "prompt": "A: Which jacket do you prefer? B: I like the blue one. It is _____ than the grey one.",
+    "choices": [
+      "cheap",
+      "the cheapest",
+      "cheaper"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đang so sánh giữa hai đối tượng nên dùng so sánh hơn."
+  },
+  {
+    "prompt": "A: Is this math problem difficult? B: Yes, it is the _____ one in the entire textbook.",
+    "choices": [
+      "hardest",
+      "harder",
+      "more hard"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'in the entire textbook' xác định đây là so sánh nhất."
+  },
+  {
+    "prompt": "A: Why did you choose this hotel? B: It offered the _____ price of all the places I checked.",
+    "choices": [
+      "lower",
+      "low",
+      "lowest"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc so sánh nhất với 'of all the places' yêu cầu tính từ dạng 'lowest'."
+  },
+  {
+    "prompt": "The subway is the _____ way to get across the city during rush hour.",
+    "choices": [
+      "fast",
+      "faster",
+      "fastest"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng so sánh nhất để chỉ phương thức hiệu quả nhất trong mọi trường hợp."
+  },
+  {
+    "prompt": "Learning to play the piano is _____ than I expected, but I enjoy it.",
+    "choices": [
+      "harder",
+      "more hard",
+      "hardest"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc so sánh giữa hiện tại và kỳ vọng dùng so sánh hơn 'harder'."
+  },
+  {
+    "prompt": "These shoes are _____ than the ones I bought last month.",
+    "choices": [
+      "comfortable",
+      "more comfortable",
+      "most comfortable"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tính từ dài 'comfortable' dùng 'more' cho so sánh hơn."
+  },
+  {
+    "prompt": "The coffee at this shop is the _____ in the neighborhood.",
+    "choices": [
+      "better",
+      "good",
+      "best"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi so sánh một đối tượng với toàn bộ nhóm (trong khu phố), ta dùng so sánh nhất."
+  },
+  {
+    "prompt": "My new computer is _____ than my laptop, so it fits in my bag easily.",
+    "choices": [
+      "smallest",
+      "smaller",
+      "small"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "So sánh giữa hai vật dùng tính từ ngắn thêm đuôi -er."
+  },
+  {
+    "prompt": "The test we took today was the _____ one we have had this semester.",
+    "choices": [
+      "longer",
+      "longest",
+      "long"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng so sánh nhất vì đang so sánh bài kiểm tra này với tất cả bài khác trong học kỳ."
+  }
+]

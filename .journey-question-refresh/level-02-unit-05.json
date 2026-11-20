@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "You are going to school and need to carry your books. What do you put them in?",
+    "choices": [
+      "a bag",
+      "a phone",
+      "a key"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cặp sách (bag) là vật dụng phù hợp nhất để đựng sách khi đi học."
+  },
+  {
+    "prompt": "You want to unlock your front door when you get home. What do you need?",
+    "choices": [
+      "a key",
+      "a phone",
+      "a bag"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chìa khóa (key) là vật dụng dùng để mở cửa."
+  },
+  {
+    "prompt": "You want to talk to your friend who lives in another city. What do you use?",
+    "choices": [
+      "a phone",
+      "a key",
+      "a bag"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Điện thoại (phone) được sử dụng để liên lạc với người khác từ xa."
+  },
+  {
+    "prompt": "Look at the object right here in my hand. _____ is my new phone.",
+    "choices": [
+      "These",
+      "That",
+      "This"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'this' cho một vật ở gần người nói."
+  },
+  {
+    "prompt": "Look over there at the wall. Are _____ your keys on the table?",
+    "choices": [
+      "this",
+      "those",
+      "these"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'those' cho các vật ở xa người nói."
+  },
+  {
+    "prompt": "I have two bags here by my feet. _____ are for my travel.",
+    "choices": [
+      "This",
+      "That",
+      "These"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'these' cho nhiều vật ở gần người nói."
+  },
+  {
+    "prompt": "A: Is this your bag? B: Yes, _____.",
+    "choices": [
+      "they are",
+      "this is",
+      "it is"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời ngắn cho 'Is this...' phải là 'it is'."
+  },
+  {
+    "prompt": "A: What are those in your hand? B: _____ my phones.",
+    "choices": [
+      "It is",
+      "They are",
+      "This is"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'They are' để chỉ nhiều vật (số nhiều)."
+  },
+  {
+    "prompt": "A: Excuse me, is that your key? B: No, _____ not.",
+    "choices": [
+      "they",
+      "these",
+      "it"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đại từ 'it' thay thế cho danh từ số ít 'key'."
+  },
+  {
+    "prompt": "Pick up the phone that is right here. _____ is a black phone.",
+    "choices": [
+      "This",
+      "That",
+      "Those"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'this' để chỉ một vật ở gần ngay lúc nói."
+  },
+  {
+    "prompt": "Look at the bags on that chair across the room. Are _____ your bags?",
+    "choices": [
+      "this",
+      "that",
+      "those"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'those' cho nhiều vật ở vị trí xa người nói."
+  },
+  {
+    "prompt": "I cannot find my key. Is _____ the key in your pocket?",
+    "choices": [
+      "those",
+      "that",
+      "these"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'that' để chỉ một vật ở xa người nói."
+  },
+  {
+    "prompt": "Look at these keys here. Are _____ yours?",
+    "choices": [
+      "these",
+      "this",
+      "that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'these' để chỉ nhiều vật ở gần người nói."
+  },
+  {
+    "prompt": "A: Are those your phones? B: No, _____ are not.",
+    "choices": [
+      "that",
+      "those",
+      "this"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc trả lời với 'those' dùng lại từ 'those'."
+  },
+  {
+    "prompt": "This is my bag, and _____ is my phone on the desk.",
+    "choices": [
+      "those",
+      "that",
+      "these"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'that' cho một vật ở khoảng cách xa hơn so với vật đầu tiên."
+  }
+]

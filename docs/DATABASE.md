@@ -105,6 +105,22 @@ Các migration `20261118050400`–`20261118050600` mở rộng `arena_questions`
 Backend đã có API học tập và gamification; migration SQL vẫn là nguồn schema hiện hành. Alembic tạm tắt `autogenerate` vì metadata ORM chưa bao phủ toàn bộ bảng. Docker Compose hiện cung cấp PostgreSQL thuần cho nền tảng backend; để chạy migration này cần môi trường Supabase hoặc fixture Auth dành riêng cho test như trên. Đừng áp dụng fixture test vào database phát triển lâu dài.
 # Learning unit, lesson item, answer key và attempt: xem [LEARNING_ENGINE.md](LEARNING_ENGINE.md).
 
+## Journey V2.2 – cá nhân hóa
+
+Migration `20261119020000` tách CEFR người học chọn khỏi CEFR placement đề xuất; thêm session/response placement, daily plan ổn định theo ngày địa phương và RPC hồ sơ kỹ năng/gợi ý có thể giải thích. Answer key placement không cấp quyền đọc cho client; bảng riêng tư dùng RLS theo `auth.uid()`. Tạo plan không ghi XP và thay đổi CEFR không sửa hoặc relock lịch sử. Chi tiết tại [JOURNEY_V2_2.md](JOURNEY_V2_2.md).
+
+## Journey V2.3 – bài học có cấu trúc
+
+Migration `20261119030000` bổ sung revision/block bất biến cho lesson, resume theo revision, bookmark và note riêng tư. Dữ liệu reading/tip cũ được ánh xạ sang revision legacy, không bị xóa. Attempt mới chụp revision; feedback answer key chỉ trả sau khi server đã chấm. Xem [JOURNEY_V2_3.md](JOURNEY_V2_3.md).
+
+## Journey V2.4 – checkpoint và mastery
+
+Migration `20261119040000` thêm cấu hình checkpoint theo Unit, attempt snapshot bất biến, mastery và objective review riêng tư. RPC checkpoint xác minh required lesson, chấm bằng engine quiz hiện hữu và dùng request/XP ledger idempotent. Chi tiết tại [JOURNEY_V2_4.md](JOURNEY_V2_4.md).
+
+## Journey V2.5 – gamification thống nhất
+
+Migration `20261119050000` thêm global learning activity days và milestone events version-aware, nhưng mọi XP vẫn ghi vào `xp_events`. Trigger completion idempotent cập nhật streak, Unit/Chapter milestone và `user_levels` trong transaction. Xem [JOURNEY_V2_5.md](JOURNEY_V2_5.md).
+
 ## Gamification (migration `20261106_07`)
 
 Chi tiết quy tắc và kiểm thử: [GAMIFICATION.md](GAMIFICATION.md). Migration bổ sung cấu hình XP, cấp độ lưu bền, nhiệm vụ ngày/tuần, lượt nhận thưởng nhiệm vụ, quy tắc huy hiệu và thông báo. Sáu bảng mới đều bật RLS, đưa tổng số bảng ứng dụng có RLS lên 30. Client chỉ được đọc nhiệm vụ đang hoạt động và dữ liệu cá nhân của mình; chỉ backend ghi XP, cấp độ, huy hiệu, kết quả nhiệm vụ và thông báo.
@@ -155,3 +171,23 @@ Không gọi đây là FSRS đầy đủ. Lý do chọn biến thể SM-2 xác �
 ### Import nội dung
 
 `scripts/import_educational_content.py` đọc UTF-8 CSV hoặc JSON, kiểm tra trường bắt buộc, CEFR, duplicate ID và hash chuẩn hóa; toàn bộ batch được stage trong một transaction. Lệnh mặc định chỉ chấp nhận database loopback. Cần `--allow-remote` rõ ràng khi dùng staging; không dùng trực tiếp trên production trước khi backup/reconcile migration.
+# Journey V2.1
+
+Journey dùng hierarchy `courses → journey_chapters → learning_units → lessons`. Các unit lịch sử chưa có `chapter_id` được RPC nhóm vào chapter tương thích có UUID ổn định; không backfill tiêu đề/chủ đề khi không đủ dữ liệu để suy luận.
+
+- `journey_curriculum_versions`: version curriculum đang hoạt động. V2.1 dùng version 1 cho nội dung lịch sử.
+- `journey_chapters`: chapter có thứ tự, trạng thái publish và thuộc một course/CEFR path.
+- `journey_lesson_prerequisites`: cạnh prerequisite tường minh, cùng course và được trigger từ chối cycle.
+- `learning_units.chapter_id`: chapter tùy chọn để giữ tương thích unit cũ.
+- `lessons.lesson_kind`: `lesson` hoặc `checkpoint`; checkpoint V2.1 dùng engine quiz hiện tại và ngưỡng cố định 70%.
+- `is_required`: lesson/unit optional không được tính vào mẫu số tiến độ bắt buộc.
+
+`englify_lesson_state` là nguồn sự thật cho unlock. Progress `in_progress`, `completed` và `mastered` đã lưu luôn được ưu tiên nên nội dung lịch sử không bị relock. `englify_submit_lesson` giữ transaction chấm bài/XP cũ và trả thêm `newly_unlocked`; replay vẫn bị unique XP ledger chặn phát thưởng lặp.
+
+## Journey V2.6 – quản trị curriculum
+
+Migration `20261119060000_journey_v2_6_curriculum_admin.sql` mở rộng lifecycle của Chapter, Unit và Lesson; thêm review decision và staging import. Các RPC Admin tạo lesson revision bất biến, thực thi review/publish và trả cây curriculum tổng hợp. Mọi thao tác publish được kiểm tra quyền phía server và ghi `admin_audit_logs`.
+
+Migration `20261119061000_journey_v2_6_admin_completion.sql` bổ sung external ID, AI generation jobs, Chapter/Unit CRUD, draft-only reorder, checkpoint configuration, CSV/XLSX staging/commit và analytics tổng hợp. Không bảng nào thay thế progress, attempt, checkpoint result hoặc XP ledger hiện hữu.
+
+Migration `20261119062000_journey_v2_7_hardening.sql` sửa import block theo transaction, buộc content report đi qua RPC validation và giữ nguyên toàn bộ dữ liệu learner. Xem `docs/JOURNEY_V2_7_AUDIT.md`.

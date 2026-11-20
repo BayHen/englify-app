@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After the project failed, the manager asked the team to analyze each internal ________ to understand why the timeline slipped.",
+    "choices": [
+      "strength",
+      "strategy",
+      "weakness"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'weakness' phù hợp với ngữ cảnh phân tích thất bại của dự án."
+  },
+  {
+    "prompt": "To remain competitive, our primary ________ is to expand into international markets before the end of the fiscal year.",
+    "choices": [
+      "strength",
+      "strategy",
+      "weakness"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu này nói về kế hoạch hành động, vì vậy 'strategy' là từ chính xác nhất."
+  },
+  {
+    "prompt": "The lead developer identified the software's core ________ as its exceptional security features, which attracted many enterprise clients.",
+    "choices": [
+      "weakness",
+      "strength",
+      "strategy"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đặc điểm thu hút khách hàng là một lợi thế, nên dùng 'strength'."
+  },
+  {
+    "prompt": "By the time the audit finishes next Friday, we ________ all of our financial records for the past three years.",
+    "choices": [
+      "will review",
+      "are reviewing",
+      "will have reviewed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng thì tương lai hoàn thành để chỉ một hành động sẽ hoàn tất trước một thời điểm trong tương lai."
+  },
+  {
+    "prompt": "If we ________ more time preparing the presentation, we would have been able to answer the board's questions more effectively.",
+    "choices": [
+      "have had",
+      "would have",
+      "had had"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đây là câu điều kiện loại 3, diễn tả giả định trái ngược với quá khứ."
+  },
+  {
+    "prompt": "The complex report ________ by the research department is expected to be delivered to the executives by tomorrow morning.",
+    "choices": [
+      "compiled",
+      "was compiled",
+      "compiling"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cần một mệnh đề quan hệ rút gọn ở dạng bị động để bổ nghĩa cho 'report'."
+  },
+  {
+    "prompt": "A: How do you feel about our current marketing approach? B: ________.",
+    "choices": [
+      "The weakness was already fixed by someone else.",
+      "It shows great strength in reaching our target audience.",
+      "We should have been doing it earlier today."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Lựa chọn này đưa ra ý kiến trực tiếp về chiến lược marketing hiện tại."
+  },
+  {
+    "prompt": "A: Why did the client decide to cancel the contract? B: ________.",
+    "choices": [
+      "They felt our communication was a significant weakness.",
+      "We will review the documents later this afternoon.",
+      "Their main strategy is to minimize risks."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời giải thích nguyên nhân hủy hợp đồng là một điểm yếu trong giao tiếp."
+  },
+  {
+    "prompt": "A: What is the next step for our team expansion? B: ________.",
+    "choices": [
+      "We are strengthening our recruitment strategy.",
+      "I have reviewed the weakness of the plan.",
+      "The strategy has been already finalized."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đây là câu trả lời hợp lý nhất cho câu hỏi về các bước phát triển đội ngũ."
+  },
+  {
+    "prompt": "To succeed in the negotiation, you must demonstrate the unique ________ of our proposal.",
+    "choices": [
+      "weakness",
+      "strength",
+      "strategy"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong đàm phán, người ta thường muốn nhấn mạnh lợi thế của đề xuất."
+  },
+  {
+    "prompt": "We ________ that the new regulations might impact our production speed significantly.",
+    "choices": [
+      "were anticipating",
+      "have anticipated",
+      "had anticipated"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thì hiện tại hoàn thành phù hợp để nói về một nhận định có ảnh hưởng đến hiện tại."
+  },
+  {
+    "prompt": "The team ________ the project plan three times before it was finally approved by the director.",
+    "choices": [
+      "revised",
+      "was revising",
+      "had revised"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng thì quá khứ hoàn thành để chỉ hành động xảy ra trước một hành động khác trong quá khứ."
+  },
+  {
+    "prompt": "A successful business constantly evaluates its ________ to ensure it does not become stagnant.",
+    "choices": [
+      "weakness",
+      "strength",
+      "strategy"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Doanh nghiệp đánh giá điểm yếu để cải thiện và không bị trì trệ."
+  },
+  {
+    "prompt": "Unless the team ________ their performance, the company will likely look for external consultants.",
+    "choices": [
+      "will improve",
+      "improved",
+      "improves"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trong mệnh đề với 'unless', chúng ta sử dụng thì hiện tại đơn để diễn tả điều kiện tương lai."
+  },
+  {
+    "prompt": "The board members discussed the long-term ________ to ensure our company remains profitable in the coming decade.",
+    "choices": [
+      "strategy",
+      "strength",
+      "weakness"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Để đảm bảo lợi nhuận dài hạn, công ty cần một chiến lược cụ thể."
+  }
+]

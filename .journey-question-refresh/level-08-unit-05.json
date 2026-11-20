@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "In a professional email, which word is the most appropriate replacement for 'about' to maintain a formal tone?",
+    "choices": [
+      "concerningly",
+      "around",
+      "regarding"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'regarding' là một trạng từ trang trọng phổ biến được dùng trong email công việc để thay thế cho 'about'."
+  },
+  {
+    "prompt": "If a colleague sends you a report, which phrase best expresses your gratitude in a formal business context?",
+    "choices": [
+      "I appreciate your help",
+      "Thanks a bunch",
+      "Cheers for that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'I appreciate' là cách diễn đạt trang trọng và lịch sự để cảm ơn ai đó trong môi trường chuyên nghiệp."
+  },
+  {
+    "prompt": "Which of these expressions is strictly informal and should be avoided in a formal letter to a client?",
+    "choices": [
+      "regards",
+      "sincerely",
+      "cheers"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Cheers' là từ thân mật thường dùng trong văn nói hoặc giao tiếp xã hội, không phù hợp với văn phong thư tín trang trọng."
+  },
+  {
+    "prompt": "Select the sentence that demonstrates a formal register suitable for a job application cover letter.",
+    "choices": [
+      "Just wanted to say I want this job.",
+      "I am writing to inquire about the position.",
+      "I'm checking out the job you guys posted."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu này sử dụng cấu trúc đầy đủ, từ vựng chuẩn mực và tránh các từ viết tắt hoặc ngôn ngữ xuồng xã."
+  },
+  {
+    "prompt": "Choose the most appropriate way to address a stranger in a formal email.",
+    "choices": [
+      "Dear Mr. Anderson,",
+      "Hi everyone,",
+      "Hey there,"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc sử dụng 'Dear' đi kèm tên riêng là quy chuẩn lịch sự nhất khi gửi email cho người chưa thân thiết."
+  },
+  {
+    "prompt": "Which sentence structure is typical of an informal register?",
+    "choices": [
+      "I cannot come to the meeting.",
+      "I'm not gonna make it to the meeting.",
+      "It is imperative that we attend."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc sử dụng từ viết tắt 'I'm' và dạng rút gọn 'gonna' là đặc trưng của văn nói và văn phong không trang trọng."
+  },
+  {
+    "prompt": "Manager: 'Could you please submit the quarterly report by Friday?' Employee: '__________'",
+    "choices": [
+      "Yeah, I'll get it to you later.",
+      "I will certainly have it ready by then.",
+      "Sure thing, boss!"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Phản hồi này giữ thái độ chuyên nghiệp, khẳng định rõ thời gian hoàn thành theo yêu cầu của cấp trên."
+  },
+  {
+    "prompt": "Client: 'Is there any flexibility with the project deadline?' You: '__________'",
+    "choices": [
+      "I'll see what I can do.",
+      "Regarding your request, I will check the schedule and let you know.",
+      "Nah, that's not possible."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời này sử dụng từ nối chuyên nghiệp và thái độ phục vụ khách hàng lịch sự."
+  },
+  {
+    "prompt": "Colleague: 'Do you want to grab lunch at the canteen?' You: '__________'",
+    "choices": [
+      "Regarding lunch, I must decline.",
+      "I would be delighted to accompany you.",
+      "That sounds great, let's go."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Với đồng nghiệp trong môi trường thoải mái, cách trả lời ngắn gọn và thân thiện là lựa chọn phù hợp nhất."
+  },
+  {
+    "prompt": "Which of these words is most suitable for a formal report when describing a problem?",
+    "choices": [
+      "a bummer",
+      "messed up",
+      "an issue"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'An issue' là thuật ngữ trung lập và chuyên nghiệp dùng để chỉ vấn đề trong báo cáo."
+  },
+  {
+    "prompt": "How should you start a formal email if the recipient's name is unknown?",
+    "choices": [
+      "Dear Sir or Madam,",
+      "Hi there,",
+      "Hey you,"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Dear Sir or Madam' là cách chào hỏi chuẩn mực trong trường hợp không biết tên người nhận trong văn phong trang trọng."
+  },
+  {
+    "prompt": "Which verb is most appropriate for a formal business presentation?",
+    "choices": [
+      "tell",
+      "demonstrate",
+      "show"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Demonstrate' mang sắc thái học thuật và chuyên môn hơn so với các từ 'show' hay 'tell' trong thuyết trình."
+  },
+  {
+    "prompt": "What is the most professional way to sign off an email to a potential employer?",
+    "choices": [
+      "Sincerely,",
+      "Best,",
+      "Talk later,"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Sincerely' là từ kết thư mang tính trang trọng cao, phù hợp nhất cho các mục đích tuyển dụng."
+  },
+  {
+    "prompt": "Choose the most appropriate phrase to request information politely.",
+    "choices": [
+      "Need those files, thanks.",
+      "Send me the files right now.",
+      "I would appreciate it if you could send the files."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'I would appreciate it if...' là cách diễn đạt yêu cầu một cách lịch thiệp và trang trọng nhất."
+  },
+  {
+    "prompt": "When writing to a colleague you see every day, what tone is expected?",
+    "choices": [
+      "Semi-formal or neutral",
+      "Strictly formal",
+      "Legalistic"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Với đồng nghiệp thân quen, việc sử dụng tông giọng trung lập, thân thiện là đủ để duy trì mối quan hệ công việc tốt."
+  }
+]

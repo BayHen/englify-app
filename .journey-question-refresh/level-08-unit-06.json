@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Although the manager never said he was unhappy, his silence seemed to _____ that he disagreed with our plan.",
+    "choices": [
+      "elicit",
+      "infer",
+      "imply"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'imply' được dùng khi người nói đưa ra một gợi ý gián tiếp, trái ngược với 'infer' là khi người nghe rút ra kết luận."
+  },
+  {
+    "prompt": "The difference between the two color shades is so _____ that most people would never notice them side by side.",
+    "choices": [
+      "vivid",
+      "subtle",
+      "obvious"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tính từ 'subtle' mô tả một sự khác biệt rất nhỏ và khó nhận thấy."
+  },
+  {
+    "prompt": "I had to _____ from her frustrated tone that she had been waiting for a long time, even though she didn't complain directly.",
+    "choices": [
+      "convey",
+      "infer",
+      "imply"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'infer' chỉ hành động suy luận ra một ý nghĩa từ dữ kiện đã có."
+  },
+  {
+    "prompt": "Instead of saying 'he is cheap,' using the word 'frugal' changes the _____ of the statement from negative to positive.",
+    "choices": [
+      "definition",
+      "connotation",
+      "precision"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Connotation' dùng để chỉ sắc thái cảm xúc hoặc ý nghĩa gợi liên tưởng đi kèm với một từ."
+  },
+  {
+    "prompt": "For the sake of _____, could you specify exactly which document you are referring to in the report?",
+    "choices": [
+      "ambiguity",
+      "precision",
+      "fluency"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'precision' được chọn vì yêu cầu cần sự chính xác trong việc định danh tài liệu."
+  },
+  {
+    "prompt": "Using 'childlike' instead of 'childish' provides a more positive _____ when describing someone's sense of wonder.",
+    "choices": [
+      "synonym",
+      "antonym",
+      "nuance"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Nuance' mô tả sắc thái khác biệt nhỏ giữa các từ có nghĩa gần giống nhau."
+  },
+  {
+    "prompt": "A: 'Do you think my outfit is too formal for the party?' B: 'It's a bold choice. _____'",
+    "choices": [
+      "It might be better to dress down.",
+      "I love how you dressed.",
+      "You look exactly like everyone else."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời gợi ý một sự tinh tế khi đưa ra lời khuyên tránh xung đột trực tiếp."
+  },
+  {
+    "prompt": "A: 'Is the boss angry about the delay?' B: 'He didn't say anything, but _____'",
+    "choices": [
+      "he was smiling the whole time.",
+      "I am very happy with the results.",
+      "his short emails suggest he is stressed."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời thể hiện việc suy luận từ các dấu hiệu gián tiếp là email ngắn gọn."
+  },
+  {
+    "prompt": "A: 'Why did she use such strong language in the email?' B: 'I think she wanted to ensure there was no _____ about the new deadlines.'",
+    "choices": [
+      "ambiguity",
+      "clarity",
+      "nuance"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'ambiguity' phù hợp trong ngữ cảnh muốn loại bỏ sự mơ hồ trong các thông báo quan trọng."
+  },
+  {
+    "prompt": "Which sentence demonstrates a positive connotation when describing a person's behavior?",
+    "choices": [
+      "He is very stubborn about his ideas.",
+      "He is very determined to reach his goals.",
+      "He is very pig-headed when challenged."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Determined' mang sắc thái tích cực, trong khi các từ còn lại mang sắc thái tiêu cực."
+  },
+  {
+    "prompt": "If a writer wants to avoid being blunt, they might use _____ language to soften the impact of their message.",
+    "choices": [
+      "direct",
+      "harsh",
+      "subtle"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng ngôn ngữ 'subtle' giúp thông điệp trở nên khéo léo và bớt gay gắt."
+  },
+  {
+    "prompt": "When you _____ something, you are gathering information from evidence rather than direct statements.",
+    "choices": [
+      "infer",
+      "state",
+      "imply"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Định nghĩa chính xác của 'infer' là suy luận từ các bằng chứng sẵn có."
+  },
+  {
+    "prompt": "Which choice represents the most precise way to describe a very small, barely noticeable change?",
+    "choices": [
+      "A dramatic shift",
+      "A massive improvement",
+      "A subtle adjustment"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'subtle adjustment' diễn tả chính xác sự thay đổi rất nhỏ."
+  },
+  {
+    "prompt": "If a speaker says, 'It's getting quite late, isn't it?' they are likely trying to _____ that it is time for the guest to leave.",
+    "choices": [
+      "imply",
+      "insist",
+      "infer"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Người nói đang ám chỉ (imply) việc khách nên về thay vì nói thẳng ra."
+  },
+  {
+    "prompt": "Selecting words with the right connotation helps a speaker convey the intended _____ of their message.",
+    "choices": [
+      "nuance",
+      "speed",
+      "volume"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc chọn từ có sắc thái phù hợp giúp truyền tải chính xác tinh thần (nuance) của thông điệp."
+  }
+]

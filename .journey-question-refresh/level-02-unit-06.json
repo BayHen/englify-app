@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I have too many books to carry. Could you _______ me, please?",
+    "choices": [
+      "need",
+      "help",
+      "thank"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'help' phù hợp với ngữ cảnh nhờ ai đó hỗ trợ khi có quá nhiều đồ đạc."
+  },
+  {
+    "prompt": "The teacher is speaking fast. I _______ to ask him to repeat it.",
+    "choices": [
+      "please",
+      "need",
+      "can"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'need to' diễn tả sự cần thiết thực hiện một hành động trong tình huống này."
+  },
+  {
+    "prompt": "I don't know the way to the library. Could you _______ me, please?",
+    "choices": [
+      "need",
+      "help",
+      "please"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi không biết đường, chúng ta thường nhờ người khác giúp đỡ."
+  },
+  {
+    "prompt": "_______ you open the window, please? It is very hot in here.",
+    "choices": [
+      "Help",
+      "Could",
+      "Need"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'Could you' là cách đưa ra yêu cầu lịch sự."
+  },
+  {
+    "prompt": "I am tired. _______ I sit here for a moment, please?",
+    "choices": [
+      "Help",
+      "Need",
+      "Can"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'Can I' để xin phép một cách lịch sự."
+  },
+  {
+    "prompt": "_______ you show me how to use this machine, please?",
+    "choices": [
+      "Can",
+      "Help",
+      "Need"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'Can you' thường được dùng để nhờ ai đó hướng dẫn làm việc gì."
+  },
+  {
+    "prompt": "A: It is raining outside. Could you lend me your umbrella, please? B: _______",
+    "choices": [
+      "Yes, of course.",
+      "Yes, please.",
+      "No, I need."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời 'Yes, of course' thể hiện sự đồng ý lịch sự với một yêu cầu."
+  },
+  {
+    "prompt": "A: I am lost. Can you help me find the station, please? B: _______",
+    "choices": [
+      "Sure, follow me.",
+      "No, please help.",
+      "Yes, I need."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Phản hồi này xác nhận việc đồng ý giúp đỡ người hỏi đường."
+  },
+  {
+    "prompt": "A: Could you pass the salt, please? B: _______",
+    "choices": [
+      "Here you are.",
+      "No, I need.",
+      "Yes, I help."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi đưa đồ vật cho người khác, cụm từ 'Here you are' là cách đáp lại tự nhiên nhất."
+  },
+  {
+    "prompt": "_______ you speak a little louder, please? I cannot hear you.",
+    "choices": [
+      "Help",
+      "Need",
+      "Could"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'Could' trong câu hỏi để đưa ra yêu cầu lịch sự về việc thay đổi hành động của người khác."
+  },
+  {
+    "prompt": "I _______ a pen to write my notes. Do you have one?",
+    "choices": [
+      "can",
+      "help",
+      "need"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'need' diễn tả nhu cầu về một đồ vật nào đó."
+  },
+  {
+    "prompt": "Could you _______ me with my heavy bag, please?",
+    "choices": [
+      "need",
+      "can",
+      "help"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'help me' phù hợp với ngữ cảnh yêu cầu hỗ trợ mang vác vật nặng."
+  },
+  {
+    "prompt": "A: I cannot reach the top shelf. Could you help me, please? B: _______",
+    "choices": [
+      "Yes, I need.",
+      "Sure, no problem.",
+      "Please, I can."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là cách đáp lại lời yêu cầu giúp đỡ một cách thân thiện và lịch sự."
+  },
+  {
+    "prompt": "_______ I have a glass of water, please?",
+    "choices": [
+      "Can",
+      "Need",
+      "Help"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng 'Can I' để yêu cầu thứ gì đó một cách lịch sự."
+  },
+  {
+    "prompt": "I feel sick. I _______ to go home early, please.",
+    "choices": [
+      "could",
+      "help",
+      "need"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'need to' để thể hiện nhu cầu cá nhân về việc ra về sớm."
+  }
+]

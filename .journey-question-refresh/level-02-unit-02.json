@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After the alarm clock rings at 7:00 AM, I usually ______ and get out of bed.",
+    "choices": [
+      "wake up",
+      "work",
+      "study"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Wake up có nghĩa là thức dậy, phù hợp với ngữ cảnh sau khi chuông báo thức reo."
+  },
+  {
+    "prompt": "I go to the office from Monday to Friday because I have a lot of ______ to do there.",
+    "choices": [
+      "work",
+      "study",
+      "wake up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Work (làm việc) là hoạt động diễn ra tại văn phòng."
+  },
+  {
+    "prompt": "Every evening, she sits at her desk to ______ for her upcoming English exam.",
+    "choices": [
+      "work",
+      "study",
+      "wake up"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Study (học) là hành động hợp lý khi ngồi tại bàn để chuẩn bị cho kỳ thi."
+  },
+  {
+    "prompt": "My brother ______ in a bank in the city center.",
+    "choices": [
+      "work",
+      "to work",
+      "works"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ là 'My brother' (số ít) nên động từ 'work' phải thêm 's'."
+  },
+  {
+    "prompt": "They ______ hard every day to pass the university entrance exam.",
+    "choices": [
+      "studies",
+      "study",
+      "studying"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ là 'They' (số nhiều) nên động từ 'study' giữ nguyên dạng."
+  },
+  {
+    "prompt": "She ______ at 6:00 AM every morning during the week.",
+    "choices": [
+      "waking up",
+      "wakes up",
+      "wake up"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ 'She' là ngôi thứ ba số ít nên động từ cần thêm 's'."
+  },
+  {
+    "prompt": "A: What do you do in the morning? B: I ______ for my math class.",
+    "choices": [
+      "work",
+      "study",
+      "wake up"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đáp án 'study' hợp lý nhất khi đề cập đến lớp học toán."
+  },
+  {
+    "prompt": "A: Does your father like his job? B: Yes, he likes to ______ at the hospital.",
+    "choices": [
+      "study",
+      "wake up",
+      "work"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Công việc thường gắn liền với địa điểm là bệnh viện, nên chọn 'work'."
+  },
+  {
+    "prompt": "A: Why are you so tired? B: Because I ______ too early every day.",
+    "choices": [
+      "work",
+      "study",
+      "wake up"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Thức dậy quá sớm (wake up) là lý do phổ biến khiến ai đó cảm thấy mệt mỏi."
+  },
+  {
+    "prompt": "He ______ his lessons carefully before he goes to class.",
+    "choices": [
+      "studies",
+      "study",
+      "work"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ 'He' yêu cầu động từ thêm 'es' vì kết thúc bằng 'y' sau phụ âm."
+  },
+  {
+    "prompt": "My parents ______ at a local school as teachers.",
+    "choices": [
+      "study",
+      "works",
+      "work"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ 'My parents' (số nhiều) nên động từ 'work' không chia."
+  },
+  {
+    "prompt": "I ______ at 7:30, have breakfast, and then leave for school.",
+    "choices": [
+      "wake up",
+      "study",
+      "work"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hành động đầu tiên trong ngày thường là thức dậy (wake up)."
+  },
+  {
+    "prompt": "She ______ in the library every afternoon.",
+    "choices": [
+      "study",
+      "work",
+      "studies"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ 'She' đi với động từ 'studies' để chỉ việc học tập."
+  },
+  {
+    "prompt": "They ______ at the coffee shop to prepare for their presentation.",
+    "choices": [
+      "studies",
+      "work",
+      "wake up"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'work' để chỉ hoạt động chuẩn bị bài thuyết trình tại quán cà phê."
+  },
+  {
+    "prompt": "My sister ______ up at 5:00 AM to go jogging.",
+    "choices": [
+      "wakes",
+      "wake",
+      "work"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ 'My sister' là số ít nên dùng 'wakes' để tạo cụm 'wakes up'."
+  }
+]

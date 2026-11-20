@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I want to buy these shoes, but I need to know the ______ before I pay at the counter.",
+    "choices": [
+      "price",
+      "cash",
+      "size"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Price là số tiền cần trả để mua món hàng."
+  },
+  {
+    "prompt": "These jeans are too small for me. Do you have a larger ______?",
+    "choices": [
+      "price",
+      "size",
+      "cash"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Size dùng để chỉ độ lớn hay kích cỡ của quần áo."
+  },
+  {
+    "prompt": "The machine is broken, so the shop assistant can only take ______ for your groceries.",
+    "choices": [
+      "price",
+      "size",
+      "cash"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cash là tiền mặt, dùng thay thế khi không thanh toán bằng thẻ."
+  },
+  {
+    "prompt": "______ does this red jacket cost?",
+    "choices": [
+      "How many",
+      "How price",
+      "How much"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "How much dùng để hỏi về giá tiền của một vật không đếm được."
+  },
+  {
+    "prompt": "______ oranges do you want to buy for your juice?",
+    "choices": [
+      "How many",
+      "How price",
+      "How much"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "How many dùng cho danh từ đếm được số nhiều như oranges."
+  },
+  {
+    "prompt": "Look at these hats! ______ is the blue one?",
+    "choices": [
+      "How many",
+      "How size",
+      "How much"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "How much dùng để hỏi giá tiền của một vật cụ thể."
+  },
+  {
+    "prompt": "Customer: 'Excuse me, how much is this notebook?' Shop Assistant: '______'",
+    "choices": [
+      "I have many books.",
+      "It is five dollars.",
+      "It is a medium size."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời cần cung cấp thông tin về giá tiền cho câu hỏi How much."
+  },
+  {
+    "prompt": "Customer: 'Do you have this shirt in a larger size?' Shop Assistant: '______'",
+    "choices": [
+      "It costs ten dollars.",
+      "I do not have cash.",
+      "Yes, here is a large one."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Người bán hàng cần xác nhận có kích cỡ mà khách hàng yêu cầu."
+  },
+  {
+    "prompt": "Customer: 'I only have fifty dollars in cash. Is that enough?' Shop Assistant: '______'",
+    "choices": [
+      "No, it is too small.",
+      "Yes, that is perfect.",
+      "Yes, it is my size."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là câu trả lời hợp lý nhất khi xác nhận số tiền thanh toán."
+  },
+  {
+    "prompt": "I don't have my credit card, so I will pay with ______.",
+    "choices": [
+      "price",
+      "size",
+      "cash"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cash là phương thức thanh toán thay thế cho thẻ tín dụng."
+  },
+  {
+    "prompt": "______ apples are in that bag on the table?",
+    "choices": [
+      "How much",
+      "How many",
+      "How size"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "How many được dùng để hỏi số lượng các đồ vật đếm được."
+  },
+  {
+    "prompt": "Can you check the ______ of this laptop? I need to know if I can afford it.",
+    "choices": [
+      "price",
+      "size",
+      "cash"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Price là thứ khách hàng cần biết để xác định khả năng chi trả."
+  },
+  {
+    "prompt": "These boots are size 38, but I need size 40. Do you have them in a bigger ______?",
+    "choices": [
+      "size",
+      "price",
+      "cash"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Size được dùng để so sánh các loại kích cỡ khác nhau."
+  },
+  {
+    "prompt": "______ does the water bottle cost at the supermarket?",
+    "choices": [
+      "How much",
+      "How many",
+      "How price"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc How much dùng để hỏi giá tiền cho một sự vật."
+  },
+  {
+    "prompt": "Customer: 'I would like to buy these three pens.' Shop Assistant: 'That will be six dollars, please.' Customer: '______'",
+    "choices": [
+      "That is my size.",
+      "Here is the cash.",
+      "It is a good price."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khách hàng đưa tiền mặt sau khi biết tổng số tiền cần thanh toán."
+  }
+]

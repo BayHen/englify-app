@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I spent an hour staring at the map, but I just couldn't ____ how to reach the remote village before sunset.",
+    "choices": [
+      "carry on",
+      "figure out",
+      "pick up"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'figure out' có nghĩa là tìm ra hoặc hiểu ra giải pháp cho một vấn đề khó khăn."
+  },
+  {
+    "prompt": "The teacher told the students to ____ with their essay writing even though the fire alarm sounded in the distance.",
+    "choices": [
+      "carry on",
+      "figure out",
+      "pick up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'carry on' được dùng để chỉ việc tiếp tục làm một việc gì đó."
+  },
+  {
+    "prompt": "It is quite impressive how quickly she managed to ____ the local dialect after living in the mountains for only a month.",
+    "choices": [
+      "figure out",
+      "carry on",
+      "pick up"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'pick up' ở đây mang nghĩa học một kỹ năng hoặc ngôn ngữ một cách tự nhiên qua trải nghiệm thực tế."
+  },
+  {
+    "prompt": "If you don't understand the instructions, you should try to ____ the meaning by looking at the pictures.",
+    "choices": [
+      "picked up",
+      "carrying on",
+      "figure out"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc sau 'try to' cần một động từ nguyên mẫu (infinitive), nên 'figure out' là lựa chọn chính xác."
+  },
+  {
+    "prompt": "Despite the harsh weather conditions, the rescue team decided to ____ searching for the missing hikers.",
+    "choices": [
+      "figure out",
+      "carry on",
+      "carrying on"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sau động từ 'decided to', ta cần một động từ nguyên mẫu, vì vậy 'carry on' là lựa chọn đúng."
+  },
+  {
+    "prompt": "She ____ many new phrases from the podcast she listened to during her daily commute.",
+    "choices": [
+      "pick up",
+      "picked up",
+      "figure out"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu diễn tả một hành động đã xảy ra trong quá khứ nên ta cần chia động từ ở dạng quá khứ 'picked up'."
+  },
+  {
+    "prompt": "Person A: 'I have been staring at this math problem for ages.' Person B: 'Don't worry, you will ____ the logic behind it eventually.'",
+    "choices": [
+      "pick up",
+      "figure out",
+      "carry on"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong ngữ cảnh giải bài toán, 'figure out' là cụm từ phù hợp nhất để chỉ việc tìm ra lời giải."
+  },
+  {
+    "prompt": "Person A: 'Should I stop the meeting now?' Person B: 'No, please ____; we have a lot more to discuss regarding the budget.'",
+    "choices": [
+      "carry on",
+      "pick up",
+      "figure out"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi được hỏi liệu có nên dừng lại không, phản hồi 'No, please carry on' có nghĩa là hãy tiếp tục."
+  },
+  {
+    "prompt": "Person A: 'Your French is excellent!' Person B: 'Thanks, I managed to ____ some basics while I was backpacking in Paris.'",
+    "choices": [
+      "carry on",
+      "pick up",
+      "figure out"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc học ngôn ngữ thông qua trải nghiệm thực tế thường được diễn tả bằng cụm 'pick up'."
+  },
+  {
+    "prompt": "The puzzle was so complex that it took the entire group three hours to ____ the secret code.",
+    "choices": [
+      "figure out",
+      "carry on",
+      "pick up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Để giải mã một mật mã phức tạp, người ta dùng 'figure out' để diễn đạt quá trình tìm ra đáp án."
+  },
+  {
+    "prompt": "He wasn't feeling well, but he decided to ____ with his presentation so he wouldn't disappoint the audience.",
+    "choices": [
+      "figure out",
+      "pick up",
+      "carry on"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dù cảm thấy không khỏe, việc anh ấy vẫn làm tiếp bài thuyết trình phù hợp với cụm 'carry on'."
+  },
+  {
+    "prompt": "It's amazing how kids can ____ new games just by watching their older siblings play.",
+    "choices": [
+      "carry on",
+      "figure out",
+      "pick up"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc học cách chơi trò chơi thông qua quan sát thường dùng 'pick up'."
+  },
+  {
+    "prompt": "I need a moment to ____ the best way to handle this complicated situation.",
+    "choices": [
+      "carry on",
+      "pick up",
+      "figure out"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Để tìm ra phương án xử lý tình huống, 'figure out' là lựa chọn từ vựng chuẩn xác."
+  },
+  {
+    "prompt": "The teacher told us to ____ reading the chapter even if we encounter words we don't recognize.",
+    "choices": [
+      "carry on",
+      "figure out",
+      "pick up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Yêu cầu tiếp tục đọc bài bất chấp các từ khó được diễn tả bằng 'carry on'."
+  },
+  {
+    "prompt": "After spending years in a cafe, he started to ____ the gossip from the regular customers.",
+    "choices": [
+      "pick up",
+      "figure out",
+      "carry on"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc vô tình nghe được hoặc nắm bắt được thông tin từ xung quanh phù hợp với cụm 'pick up'."
+  }
+]

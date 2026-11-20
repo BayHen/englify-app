@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Before submitting the final version, the author spent hours creating a rough ________ to organize the main ideas and structural flow.",
+    "choices": [
+      "revise",
+      "audience",
+      "draft"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'draft' (bản thảo) phù hợp nhất với ngữ cảnh chuẩn bị một phiên bản sơ bộ trước khi hoàn thiện."
+  },
+  {
+    "prompt": "When preparing the technical report, the team had to consider their target ________ to ensure the language used was appropriate for their level of expertise.",
+    "choices": [
+      "revise",
+      "draft",
+      "audience"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'audience' (độc giả/khán giả) là đối tượng mà người viết cần cân nhắc để chọn ngôn ngữ phù hợp."
+  },
+  {
+    "prompt": "It is essential to ________ your paper after receiving feedback to correct logical errors and improve clarity.",
+    "choices": [
+      "revise",
+      "audience",
+      "draft"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'revise' (chỉnh sửa) mô tả hành động cải thiện bài viết sau khi nhận phản hồi."
+  },
+  {
+    "prompt": "The editor asked me to ________ my thesis statement because it was too broad to be supported by the evidence in the following paragraphs.",
+    "choices": [
+      "tightening",
+      "tighten",
+      "have tightened"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'ask someone to do something' yêu cầu động từ nguyên thể (tighten) đi sau tân ngữ."
+  },
+  {
+    "prompt": "By the time we ________ the outline tomorrow, we will have a clearer picture of how to structure the entire project.",
+    "choices": [
+      "are finishing",
+      "finish",
+      "will finish"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong mệnh đề trạng ngữ chỉ thời gian với 'by the time', ta dùng thì hiện tại đơn để diễn tả tương lai."
+  },
+  {
+    "prompt": "Having ________ the draft twice, she felt confident that the arguments were presented logically and effectively.",
+    "choices": [
+      "review",
+      "to review",
+      "reviewed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc phân từ hoàn thành 'Having + V3/ed' được dùng để diễn tả hành động đã hoàn tất trước một hành động khác."
+  },
+  {
+    "prompt": "A: Why did you decide to change the tone of the introduction? B: ________.",
+    "choices": [
+      "I want to make sure it matches the academic expectations of my audience.",
+      "It is important to revise the documents before the deadline ends.",
+      "The draft is already printed and ready for the final presentation."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời trực tiếp giải thích lý do thay đổi tông giọng dựa trên đối tượng đọc giả (audience)."
+  },
+  {
+    "prompt": "A: Is the current draft ready for the final submission? B: ________.",
+    "choices": [
+      "The audience expects a very detailed and long-winded explanation.",
+      "Writing a project requires a lot of careful planning and brainstorming.",
+      "I have already revised the grammar and checked the formatting."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời khẳng định việc đã hoàn tất các bước chỉnh sửa (revise) để sẵn sàng nộp bài."
+  },
+  {
+    "prompt": "A: Did you remember to adjust the argument based on the professor's comments? B: ________.",
+    "choices": [
+      "Yes, I have already revised those sections to address his concerns.",
+      "I think the audience is very large for this kind of project.",
+      "I will start to draft the introduction by the end of this week."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời xác nhận hành động đã chỉnh sửa (revise) dựa trên yêu cầu cụ thể của giảng viên."
+  },
+  {
+    "prompt": "Effective writers often perform a structural analysis to ensure that every paragraph ________ to the central theme of the project.",
+    "choices": [
+      "contributing",
+      "contributes",
+      "contribute"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ số ít 'every paragraph' yêu cầu động từ chia ở dạng số ít (contributes)."
+  },
+  {
+    "prompt": "During the planning phase, creating a detailed ________ helps authors avoid writer's block and maintain consistent momentum.",
+    "choices": [
+      "outline",
+      "audience",
+      "revision"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong giai đoạn lập kế hoạch, 'outline' (dàn ý) là công cụ hữu ích để duy trì mạch viết."
+  },
+  {
+    "prompt": "When the feedback is contradictory, the writer must ________ which suggestions are most helpful for improving the overall quality.",
+    "choices": [
+      "drafting",
+      "evaluate",
+      "audience"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'evaluate' (đánh giá) là lựa chọn hợp lý nhất khi cần quyết định giá trị của các phản hồi."
+  },
+  {
+    "prompt": "The ________ between the initial idea and the final product is often bridged by several rounds of rigorous editing.",
+    "choices": [
+      "draft",
+      "audience",
+      "gap"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'gap' (khoảng cách) diễn tả sự khác biệt giữa ý tưởng ban đầu và sản phẩm cuối cùng."
+  },
+  {
+    "prompt": "Once you have completed your ________, make sure to read it aloud to identify awkward phrasing or grammatical inconsistencies.",
+    "choices": [
+      "draft",
+      "audience",
+      "plan"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc đọc to bản thảo (draft) giúp nhận diện các lỗi diễn đạt chưa tự nhiên."
+  },
+  {
+    "prompt": "Professional writing requires that the author maintain a consistent voice so that the ________ can easily follow the narrative flow.",
+    "choices": [
+      "draft",
+      "audience",
+      "revision"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Người đọc (audience) cần sự nhất quán trong giọng văn để theo dõi nội dung bài viết dễ dàng hơn."
+  }
+]

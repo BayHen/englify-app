@@ -47,7 +47,8 @@ jobs:
           deno-version: v2.x
       - run: npm ci
       - run: pip install httpx 'psycopg[binary]>=3.2,<4'
-      - run: npx supabase start
+      # CI exercises the database and API. The Docker log pipeline is optional.
+      - run: npx supabase start -x logflare,vector
       - name: Verify Writing V2 upgrade preserves historical data
         run: |
           npx supabase db reset --version 20261116010000 --no-seed
@@ -67,8 +68,11 @@ jobs:
           supabase/functions/writing-ai-coach/index.ts
           supabase/functions/writing-ai-rewrite/index.ts
           supabase/functions/arena-question-generate/index.ts
+          supabase/functions/journey-lesson-generate/index.ts
       - name: Test Arena question generator contracts
         run: deno test supabase/functions/_shared/arena-question-generator.test.ts
+      - name: Test Journey lesson generator contracts
+        run: deno test supabase/functions/_shared/journey-lesson-generator.test.ts
       - name: Run SQL transaction smoke tests
         run: >-
           python scripts/run_local_sql_test.py
@@ -84,6 +88,17 @@ jobs:
           supabase/tests/quiz_arena_ranked_smoke.sql
           supabase/tests/quiz_mistake_review_smoke.sql
           supabase/tests/quiz_question_management_smoke.sql
+          supabase/tests/journey_v2_1_smoke.sql
+          supabase/tests/journey_v2_2_smoke.sql
+          supabase/tests/journey_v2_3_smoke.sql
+          supabase/tests/journey_v2_4_smoke.sql
+          supabase/tests/journey_v2_5_smoke.sql
+          supabase/tests/journey_v2_6_smoke.sql
+          supabase/tests/journey_v2_6_admin_completion_smoke.sql
+          supabase/tests/journey_v2_7_hardening_smoke.sql
+          supabase/tests/journey_v2_7_complete_curriculum_smoke.sql
+          supabase/tests/journey_answer_review_text_smoke.sql
+          supabase/tests/journey_unit_question_bank_smoke.sql
       - name: Verify Arena upgrade preserves Journey history
         run: python scripts/supabase_arena_upgrade_check.py
       - name: Verify Time Attack upgrade preserves Practice and Journey

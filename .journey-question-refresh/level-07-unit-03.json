@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "One major benefit of remote work is the flexibility it provides, yet many employees find it difficult to maintain a healthy work-life balance.",
+    "choices": [
+      "cost",
+      "requirement",
+      "advantage"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'benefit' đồng nghĩa với 'advantage' trong ngữ cảnh lợi ích của công việc từ xa."
+  },
+  {
+    "prompt": "Although the new software has several useful features, the primary drawback is that it requires a very expensive subscription fee.",
+    "choices": [
+      "disadvantage",
+      "improvement",
+      "opportunity"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'drawback' có nghĩa là nhược điểm hoặc mặt hạn chế, tương đương với 'disadvantage'."
+  },
+  {
+    "prompt": "Some people enjoy the excitement of living in a busy city, whereas others prefer the peace and quiet of a small rural village.",
+    "choices": [
+      "because",
+      "while",
+      "instead"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Liên từ 'whereas' được dùng để so sánh hai ý đối lập, có nghĩa tương tự như 'while' trong trường hợp này."
+  },
+  {
+    "prompt": "Electric cars are environmentally friendly; ________, they can be quite inconvenient on long trips due to limited charging stations.",
+    "choices": [
+      "because",
+      "however",
+      "although"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'however' được dùng để nối hai mệnh đề đối lập và đứng sau dấu chấm phẩy."
+  },
+  {
+    "prompt": "________ public transport is often cheaper, many commuters still choose to drive their own cars for the sake of convenience.",
+    "choices": [
+      "Although",
+      "Despite",
+      "However"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Although' là liên từ dùng để dẫn dắt mệnh đề nhượng bộ trước khi nêu ý đối lập."
+  },
+  {
+    "prompt": "Despite ________, the team managed to finish the project on time and within the original budget.",
+    "choices": [
+      "the weather was bad",
+      "the heavy rain",
+      "it was raining"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sau 'despite' phải là một danh từ hoặc cụm danh từ."
+  },
+  {
+    "prompt": "Person A: 'Should we move to the countryside for a cheaper life?' Person B: 'Well, it’s affordable, ________ there are very few job opportunities there.'",
+    "choices": [
+      "but",
+      "whereas",
+      "despite"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'But' là liên từ phù hợp nhất để nối hai mệnh đề có nội dung trái ngược trong giao tiếp hàng ngày."
+  },
+  {
+    "prompt": "Person A: 'Is it worth buying a fast computer?' Person B: 'It has great speed, ________ the drawback is its short battery life.'",
+    "choices": [
+      "while",
+      "although",
+      "whereas"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Whereas' được dùng để so sánh hai mặt lợi và hại một cách rõ ràng trong câu."
+  },
+  {
+    "prompt": "Person A: 'Why do you prefer digital books?' Person B: 'The main benefit is portability, ________ paper books still feel better to hold.'",
+    "choices": [
+      "despite",
+      "while",
+      "because"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'While' được sử dụng để nêu sự đối lập giữa hai ý kiến hoặc tính chất."
+  },
+  {
+    "prompt": "Which sentence correctly uses the word 'whereas' to contrast two different hobbies?",
+    "choices": [
+      "She likes reading whereas she plays sports.",
+      "Whereas she likes sports, but she also likes reading.",
+      "I love reading, whereas she prefers playing sports."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này sử dụng 'whereas' đúng cách để nối hai vế đối lập với cấu trúc ngữ pháp chính xác."
+  },
+  {
+    "prompt": "Identify the sentence that shows a clear 'drawback'.",
+    "choices": [
+      "The main drawback is that I feel isolated from my colleagues.",
+      "The fast internet allows me to work from anywhere.",
+      "I find that working from home has many benefits."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu này trực tiếp chỉ ra một khía cạnh tiêu cực (sự cô lập) của một tình huống."
+  },
+  {
+    "prompt": "Choose the correct structure to express a contrast.",
+    "choices": [
+      "Although the rain, we went for a walk.",
+      "Despite it was raining, we went for a walk.",
+      "In spite of the rain, we went for a walk."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'In spite of' phải đi kèm với danh từ (the rain), nên đây là câu đúng ngữ pháp."
+  },
+  {
+    "prompt": "Which option correctly identifies a 'benefit' of online shopping?",
+    "choices": [
+      "You can compare prices between stores instantly.",
+      "You cannot try on the clothes before buying them.",
+      "You have to pay for shipping if the order is small."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc so sánh giá nhanh chóng là một lợi ích thực tế của mua sắm trực tuyến."
+  },
+  {
+    "prompt": "Complete the thought: 'Owning a car offers freedom, ________ it comes with high maintenance costs.'",
+    "choices": [
+      "despite",
+      "but",
+      "whereas"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'but' là cách nối thông dụng nhất để đưa ra ý kiến trái ngược trong một mệnh đề."
+  },
+  {
+    "prompt": "Which sentence best uses the word 'benefit'?",
+    "choices": [
+      "Regular exercise has the drawback of being a benefit.",
+      "Regular exercise is a benefit of being very tired.",
+      "The biggest benefit of regular exercise is improved health."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này sử dụng từ 'benefit' theo nghĩa tích cực và hợp lý nhất về mặt logic."
+  }
+]

@@ -1,0 +1,20 @@
+BEGIN;
+INSERT INTO auth.users(id) VALUES('b7111111-1111-4111-8111-111111111111'),('b7222222-2222-4222-8222-222222222222');
+INSERT INTO public.admin_members(user_id) VALUES('b7111111-1111-4111-8111-111111111111');
+INSERT INTO public.courses(id,slug,title,level,cefr_level,is_published) VALUES('b7100000-0000-4000-8000-000000000001','admin-v26','Admin V2.6',26,'A1',true);
+INSERT INTO public.journey_chapters(id,course_id,slug,title,position) VALUES('b7100000-0000-4000-8000-000000000002','b7100000-0000-4000-8000-000000000001','chapter','Chapter',1);
+INSERT INTO public.learning_units(id,course_id,chapter_id,slug,title,position) VALUES('b7100000-0000-4000-8000-000000000003','b7100000-0000-4000-8000-000000000001','b7100000-0000-4000-8000-000000000002','unit','Unit',1);
+SELECT set_config('request.jwt.claim.sub','b7222222-2222-4222-8222-222222222222',true); SET LOCAL ROLE authenticated;
+DO $$ BEGIN PERFORM public.englify_admin_journey_overview(); RAISE EXCEPTION 'Learner accessed curriculum admin'; EXCEPTION WHEN insufficient_privilege THEN NULL; END $$;
+RESET ROLE; SELECT set_config('request.jwt.claim.sub','b7111111-1111-4111-8111-111111111111',true); SET LOCAL ROLE authenticated;
+DO $$ DECLARE saved jsonb; lesson uuid; BEGIN
+ saved:=public.englify_admin_save_journey_lesson(gen_random_uuid(),NULL,jsonb_build_object('course_id','b7100000-0000-4000-8000-000000000001','unit_id','b7100000-0000-4000-8000-000000000003','slug','safe-draft','title','Safe draft','objective','Learn safely','position',1,'blocks',jsonb_build_array(jsonb_build_object('type','introduction','content',jsonb_build_object('text_en','Hello','text_vi','Xin chào')))));
+ lesson:=(saved->>'id')::uuid;
+ PERFORM public.englify_admin_transition_journey_lesson(lesson,'in_review','ready');
+ PERFORM public.englify_admin_transition_journey_lesson(lesson,'approved','reviewed');
+ PERFORM public.englify_admin_transition_journey_lesson(lesson,'published','publish');
+ IF NOT EXISTS(SELECT 1 FROM public.lessons WHERE id=lesson AND lifecycle_status='published' AND is_published) THEN RAISE EXCEPTION 'Lesson was not published'; END IF;
+ IF (SELECT count(*) FROM public.journey_content_reviews WHERE resource_id=lesson)<>3 THEN RAISE EXCEPTION 'Review audit incomplete'; END IF;
+ IF (SELECT count(*) FROM public.journey_lesson_revisions WHERE lesson_id=lesson AND status='published')<>1 THEN RAISE EXCEPTION 'Published revision invariant failed'; END IF;
+END $$;
+ROLLBACK;

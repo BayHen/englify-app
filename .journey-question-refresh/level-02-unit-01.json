@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "My mother and father are my _______.",
+    "choices": [
+      "siblings",
+      "parents",
+      "friends"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cha và mẹ được gọi chung là bố mẹ (parents)."
+  },
+  {
+    "prompt": "Anna and I study together at school. She is my best _______.",
+    "choices": [
+      "parent",
+      "friend",
+      "sibling"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Người cùng học và thân thiết ở trường được gọi là bạn (friend)."
+  },
+  {
+    "prompt": "I have one brother. He is my only _______.",
+    "choices": [
+      "sibling",
+      "friend",
+      "parent"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Anh hoặc em trai là anh chị em ruột, gọi chung là sibling."
+  },
+  {
+    "prompt": "This is Mark. _______ sister is a doctor.",
+    "choices": [
+      "My",
+      "Her",
+      "His"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Vì Mark là nam giới, ta dùng tính từ sở hữu 'His'."
+  },
+  {
+    "prompt": "Sarah loves _______ dog. It is very cute.",
+    "choices": [
+      "her",
+      "his",
+      "their"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sarah là nữ giới nên ta dùng tính từ sở hữu 'her'."
+  },
+  {
+    "prompt": "We live in a big house. _______ family is very happy.",
+    "choices": [
+      "My",
+      "Their",
+      "Our"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ là 'We' (chúng tôi) nên tính từ sở hữu tương ứng là 'Our'."
+  },
+  {
+    "prompt": "A: Who is that man? B: That is _______ father.",
+    "choices": [
+      "I",
+      "me",
+      "my"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cần tính từ sở hữu 'my' để chỉ mối quan hệ gia đình của người nói."
+  },
+  {
+    "prompt": "A: Is this your sibling? B: Yes, _______ name is Tom.",
+    "choices": [
+      "Her",
+      "His",
+      "Its"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tom là nam giới nên ta sử dụng 'His' để chỉ tên của anh ấy."
+  },
+  {
+    "prompt": "A: Are those your friends? B: Yes, they are _______ friends.",
+    "choices": [
+      "our",
+      "my",
+      "your"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Người nói đang khẳng định về những người bạn của chính mình nên dùng 'my'."
+  },
+  {
+    "prompt": "My _______ is my mother's sister.",
+    "choices": [
+      "aunt",
+      "friend",
+      "sibling"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chị hoặc em gái của mẹ trong tiếng Anh được gọi là aunt (dì/cô)."
+  },
+  {
+    "prompt": "They are brother and sister. They have the same _______.",
+    "choices": [
+      "aunts",
+      "parents",
+      "friends"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Anh chị em ruột thường có chung cha mẹ (parents)."
+  },
+  {
+    "prompt": "Look at that boy. Is he your _______?",
+    "choices": [
+      "parent",
+      "aunt",
+      "friend"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đại từ 'he' chỉ nam giới, phù hợp với 'friend' trong ngữ cảnh này."
+  },
+  {
+    "prompt": "We are brothers. This is _______ room.",
+    "choices": [
+      "our",
+      "his",
+      "my"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Vì chủ ngữ là 'We' (chúng tôi) nên phải dùng 'our' để chỉ sự sở hữu chung."
+  },
+  {
+    "prompt": "Maria is nice. _______ parents are very kind too.",
+    "choices": [
+      "Their",
+      "His",
+      "Her"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Maria là tên nữ giới, ta dùng 'Her' để chỉ sở hữu cách."
+  },
+  {
+    "prompt": "I have many friends, but this is _______ best friend.",
+    "choices": [
+      "my",
+      "your",
+      "our"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Người nói đang nói về bản thân mình nên dùng 'my' cho bạn thân nhất."
+  }
+]

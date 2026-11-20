@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The editorial is filled with such extreme bias that it is impossible to view the author as a neutral observer of the political landscape.",
+    "choices": [
+      "a strong personal inclination",
+      "a deliberate attempt to lie",
+      "a lack of strong evidence"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Bias trong ngữ cảnh này ám chỉ sự thiên vị hoặc khuynh hướng cá nhân thay vì là sự khách quan."
+  },
+  {
+    "prompt": "Before citing this study in your final paper, you must evaluate the credibility of the sources cited by the researchers.",
+    "choices": [
+      "the accuracy and reliability",
+      "the length and formatting",
+      "the popularity and reach"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Credibility liên quan đến tính đáng tin cậy và chính xác của một nguồn thông tin."
+  },
+  {
+    "prompt": "While the article does not state the decline explicitly, the data allows us to make a logical inference about the company's financial future.",
+    "choices": [
+      "a direct factual observation",
+      "a wild speculative guess",
+      "a reasonable conclusion drawn"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Inference là quá trình rút ra kết luận dựa trên thông tin có sẵn và logic."
+  },
+  {
+    "prompt": "The reporter's decision to describe the protest as 'a chaotic riot' rather than 'a peaceful demonstration' is a clear example of _____ language.",
+    "choices": [
+      "objective",
+      "technical",
+      "evaluative"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng các tính từ mang tính phán xét để mô tả sự việc là đặc điểm của ngôn ngữ đánh giá."
+  },
+  {
+    "prompt": "Readers should be wary of articles that _____ use emotive adjectives to manipulate their emotional response to the topic.",
+    "choices": [
+      "deliberation",
+      "deliberately",
+      "deliberate"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trạng từ 'deliberately' được dùng để bổ nghĩa cho động từ 'use'."
+  },
+  {
+    "prompt": "By choosing to emphasize the negative outcomes, the author _____ a specific perspective that favors his own agenda.",
+    "choices": [
+      "promote",
+      "is promoting",
+      "promoted"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thì hiện tại tiếp diễn được sử dụng để mô tả một hành động đang diễn ra xuyên suốt trong bài viết."
+  },
+  {
+    "prompt": "Person A: 'Why are you so skeptical about this report?' Person B: '_____ The methodology seems completely flawed to me.'",
+    "choices": [
+      "The evidence is simply not credible.",
+      "I find the data quite compelling.",
+      "It is written in a very neutral tone."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời của B phải giải thích lý do tại sao họ hoài nghi về báo cáo."
+  },
+  {
+    "prompt": "Person A: 'Do you think this author is being objective?' Person B: '_____ He clearly favors one side through his choice of loaded words.'",
+    "choices": [
+      "Perhaps. It depends on the reader.",
+      "Absolutely. He is very fair.",
+      "Hardly. His bias is obvious."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Người B đồng ý rằng tác giả không khách quan nên phải phủ định ý kiến của người A."
+  },
+  {
+    "prompt": "Person A: 'What should we look for to detect bias in a news article?' Person B: '_____ Look for words that evoke strong feelings rather than simple facts.'",
+    "choices": [
+      "Check the length of the paragraph.",
+      "Focus on the publication date.",
+      "Pay attention to the author's tone."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giọng văn chứa các từ gợi cảm xúc mạnh là dấu hiệu của sự thiên vị."
+  },
+  {
+    "prompt": "Which of these is the most effective way to identify hidden bias in a persuasive essay?",
+    "choices": [
+      "Reading only the concluding paragraph.",
+      "Comparing the claims with diverse, reputable sources.",
+      "Counting the total number of sentences used."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đối chiếu với các nguồn uy tín khác giúp xác định tính khách quan của thông tin."
+  },
+  {
+    "prompt": "What does it mean to 'read critically' in an academic context?",
+    "choices": [
+      "Analyzing the text for logic, evidence, and intent.",
+      "Accepting all information provided as fact.",
+      "Memorizing the main arguments for a test."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đọc phản biện đòi hỏi việc phân tích sâu sắc về logic, bằng chứng và mục đích của văn bản."
+  },
+  {
+    "prompt": "Why is it important to recognize evaluative language when reading news?",
+    "choices": [
+      "To improve your own vocabulary for creative writing tasks.",
+      "To help you summarize the article in fewer words.",
+      "To distinguish between established facts and the author's opinion."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Ngôn ngữ đánh giá thường là công cụ để người viết lồng ghép quan điểm cá nhân thay vì thông tin khách quan."
+  },
+  {
+    "prompt": "If a source has low credibility, how should a researcher handle the information?",
+    "choices": [
+      "Discard it or find corroborating evidence.",
+      "Rewrite the content to make it sound better.",
+      "Cite it but add a disclaimer."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Nếu nguồn tin không đáng tin cậy, cách an toàn nhất là bỏ qua hoặc tìm bằng chứng xác thực khác."
+  },
+  {
+    "prompt": "Which action constitutes a logical inference based on the statement: 'The store has been empty every time I walked by this week.'?",
+    "choices": [
+      "The store only opens for one hour a day.",
+      "The store may be experiencing very low foot traffic.",
+      "The store is definitely going out of business."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Suy luận logic là đưa ra khả năng hợp lý nhất dựa trên dữ liệu quan sát được."
+  },
+  {
+    "prompt": "Which of the following phrases represents the most evaluative tone?",
+    "choices": [
+      "The senator summarized his points in three sections.",
+      "The senator delivered a tedious and repetitive speech.",
+      "The senator spoke for three hours."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Các từ 'tedious' và 'repetitive' mang tính chất phán xét cá nhân, không phải là dữ liệu khách quan."
+  }
+]

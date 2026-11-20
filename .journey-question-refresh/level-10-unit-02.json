@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The team lead asked me to respond to the client's complaint. What is the most accurate meaning of 'respond' in this scenario?",
+    "choices": [
+      "To provide an answer or reaction to a prompt",
+      "To ignore the message until a later date",
+      "To forward the email to another department"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Respond mang nghĩa là phản hồi hoặc trả lời lại một thông tin được đưa ra."
+  },
+  {
+    "prompt": "During the meeting, the instructions were vague. I needed to clarify them. What did I do?",
+    "choices": [
+      "I decided to guess the meaning and proceed",
+      "I asked questions to ensure I understood the details",
+      "I wrote a summary based on my own assumptions"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Clarify có nghĩa là làm rõ thông tin thông qua việc đặt câu hỏi để tránh hiểu nhầm."
+  },
+  {
+    "prompt": "The project deadline was too tight. I had to negotiate a new timeline with my manager. What does 'negotiate' imply here?",
+    "choices": [
+      "I demanded the deadline be canceled",
+      "I accepted the deadline without sharing my concerns",
+      "I discussed options to reach a mutually acceptable agreement"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Negotiate mô tả quá trình thảo luận để đạt được thỏa thuận chung giữa các bên."
+  },
+  {
+    "prompt": "Choose the most strategically phrased sentence to soften a disagreement with a colleague.",
+    "choices": [
+      "You are wrong about the budget calculations.",
+      "That is a terrible idea for our current project budget.",
+      "I see your point, but perhaps we could look at the budget differently."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng cấu trúc 'I see your point, but' là cách tiếp cận mang tính chiến lược để bất đồng một cách lịch sự."
+  },
+  {
+    "prompt": "Which sentence demonstrates the best use of conditional language for professional negotiation?",
+    "choices": [
+      "I might finish if you stop bothering me about it.",
+      "If we extend the deadline, I will be able to complete the report properly.",
+      "Extend the deadline or I am not finishing the report."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu điều kiện giúp trình bày yêu cầu một cách chuyên nghiệp và có lập luận rõ ràng."
+  },
+  {
+    "prompt": "Select the phrase that uses assertive but polite communication during a client meeting.",
+    "choices": [
+      "I do not know, I guess you should decide what to do.",
+      "Maybe we can try to do this if it is not too much trouble.",
+      "I am confident that this approach will meet your current goals."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc khẳng định sự tự tin một cách lịch sự thể hiện kỹ năng giao tiếp chiến lược."
+  },
+  {
+    "prompt": "Colleague: 'I don't think this strategy will work for the launch.' You: '__________'",
+    "choices": [
+      "You are just being negative about my work.",
+      "Could you explain which part of the strategy concerns you most?",
+      "It works perfectly fine, so please stop complaining."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đặt câu hỏi làm rõ là cách phản hồi chuyên nghiệp để giải quyết bất đồng."
+  },
+  {
+    "prompt": "Manager: 'We need this project finished by Friday.' You: '__________'",
+    "choices": [
+      "I understand the urgency; could we prioritize the essential tasks to meet that date?",
+      "Why do you always give me the hard work?",
+      "That is impossible, I am not doing it."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đưa ra giải pháp thay vì từ chối thẳng thừng là kỹ năng thương thảo cần thiết."
+  },
+  {
+    "prompt": "Client: 'The quality of the final draft is not what we expected.' You: '__________'",
+    "choices": [
+      "I am sorry to hear that; could you highlight the specific areas that need improvement?",
+      "You probably just misunderstood the instructions.",
+      "Well, you should have told me that earlier."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc cầu thị và yêu cầu thông tin cụ thể giúp duy trì mối quan hệ tốt với khách hàng."
+  },
+  {
+    "prompt": "When managing a conflict in a meeting, which strategy is most effective?",
+    "choices": [
+      "Avoiding the topic entirely until the meeting ends",
+      "Focusing on the person's personality flaws",
+      "Finding common ground and objective goals"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Tập trung vào mục tiêu chung là cách giải quyết mâu thuẫn chuyên nghiệp nhất."
+  },
+  {
+    "prompt": "Why is 'clarifying' important in cross-departmental communication?",
+    "choices": [
+      "It prevents wasting time on tasks based on misunderstandings",
+      "It allows you to assert dominance over other teams",
+      "It makes the conversation last longer for the report"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Làm rõ giúp tiết kiệm thời gian và đảm bảo các bên hiểu đúng nhiệm vụ."
+  },
+  {
+    "prompt": "What is the primary goal of strategic communication in a professional scenario?",
+    "choices": [
+      "To confuse the listener with complex vocabulary",
+      "To convey information effectively to achieve a specific result",
+      "To talk as much as possible to fill the time"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Giao tiếp chiến lược tập trung vào việc đạt được kết quả mong muốn thông qua việc truyền đạt hiệu quả."
+  },
+  {
+    "prompt": "If a negotiation reaches a stalemate, what should be your next move?",
+    "choices": [
+      "Leave the room and refuse to speak further",
+      "Suggest a break or explore alternative compromises",
+      "Insist on your original terms without change"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc tạm nghỉ hoặc tìm kiếm phương án thay thế giúp tháo gỡ bế tắc trong thương lượng."
+  },
+  {
+    "prompt": "How can you show active listening while someone is explaining their point?",
+    "choices": [
+      "Interrupting frequently to share your opinion",
+      "Looking at your phone until they finish talking",
+      "Using verbal cues like 'I see' or 'Go on' to encourage them"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Các tín hiệu phản hồi bằng lời nói cho thấy bạn đang thực sự lắng nghe đối phương."
+  },
+  {
+    "prompt": "When responding to feedback, what is the best approach?",
+    "choices": [
+      "Listen, thank the person, and ask for specific examples",
+      "Defend your work immediately without listening",
+      "Agree with everything without evaluating the input"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tiếp nhận phản hồi một cách cởi mở và cầu tiến là dấu hiệu của sự chuyên nghiệp."
+  }
+]

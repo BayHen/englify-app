@@ -81,4 +81,11 @@ UPDATE public.dictionary_entries SET is_published=true WHERE id::text LIKE '1111
 UPDATE public.learning_units SET is_published=true WHERE id::text LIKE '88888888-8888-4888-8888-%';
 UPDATE public.lesson_items SET is_published=true WHERE id::text LIKE '99999999-9999-4999-8999-%';
 UPDATE public.quiz_questions SET is_published=true WHERE id::text LIKE '44444444-4444-4444-8444-%';
+-- The Journey prerequisite backfill runs before local seed data is loaded.
+INSERT INTO public.journey_lesson_prerequisites (lesson_id, prerequisite_lesson_id)
+VALUES
+  ('33333333-3333-4333-8333-333333333302', '33333333-3333-4333-8333-333333333301'),
+  ('33333333-3333-4333-8333-333333333303', '33333333-3333-4333-8333-333333333302'),
+  ('33333333-3333-4333-8333-333333333304', '33333333-3333-4333-8333-333333333303')
+ON CONFLICT DO NOTHING;
 COMMIT;

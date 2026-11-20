@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The detective presented a piece of physical ____ that linked the suspect to the crime scene.",
+    "choices": [
+      "example",
+      "evidence",
+      "reliable"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'evidence' là danh từ phù hợp nhất để chỉ một vật chứng liên quan đến hiện trường vụ án."
+  },
+  {
+    "prompt": "Can you give me another ____ of how this new software helps improve efficiency?",
+    "choices": [
+      "example",
+      "reliable",
+      "evidence"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong ngữ cảnh này, người hỏi muốn một ví dụ minh họa cụ thể cho một tình huống."
+  },
+  {
+    "prompt": "We need to ensure that the data we collect is ____ before we include it in the report.",
+    "choices": [
+      "evidence",
+      "reliable",
+      "example"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tính từ 'reliable' (đáng tin cậy) dùng để bổ nghĩa cho dữ liệu trước khi đưa vào báo cáo."
+  },
+  {
+    "prompt": "____ he had finished his research, the scientist double-checked all his calculations.",
+    "choices": [
+      "Although",
+      "Once",
+      "Because"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Mệnh đề phụ bắt đầu bằng 'Once' diễn tả một hành động xảy ra ngay sau khi hành động trước đó hoàn thành."
+  },
+  {
+    "prompt": "The team decided to proceed with the project ____ the initial results were very promising.",
+    "choices": [
+      "given that",
+      "in case",
+      "so that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Liên từ 'given that' được dùng để nêu lý do hoặc căn cứ cho một quyết định."
+  },
+  {
+    "prompt": "She organized her notes carefully ____ she could easily find references during the presentation.",
+    "choices": [
+      "even though",
+      "as soon as",
+      "so that"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'So that' chỉ mục đích, phù hợp với ngữ cảnh chuẩn bị kỹ lưỡng để đạt kết quả tốt."
+  },
+  {
+    "prompt": "A: Why are you so certain about these figures?\nB: Because I checked them against several ____ sources.",
+    "choices": [
+      "example",
+      "evidence",
+      "reliable"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'reliable' mô tả các nguồn thông tin tin cậy để xác minh số liệu."
+  },
+  {
+    "prompt": "A: Is there any proof that the product is actually effective?\nB: Yes, we have gathered plenty of ____ to support our claim.",
+    "choices": [
+      "evidence",
+      "example",
+      "reliable"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong ngữ cảnh này, 'evidence' dùng để chỉ bằng chứng khẳng định hiệu quả của sản phẩm."
+  },
+  {
+    "prompt": "A: I'm not sure how to structure this essay.\nB: You should use a clear ____ for each point you try to argue.",
+    "choices": [
+      "evidence",
+      "example",
+      "reliable"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Example' là từ phù hợp nhất để bổ trợ cho việc giải thích các quan điểm trong bài luận."
+  },
+  {
+    "prompt": "The study was published ____ the researchers provided sufficient documentation for their findings.",
+    "choices": [
+      "even if",
+      "only if",
+      "in spite of"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Only if' thiết lập một điều kiện tiên quyết để nghiên cứu được công bố."
+  },
+  {
+    "prompt": "____ the weather forecast was unfavorable, the group decided to continue the hike.",
+    "choices": [
+      "Even though",
+      "Once",
+      "Since"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Even though' dùng để diễn tả sự đối lập giữa dự báo thời tiết và quyết định của nhóm."
+  },
+  {
+    "prompt": "The editor asked for more ____ before agreeing to publish the controversial article.",
+    "choices": [
+      "reliable",
+      "example",
+      "evidence"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Biên tập viên thường yêu cầu bằng chứng (evidence) để đảm bảo tính xác thực trước khi xuất bản."
+  },
+  {
+    "prompt": "You should verify this information because the source may not be ____.",
+    "choices": [
+      "example",
+      "evidence",
+      "reliable"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Tính từ 'reliable' (đáng tin cậy) dùng để chỉ độ tin cậy của nguồn tin."
+  },
+  {
+    "prompt": "____ you have the primary documents, you can start building your argument.",
+    "choices": [
+      "Although",
+      "Even though",
+      "Since"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Since' được dùng ở đây với nghĩa chỉ nguyên nhân hoặc căn cứ để thực hiện công việc tiếp theo."
+  },
+  {
+    "prompt": "He provided a real-life ____ of how climate change is affecting the local coastline.",
+    "choices": [
+      "example",
+      "evidence",
+      "reliable"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'real-life example' diễn tả một ví dụ thực tế được đưa ra để chứng minh vấn đề."
+  }
+]

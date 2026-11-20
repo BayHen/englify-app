@@ -1,3 +1,4 @@
+/// <reference lib="deno.ns" />
 import {ArenaGenerationError,generateArenaQuestions,type ArenaGenerationInput} from '../_shared/arena-question-generator.ts';
 const json=(data:unknown,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'authorization, apikey, content-type'}});
 async function rest(base:string,key:string,path:string,init:RequestInit={}){const response=await fetch(`${base}/rest/v1/${path}`,{...init,headers:{apikey:key,Authorization:init.headers instanceof Headers?init.headers.get('Authorization')??`Bearer ${key}`:`Bearer ${key}`,'Content-Type':'application/json','Prefer':'return=representation',...(init.headers??{})}});const text=await response.text();if(!response.ok)throw new Error(`${response.status}: ${text}`);return text?JSON.parse(text):null;}

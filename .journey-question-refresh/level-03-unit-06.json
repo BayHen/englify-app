@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Last month, Sarah went to the mountains. She loved the clean air and beautiful scenery. She really ______ the trip.",
+    "choices": [
+      "stayed",
+      "visited",
+      "enjoyed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'enjoyed' phù hợp với ngữ cảnh bày tỏ cảm xúc tích cực về chuyến đi."
+  },
+  {
+    "prompt": "We traveled to the coast for our vacation. We ______ at a small, comfortable hotel near the beach.",
+    "choices": [
+      "visited",
+      "enjoyed",
+      "stayed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'stayed' diễn tả việc lưu trú tại một địa điểm trong kỳ nghỉ."
+  },
+  {
+    "prompt": "During my summer holidays, I ______ many interesting museums and ancient palaces in the capital city.",
+    "choices": [
+      "enjoyed",
+      "visited",
+      "stayed"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'visited' được dùng để chỉ việc đi tham quan các địa điểm du lịch."
+  },
+  {
+    "prompt": "I ______ a very delicious dinner with my family at a local restaurant last night.",
+    "choices": [
+      "had",
+      "haded",
+      "have"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Quá khứ đơn của động từ 'have' là 'had' để chỉ hành động xảy ra trong quá khứ."
+  },
+  {
+    "prompt": "They ______ to the beach last weekend because the weather was sunny and warm.",
+    "choices": [
+      "went",
+      "go",
+      "goes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Quá khứ đơn của 'go' là 'went' phù hợp với trạng từ chỉ thời gian 'last weekend'."
+  },
+  {
+    "prompt": "We ______ our friends at the park yesterday afternoon for a short picnic.",
+    "choices": [
+      "meet",
+      "met",
+      "meets"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'met' là dạng quá khứ bất quy tắc của 'meet' dùng cho thời điểm quá khứ."
+  },
+  {
+    "prompt": "A: Did you like your trip to Paris?\nB: Yes, it was amazing! I ______ every minute of it.",
+    "choices": [
+      "enjoyed",
+      "visit",
+      "stay"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời cần một động từ ở dạng quá khứ để đồng nhất với thì của câu hỏi."
+  },
+  {
+    "prompt": "A: Where did you stay during your vacation?\nB: I ______ with my cousins in their house.",
+    "choices": [
+      "stays",
+      "stayed",
+      "stay"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu hỏi ở thì quá khứ nên câu trả lời phải dùng động từ 'stayed' ở dạng quá khứ."
+  },
+  {
+    "prompt": "A: Who did you visit in London?\nB: I ______ my uncle who lives in the city center.",
+    "choices": [
+      "visiting",
+      "visited",
+      "visit"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cần dùng thì quá khứ đơn 'visited' để trả lời cho câu hỏi về hành động đã xảy ra."
+  },
+  {
+    "prompt": "Yesterday, we ______ a long walk in the forest and took many photos.",
+    "choices": [
+      "takes",
+      "take",
+      "took"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'took' là quá khứ của 'take' để diễn tả hành động trong ngày hôm qua."
+  },
+  {
+    "prompt": "My sister ______ her suitcase carefully before we left for the airport.",
+    "choices": [
+      "packed",
+      "pack",
+      "packs"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hành động đã xảy ra và kết thúc trong quá khứ nên cần dùng dạng thêm đuôi '-ed'."
+  },
+  {
+    "prompt": "The flight ______ two hours late, so we arrived at the hotel very tired.",
+    "choices": [
+      "were",
+      "is",
+      "was"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ số ít 'the flight' đi với 'was' ở thì quá khứ."
+  },
+  {
+    "prompt": "I ______ a beautiful sunset over the ocean while I was on the beach.",
+    "choices": [
+      "see",
+      "saw",
+      "sees"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dạng quá khứ của 'see' là 'saw' phù hợp với ngữ cảnh câu chuyện quá khứ."
+  },
+  {
+    "prompt": "They ______ the bus to the city center because the subway was closed.",
+    "choices": [
+      "take",
+      "takes",
+      "took"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ bất quy tắc 'took' là dạng đúng của 'take' trong thì quá khứ đơn."
+  },
+  {
+    "prompt": "We ______ all the souvenirs in the small shop near the museum.",
+    "choices": [
+      "bought",
+      "buied",
+      "buy"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Bought' là dạng quá khứ đúng của động từ 'buy'."
+  }
+]

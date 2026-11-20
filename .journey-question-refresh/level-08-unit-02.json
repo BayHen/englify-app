@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Although the team had several disagreements during the meeting, they managed to ________ a solution that satisfied everyone.",
+    "choices": [
+      "turn down",
+      "bring up",
+      "work out"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm động từ 'work out' có nghĩa là tìm ra giải pháp cho một vấn đề khó khăn."
+  },
+  {
+    "prompt": "She was hesitant to ________ the issue of salary during the interview, fearing it might seem unprofessional.",
+    "choices": [
+      "turn down",
+      "work out",
+      "bring up"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm động từ 'bring up' có nghĩa là bắt đầu thảo luận hoặc đề cập đến một chủ đề nào đó."
+  },
+  {
+    "prompt": "Despite their impressive qualifications, the committee decided to ________ the applicant because he lacked specific technical experience.",
+    "choices": [
+      "turn down",
+      "bring up",
+      "work out"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm động từ 'turn down' có nghĩa là từ chối một lời đề nghị hoặc một ứng viên."
+  },
+  {
+    "prompt": "The particle 'up' in 'bring up' often suggests bringing a topic ________ the surface for others to see.",
+    "choices": [
+      "up to",
+      "away from",
+      "out of"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong trường hợp này, 'up' ám chỉ việc đưa một chủ đề từ trạng thái ẩn lên bề mặt để thảo luận."
+  },
+  {
+    "prompt": "The particle 'out' in 'work out' emphasizes the completion or total ________ of a logical process.",
+    "choices": [
+      "reduction",
+      "reflection",
+      "resolution"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hạt từ 'out' thường mang nghĩa hoàn tất một quá trình tư duy hoặc giải quyết vấn đề đến cùng."
+  },
+  {
+    "prompt": "The particle 'down' in 'turn down' signals a negative response, effectively ________ the request being made.",
+    "choices": [
+      "extending",
+      "lowering",
+      "advancing"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Hạt từ 'down' trong ngữ cảnh này mang nghĩa tiêu cực, làm thấp đi hoặc từ chối sự chấp nhận."
+  },
+  {
+    "prompt": "A: 'Do you think we should mention the budget cuts to the staff?' B: 'Yes, but be careful how you ________ it; they are already stressed.'",
+    "choices": [
+      "work out",
+      "bring up",
+      "turn down"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cần sử dụng 'bring up' để nói về việc bắt đầu một chủ đề nhạy cảm trong cuộc trò chuyện."
+  },
+  {
+    "prompt": "A: 'Did you get the job at the design firm?' B: 'No, they ________ my application because I didn't have enough portfolio examples.'",
+    "choices": [
+      "brought up",
+      "worked out",
+      "turned down"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'turned down' để mô tả việc bị từ chối đơn ứng tuyển."
+  },
+  {
+    "prompt": "A: 'We have a massive scheduling conflict for the conference.' B: 'Don't worry, I'm sure we can ________ a plan that covers everyone's availability.'",
+    "choices": [
+      "bring up",
+      "work out",
+      "turn down"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'work out' để nói về việc lên kế hoạch hoặc tìm giải pháp cho một vấn đề."
+  },
+  {
+    "prompt": "The manager decided to ________ the idea of remote work during the board meeting.",
+    "choices": [
+      "work out",
+      "bring up",
+      "turn down"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'bring up' để chỉ việc nêu lên một ý tưởng trong cuộc họp."
+  },
+  {
+    "prompt": "If you don't like the terms of the contract, you have the right to ________ the offer.",
+    "choices": [
+      "bring up",
+      "turn down",
+      "work out"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'turn down' để diễn tả việc từ chối một lời đề nghị trong hợp đồng."
+  },
+  {
+    "prompt": "We spent all afternoon trying to ________ the details of our upcoming international trip.",
+    "choices": [
+      "work out",
+      "turn down",
+      "bring up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'work out' để chỉ việc sắp xếp, giải quyết các chi tiết cụ thể của một kế hoạch."
+  },
+  {
+    "prompt": "It is never a good idea to ________ personal grievances during a professional presentation.",
+    "choices": [
+      "bring up",
+      "work out",
+      "turn down"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'bring up' để nói về việc nhắc đến các vấn đề cá nhân không phù hợp."
+  },
+  {
+    "prompt": "After hours of calculation, the accountant was finally able to ________ the final cost of the project.",
+    "choices": [
+      "work out",
+      "turn down",
+      "bring up"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'work out' khi đề cập đến việc tính toán ra kết quả cuối cùng."
+  },
+  {
+    "prompt": "The landlord had to ________ the tenant's request for a lower monthly rent.",
+    "choices": [
+      "bring up",
+      "work out",
+      "turn down"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'turn down' để nói về việc từ chối một yêu cầu giảm giá thuê nhà."
+  }
+]

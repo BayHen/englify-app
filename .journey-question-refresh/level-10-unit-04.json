@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After reviewing the project data, the committee had to _______ the feasibility of the proposal before approving the budget.",
+    "choices": [
+      "evaluate",
+      "alternative",
+      "justify"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'evaluate' phù hợp nhất để diễn tả hành động đánh giá mức độ khả thi của một đề xuất."
+  },
+  {
+    "prompt": "The manager asked the team to provide a _______ for their decision to delay the launch, as it had significant financial implications.",
+    "choices": [
+      "justify",
+      "alternative",
+      "evaluate"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'justify' được dùng để yêu cầu đưa ra lý do hoặc bằng chứng xác đáng cho một quyết định quan trọng."
+  },
+  {
+    "prompt": "Since the original plan failed, we must urgently consider an _______ approach to meet our year-end targets.",
+    "choices": [
+      "justify",
+      "evaluate",
+      "alternative"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'alternative' được dùng để chỉ một phương án hoặc hướng đi thay thế cho kế hoạch ban đầu."
+  },
+  {
+    "prompt": "It is widely _______ that the strategy will succeed, provided the team remains focused on the primary objectives.",
+    "choices": [
+      "reasoned to evaluate",
+      "a reasoned evaluation",
+      "reasoning evaluated"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm danh từ 'a reasoned evaluation' đóng vai trò là tân ngữ hoặc trạng ngữ chỉ kết quả đánh giá có cơ sở."
+  },
+  {
+    "prompt": "The consultant presented a _______ of the current market trends, noting that the growth is purely speculative.",
+    "choices": [
+      "reasoned evaluating",
+      "reasoned evaluation",
+      "reasoning evaluate"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'reasoned evaluation' là cấu trúc chính xác để mô tả một quá trình đánh giá dựa trên suy luận logic."
+  },
+  {
+    "prompt": "Their success is based on a _______ of the risks involved, which allowed them to pivot before the market crashed.",
+    "choices": [
+      "evaluating reasoned",
+      "reasoned evaluation",
+      "reason evaluation"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cần một danh từ được bổ nghĩa bởi tính từ 'reasoned' để tạo thành cụm danh từ hợp lệ trong ngữ cảnh này."
+  },
+  {
+    "prompt": "A: Why did you reject the software upgrade? B: I needed to _______ the system stability first.",
+    "choices": [
+      "alternatives",
+      "justified",
+      "evaluate"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ nguyên mẫu 'evaluate' cần thiết sau 'needed to' để chỉ hành động cần thực hiện."
+  },
+  {
+    "prompt": "A: Can you explain why the client chose this path? B: They believe the current path is unsustainable, so they need a viable ______.",
+    "choices": [
+      "alternative",
+      "justification",
+      "evaluation"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Ngữ cảnh đề cập đến việc thay đổi lộ trình, nên danh từ 'alternative' (phương án thay thế) là hợp lý nhất."
+  },
+  {
+    "prompt": "A: Did you approve the changes? B: Only after I could _______ the extra cost with projected long-term savings.",
+    "choices": [
+      "evaluate",
+      "justify",
+      "alternated"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'justify' phù hợp khi nói về việc giải trình chi phí bằng các lợi ích dài hạn."
+  },
+  {
+    "prompt": "Which of these best describes the process of examining evidence to reach a sound conclusion?",
+    "choices": [
+      "evaluating alternative",
+      "justifying alternative",
+      "reasoned evaluation"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'reasoned evaluation' mô tả chính xác quá trình tư duy dựa trên bằng chứng."
+  },
+  {
+    "prompt": "When a person says they have an 'alternative view,' they mean they have:",
+    "choices": [
+      "an identical belief",
+      "a different perspective",
+      "a failed evaluation"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'alternative' mang nghĩa là khác biệt hoặc là một lựa chọn khác so với quan điểm hiện tại."
+  },
+  {
+    "prompt": "If you are asked to 'justify your position,' you should:",
+    "choices": [
+      "ignore the critique",
+      "provide a simple evaluation",
+      "offer a reason for your stance"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Yêu cầu 'justify your position' nghĩa là cần đưa ra lập luận hoặc lý do bảo vệ quan điểm của mình."
+  },
+  {
+    "prompt": "What is the primary purpose of conducting a reasoned evaluation of a claim?",
+    "choices": [
+      "To avoid further analysis",
+      "To confirm personal bias",
+      "To determine the claim's validity"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Mục đích của việc đánh giá có cơ sở là để xác định độ chính xác hoặc tính hợp lệ của một khẳng định."
+  },
+  {
+    "prompt": "Which scenario best reflects the need for an alternative?",
+    "choices": [
+      "The current solution is not achieving the desired outcomes.",
+      "The task is already finished ahead of schedule.",
+      "The data confirms that the plan is perfectly efficient."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi giải pháp hiện tại không hiệu quả, ta cần một phương án thay thế."
+  },
+  {
+    "prompt": "Which phrasing best completes the sentence: 'The committee provided a _______ regarding the proposal's potential impact.'",
+    "choices": [
+      "reasoned evaluation",
+      "justified evaluate",
+      "alternative evaluate"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm danh từ 'reasoned evaluation' là thành phần bổ ngữ chính xác sau động từ 'provided'."
+  }
+]

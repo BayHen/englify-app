@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After reading the editorial, the critic noted that the author's primary __________ was that remote work is ultimately harmful to long-term company culture.",
+    "choices": [
+      "gossip",
+      "claim",
+      "rumor"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'claim' dùng để chỉ một khẳng định hoặc lập luận chính trong văn bản nghị luận."
+  },
+  {
+    "prompt": "The editorial board maintained a firm __________ on the issue of renewable energy, refusing to print articles that promoted fossil fuel subsidies.",
+    "choices": [
+      "stance",
+      "posture",
+      "viewpoint"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'stance' thường được dùng để chỉ một lập trường hoặc quan điểm kiên định về một vấn đề cụ thể."
+  },
+  {
+    "prompt": "While many experts agree on the data, they differ significantly in their __________ regarding how the new policy will impact the local economy.",
+    "choices": [
+      "claim",
+      "viewpoint",
+      "stance"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'viewpoint' phù hợp nhất để chỉ góc nhìn hoặc cách nhìn nhận vấn đề của các chuyên gia."
+  },
+  {
+    "prompt": "Which of the following is the most effective thesis statement for a persuasive essay about plastic pollution?",
+    "choices": [
+      "Plastic pollution is a very serious problem that affects many people and the ocean animals living there.",
+      "People are using too much plastic, so we should try to change our daily habits to help the environment.",
+      "Governments should implement stricter regulations on single-use plastics to protect marine ecosystems and human health."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đây là một luận điểm rõ ràng, cụ thể và đề xuất hướng giải quyết cụ thể cho bài viết nghị luận."
+  },
+  {
+    "prompt": "Identify the thesis statement that best sets a clear direction for an argumentative essay.",
+    "choices": [
+      "Although remote learning offers flexibility, it negatively impacts student engagement and social development in primary education.",
+      "Remote learning has both positive aspects and negative aspects that students and teachers experience daily.",
+      "Many schools switched to remote learning during the pandemic, which caused a lot of controversy among parents."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Luận điểm này thể hiện rõ ràng quan điểm cá nhân và phạm vi thảo luận của bài viết."
+  },
+  {
+    "prompt": "Which sentence functions best as a thesis statement for an essay about urban planning?",
+    "choices": [
+      "The city of the future needs to integrate more green spaces to improve resident well-being and air quality.",
+      "Urban planning is a complicated subject that many architects and politicians discuss in their meetings.",
+      "Green spaces are good, but some people think that building more apartments is more important for the city."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu này đưa ra một khẳng định mạnh mẽ và mục đích cụ thể cho nội dung bài viết."
+  },
+  {
+    "prompt": "Person A: 'Do you think we should prioritize public transport over highway expansion?' Person B: '__________ I believe public transport is the only sustainable way to reduce urban congestion.'",
+    "choices": [
+      "To be honest,",
+      "My stance is that,",
+      "I heard that,"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'My stance is that' là cách diễn đạt trang trọng để khẳng định lập trường cá nhân."
+  },
+  {
+    "prompt": "Person A: 'What is your perspective on the new tax laws?' Person B: '__________ the current system unfairly penalizes small business owners.'",
+    "choices": [
+      "I have a viewpoint that",
+      "I am of the view that",
+      "It is my claim that"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'I am of the view that' là cách diễn đạt tự nhiên và đúng ngữ pháp để trình bày quan điểm."
+  },
+  {
+    "prompt": "Person A: 'Should the company adopt a four-day work week?' Person B: '__________ research suggests that productivity actually increases with fewer hours.'",
+    "choices": [
+      "I argue that",
+      "It is my stance,",
+      "My viewpoint is"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm 'I argue that' được dùng để dẫn dắt một lập luận dựa trên bằng chứng."
+  },
+  {
+    "prompt": "Which word best completes the sentence: 'The author makes a compelling __________ that digital literacy is now a fundamental human right'?",
+    "choices": [
+      "stance",
+      "viewpoint",
+      "claim"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trong ngữ cảnh này, 'claim' là từ phù hợp nhất để chỉ một luận điểm cần được chứng minh."
+  },
+  {
+    "prompt": "What is the primary purpose of a thesis statement in an opinion piece?",
+    "choices": [
+      "To include all the evidence supporting the topic.",
+      "To provide a summary of the background information.",
+      "To present the author's main argument clearly."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Luận đề có mục đích chính là giới thiệu quan điểm chính của tác giả."
+  },
+  {
+    "prompt": "Choose the correct phrase to introduce a strong personal viewpoint.",
+    "choices": [
+      "I guess that it might be...",
+      "It is my firm belief that...",
+      "Some people might agree that..."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ này thể hiện sự kiên định và rõ ràng trong quan điểm cá nhân."
+  },
+  {
+    "prompt": "Which option represents a clear and defensible stance?",
+    "choices": [
+      "Taxing industrial carbon emissions is essential to curbing global climate change.",
+      "The issue of pollution is very important to discuss.",
+      "Pollution is mostly caused by factories, but not always."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đây là một lập trường cụ thể, có thể tranh luận và bảo vệ bằng lập luận."
+  },
+  {
+    "prompt": "In an argumentative essay, a 'claim' is best described as:",
+    "choices": [
+      "A question that the reader should answer by the end.",
+      "A casual observation about the topic of the essay.",
+      "A statement that needs to be supported by evidence."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Một lập luận (claim) luôn cần được hỗ trợ bằng bằng chứng để thuyết phục người đọc."
+  },
+  {
+    "prompt": "Which of these is a synonym for 'stance' in the context of writing an opinion piece?",
+    "choices": [
+      "Posture",
+      "Placement",
+      "Position"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'position' đồng nghĩa với 'stance' trong việc chỉ lập trường của người viết."
+  }
+]

@@ -19,6 +19,7 @@ import { ArenaQuestionManagement } from "./arena-question-management";
 import { ArenaQuestionGenerator } from "./arena-question-generator";
 import { ArenaTopicManagement } from "./arena-topic-management";
 import { ArenaQuestionAnalytics } from "./arena-question-analytics";
+import { JourneyCurriculumManagement } from "./journey-curriculum-management";
 
 const hybridReady =
   process.env.NEXT_PUBLIC_REAL_ENGLISH_HYBRID_ENABLED === "true";
@@ -29,6 +30,7 @@ type Section =
   | "dashboard"
   | "vocabulary"
   | "courses"
+  | "chapters"
   | "units"
   | "lessons"
   | "lesson-items"
@@ -44,11 +46,13 @@ type Section =
   | "publishing"
   | "audit"
   | "arena-seasons"
-  | "arena-questions";
+  | "arena-questions"
+  | "journey-curriculum";
 const nav: { id: Section; label: string; group: string }[] = [
   { id: "dashboard", label: "Dashboard", group: "Overview" },
   { id: "vocabulary", label: "Vocabulary", group: "Content" },
   { id: "courses", label: "Courses", group: "Content" },
+  { id: "chapters", label: "Journey chapters", group: "Content" },
   { id: "units", label: "Units", group: "Content" },
   { id: "lessons", label: "Lesson builder", group: "Content" },
   { id: "lesson-items", label: "Lesson items", group: "Content" },
@@ -64,12 +68,14 @@ const nav: { id: Section; label: string; group: string }[] = [
   { id: "publishing", label: "Publishing", group: "Operations" },
   { id: "arena-seasons", label: "Arena seasons", group: "Operations" },
   { id: "arena-questions", label: "Arena questions", group: "Operations" },
+  { id: "journey-curriculum", label: "Journey curriculum", group: "Operations" },
   { id: "audit", label: "Audit log", group: "Operations" },
 ];
 const choices: Record<string, string[]> = {
   formality: ["informal", "neutral", "formal"],
   metric: ["completed_lessons", "total_xp"],
   cefr_level: ["A1", "A2", "B1", "B2", "C1"],
+  lesson_kind: ["lesson", "checkpoint"],
 };
 const kinds: Record<string, string[]> = {
   "lesson-items": ["reading", "tip"],
@@ -94,6 +100,7 @@ const sectionDescriptions: Record<Section, string> = {
   dashboard: "A live overview of published learning content.",
   vocabulary: "Build and maintain the English and Vietnamese word library.",
   courses: "Organize the path learners follow.",
+  chapters: "Organize stable CEFR chapters without changing lesson IDs.",
   units: "Group related lessons into clear milestones.",
   lessons: "Create and review the lessons learners will see.",
   "lesson-items": "Shape the reading and practice inside each lesson.",
@@ -111,6 +118,7 @@ const sectionDescriptions: Record<Section, string> = {
   audit: "See recent content changes and their actors.",
   "arena-seasons": "Manage ranked rules, season lifecycle, standings, rewards, and security review.",
   "arena-questions": "Create, validate, import, review, publish, and audit versioned Arena questions.",
+  "journey-curriculum": "Build, review, and safely publish the versioned CEFR learning path.",
 };
 const content = (section: Section) =>
   ![
@@ -122,6 +130,7 @@ const content = (section: Section) =>
     "imports",
     "arena-seasons",
     "arena-questions",
+    "journey-curriculum",
   ].includes(section);
 const format = (value: unknown) =>
   typeof value === "object" && value !== null
@@ -190,7 +199,7 @@ export default function AdminPage() {
     if (access !== "admin") return;
     setLoading(true);
     try {
-      if (section === "hybrid-real-english" || section === "imports" || section === "arena-seasons" || section === "arena-questions") {
+      if (section === "hybrid-real-english" || section === "imports" || section === "arena-seasons" || section === "arena-questions" || section === "journey-curriculum") {
         // The dedicated panel reads its own RLS-protected lesson list.
       } else if (content(section)) {
         const result = await adminRequest<Catalog>(
@@ -474,7 +483,7 @@ export default function AdminPage() {
             onOpenReview={() => navigate("hybrid-real-english")}
           />
         ) : null}
-        {!["hybrid-real-english", "imports", "arena-seasons", "arena-questions"].includes(section) ? (
+        {!["hybrid-real-english", "imports", "arena-seasons", "arena-questions", "journey-curriculum"].includes(section) ? (
           <div className="studio-intro">
             <div>
               <p className="eyebrow">ENGLIFY CONTENT STUDIO</p>
@@ -498,6 +507,8 @@ export default function AdminPage() {
         ) : null}
         {section === "arena-questions" ? (
           <><ArenaQuestionManagement /><ArenaQuestionAnalytics /><ArenaQuestionGenerator /><ArenaTopicManagement /></>
+        ) : section === "journey-curriculum" ? (
+          <JourneyCurriculumManagement />
         ) : section === "arena-seasons" ? (
           <ArenaSeasonManagement />
         ) : section === "imports" ? (

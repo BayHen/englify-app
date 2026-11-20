@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The expert offered a unique _____ on the economic crisis, suggesting that traditional models were failing to account for global digital shifts.",
+    "choices": [
+      "perspective",
+      "assumption",
+      "implication"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Perspective là danh từ phù hợp nhất để chỉ cách nhìn nhận hoặc góc độ đánh giá một vấn đề."
+  },
+  {
+    "prompt": "We need to re-examine our underlying _____ that the current software will remain compatible with future hardware updates.",
+    "choices": [
+      "implication",
+      "perspective",
+      "assumption"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Assumption dùng để chỉ một niềm tin hoặc giả định được coi là đúng mà không cần bằng chứng."
+  },
+  {
+    "prompt": "If we implement these policy changes, the immediate _____ will be a significant increase in administrative paperwork for all staff members.",
+    "choices": [
+      "perspective",
+      "implication",
+      "assumption"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Implication chỉ hệ quả hoặc tác động logic dẫn đến từ một quyết định hoặc sự kiện."
+  },
+  {
+    "prompt": "Choose the sentence that uses hedging correctly to sound more professional and less absolute.",
+    "choices": [
+      "This strategy is definitely the only way to save the company's reputation.",
+      "You must change the strategy immediately because it is failing the team.",
+      "It would appear that this strategy might be the most effective way to address the concerns."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc sử dụng 'would appear' và 'might' giúp giảm tính khẳng định, tạo sự chuyên nghiệp trong giao tiếp."
+  },
+  {
+    "prompt": "Which phrasing shows a cautious approach when presenting a controversial finding?",
+    "choices": [
+      "The data proves that the project is a complete disaster.",
+      "It tends to suggest that the project faces some significant challenges.",
+      "The project is failing and everyone knows it."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'tends to suggest' là một cách diễn đạt tránh né (hedging) để trình bày quan điểm một cách thận trọng."
+  },
+  {
+    "prompt": "Select the sentence that uses a hedging device to soften a critique.",
+    "choices": [
+      "You failed to include the budget factors in your report.",
+      "Your report seems to overlook some key factors regarding the budget.",
+      "Your report is completely missing the main budget factors."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'seems to' làm giảm nhẹ tính chất phê bình, giúp người nghe dễ tiếp nhận thông tin hơn."
+  },
+  {
+    "prompt": "Person A: 'Do you think this merger will succeed?' Person B: '_____ it is possible, though there are several variables we cannot yet control.'",
+    "choices": [
+      "It strikes me that",
+      "I am certain",
+      "Without a doubt"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'It strikes me that' là một cách diễn đạt quan điểm cá nhân mang tính thăm dò."
+  },
+  {
+    "prompt": "Person A: 'We need to fire the entire marketing team.' Person B: 'That's a strong claim. _____ we should evaluate their recent performance data before making such a move?'",
+    "choices": [
+      "Don't you think",
+      "I demand that",
+      "I know for a fact"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu hỏi tu từ 'Don't you think' là cách dùng hedging để gợi ý một hướng giải quyết khác thay vì đối đầu trực tiếp."
+  },
+  {
+    "prompt": "Person A: 'Is the new regulation going to increase costs?' Person B: 'It is, in some respects, _____ to lead to higher operational expenses.'",
+    "choices": [
+      "likely",
+      "guaranteed",
+      "impossible"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'likely' giúp diễn đạt khả năng xảy ra cao mà không khẳng định chắc chắn 100%."
+  },
+  {
+    "prompt": "When discussing complex systemic issues, why is hedging often preferred in professional settings?",
+    "choices": [
+      "It prevents the speaker from being held accountable for their words.",
+      "It is a way to manipulate the audience into agreeing with false facts.",
+      "It allows for nuanced debate and maintains professional decorum."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hedging giúp duy trì thái độ chuyên nghiệp và cởi mở đối với các ý kiến phản biện khác nhau."
+  },
+  {
+    "prompt": "If a colleague says, 'My assumption is that the project will finish on time,' what are they signaling?",
+    "choices": [
+      "An absolute guarantee of the delivery date.",
+      "A confirmed schedule based on verified milestones.",
+      "A belief based on incomplete information."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'assumption' ngụ ý rằng đó chỉ là niềm tin cá nhân chưa có sự xác nhận hoàn toàn từ thực tế."
+  },
+  {
+    "prompt": "Which sentence demonstrates the most sophisticated use of vocabulary to describe an implication?",
+    "choices": [
+      "The fact that we lost money is a bad implication.",
+      "The implication of this data is that a budget deficit is foreseeable.",
+      "The result means we will lose money."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cách diễn đạt này dùng từ vựng chính xác và cấu trúc câu trang trọng phù hợp với trình độ C1."
+  },
+  {
+    "prompt": "When asked for a 'perspective' on a sensitive topic, a professional should aim to be:",
+    "choices": [
+      "Vague and unhelpful.",
+      "Aggressive and dominant.",
+      "Objective and considered."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Một quan điểm (perspective) chuyên nghiệp cần thể hiện sự khách quan và có suy xét kỹ lưỡng."
+  },
+  {
+    "prompt": "Which phrase is an example of 'hedging' used to maintain a relationship during a disagreement?",
+    "choices": [
+      "You clearly do not understand the complexity of the issue.",
+      "I see where you are coming from, but I might have a different take.",
+      "That is entirely incorrect."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'might have a different take' giúp giảm sự xung đột trực diện trong khi vẫn nêu được chính kiến."
+  },
+  {
+    "prompt": "What is the primary function of acknowledging an 'assumption' in a complex discussion?",
+    "choices": [
+      "To clarify the foundation upon which an argument is built.",
+      "To invalidate the opponent's previous points.",
+      "To end the conversation early."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc thừa nhận giả định giúp làm rõ cơ sở của lập luận, từ đó tranh luận trở nên minh bạch hơn."
+  }
+]

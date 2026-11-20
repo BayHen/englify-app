@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The journalist had to verify every single detail before she could ______ the story to the public.",
+    "choices": [
+      "event",
+      "report",
+      "source"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'report' có nghĩa là đưa tin hoặc tường thuật lại một sự kiện cho công chúng."
+  },
+  {
+    "prompt": "The local charity organized a fundraising ______ to help families affected by the recent floods.",
+    "choices": [
+      "event",
+      "report",
+      "source"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Danh từ 'event' dùng để chỉ một sự kiện hoặc hoạt động được tổ chức cụ thể."
+  },
+  {
+    "prompt": "The investigator searched for a reliable ______ to confirm whether the rumors about the company were true.",
+    "choices": [
+      "source",
+      "report",
+      "event"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Danh từ 'source' được dùng để chỉ nguồn tin hoặc nơi cung cấp thông tin đáng tin cậy."
+  },
+  {
+    "prompt": "Mark told me, 'I saw the accident.' He said that he ______ the accident.",
+    "choices": [
+      "sees",
+      "has seen",
+      "had seen"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi chuyển sang câu tường thuật, thì quá khứ đơn (saw) lùi thì thành quá khứ hoàn thành (had seen)."
+  },
+  {
+    "prompt": "Sarah said, 'I am reading the news now.' Sarah said that she ______ the news then.",
+    "choices": [
+      "is reading",
+      "was reading",
+      "has been reading"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi lùi thì, thì hiện tại tiếp diễn (am reading) chuyển thành quá khứ tiếp diễn (was reading)."
+  },
+  {
+    "prompt": "The reporter announced, 'The fire will be extinguished soon.' He announced that the fire ______ extinguished soon.",
+    "choices": [
+      "would be",
+      "will be",
+      "is"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong câu tường thuật, 'will' được chuyển đổi thành 'would' để phù hợp với quy tắc lùi thì."
+  },
+  {
+    "prompt": "A: Did you hear about the train delay? B: Yes, the news ______ that a technical issue caused it.",
+    "choices": [
+      "reports",
+      "sources",
+      "events"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'reports' phù hợp ngữ cảnh để chỉ bản tin thông báo về nguyên nhân sự cố."
+  },
+  {
+    "prompt": "A: Is this information from a trustworthy place? B: Yes, it is a primary ______ cited by many journalists.",
+    "choices": [
+      "source",
+      "report",
+      "event"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'source' được sử dụng để chỉ nguồn tài liệu gốc đáng tin cậy."
+  },
+  {
+    "prompt": "A: What did the official say at the meeting? B: He ______ that the road closure would last two days.",
+    "choices": [
+      "asked",
+      "said",
+      "reported"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'reported' phù hợp với ngữ cảnh một quan chức đưa ra thông báo chính thức."
+  },
+  {
+    "prompt": "The editor confirmed that the journalist ______ the story yesterday afternoon.",
+    "choices": [
+      "will submit",
+      "submits",
+      "had submitted"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hành động đã xảy ra trước thời điểm tường thuật nên cần dùng quá khứ hoàn thành."
+  },
+  {
+    "prompt": "She told the police that she ______ the suspicious man near the bank earlier that morning.",
+    "choices": [
+      "has seen",
+      "sees",
+      "had seen"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc câu tường thuật yêu cầu lùi thì từ quá khứ đơn sang quá khứ hoàn thành."
+  },
+  {
+    "prompt": "The local newspaper ______ a special section about the upcoming music festival last week.",
+    "choices": [
+      "reports",
+      "event",
+      "published"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'published' diễn tả hành động xuất bản một phần đặc biệt trên báo."
+  },
+  {
+    "prompt": "He mentioned that he ______ the information from an anonymous government official.",
+    "choices": [
+      "has received",
+      "had received",
+      "receives"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc câu tường thuật với động từ tường thuật ở quá khứ đòi hỏi thì quá khứ hoàn thành."
+  },
+  {
+    "prompt": "The government ______ a full report regarding the environmental impact of the new factory.",
+    "choices": [
+      "sourced",
+      "released",
+      "evented"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'released' thường được dùng đi kèm với 'report' khi công bố thông tin."
+  },
+  {
+    "prompt": "They ______ that the charity gala was the most successful event of the year.",
+    "choices": [
+      "to claim",
+      "claimed",
+      "claim"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ tường thuật nên chia ở thì quá khứ để hòa hợp với ngữ cảnh sự kiện đã diễn ra."
+  }
+]

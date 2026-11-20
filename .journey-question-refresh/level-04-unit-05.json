@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I didn't go to the park _______ it was raining heavily all afternoon.",
+    "choices": [
+      "because",
+      "but",
+      "so"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'because' được dùng để chỉ lý do cho hành động không đi công viên."
+  },
+  {
+    "prompt": "The soup was very salty, _______ I didn't finish eating it.",
+    "choices": [
+      "because",
+      "but",
+      "so"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'so' dùng để nối kết quả của việc súp bị mặn là không ăn hết."
+  },
+  {
+    "prompt": "She studied hard for the test, _______ she did not get a high grade.",
+    "choices": [
+      "because",
+      "but",
+      "so"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'but' dùng để diễn tả sự đối lập giữa việc học chăm chỉ và kết quả không tốt."
+  },
+  {
+    "prompt": "We were hungry, _______ we stopped at a restaurant for lunch.",
+    "choices": [
+      "because",
+      "so",
+      "but"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Kết quả của việc đói bụng là dừng lại ăn trưa, nên dùng 'so'."
+  },
+  {
+    "prompt": "He wants to buy a new car, _______ he doesn't have enough money yet.",
+    "choices": [
+      "so",
+      "but",
+      "because"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Có sự tương phản giữa mong muốn mua xe và thực tế thiếu tiền, nên dùng 'but'."
+  },
+  {
+    "prompt": "I am staying at home tonight _______ I have a lot of work to do.",
+    "choices": [
+      "but",
+      "because",
+      "so"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc nhiều việc là lý do cho việc ở nhà, nên dùng 'because'."
+  },
+  {
+    "prompt": "A: Why are you wearing a coat? B: _______ it is very cold outside.",
+    "choices": [
+      "But",
+      "So",
+      "Because"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời giải thích lý do cho việc mặc áo khoác nên dùng 'because'."
+  },
+  {
+    "prompt": "A: Can we play football? B: It is dark, _______ we should go home now.",
+    "choices": [
+      "so",
+      "because",
+      "but"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trời tối là nguyên nhân dẫn đến quyết định về nhà, nên dùng 'so'."
+  },
+  {
+    "prompt": "A: Do you like the movie? B: The story is interesting, _______ the music is boring.",
+    "choices": [
+      "so",
+      "because",
+      "but"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này nối hai ý đối lập về cốt truyện và âm nhạc nên dùng 'but'."
+  },
+  {
+    "prompt": "I forgot my umbrella, _______ I got wet in the rain.",
+    "choices": [
+      "but",
+      "because",
+      "so"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc quên ô dẫn đến kết quả là bị ướt, nên dùng 'so'."
+  },
+  {
+    "prompt": "She was tired _______ she went to bed early.",
+    "choices": [
+      "because",
+      "so",
+      "but"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Kết quả của việc mệt mỏi là đi ngủ sớm, nên dùng 'so'."
+  },
+  {
+    "prompt": "The store was closed _______ it was a public holiday.",
+    "choices": [
+      "because",
+      "but",
+      "so"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc là ngày lễ là lý do khiến cửa hàng đóng cửa, nên dùng 'because'."
+  },
+  {
+    "prompt": "He ran very fast, _______ he missed the bus anyway.",
+    "choices": [
+      "so",
+      "because",
+      "but"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sự đối lập giữa việc chạy nhanh và việc vẫn lỡ xe được nối bằng 'but'."
+  },
+  {
+    "prompt": "The coffee is too hot, _______ I cannot drink it yet.",
+    "choices": [
+      "so",
+      "because",
+      "but"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc cà phê quá nóng khiến tôi chưa uống được, nên dùng 'so'."
+  },
+  {
+    "prompt": "I bought this book _______ it was on sale for half price.",
+    "choices": [
+      "because",
+      "so",
+      "but"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Lý do tôi mua cuốn sách là vì nó được giảm giá, nên dùng 'because'."
+  }
+]

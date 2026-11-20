@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I have a flight at 8 AM. I ______ to leave the house at 6 AM to be safe.",
+    "choices": [
+      "plan",
+      "arrange",
+      "tomorrow"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'plan' dùng để diễn đạt dự định hoặc kế hoạch cá nhân trước khi thực hiện."
+  },
+  {
+    "prompt": "We need to ______ a meeting with the client for next Monday to discuss the contract.",
+    "choices": [
+      "going to",
+      "tomorrow",
+      "arrange"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'arrange' phù hợp trong ngữ cảnh thiết lập một buổi gặp mặt với người khác."
+  },
+  {
+    "prompt": "The weather forecast says it will be sunny ______, so we should go for a picnic.",
+    "choices": [
+      "arrange",
+      "plan",
+      "tomorrow"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'tomorrow' là danh từ chỉ thời gian phù hợp để nói về dự định cho ngày tiếp theo."
+  },
+  {
+    "prompt": "Look at those dark clouds! It ______ rain very soon.",
+    "choices": [
+      "is going",
+      "is going to",
+      "go to"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'is going to' được dùng để dự đoán dựa trên bằng chứng cụ thể là những đám mây đen."
+  },
+  {
+    "prompt": "We ______ a birthday party for my sister this Saturday evening.",
+    "choices": [
+      "are having",
+      "having",
+      "going to have"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thì hiện tại tiếp diễn được sử dụng để nói về các kế hoạch đã được ấn định thời gian cụ thể trong tương lai."
+  },
+  {
+    "prompt": "My parents ______ visit their friends in the countryside next week.",
+    "choices": [
+      "are going to",
+      "are",
+      "going to"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'are going to' diễn đạt một dự định đã được vạch ra sẵn."
+  },
+  {
+    "prompt": "A: What are your plans for the weekend? B: ______",
+    "choices": [
+      "I visit my grandmother.",
+      "I am visiting my grandmother.",
+      "I am visit my grandmother."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời đúng phải chia theo thì hiện tại tiếp diễn để diễn đạt kế hoạch cụ thể cho tương lai."
+  },
+  {
+    "prompt": "A: Are you free on Friday? B: No, ______. I have a dentist appointment.",
+    "choices": [
+      "I to work",
+      "I work",
+      "I am working"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Thì hiện tại tiếp diễn là cách tự nhiên nhất để nói về lịch trình đã chốt trong tương lai."
+  },
+  {
+    "prompt": "A: Have you booked the tickets yet? B: Not yet, but I ______ buy them this afternoon.",
+    "choices": [
+      "going to",
+      "am going to",
+      "am go to"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'am going to' cần động từ 'to be' chia theo chủ ngữ 'I'."
+  },
+  {
+    "prompt": "My brother ______ his luggage right now for his trip to Japan.",
+    "choices": [
+      "packs",
+      "going to pack",
+      "is packing"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hành động đang diễn ra tại thời điểm nói yêu cầu thì hiện tại tiếp diễn."
+  },
+  {
+    "prompt": "We ______ a new car, we have already saved enough money.",
+    "choices": [
+      "are going to buy",
+      "are buying",
+      "buy"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'going to' diễn đạt ý định đã quyết định trước đó khi đã có đủ tiền."
+  },
+  {
+    "prompt": "Please don't call me at 9 PM because I ______ a movie with my friends.",
+    "choices": [
+      "watch",
+      "am watching",
+      "going to watch"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng hiện tại tiếp diễn để nói về một sự việc đã sắp xếp cố định vào một thời điểm trong tương lai."
+  },
+  {
+    "prompt": "I ______ to the gym later today to exercise for an hour.",
+    "choices": [
+      "am going",
+      "am going to go",
+      "go"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'am going to' cộng với động từ 'go' là cách diễn đạt đúng về kế hoạch tương lai."
+  },
+  {
+    "prompt": "The company ______ a new manager next month to replace the old one.",
+    "choices": [
+      "hiring",
+      "hires",
+      "is hiring"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc tuyển dụng đã có kế hoạch cụ thể nên sử dụng thì hiện tại tiếp diễn."
+  },
+  {
+    "prompt": "We ______ our house next summer; we have already hired an architect.",
+    "choices": [
+      "are renovating",
+      "renovate",
+      "renovating"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Một kế hoạch chắc chắn với sự chuẩn bị từ trước cần dùng thì hiện tại tiếp diễn."
+  }
+]

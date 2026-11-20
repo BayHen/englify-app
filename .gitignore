@@ -14,5 +14,6 @@ __pycache__/
 .env
 .env.*
 !.env.example
+/supabase/functions/.env.example
 *.log
 .DS_Store

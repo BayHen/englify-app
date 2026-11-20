@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The post office is on the _______ of Main Street and Second Avenue.",
+    "choices": [
+      "turn",
+      "corner",
+      "across"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Danh từ 'corner' dùng để chỉ vị trí giao nhau của hai con đường."
+  },
+  {
+    "prompt": "The library is directly _______ the park. You just walk over the small bridge to get there.",
+    "choices": [
+      "corner",
+      "turn",
+      "across"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giới từ 'across' diễn tả vị trí ở phía bên kia của một địa điểm."
+  },
+  {
+    "prompt": "When you reach the cinema, you need to _______ left to find the station.",
+    "choices": [
+      "across",
+      "turn",
+      "corner"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'turn' được dùng khi chỉ dẫn hướng rẽ."
+  },
+  {
+    "prompt": "_______ straight for two blocks until you see the big hotel.",
+    "choices": [
+      "Go",
+      "Going",
+      "To go"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu mệnh lệnh bắt đầu bằng động từ nguyên thể không chia."
+  },
+  {
+    "prompt": "The hospital is located _______ the bus stop and the bank.",
+    "choices": [
+      "next",
+      "between",
+      "across"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Giới từ 'between' dùng để chỉ vị trí nằm ở giữa hai địa điểm."
+  },
+  {
+    "prompt": "Please _______ the map carefully before we start walking.",
+    "choices": [
+      "reads",
+      "read",
+      "reading"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu mệnh lệnh khẳng định yêu cầu sử dụng động từ ở dạng nguyên thể."
+  },
+  {
+    "prompt": "A: Excuse me, how do I get to the museum?\nB: _______ right at the next traffic light.",
+    "choices": [
+      "Turn",
+      "Across",
+      "Next"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời cần một hành động hướng dẫn giao thông, phù hợp với từ 'Turn'."
+  },
+  {
+    "prompt": "A: Is the supermarket near here?\nB: Yes, it is _______ from the cinema.",
+    "choices": [
+      "corner",
+      "turn",
+      "across"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'across from' là cấu trúc chính xác để chỉ vị trí đối diện."
+  },
+  {
+    "prompt": "A: Where is the pharmacy?\nB: It is on the _______ of Oak Road.",
+    "choices": [
+      "corner",
+      "turn",
+      "between"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Giới từ 'on the' thường đi với danh từ 'corner' để chỉ vị trí cụ thể."
+  },
+  {
+    "prompt": "_______ the street at the zebra crossing to stay safe.",
+    "choices": [
+      "Cross",
+      "Turn",
+      "Between"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'Cross' phù hợp với ngữ cảnh băng qua đường."
+  },
+  {
+    "prompt": "The coffee shop is _______ the bookstore, right next to the entrance.",
+    "choices": [
+      "next",
+      "across",
+      "beside"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giới từ 'beside' có nghĩa là bên cạnh, phù hợp với ngữ cảnh vị trí."
+  },
+  {
+    "prompt": "Don't _______ left yet; wait until you see the blue house.",
+    "choices": [
+      "across",
+      "turn",
+      "corner"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu mệnh lệnh phủ định vẫn sử dụng động từ nguyên thể sau 'Don't'."
+  },
+  {
+    "prompt": "Walk _______ the park until you see the fountain.",
+    "choices": [
+      "across",
+      "corner",
+      "through"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giới từ 'through' diễn tả hành động đi xuyên qua một khu vực."
+  },
+  {
+    "prompt": "My house is the third one _______ the left side of the road.",
+    "choices": [
+      "on",
+      "at",
+      "in"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng giới từ 'on' khi nói về vị trí trên một phía của con đường."
+  },
+  {
+    "prompt": "_______ the first exit at the roundabout to get to the city center.",
+    "choices": [
+      "Turn",
+      "Go",
+      "Take"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'Take' thường dùng để chỉ việc chọn một lối rẽ hoặc lối ra cụ thể."
+  }
+]
