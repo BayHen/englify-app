@@ -24,6 +24,7 @@ export function RealEnglishScreen() {
   const [topic, setTopic] = useState('');
   const [topics, setTopics] = useState<TopicOption[]>([]);
   const [savedOnly, setSavedOnly] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const [selected, setSelected] = useState<Expression | null>(null);
   const [quiz, setQuiz] = useState<ContextQuiz | null>(null);
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -70,6 +71,12 @@ export function RealEnglishScreen() {
   return <Page eyebrow="REAL ENGLISH" title="English in context" description="Explore original examples and dialogues. Save expressions and practice a context question.">
     <AppInput label="Search lessons, expressions or Vietnamese" value={query} onChangeText={setQuery} placeholder="Try baking, bột mì, or no biggie" onSubmitEditing={() => setSubmitted(query.trim())} />
     <AppButton label="Search" onPress={() => setSubmitted(query.trim())} />
+    <AppButton
+      label={showFilters ? 'Hide reading filters' : 'Show reading filters'}
+      variant="secondary"
+      onPress={() => setShowFilters((value) => !value)}
+    />
+    {showFilters ? <View style={{ gap: 12 }}>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{(['all', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const).map((level) =>
       <AppButton key={level} label={level === 'all' ? 'All levels' : level} size="medium" variant={cefr === level ? 'primary' : 'secondary'} onPress={() => setCefr(level)} />)}</View>
     <AppText variant="label">Topics</AppText>
@@ -77,6 +84,7 @@ export function RealEnglishScreen() {
       {compactTopics(topics).map((entry) => <AppButton key={entry.slug} label={entry.title} size="medium" variant={topic === entry.slug ? 'primary' : 'secondary'} onPress={() => setTopic(entry.slug)} />)}</View>
     <AppText variant="label">Content type</AppText>
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{kinds.map((entry) => <AppButton key={entry.value} label={entry.label} size="medium" variant={kind === entry.value ? 'primary' : 'secondary'} onPress={() => setKind(entry.value)} />)}</View>
+    </View> : null}
     <AppButton label={savedOnly ? 'Show all readings' : 'Show saved readings'} variant="secondary" onPress={() => setSavedOnly(!savedOnly)} />
     <RealEnglishLibraryV2 key={`${submitted}|${cefr}|${topic}|${kind}|${savedOnly}`} query={submitted} cefr={cefr} topic={topic} category={kind} savedOnly={savedOnly}
       onOpenExpression={(id) => { void open(id); }} />

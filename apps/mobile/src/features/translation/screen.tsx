@@ -137,15 +137,15 @@ export function TranslationScreen() {
         }} />)}
       </View>
       <AppButton label="Swap languages" variant="secondary" onPress={() => { setSource(target); setTarget(source); clearOutput(); }} />
-    </AppCard>
     <AppInput ref={inputRef} label="Text to translate" placeholder={source === 'vi' ? 'Thử: Giấy phép' : 'Try: License'} value={input}
       onChangeText={(value) => { setInput(value); clearOutput(); }} multiline
       style={{ minHeight: 100, textAlignVertical: 'top', paddingVertical: 14 }}
       hint={`${utf8ByteLength(input.trim())}/500 UTF-8 bytes`} />
-    <View style={{ gap: 8 }}>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
       <AppButton label="Translate" onPress={() => { void submit(); }} disabled={!input.trim() || loading} loading={loading} />
       {!!input && <AppButton label="Clear text" variant="secondary" onPress={() => { setInput(''); clearOutput(); }} />}
     </View>
+    </AppCard>
     {loading && <LoadingSkeleton accessibilityLabel="Translating" />}
     {!!error && <ErrorState title="Translation unavailable" message={error} retry={() => { void submit(); }} />}
     {!loading && !error && !result && <EmptyState title="Ready to translate" message="Enter English or Vietnamese text and choose Translate." />}

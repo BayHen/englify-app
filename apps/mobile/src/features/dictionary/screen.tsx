@@ -25,7 +25,7 @@ function WordCard({ word, saved, onSave, onSpeak }: {
     <AppText variant="label" tone="primary">{word.part_of_speech ?? 'word'} · {word.translation ?? 'Meaning unavailable'}</AppText>
     <AppText>{word.definition}</AppText>
     {!!word.example && <AppText tone="muted">“{word.example}”</AppText>}
-    <View style={{ gap: 8 }}>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
       <AppButton label={`Pronounce ${word.term}`} variant="secondary" onPress={onSpeak}
         accessibilityHint={word.audio_url ? 'Plays dictionary audio with the device English voice as fallback' : 'Uses the device English voice'} />
       <AppButton label={saved ? 'Remove from saved words' : 'Save word'} variant={saved ? 'ghost' : 'primary'} onPress={onSave} />
@@ -172,10 +172,12 @@ export function DictionaryScreen() {
     </View>
     {!!error && <ErrorState title="Dictionary unavailable" message={error} retry={() => { void (tab === 'search' ? search() : loadSaved(userId)); }} />}
     {tab === 'search' && <>
+      <AppCard tone="primary" style={{ gap: 12 }}>
       <AppInput label="English word or Vietnamese meaning" placeholder="Try curious or tò mò" value={query}
         onChangeText={(value) => { setQuery(value); setSearchPage(1); }} onSubmitEditing={() => { void search(); }}
         returnKeyType="search" autoCapitalize="none" />
       <AppButton label="Search dictionary" onPress={() => { void search(); }} />
+      </AppCard>
       {loading ? <LoadingSkeleton lines={4} /> : results.length ? <>
         {pagedResults.items.map((word) => <WordCard key={word.id} word={word} saved={saved.some((item) => item.word.id === word.id)} onSave={() => { if (!busyId) void toggleSaved(word); }} onSpeak={() => speak(word)} />)}
         <DictionaryPagination page={pagedResults.page} totalPages={pagedResults.totalPages} onChange={setSearchPage} />

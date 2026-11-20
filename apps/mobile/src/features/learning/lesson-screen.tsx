@@ -5,7 +5,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import * as Speech from 'expo-speech';
 import * as Crypto from 'expo-crypto';
 import { Page, NavLink } from '@/components/page';
-import { AppButton, AppCard, AppInput, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
+import { AppButton, AppCard, AppInput, AppText, EmptyState, ErrorState, LoadingSkeleton, XPProgressBar } from '@/ui';
 import { useReducedMotion } from '@/ui/use-reduced-motion';
 import { getAttempts, getLesson, saveLessonNote, saveLessonResume, startLesson, submitCheckpoint, submitLesson, toggleLessonBookmark, type Answer, type LessonDetail, type QuizResult, type Question } from './api';
 import { downloadLesson } from './api';
@@ -134,6 +134,18 @@ export function LessonScreen() {
         onBookmark={async () => { if (!id) return; const next = await toggleLessonBookmark(id); setBookmarked(next.bookmarked); }}
         onNote={async (block, note) => { if (!id) return; await saveLessonNote(id, block.id, note); }} /> : null}
       {!lesson.blocks?.length ? lesson.items.map((item, index) => <AppCard key={index} style={{ gap: 5 }}><AppText variant="caption" tone="primary">{item.kind.toUpperCase()}</AppText><AppText>{item.body.text ?? ''}</AppText></AppCard>) : null}
+      {lesson.questions.length > 0 ? <View style={{ gap: 8 }}>
+        <AppText variant="heading" accessibilityRole="header">Practice</AppText>
+        <XPProgressBar
+          value={lesson.questions.filter(({ id }) => {
+            const answer = answers[id];
+            return typeof answer === 'string' ? Boolean(answer.trim()) : Boolean(answer && Object.keys(answer).length);
+          }).length}
+          max={lesson.questions.length}
+          label="Answered"
+          unit="questions"
+        />
+      </View> : null}
       {lesson.questions.length ? lesson.questions.map((question, index) => {
         const review = result?.review?.find((entry) => entry.question_id === question.id);
         const explanation = review?.explanation_vi?.trim() || review?.explanation_en?.trim();

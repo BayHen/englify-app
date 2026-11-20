@@ -1,4 +1,5 @@
 import { useLocalSearchParams, usePathname, router, type Href } from 'expo-router';
+import { designTokens } from '@englify/shared';
 import { SymbolView } from 'expo-symbols';
 import { Pressable, View } from 'react-native';
 import { useAppPalette } from '@/constants/app-theme';
@@ -26,14 +27,18 @@ export function QuestTabBar() {
     : path === '/speaking' || path === '/writing' || path === '/quiz-arena' ? '/practice'
     : path === '/learning-plan' || path.startsWith('/lesson/') ? '/journey'
     : path === '/rewards' ? '/profile' : path === '/dev/ui-v2-preview' ? (screen === 'journey' ? '/journey' : screen === 'explore' ? '/explore' : screen === 'practice' || screen === 'voice' ? '/practice' : '/home') : path;
-  return <View accessibilityRole="tablist" style={{ flexDirection: 'row', backgroundColor: palette.surface, borderTopWidth: 1, borderColor: palette.border, paddingTop: 8, paddingBottom: 4, paddingHorizontal: 8 }}>
+  return <View style={{ backgroundColor: palette.surface, borderTopWidth: 1, borderColor: palette.border }}>
+    <View accessibilityRole="tablist" style={{ flexDirection: 'row', alignSelf: 'center', width: '100%', maxWidth: 560, padding: designTokens.spacing.xs }}>
     {tabs.map((tab) => {
       const selected = active === tab.href;
       const label = t(tab.label as TranslationKey);
-      return <Pressable key={tab.href} accessibilityRole="tab" accessibilityLabel={label} accessibilityState={{ selected }} onPress={() => { if (shouldNavigateToTab(path,tab.href)) router.replace(tab.href as Href); }} style={({ pressed }) => ({ flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: 2, borderRadius: 16, backgroundColor: selected ? palette.primarySoft : 'transparent', opacity: pressed ? 0.7 : 1 })}>
-        <SymbolView name={tab.icon} size={22} tintColor={selected ? palette.primary : palette.muted} fallback={<AppText>{label.slice(0, 1)}</AppText>} />
-        <AppText variant="caption" numberOfLines={1} adjustsFontSizeToFit style={{ color: selected ? palette.primary : palette.muted, fontWeight: selected ? '800' : '600', fontSize: 11 }}>{label}</AppText>
+      return <Pressable key={tab.href} accessibilityRole="tab" accessibilityLabel={label} accessibilityState={{ selected }} onPress={() => { if (shouldNavigateToTab(path,tab.href)) router.replace(tab.href as Href); }} style={({ pressed }) => ({ flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: designTokens.spacing.xs, paddingVertical: designTokens.spacing.xs, borderRadius: designTokens.radius.md, opacity: pressed ? 0.7 : 1 })}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', minWidth: 42, minHeight: 28, borderRadius: designTokens.radius.pill, backgroundColor: selected ? palette.primarySoft : 'transparent' }}>
+          <SymbolView name={tab.icon} size={22} tintColor={selected ? palette.primary : palette.muted} fallback={<AppText>{label.slice(0, 1)}</AppText>} />
+        </View>
+        <AppText variant="caption"  style={{ color: selected ? palette.primary : palette.muted, textAlign: 'center', fontWeight: selected ? '800' : '600' }}>{label}</AppText>
       </Pressable>;
     })}
+    </View>
   </View>;
 }

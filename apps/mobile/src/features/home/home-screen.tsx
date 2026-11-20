@@ -8,7 +8,7 @@ import { Page } from '@/components/page';
 import { FoxMascot } from '@/components/fox-mascot';
 import { useAuth } from '@/auth/provider';
 import { useAppPalette } from '@/constants/app-theme';
-import { AppButton, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
+import { AppButton, AppText, ErrorState, LoadingSkeleton } from '@/ui';
 import { getGamification, type GamificationOverview, type QuestProgress } from '@/features/gamification/api';
 import type { JourneyCourse } from '@/features/learning/api';
 import { getCachedJourney } from '@/features/offline/storage';
@@ -87,19 +87,36 @@ export function HomeScreen({ preview }: { preview?: { overview: GamificationOver
   const given = profile?.display_name?.trim().split(/\s+/)[0] || 'Explorer';
   const compact = width < 370;
   const headerAccessory = <Pressable accessibilityRole="button" accessibilityLabel="Open profile and appearance settings" onPress={() => router.push('/profile')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.7 : 1 })}><ProfileAvatar name={given} path={profile?.avatar_url} size={36} /><SymbolView name={{ ios: 'gearshape.fill', android: 'settings', web: 'settings' }} size={20} tintColor={palette.muted} /></Pressable>;
-  return <Page eyebrow="A NEW DAY TO GROW" title={`Hi, ${given}!`} description="A little English every day goes a long way." compact headerAccessory={headerAccessory}>
+  return <Page eyebrow="HOME" title={`Hi, ${given}!`} description={next ? 'Your next lesson is ready below.' : 'Choose an activity to practise English.'} compact headerAccessory={headerAccessory}>
     {preview ? <View style={{ backgroundColor: palette.rewardSoft, padding: 8, borderRadius: 12 }}><AppText variant="caption">DESIGN PREVIEW · SAMPLE DATA · No progress is saved</AppText></View> : null}
     {loading && !overview && courses.length === 0 ? <LoadingSkeleton lines={6} /> : error && !overview && !courses.length ? <ErrorState message={error} retry={() => { void load(); }} /> : <>
       <View style={{ borderRadius: 30, backgroundColor: palette.hero, padding: 20, overflow: 'hidden', gap: 14 }}>
         <View style={{ position: 'absolute', right: -32, top: -55, width: 175, height: 175, borderRadius: 90, backgroundColor: 'rgba(255,255,255,0.12)' }} />
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}><View style={{ flex: 1, gap: 6 }}><AppText variant="caption" style={{ color: palette.heroAccent, fontWeight: '800', letterSpacing: 1 }}>YOUR ADVENTURE</AppText><AppText variant={compact ? 'heading' : 'title'} style={{ color: palette.heroOn }}>{next ? 'Ready for your next step?' : 'Your journey starts here'}</AppText><AppText style={{ color: palette.heroMuted }}>{next?.lesson.title ?? 'Choose a lesson to begin.'}</AppText></View><FoxMascot size={compact ? 86 : 108} /></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}><View style={{ flex: 1, gap: 6 }}><AppText variant="caption" style={{ color: palette.heroAccent, fontWeight: '800', letterSpacing: 1 }}>YOUR ADVENTURE</AppText><AppText variant={compact ? 'heading' : 'title'} style={{ color: palette.heroOn }}>{next?.lesson.title ?? 'Your journey starts here'}</AppText><AppText style={{ color: palette.heroMuted }}>{next?.course.title ?? 'Choose a lesson to begin.'}</AppText></View><FoxMascot size={compact ? 86 : 108} /></View>
         {overview ? <View style={{ gap: 7 }}><AppText variant="label" style={{ color: palette.heroOn }}>Level {overview.level} · {overview.total_xp} XP</AppText><AnimatedXPProgress value={overview.xp_into_level} max={overview.xp_for_next_level} hero /></View> : <AppText variant="caption" style={{ color: palette.heroMuted }}>XP appears when the learning service is available.</AppText>}
         <AppButton label={next ? 'Continue learning' : 'Open journey'} variant="reward" onPress={() => router.push(next ? `/lesson/${next.lesson.id}` as Href : '/journey')} />
       </View>
       {offline ? <AppText variant="caption" tone="muted">Offline map · progress refreshes after synchronization.</AppText> : null}
       <View style={{ gap: 10 }}>{heading('Daily quests', 'All rewards', '/rewards')}{daily.length ? <View style={{ backgroundColor: palette.surface, borderRadius: 22, paddingHorizontal: 16, paddingVertical: 6 }}>{daily.slice(0, 4).map((quest, index) => <QuestLine key={quest.id} quest={quest} index={index} />)}</View> : <AppText tone="muted">{overview ? 'No daily quests available yet.' : 'Connect to see your quests.'}</AppText>}</View>
-      <View style={{ gap: 10 }}>{heading('Learning adventure', 'View map', '/journey')}{next ? <Pressable accessibilityRole="button" accessibilityLabel={`Continue ${next.lesson.title}`} onPress={() => router.push(`/lesson/${next.lesson.id}` as Href)} style={({ pressed }) => ({ backgroundColor: palette.rewardSoft, borderRadius: 24, padding: 18, flexDirection: 'row', alignItems: 'center', gap: 14, opacity: pressed ? 0.8 : 1 })}><View style={{ width: 58, height: 58, borderRadius: 19, backgroundColor: palette.reward, justifyContent: 'center', alignItems: 'center' }}><SymbolView name={{ ios: 'map.fill', android: 'map', web: 'map' }} size={30} tintColor={palette.rewardOn} /></View><View style={{ flex: 1, gap: 3 }}><AppText variant="caption" tone="muted">{next.course.title}</AppText><AppText variant="heading">{next.lesson.title}</AppText><AppText variant="caption" tone="muted">{next.lesson.state === 'in_progress' ? 'In progress' : 'Ready to begin'} →</AppText></View></Pressable> : <EmptyState title="Your path is waiting" message="Open Journey to see available lessons." actionLabel="Open journey" onAction={() => router.push('/journey')} />}</View>
-      <View style={{ gap: 10 }}>{heading('Explore your way', 'See all', '/explore')}<View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>{tools.map((tool) => <Pressable key={tool.href} accessibilityRole="button" accessibilityLabel={tool.title} onPress={() => router.push(tool.href as Href)} style={({ pressed }) => ({ width: compact ? '48%' : '31%', flexGrow: 1, minHeight: 108, borderRadius: 20, backgroundColor: palette.surface, padding: 13, justifyContent: 'space-between', opacity: pressed ? 0.75 : 1 })}><SymbolView name={tool.icon} size={26} tintColor={tool.tint === 'reward' ? palette.rewardOn : tool.tint === 'success' ? palette.success : palette.primary} /><View><AppText variant="label">{tool.title}</AppText><AppText variant="caption" tone="muted">{tool.detail}</AppText></View></Pressable>)}</View></View>
+      <View style={{ gap: 10 }}>
+        {heading('Explore your way', 'See all', '/explore')}
+        <View style={{ borderRadius: 20, overflow: 'hidden', backgroundColor: palette.surface }}>
+          {tools.map((tool, index) => <Pressable key={tool.href} accessibilityRole="button"
+            onPress={() => router.push(tool.href as Href)}
+            style={({ pressed }) => ({
+              minHeight: 56, flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12,
+              borderTopWidth: index ? 1 : 0, borderColor: palette.border,
+              backgroundColor: pressed ? palette.primarySoft : palette.surface,
+            })}>
+            <SymbolView name={tool.icon} size={24} tintColor={tool.tint === 'success' ? palette.success : palette.primary} />
+            <View style={{ flex: 1 }}>
+              <AppText variant="label">{tool.title}</AppText>
+              <AppText variant="caption" tone="muted">{tool.detail}</AppText>
+            </View>
+            <AppText tone="primary">›</AppText>
+          </Pressable>)}
+        </View>
+      </View>
       <View style={{ gap: 10 }}>{heading('Milestones', 'See badges', '/rewards')}{unlocked.length ? <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>{unlocked.map((badge) => <View key={badge.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: 18, backgroundColor: palette.primarySoft, padding: 10 }}><SymbolView name={{ ios: 'seal.fill', android: 'verified', web: 'verified' }} size={20} tintColor={palette.primary} /><AppText variant="caption">{badge.title}</AppText></View>)}</View> : <AppText tone="muted">Your first badge is waiting on the path.</AppText>}</View>
     </>}
   </Page>;
