@@ -1,5 +1,5 @@
-from pathlib import Path
 import importlib.util
+from pathlib import Path
 
 SCRIPT = Path(__file__).with_name("build_journey_v27_curriculum.py")
 spec = importlib.util.spec_from_file_location("journey_builder", SCRIPT)

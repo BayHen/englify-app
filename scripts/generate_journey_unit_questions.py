@@ -3,11 +3,11 @@
 import argparse
 import json
 import os
-from random import Random
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+from random import Random
 from time import sleep
 from urllib.error import HTTPError, URLError
-from pathlib import Path
 from urllib.request import Request, urlopen
 
 from build_journey_v27_curriculum import LEVELS

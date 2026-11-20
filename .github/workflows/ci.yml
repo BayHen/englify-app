@@ -47,7 +47,8 @@ jobs:
           deno-version: v2.x
       - run: npm ci
       - run: pip install httpx 'psycopg[binary]>=3.2,<4'
-      - run: npx supabase start
+      # CI exercises the database and API. The Docker log pipeline is optional.
+      - run: npx supabase start -x logflare,vector
       - name: Verify Writing V2 upgrade preserves historical data
         run: |
           npx supabase db reset --version 20261116010000 --no-seed
@@ -95,6 +96,9 @@ jobs:
           supabase/tests/journey_v2_6_smoke.sql
           supabase/tests/journey_v2_6_admin_completion_smoke.sql
           supabase/tests/journey_v2_7_hardening_smoke.sql
+          supabase/tests/journey_v2_7_complete_curriculum_smoke.sql
+          supabase/tests/journey_answer_review_text_smoke.sql
+          supabase/tests/journey_unit_question_bank_smoke.sql
       - name: Verify Arena upgrade preserves Journey history
         run: python scripts/supabase_arena_upgrade_check.py
       - name: Verify Time Attack upgrade preserves Practice and Journey
