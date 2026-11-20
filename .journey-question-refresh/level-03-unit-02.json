@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The waiter gave us the ____ so we could choose what to eat for lunch.",
+    "choices": [
+      "order",
+      "menu",
+      "bill"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Menu là danh sách các món ăn để khách hàng chọn lựa trước khi gọi món."
+  },
+  {
+    "prompt": "I am finished with my meal. Could you please bring me the ____?",
+    "choices": [
+      "menu",
+      "order",
+      "bill"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Bill là tờ hóa đơn khách hàng yêu cầu khi muốn thanh toán tiền ăn."
+  },
+  {
+    "prompt": "The server wrote down our ____ for two burgers and a large soda.",
+    "choices": [
+      "bill",
+      "order",
+      "menu"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Order là yêu cầu về món ăn hoặc đồ uống mà khách đặt với nhà hàng."
+  },
+  {
+    "prompt": "We need ____ for the salad, please.",
+    "choices": [
+      "a oil",
+      "an oil",
+      "some oil"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Oil là danh từ không đếm được nên không dùng mạo từ 'a/an' mà dùng 'some'."
+  },
+  {
+    "prompt": "Would you like ____ apple with your breakfast?",
+    "choices": [
+      "an",
+      "any",
+      "some"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Apple là danh từ đếm được số ít bắt đầu bằng nguyên âm nên dùng mạo từ 'an'."
+  },
+  {
+    "prompt": "There are ____ cookies left in the jar on the table.",
+    "choices": [
+      "a",
+      "any",
+      "some"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cookies là danh từ đếm được số nhiều, dùng 'some' trong câu khẳng định."
+  },
+  {
+    "prompt": "Customer: 'Could I have a coffee, please?' Waiter: '____'",
+    "choices": [
+      "No, I cannot see the menu.",
+      "Yes, here is the bill.",
+      "Certainly, anything else?"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi khách gọi món, nhân viên phục vụ thường xác nhận và hỏi khách có cần thêm gì không."
+  },
+  {
+    "prompt": "Waiter: 'Are you ready to choose?' Customer: '____'",
+    "choices": [
+      "Yes, I would like the pasta.",
+      "No, the bill is too high.",
+      "Yes, this is my favorite menu."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời của khách cần liên quan đến việc chọn món ăn sau khi xem thực đơn."
+  },
+  {
+    "prompt": "Customer: 'How much is the soup?' Waiter: '____'",
+    "choices": [
+      "It is on the menu.",
+      "It is a hot soup.",
+      "It is five dollars."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi khách hỏi về giá tiền, nhân viên cần đưa ra con số cụ thể."
+  },
+  {
+    "prompt": "Which of these is uncountable?",
+    "choices": [
+      "water",
+      "plate",
+      "sandwich"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Nước (water) là danh từ không đếm được trong tiếng Anh."
+  },
+  {
+    "prompt": "Complete the phrase: 'Can I ____ a table for two?'",
+    "choices": [
+      "make",
+      "book",
+      "take"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'book a table' có nghĩa là đặt bàn trước tại nhà hàng."
+  },
+  {
+    "prompt": "Which sentence is grammatically correct?",
+    "choices": [
+      "I want some sugar in my tea.",
+      "I want three sugars.",
+      "I want three sugars in tea."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sugar là danh từ không đếm được nên dùng 'some' thay vì số đếm."
+  },
+  {
+    "prompt": "If you are very hungry, you might order ____.",
+    "choices": [
+      "a water",
+      "a main course",
+      "a starter"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Main course (món chính) là phần ăn quan trọng và lớn nhất trong bữa ăn."
+  },
+  {
+    "prompt": "Choose the best quantifier: 'I need ____ salt for the soup.'",
+    "choices": [
+      "some",
+      "any",
+      "a"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Salt là danh từ không đếm được, dùng 'some' để diễn tả một lượng nhỏ."
+  },
+  {
+    "prompt": "What do you call the person who brings your food?",
+    "choices": [
+      "a cook",
+      "a waiter",
+      "a customer"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Waiter (hoặc waitress) là người phục vụ mang đồ ăn ra bàn cho khách."
+  }
+]

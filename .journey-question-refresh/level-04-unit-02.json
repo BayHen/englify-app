@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I moved to this city three years ____, and I still love living here.",
+    "choices": [
+      "ago",
+      "last",
+      "before"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'ago' được dùng sau một khoảng thời gian để chỉ một thời điểm trong quá khứ."
+  },
+  {
+    "prompt": "What ____ to your phone? It looks like the screen is completely broken.",
+    "choices": [
+      "did",
+      "made",
+      "happened"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'happen' diễn tả sự việc đã xảy ra với một vật hoặc người."
+  },
+  {
+    "prompt": "We went on a trip to the mountains ____ weekend, and the weather was perfect.",
+    "choices": [
+      "ago",
+      "past",
+      "last"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'last weekend' được sử dụng để chỉ thời điểm cuối tuần vừa qua."
+  },
+  {
+    "prompt": "I ____ my keys on the kitchen table yesterday morning.",
+    "choices": [
+      "left",
+      "leave",
+      "leaved"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'leave' ở dạng quá khứ đơn là 'left'."
+  },
+  {
+    "prompt": "They ____ at the library to finish their group project together.",
+    "choices": [
+      "meet",
+      "meets",
+      "met"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'meet' ở dạng quá khứ đơn là 'met'."
+  },
+  {
+    "prompt": "She ____ very tired after the long flight home.",
+    "choices": [
+      "were",
+      "was",
+      "is"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ số ít 'she' đi với động từ 'to be' ở dạng quá khứ đơn là 'was'."
+  },
+  {
+    "prompt": "A: Did you see the news today? B: No, what ____?",
+    "choices": [
+      "happened",
+      "it is",
+      "was it"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu hỏi 'What happened?' được dùng để hỏi về một sự kiện đã diễn ra."
+  },
+  {
+    "prompt": "A: When did you visit your grandparents? B: I ____ them two days ago.",
+    "choices": [
+      "visited",
+      "visiting",
+      "visit"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời phải dùng thì quá khứ đơn để tương ứng với câu hỏi."
+  },
+  {
+    "prompt": "A: How was your weekend? B: It ____ great, thanks for asking!",
+    "choices": [
+      "is",
+      "was",
+      "did"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời dùng 'was' để miêu tả trạng thái của kỳ nghỉ đã qua."
+  },
+  {
+    "prompt": "We ____ a delicious pizza for dinner last night.",
+    "choices": [
+      "eated",
+      "ate",
+      "eat"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dạng quá khứ đơn bất quy tắc của động từ 'eat' là 'ate'."
+  },
+  {
+    "prompt": "I ____ a text message from my brother an hour ago.",
+    "choices": [
+      "get",
+      "got",
+      "gets"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dạng quá khứ đơn của động từ 'get' là 'got'."
+  },
+  {
+    "prompt": "She ____ her homework early because she wanted to watch a movie.",
+    "choices": [
+      "finish",
+      "finished",
+      "finishing"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ có quy tắc cần thêm đuôi '-ed' ở thì quá khứ đơn."
+  },
+  {
+    "prompt": "They ____ to the park to play soccer on Saturday afternoon.",
+    "choices": [
+      "went",
+      "go",
+      "goed"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dạng quá khứ đơn bất quy tắc của động từ 'go' là 'went'."
+  },
+  {
+    "prompt": "I ____ you at the supermarket last Monday.",
+    "choices": [
+      "see",
+      "seen",
+      "saw"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dạng quá khứ đơn bất quy tắc của động từ 'see' là 'saw'."
+  },
+  {
+    "prompt": "He ____ his car to the garage because the engine made a loud noise.",
+    "choices": [
+      "takes",
+      "take",
+      "took"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dạng quá khứ đơn bất quy tắc của động từ 'take' là 'took'."
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "You meet a new student at the door. You want to ask for their name. You say: \"_____ is your name?\"",
+    "choices": [
+      "Where",
+      "Who",
+      "What"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'What' để hỏi về thông tin hoặc tên của một người."
+  },
+  {
+    "prompt": "Someone is standing at your gate. You don't know them. You ask: \"_____ are you?\"",
+    "choices": [
+      "Who",
+      "What",
+      "Where"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'Who' khi muốn hỏi về danh tính của một người."
+  },
+  {
+    "prompt": "You are lost in a city and need to know the name of the place. You ask: \"_____ is this?\"",
+    "choices": [
+      "Who",
+      "What",
+      "Where"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'Where' để hỏi về địa điểm hoặc vị trí."
+  },
+  {
+    "prompt": "Choose the correct sentence to ask about someone's origin.",
+    "choices": [
+      "Where are you from?",
+      "Where am you from?",
+      "Where is you from?"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'be' chia là 'are' khi đi với chủ ngữ 'you'."
+  },
+  {
+    "prompt": "Complete the question: \"_____ she a new teacher?\"",
+    "choices": [
+      "Is",
+      "Am",
+      "Are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ ngôi thứ ba số ít 'she' phải đi với động từ 'is'."
+  },
+  {
+    "prompt": "Complete the question: \"_____ they students in this class?\"",
+    "choices": [
+      "Am",
+      "Are",
+      "Is"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ số nhiều 'they' đi với động từ 'are' trong câu hỏi."
+  },
+  {
+    "prompt": "Person A: \"Hi, I am Tom.\" Person B: \"_____?\"",
+    "choices": [
+      "Where are you?",
+      "Who are you?",
+      "What is your name?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi được giới thiệu, hỏi 'Who are you?' để biết danh tính người đối diện là tự nhiên nhất."
+  },
+  {
+    "prompt": "Person A: \"_____?\" Person B: \"I am from Vietnam.\"",
+    "choices": [
+      "Where are you from?",
+      "What is your name?",
+      "Who are you?"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời đề cập đến nguồn gốc (Vietnam) nên câu hỏi phù hợp là 'Where'."
+  },
+  {
+    "prompt": "Person A: \"Is this your office?\" Person B: \"_____\"",
+    "choices": [
+      "Yes, you are.",
+      "Yes, I am.",
+      "Yes, it is."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu hỏi bắt đầu với 'Is this' yêu cầu câu trả lời xác nhận về đồ vật bằng 'it is'."
+  },
+  {
+    "prompt": "Which sentence is grammatically correct to ask about identity?",
+    "choices": [
+      "Who am that person?",
+      "Who is that person?",
+      "Who are that person?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": " 'That person' là chủ ngữ số ít, nên dùng 'is'."
+  },
+  {
+    "prompt": "Choose the correct way to ask for a location.",
+    "choices": [
+      "Where the library is?",
+      "Where are the library?",
+      "Where is the library?"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trong câu hỏi trực tiếp, động từ 'is' phải đứng trước chủ ngữ 'the library'."
+  },
+  {
+    "prompt": "Complete the question: \"What _____ these?\"",
+    "choices": [
+      "are",
+      "am",
+      "is"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ số nhiều 'these' đi với động từ 'are'."
+  },
+  {
+    "prompt": "Select the correct option to complete: \"_____ you okay?\"",
+    "choices": [
+      "Is",
+      "Am",
+      "Are"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'to be' đi với 'you' luôn là 'are'."
+  },
+  {
+    "prompt": "Which sentence correctly asks about an object?",
+    "choices": [
+      "Who is that in your hand?",
+      "What is that in your hand?",
+      "Where is that in your hand?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'what' để hỏi về vật thể."
+  },
+  {
+    "prompt": "Fill in the blank: \"Where _____ they now?\"",
+    "choices": [
+      "am",
+      "are",
+      "is"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ 'they' (họ) yêu cầu động từ 'are' ở thì hiện tại."
+  }
+]

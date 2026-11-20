@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Before you travel to another country, you must check that your __________ is valid.",
+    "choices": [
+      "hotel",
+      "booking",
+      "passport"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hộ chiếu là giấy tờ bắt buộc để đi du lịch nước ngoài."
+  },
+  {
+    "prompt": "We made a __________ for three nights at the beach resort.",
+    "choices": [
+      "passport",
+      "booking",
+      "travel"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Booking được sử dụng để chỉ việc đặt chỗ trước cho dịch vụ lưu trú."
+  },
+  {
+    "prompt": "The __________ has a beautiful swimming pool and a nice restaurant.",
+    "choices": [
+      "hotel",
+      "passport",
+      "booking"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khách sạn là nơi có các tiện nghi như bể bơi và nhà hàng."
+  },
+  {
+    "prompt": "__________ a small cafe near the park where we can drink coffee.",
+    "choices": [
+      "There are",
+      "They are",
+      "There is"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'There is' cho danh từ số ít 'a small cafe'."
+  },
+  {
+    "prompt": "__________ many tourists in the city center during the summer.",
+    "choices": [
+      "There are",
+      "There is",
+      "They are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'There are' cho danh từ số nhiều 'many tourists'."
+  },
+  {
+    "prompt": "Look! __________ two elevators in the lobby of this building.",
+    "choices": [
+      "They have",
+      "There is",
+      "There are"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'There are' vì danh từ 'two elevators' ở dạng số nhiều."
+  },
+  {
+    "prompt": "Receptionist: 'How can I help you?' Guest: '__________.'",
+    "choices": [
+      "I have a passport for two people.",
+      "I am a hotel for tonight.",
+      "I have a booking for two nights."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khách hàng thường thông báo về việc đặt phòng khi đến quầy lễ tân."
+  },
+  {
+    "prompt": "Friend 1: 'Is there a quiet room in this hotel?' Friend 2: '__________.'",
+    "choices": [
+      "Yes, there is one.",
+      "Yes, there are one.",
+      "Yes, they are one."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc trả lời cho câu hỏi với 'Is there' là 'Yes, there is'."
+  },
+  {
+    "prompt": "Traveler: 'Excuse me, where is my passport?' Partner: '__________.'",
+    "choices": [
+      "They are in your bag.",
+      "There is in your bag.",
+      "It is in your bag."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Passport là danh từ số ít nên dùng đại từ 'It' để thay thế."
+  },
+  {
+    "prompt": "__________ a big bed in my room, but no desk.",
+    "choices": [
+      "There are",
+      "There is",
+      "It has"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'There is' cho danh từ số ít 'a big bed'."
+  },
+  {
+    "prompt": "Do you have your __________ with you for the flight?",
+    "choices": [
+      "passport",
+      "hotel",
+      "booking"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hộ chiếu là giấy tờ quan trọng cần mang theo khi đi máy bay."
+  },
+  {
+    "prompt": "__________ any free rooms available for tonight?",
+    "choices": [
+      "Is there",
+      "Are there",
+      "Are they"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'Are there' để hỏi về sự tồn tại của danh từ số nhiều 'rooms'."
+  },
+  {
+    "prompt": "I need to __________ my flight and hotel online today.",
+    "choices": [
+      "booking",
+      "book",
+      "passport"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'book' dùng để chỉ hành động đặt chỗ cho chuyến đi."
+  },
+  {
+    "prompt": "__________ three museums near our hotel in the city.",
+    "choices": [
+      "There are",
+      "There is",
+      "They are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'There are' cho số lượng 'three' (số nhiều)."
+  },
+  {
+    "prompt": "Can you show me your __________ so I can check your name?",
+    "choices": [
+      "booking",
+      "passport",
+      "hotel"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Lễ tân cần kiểm tra hộ chiếu để xác nhận danh tính khách hàng."
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After reviewing the various reports, the analyst managed to ________ the findings into a single, cohesive strategic plan.",
+    "choices": [
+      "demonstrate",
+      "nevertheless",
+      "synthesize"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'synthesize' có nghĩa là tổng hợp các phần rời rạc thành một chỉnh thể, phù hợp với ngữ cảnh tạo ra một kế hoạch chiến lược từ nhiều báo cáo."
+  },
+  {
+    "prompt": "The candidate sought to ________ their technical proficiency by highlighting several complex projects completed during their tenure.",
+    "choices": [
+      "demonstrate",
+      "synthesize",
+      "nevertheless"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'demonstrate' có nghĩa là chứng minh hoặc thể hiện năng lực thông qua các ví dụ thực tế."
+  },
+  {
+    "prompt": "The budget was significantly reduced; ________, the project goals remained ambitious and the team was expected to deliver high-quality results.",
+    "choices": [
+      "demonstrate",
+      "synthesize",
+      "nevertheless"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ nối 'nevertheless' được dùng để chỉ sự tương phản bất chấp một điều kiện khó khăn đã nêu trước đó."
+  },
+  {
+    "prompt": "Having completed the primary research phase, ________ to begin the drafting of the final manuscript.",
+    "choices": [
+      "the team was decided",
+      "it was decided to",
+      "they decided it"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc bị động khách quan 'it was decided to' phù hợp với phong cách viết học thuật trang trọng."
+  },
+  {
+    "prompt": "Not only did the manager propose a new strategy, ________.",
+    "choices": [
+      "but she also implemented it effectively",
+      "but also did she implement it",
+      "and she implemented it as well"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc đảo ngữ 'Not only... but also' yêu cầu sự đồng nhất về thì và cấu trúc mệnh đề sau đó."
+  },
+  {
+    "prompt": "Rarely ________ encountered such a well-structured proposal in all my years of professional editing.",
+    "choices": [
+      "I have",
+      "have I",
+      "do I"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi câu bắt đầu bằng trạng từ phủ định như 'Rarely', ta cần đảo trợ động từ lên trước chủ ngữ."
+  },
+  {
+    "prompt": "Manager: 'Do you believe our quarterly projections are too optimistic given the current market volatility?' Colleague: '________, I believe they are grounded in a conservative analysis of recent data.'",
+    "choices": [
+      "In the meantime",
+      "For that matter",
+      "On the contrary"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'On the contrary' là cụm từ nối phù hợp để phản bác lại một nhận định tiêu cực bằng một quan điểm đối lập."
+  },
+  {
+    "prompt": "Editor: 'Is the concluding paragraph strong enough to summarize your main arguments?' Author: '________. I plan to rephrase the final sentence to add more impact.'",
+    "choices": [
+      "To a certain extent",
+      "In accordance with",
+      "As a result"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'To a certain extent' là cách diễn đạt trang trọng để biểu đạt sự đồng ý có điều kiện hoặc sự thận trọng."
+  },
+  {
+    "prompt": "Peer Reviewer: 'Your methodology is quite innovative; however, is it reproducible?' Author: '________, we have included a detailed appendix explaining each step.'",
+    "choices": [
+      "Indeed",
+      "In view of",
+      "Despite the fact"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Indeed' được sử dụng để nhấn mạnh và xác nhận lại một thông tin đã được đề cập hoặc đặt câu hỏi trước đó."
+  },
+  {
+    "prompt": "The board members ________ the importance of transparency in their latest corporate governance statement.",
+    "choices": [
+      "demonstrated",
+      "synthesized",
+      "underscored"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Underscored' mang nghĩa nhấn mạnh tầm quan trọng, phù hợp nhất với ngữ cảnh về thông cáo quản trị."
+  },
+  {
+    "prompt": "Success in this role ________ a deep understanding of market trends combined with exceptional analytical skills.",
+    "choices": [
+      "synthesizes",
+      "demonstrates",
+      "necessitates"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Necessitates' (đòi hỏi/yêu cầu) là động từ chính xác nhất để nói về các yêu cầu của một vị trí công việc."
+  },
+  {
+    "prompt": "The author managed to ________ complex academic theories into a reader-friendly format for the general public.",
+    "choices": [
+      "distill",
+      "demonstrate",
+      "nevertheless"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Distill' (chắt lọc) phù hợp với ngữ cảnh biến các lý thuyết phức tạp thành nội dung dễ tiếp cận."
+  },
+  {
+    "prompt": "It is essential that every participant ________ the registration form before the deadline expires.",
+    "choices": [
+      "submitting",
+      "submit",
+      "submits"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sau cấu trúc 'It is essential that', động từ cần chia ở dạng giả định cách (base form) cho tất cả các ngôi."
+  },
+  {
+    "prompt": "The findings were unexpected; ________, they provide a valuable insight into consumer behavior during economic downturns.",
+    "choices": [
+      "consequently",
+      "nonetheless",
+      "moreover"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Nonetheless' dùng để nối hai ý trái ngược nhau về mặt logic, phù hợp với ngữ cảnh về các phát hiện bất ngờ nhưng hữu ích."
+  },
+  {
+    "prompt": "Were the proposal to be approved, ________ to allocate additional resources to the marketing department.",
+    "choices": [
+      "it is necessary",
+      "it would be necessary",
+      "it will be necessary"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là câu điều kiện loại 2 dạng đảo ngữ ('Were...'), vế sau phải sử dụng 'would' để duy trì sự phù hợp thì."
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our team has already proposed a time. Now we need to ________ the meeting by booking a room and sending invitations.",
+    "choices": [
+      "available",
+      "arrange",
+      "suggest"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'arrange' phù hợp nhất trong ngữ cảnh lên kế hoạch và sắp xếp một cuộc họp."
+  },
+  {
+    "prompt": "If you are not ________ on Saturday, we can reschedule our dinner to Sunday.",
+    "choices": [
+      "available",
+      "arrange",
+      "suggest"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tính từ 'available' có nghĩa là rảnh rỗi để làm việc gì đó, phù hợp nhất với ngữ cảnh thời gian."
+  },
+  {
+    "prompt": "I would like to ________ that we start the project a day early to avoid any stress.",
+    "choices": [
+      "suggest",
+      "available",
+      "arrange"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'suggest' dùng để đưa ra một ý kiến hoặc đề xuất thực hiện điều gì đó."
+  },
+  {
+    "prompt": "________ go to the park this afternoon; the weather looks perfect.",
+    "choices": [
+      "Should",
+      "Could",
+      "Let's"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'Let's' được dùng để đưa ra một lời đề nghị cùng nhau làm việc gì đó."
+  },
+  {
+    "prompt": "We ________ check the train schedule before booking. Choose the modal that gives advice, rather than just offering an option.",
+    "choices": [
+      "should",
+      "let's",
+      "could"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'should' được dùng để đưa ra lời khuyên về một hành động cần thiết."
+  },
+  {
+    "prompt": "________ you please send me the agenda for tomorrow's meeting?",
+    "choices": [
+      "Let's",
+      "Could",
+      "Should"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'Could you' là cách lịch sự để đưa ra yêu cầu hoặc đề nghị."
+  },
+  {
+    "prompt": "The office is too noisy. To ask whether moving is possible, say: '________ we find a quiet café instead?'",
+    "choices": [
+      "Let's",
+      "Should",
+      "Could"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'Could we' thường dùng để đưa ra một gợi ý lịch sự khi đối mặt với một vấn đề."
+  },
+  {
+    "prompt": "Tell your friend you want both of you to ask Sarah's sister for help. Complete this suggestion that does not begin with a question word or modal: '________ ask her sister for some help.'",
+    "choices": [
+      "Why should",
+      "Could we",
+      "Let's"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời của Person B là một lời gợi ý hành động, phù hợp dùng 'Let's'."
+  },
+  {
+    "prompt": "Person A: 'I am not sure if I can finish this report by 5 PM.' Person B: 'You ________ ask your manager for an extension.'",
+    "choices": [
+      "should",
+      "let's",
+      "could we"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Should' được dùng để đưa ra lời khuyên hữu ích cho khó khăn của người khác."
+  },
+  {
+    "prompt": "Which word means to make plans for a future event?",
+    "choices": [
+      "arrange",
+      "available",
+      "suggest"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Arrange' nghĩa là sắp xếp, lên kế hoạch cho một sự kiện tương lai."
+  },
+  {
+    "prompt": "Choose the correct sentence to make a polite suggestion.",
+    "choices": [
+      "Let's we go now.",
+      "Could we go now?",
+      "Should we go now? Actually."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu 'Could we go now?' là cấu trúc đúng để đưa ra một lời đề nghị lịch sự."
+  },
+  {
+    "prompt": "I am free all day tomorrow, so I am ________ for a meeting.",
+    "choices": [
+      "arrange",
+      "available",
+      "suggest"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi bạn rảnh rỗi, bạn có thể nói mình 'available' cho một sự kiện."
+  },
+  {
+    "prompt": "Which option is best for advising someone on their study plan?",
+    "choices": [
+      "Let's study more.",
+      "You should study more.",
+      "You could study more."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Should' là từ phù hợp nhất khi đưa ra lời khuyên chân thành và mạnh mẽ."
+  },
+  {
+    "prompt": "We agreed to meet at two. Please ________ the meeting by reserving a room.",
+    "choices": [
+      "available",
+      "suggest",
+      "arrange"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'arrange a time' là cụm từ cố định phổ biến khi nói về việc hẹn gặp."
+  },
+  {
+    "prompt": "Which invitation suggests a group activity without asking a question?",
+    "choices": [
+      "Could we play?",
+      "Should we play?",
+      "Let's play."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Let's' thường được sử dụng để đề xuất một hoạt động nhóm tích cực."
+  }
+]

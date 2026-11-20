@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { readJourneyMap, refreshJourneyMap } from '@/features/learning/journey-map-cache';
 import { router, useFocusEffect, type Href } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { Pressable, View, useWindowDimensions } from 'react-native';
@@ -8,7 +10,7 @@ import { useAuth } from '@/auth/provider';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppButton, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
 import { getGamification, type GamificationOverview, type QuestProgress } from '@/features/gamification/api';
-import { getJourney, type JourneyCourse } from '@/features/learning/api';
+import type { JourneyCourse } from '@/features/learning/api';
 import { getCachedJourney } from '@/features/offline/storage';
 import { nextLesson } from './next-lesson';
 import { AnimatedXPProgress } from '@/features/gamification/animated-xp-progress';
@@ -45,23 +47,39 @@ function QuestLine({ quest, index }: { quest: QuestProgress; index: number }) {
 export function HomeScreen({ preview }: { preview?: { overview: GamificationOverview; courses: JourneyCourse[] } }) {
   const { profile } = useAuth();
   const userId = profile?.id;
+  const queryClient = useQueryClient();
   const palette = useAppPalette();
   const { width } = useWindowDimensions();
   const [overview, setOverview] = useState<GamificationOverview | null>(preview?.overview ?? null);
-  const [courses, setCourses] = useState<JourneyCourse[]>(preview?.courses ?? []);
+  const [courses, setCourses] = useState<JourneyCourse[]>(() => preview?.courses ?? readJourneyMap(queryClient, userId) ?? []);
   const [loading, setLoading] = useState(!preview);
   const [error, setError] = useState('');
   const [offline, setOffline] = useState(false);
   const load = useCallback(async () => {
-    if (preview) return;
-    setLoading(true); setError(''); setOverview(null); setCourses([]);
-    const [stats, journey] = await Promise.allSettled([getGamification(), getJourney()]);
-    if (stats.status === 'fulfilled') setOverview(stats.value);
-    if (journey.status === 'fulfilled') { setCourses(journey.value); setOffline(false); }
-    else if (userId) { const cached = await getCachedJourney(userId); if (cached) { setCourses(cached.courses); setOffline(true); } }
+    if (preview || !userId) return;
+    let received = false;
+    void getCachedJourney(userId).then((cached) => {
+      if (!received && cached && !readJourneyMap(queryClient, userId)) {
+        setCourses((current) => current.length ? current : cached.courses);
+      }
+    }).catch(() => undefined);
+    setLoading(true); setError('');
+    const [stats, journey] = await Promise.allSettled([
+      getGamification().then(setOverview),
+      refreshJourneyMap(queryClient, userId).then((data) => {
+        received = true;
+        setCourses(data);
+        setOffline(false);
+      }),
+    ]);
+    if (journey.status === 'rejected' && userId) {
+      const cached = await getCachedJourney(userId).catch(() => null);
+      if (cached) setCourses((current) => current.length ? current : cached.courses);
+      setOffline(true);
+    }
     if (stats.status === 'rejected' && journey.status === 'rejected') setError('Learning data is unavailable. Check your connection and try again.');
     setLoading(false);
-  }, [userId, preview]);
+  }, [userId, queryClient, preview]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   const next = nextLesson(courses);
   const daily = overview?.quests.filter((quest) => quest.period === 'daily') ?? [];
@@ -71,7 +89,7 @@ export function HomeScreen({ preview }: { preview?: { overview: GamificationOver
   const headerAccessory = <Pressable accessibilityRole="button" accessibilityLabel="Open profile and appearance settings" onPress={() => router.push('/profile')} style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.7 : 1 })}><ProfileAvatar name={given} path={profile?.avatar_url} size={36} /><SymbolView name={{ ios: 'gearshape.fill', android: 'settings', web: 'settings' }} size={20} tintColor={palette.muted} /></Pressable>;
   return <Page eyebrow="A NEW DAY TO GROW" title={`Hi, ${given}!`} description="A little English every day goes a long way." compact headerAccessory={headerAccessory}>
     {preview ? <View style={{ backgroundColor: palette.rewardSoft, padding: 8, borderRadius: 12 }}><AppText variant="caption">DESIGN PREVIEW · SAMPLE DATA · No progress is saved</AppText></View> : null}
-    {loading ? <LoadingSkeleton lines={6} /> : error && !overview && !courses.length ? <ErrorState message={error} retry={() => { void load(); }} /> : <>
+    {loading && !overview && courses.length === 0 ? <LoadingSkeleton lines={6} /> : error && !overview && !courses.length ? <ErrorState message={error} retry={() => { void load(); }} /> : <>
       <View style={{ borderRadius: 30, backgroundColor: palette.hero, padding: 20, overflow: 'hidden', gap: 14 }}>
         <View style={{ position: 'absolute', right: -32, top: -55, width: 175, height: 175, borderRadius: 90, backgroundColor: 'rgba(255,255,255,0.12)' }} />
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}><View style={{ flex: 1, gap: 6 }}><AppText variant="caption" style={{ color: palette.heroAccent, fontWeight: '800', letterSpacing: 1 }}>YOUR ADVENTURE</AppText><AppText variant={compact ? 'heading' : 'title'} style={{ color: palette.heroOn }}>{next ? 'Ready for your next step?' : 'Your journey starts here'}</AppText><AppText style={{ color: palette.heroMuted }}>{next?.lesson.title ?? 'Choose a lesson to begin.'}</AppText></View><FoxMascot size={compact ? 86 : 108} /></View>

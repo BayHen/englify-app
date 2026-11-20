@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our team has a big ________ to finish before the client arrives on Friday.",
+    "choices": [
+      "task",
+      "colleague",
+      "deadline"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'task' (nhiệm vụ) phù hợp nhất với ngữ cảnh công việc cần hoàn thành trước khi khách đến."
+  },
+  {
+    "prompt": "If you don't submit the report by 5 PM today, you will miss the ________.",
+    "choices": [
+      "colleague",
+      "deadline",
+      "task"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Deadline nghĩa là hạn chót, dùng cho các công việc có thời hạn cụ thể."
+  },
+  {
+    "prompt": "Sarah is a very helpful ________; she always assists me when I am busy.",
+    "choices": [
+      "task",
+      "colleague",
+      "deadline"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Colleague có nghĩa là đồng nghiệp, phù hợp với ngữ cảnh người hỗ trợ công việc."
+  },
+  {
+    "prompt": "________ you mind helping me with this spreadsheet for a moment?",
+    "choices": [
+      "Do",
+      "Could",
+      "Would"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'Would you mind + V-ing' là cách yêu cầu lịch sự phổ biến trong môi trường làm việc."
+  },
+  {
+    "prompt": "________ I borrow your stapler for a minute, please?",
+    "choices": [
+      "Do",
+      "Are",
+      "Could"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'Could' để tạo câu hỏi xin phép một cách lịch sự."
+  },
+  {
+    "prompt": "Is it ________ if I leave the meeting five minutes early today?",
+    "choices": [
+      "okay",
+      "polite",
+      "possible"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'Is it okay if...' là cách hỏi xin phép thông dụng và lịch sự."
+  },
+  {
+    "prompt": "Person A: Could you please send me the file? Person B: ________",
+    "choices": [
+      "No, I am busy.",
+      "I don't know the file.",
+      "Sure, I will send it now."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Phản hồi này thể hiện sự hợp tác và lịch sự khi đồng nghiệp yêu cầu hỗ trợ."
+  },
+  {
+    "prompt": "Person A: Would you mind checking this email for me? Person B: ________",
+    "choices": [
+      "Not at all, I'd be happy to.",
+      "I already checked it.",
+      "Yes, it is very bad."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cách trả lời 'Not at all' (không sao cả/rất sẵn lòng) là cách đáp lại lời nhờ vả lịch sự."
+  },
+  {
+    "prompt": "Person A: Is it okay if I use your desk? Person B: ________",
+    "choices": [
+      "Yes, it is my desk.",
+      "Actually, I need it right now.",
+      "I am using it for a meeting."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là cách từ chối khéo léo và lịch sự khi không thể giúp đỡ đồng nghiệp."
+  },
+  {
+    "prompt": "Which word describes a person you work with?",
+    "choices": [
+      "Client",
+      "Manager",
+      "Colleague"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Colleague là thuật ngữ chính xác để chỉ người làm việc cùng một nhóm hoặc công ty."
+  },
+  {
+    "prompt": "Choose the most polite way to ask for assistance.",
+    "choices": [
+      "Help me now.",
+      "Would you mind helping me?",
+      "Can you help me?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'Would you mind...' tạo ra cấu trúc yêu cầu trang trọng và lịch sự nhất."
+  },
+  {
+    "prompt": "If you are struggling to meet a deadline, what should you do?",
+    "choices": [
+      "Go home early.",
+      "Ignore it completely.",
+      "Talk to your colleague about it."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trao đổi với đồng nghiệp hoặc cấp trên là cách giải quyết chuyên nghiệp khi gặp khó khăn về thời hạn."
+  },
+  {
+    "prompt": "Which phrase is correct for asking permission?",
+    "choices": [
+      "Do I open the window?",
+      "Could I open the window?",
+      "Can I to open the window?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'Could I + động từ nguyên thể' là dạng câu hỏi xin phép chuẩn xác."
+  },
+  {
+    "prompt": "What do you call the date by which a task must be finished?",
+    "choices": [
+      "Deadline",
+      "Schedule",
+      "Appointment"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Deadline là hạn cuối bắt buộc cho các dự án hoặc đầu mục công việc."
+  },
+  {
+    "prompt": "Which response is polite when someone thanks you for your help?",
+    "choices": [
+      "No problem, any time.",
+      "You are welcome to work.",
+      "I help you."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu 'No problem, any time' là cách phản hồi lịch sự và thân thiện nơi công sở."
+  }
+]

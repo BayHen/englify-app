@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I always go to the gym after work, but today I _______ at home because I am very tired.",
+    "choices": [
+      "to rest",
+      "am resting",
+      "rest"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng thì hiện tại tiếp diễn cho một hành động đang diễn ra cụ thể vào 'today' (hôm nay)."
+  },
+  {
+    "prompt": "My daily routine is simple; I _______ coffee every morning before I start my classes.",
+    "choices": [
+      "am drinking",
+      "drink",
+      "to drink"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng thì hiện tại đơn để diễn tả thói quen hằng ngày (daily routine)."
+  },
+  {
+    "prompt": "She is _______ a new project currently, so she does not have much free time this week.",
+    "choices": [
+      "works",
+      "work",
+      "working"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trạng từ 'currently' chỉ một hành động đang diễn ra nên dùng thì hiện tại tiếp diễn."
+  },
+  {
+    "prompt": "Usually, Mark _______ the bus to work, but he is driving his car this week.",
+    "choices": [
+      "takes",
+      "take",
+      "is taking"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trạng từ 'usually' yêu cầu sử dụng thì hiện tại đơn cho hành động lặp đi lặp lại."
+  },
+  {
+    "prompt": "Look! The students _______ for the teacher in the hallway right now.",
+    "choices": [
+      "are waiting",
+      "wait",
+      "waits"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'Look!' và 'right now' cho thấy hành động đang xảy ra tại thời điểm nói."
+  },
+  {
+    "prompt": "Every day, Sarah _______ to the park to practice her photography skills.",
+    "choices": [
+      "go",
+      "is going",
+      "goes"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'Every day' xác định đây là một thói quen cần dùng thì hiện tại đơn."
+  },
+  {
+    "prompt": "A: Do you usually study in the library? B: Yes, but I _______ in a cafe today.",
+    "choices": [
+      "studied",
+      "study",
+      "am studying"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng thì hiện tại tiếp diễn để mô tả sự thay đổi tạm thời so với thói quen hằng ngày."
+  },
+  {
+    "prompt": "A: What is your brother doing? B: He _______ for his final exams all afternoon.",
+    "choices": [
+      "is preparing",
+      "prepares",
+      "prepare"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hành động đang tiếp diễn tại thời điểm nói nên cần thì hiện tại tiếp diễn."
+  },
+  {
+    "prompt": "A: How often do you call your parents? B: I _______ them every Sunday evening.",
+    "choices": [
+      "am calling",
+      "call",
+      "calls"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu hỏi 'How often' gợi ý dùng thì hiện tại đơn để trả lời về tần suất."
+  },
+  {
+    "prompt": "Most people _______ to sleep around 11 PM, but tonight I am staying up late.",
+    "choices": [
+      "go",
+      "are going",
+      "goes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đây là một sự thật mang tính thói quen chung nên dùng thì hiện tại đơn."
+  },
+  {
+    "prompt": "My sister _______ the piano lessons every Saturday, but she is busy today.",
+    "choices": [
+      "attends",
+      "attend",
+      "is attending"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng thì hiện tại đơn cho lịch trình lặp lại vào thứ Bảy hằng tuần."
+  },
+  {
+    "prompt": "Currently, the company _______ a new system to help employees work faster.",
+    "choices": [
+      "tests",
+      "is testing",
+      "test"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trạng từ 'currently' chỉ sự việc đang diễn ra ở hiện tại nên dùng thì tiếp diễn."
+  },
+  {
+    "prompt": "He _______ his emails before he starts any other task in the morning.",
+    "choices": [
+      "is checking",
+      "checks",
+      "check"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc diễn tả trình tự thói quen hằng ngày cần chia động từ ở hiện tại đơn."
+  },
+  {
+    "prompt": "Listen! The neighbors _______ loud music in their apartment again.",
+    "choices": [
+      "plays",
+      "play",
+      "are playing"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'Listen!' yêu cầu sử dụng thì hiện tại tiếp diễn cho hành động đang nghe thấy."
+  },
+  {
+    "prompt": "I _______ my project today because the deadline is tomorrow morning.",
+    "choices": [
+      "finishes",
+      "finish",
+      "am finishing"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng thì hiện tại tiếp diễn cho một nhiệm vụ cụ thể đang được thực hiện vào hôm nay."
+  }
+]

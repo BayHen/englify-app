@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The first sentence of a paragraph, which introduces the main idea to be discussed, is known as the __________.",
+    "choices": [
+      "topic sentence",
+      "conclusion",
+      "cohesion"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Topic sentence là câu chủ đề dùng để giới thiệu ý chính của đoạn văn."
+  },
+  {
+    "prompt": "To improve __________ in his writing, Mark used transition words like 'furthermore' and 'consequently' to link his ideas.",
+    "choices": [
+      "conclusion",
+      "cohesion",
+      "topic sentence"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cohesion (sự liên kết) là tính chất cần thiết để các câu trong đoạn văn mạch lạc với nhau."
+  },
+  {
+    "prompt": "After presenting all his arguments, Tom wrote a short __________ to summarize the key points of his discussion.",
+    "choices": [
+      "topic sentence",
+      "conclusion",
+      "cohesion"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Conclusion là phần kết luận dùng để tóm tắt lại các luận điểm chính đã thảo luận."
+  },
+  {
+    "prompt": "Choose the sentence that best maintains paragraph cohesion: 'Solar energy is becoming more popular. __________ it is a clean and renewable resource.'",
+    "choices": [
+      "Instead",
+      "However",
+      "Furthermore"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Furthermore được dùng để thêm thông tin bổ sung cho ý chính đã nêu trước đó."
+  },
+  {
+    "prompt": "The team worked hard on the project; __________, they missed the final deadline due to a last-minute technical error.",
+    "choices": [
+      "similarly",
+      "nevertheless",
+      "consequently"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Nevertheless được dùng để chỉ sự đối lập giữa nỗ lực làm việc và kết quả thất bại."
+  },
+  {
+    "prompt": "She organized her points clearly; __________, she provided evidence to support each claim.",
+    "choices": [
+      "for instance",
+      "in contrast",
+      "in addition"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "In addition dùng để chỉ việc thêm vào một hành động hỗ trợ cho ý chính trước đó."
+  },
+  {
+    "prompt": "Person A: 'Why do you think remote work is beneficial?' Person B: '__________ it allows employees to save time and money on commuting.'",
+    "choices": [
+      "First of all",
+      "On the contrary",
+      "In conclusion"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "First of all là cách mở đầu hợp lý khi liệt kê lý do cho một quan điểm."
+  },
+  {
+    "prompt": "Person A: 'Should we include the statistics in the summary?' Person B: '__________! They help prove our argument effectively.'",
+    "choices": [
+      "No way",
+      "Certainly",
+      "Not really"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Certainly là phản hồi đồng ý phù hợp với lý do hỗ trợ cho lập luận."
+  },
+  {
+    "prompt": "Person A: 'Is the paragraph structure clear enough?' Person B: 'Yes, the transition words help maintain __________ throughout.'",
+    "choices": [
+      "cohesion",
+      "the topic sentence",
+      "a conclusion"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cohesion là từ phù hợp nhất để mô tả sự mạch lạc thông qua các từ nối trong đoạn văn."
+  },
+  {
+    "prompt": "A paragraph lacks a __________ when the sentences do not follow a logical order or connect properly.",
+    "choices": [
+      "conclusion",
+      "topic sentence",
+      "cohesion"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sự liên kết (cohesion) là yếu tố khiến các câu văn kết nối chặt chẽ với nhau."
+  },
+  {
+    "prompt": "Which of these is the most effective way to end a discussion paragraph?",
+    "choices": [
+      "Adding a list of questions",
+      "Introducing a new, unrelated topic",
+      "Summarizing the main takeaway"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc tóm tắt ý chính là cách tốt nhất để kết thúc một đoạn văn thảo luận."
+  },
+  {
+    "prompt": "When writing a discussion, a __________ should state the main argument clearly to guide the reader.",
+    "choices": [
+      "cohesion",
+      "topic sentence",
+      "conclusion"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu chủ đề (topic sentence) đóng vai trò định hướng cho người đọc hiểu về nội dung chính."
+  },
+  {
+    "prompt": "Which transition word shows a cause-and-effect relationship in a discussion?",
+    "choices": [
+      "Therefore",
+      "Moreover",
+      "Likewise"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Therefore là từ nối dùng để diễn tả mối quan hệ nguyên nhân - kết quả."
+  },
+  {
+    "prompt": "If you want to contrast two ideas in a paragraph, which word is most appropriate?",
+    "choices": [
+      "However",
+      "Similarly",
+      "Furthermore"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "However được sử dụng để chỉ sự đối lập giữa hai ý tưởng."
+  },
+  {
+    "prompt": "What is the primary role of a 'cohesive device' in a paragraph?",
+    "choices": [
+      "To introduce a new topic sentence",
+      "To change the paragraph length",
+      "To link ideas together smoothly"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Các từ nối (cohesive devices) có vai trò liên kết các ý tưởng một cách mượt mà."
+  }
+]

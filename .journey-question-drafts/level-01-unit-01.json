@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Look at the letter 'B'. What is the name of this letter?",
+    "choices": [
+      "Bee",
+      "Bed",
+      "Boy"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chữ cái B có tên gọi là 'Bee' trong bảng chữ cái tiếng Anh."
+  },
+  {
+    "prompt": "How do you say the sound for the letter 'S'?",
+    "choices": [
+      "Sss",
+      "See",
+      "Sat"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Âm thanh cơ bản của chữ cái S là tiếng rít 'Sss'."
+  },
+  {
+    "prompt": "I cannot write this word. How do you __________ it?",
+    "choices": [
+      "spell",
+      "sound",
+      "letter"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chúng ta dùng động từ 'spell' để hỏi cách đánh vần một từ."
+  },
+  {
+    "prompt": "Which letter starts the word 'apple'?",
+    "choices": [
+      "A",
+      "E",
+      "O"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'apple' bắt đầu bằng chữ cái A."
+  },
+  {
+    "prompt": "Identify the letter that makes the /d/ sound.",
+    "choices": [
+      "D",
+      "B",
+      "P"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chữ cái D tạo ra âm /d/ trong các từ như 'dog' hay 'dad'."
+  },
+  {
+    "prompt": "Choose the letter that comes after 'M' in the alphabet.",
+    "choices": [
+      "N",
+      "L",
+      "K"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong bảng chữ cái, chữ N đứng ngay sau chữ M."
+  },
+  {
+    "prompt": "Teacher: How do you spell 'cat'? Student: __________.",
+    "choices": [
+      "C-A-T",
+      "Cat is a cat",
+      "It is a sound"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi được hỏi cách đánh vần, người học cần liệt kê các chữ cái tạo nên từ đó."
+  },
+  {
+    "prompt": "Tom: What is this letter? Sam: __________.",
+    "choices": [
+      "It is T",
+      "It is a spell",
+      "It is sound"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời 'It is T' xác định tên của chữ cái một cách chính xác."
+  },
+  {
+    "prompt": "Ann: What sound does 'F' make? Ben: __________.",
+    "choices": [
+      "Fff",
+      "Fee",
+      "Fat"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Âm thanh của chữ cái F được thể hiện qua tiếng 'Fff'."
+  },
+  {
+    "prompt": "Which of these is a letter of the alphabet?",
+    "choices": [
+      "Z",
+      "Cat",
+      "Spell"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Z là một chữ cái trong bảng chữ cái, trong khi các từ còn lại là từ vựng."
+  },
+  {
+    "prompt": "What is the sound of the letter 'M'?",
+    "choices": [
+      "Mmm",
+      "May",
+      "Man"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Âm thanh đặc trưng của chữ cái M là 'Mmm'."
+  },
+  {
+    "prompt": "Select the option that is a vowel.",
+    "choices": [
+      "I",
+      "B",
+      "T"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "I là một trong năm nguyên âm chính của bảng chữ cái tiếng Anh."
+  },
+  {
+    "prompt": "Which letter sounds like 'tee'?",
+    "choices": [
+      "T",
+      "E",
+      "D"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chữ cái T có cách phát âm là 'tee'."
+  },
+  {
+    "prompt": "How many letters are in the word 'dog'?",
+    "choices": [
+      "3",
+      "2",
+      "4"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'dog' được cấu tạo bởi ba chữ cái D, O và G."
+  },
+  {
+    "prompt": "Which letter represents the /k/ sound?",
+    "choices": [
+      "K",
+      "S",
+      "M"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chữ cái K thường đại diện cho âm /k/ trong tiếng Anh."
+  }
+]

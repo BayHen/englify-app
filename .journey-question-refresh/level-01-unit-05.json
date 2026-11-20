@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "In the sentence 'The cat eats the fish', which word is the verb?",
+    "choices": [
+      "fish",
+      "eats",
+      "The"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ là từ chỉ hành động, trong câu này 'eats' (ăn) là hành động."
+  },
+  {
+    "prompt": "Identify the subject in the sentence: 'Sarah reads a book.'",
+    "choices": [
+      "Sarah",
+      "reads",
+      "book"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ là người hoặc vật thực hiện hành động, ở đây là 'Sarah'."
+  },
+  {
+    "prompt": "Which part of the sentence 'He drinks water' is the object?",
+    "choices": [
+      "drinks",
+      "He",
+      "water"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Tân ngữ là đối tượng nhận hành động, 'water' là thứ bị uống."
+  },
+  {
+    "prompt": "Choose the correct word order for an affirmative sentence.",
+    "choices": [
+      "Subject + Verb + Object",
+      "Verb + Subject + Object",
+      "Object + Verb + Subject"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc câu khẳng định cơ bản trong tiếng Anh là Chủ ngữ + Động từ + Tân ngữ."
+  },
+  {
+    "prompt": "Select the correct sentence structure.",
+    "choices": [
+      "Football play they.",
+      "Play they football.",
+      "They play football."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu 'They play football' tuân thủ đúng trật tự Chủ ngữ (They) + Động từ (play) + Tân ngữ (football)."
+  },
+  {
+    "prompt": "Complete the sentence: 'The baby ____ milk.'",
+    "choices": [
+      "the baby",
+      "milk",
+      "drinks"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu cần một động từ để nối chủ ngữ và tân ngữ, 'drinks' phù hợp về ngữ pháp và nghĩa."
+  },
+  {
+    "prompt": "A: 'What does your brother do?' B: 'He ____ a letter.'",
+    "choices": [
+      "a letter",
+      "writes",
+      "is"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cần một động từ để mô tả hành động của chủ ngữ 'He' đối với 'a letter'."
+  },
+  {
+    "prompt": "A: 'Who is eating the apple?' B: '____ is eating the apple.'",
+    "choices": [
+      "The apple",
+      "The boy",
+      "Eat"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cần một chủ ngữ chỉ người để thực hiện hành động ăn táo."
+  },
+  {
+    "prompt": "A: 'What are you holding?' B: 'I ____ a pen.'",
+    "choices": [
+      "pen",
+      "you",
+      "hold"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ 'I' cần đi với động từ 'hold' để tạo thành câu hoàn chỉnh."
+  },
+  {
+    "prompt": "Which sentence is written correctly?",
+    "choices": [
+      "Students teacher teaches.",
+      "Teacher teaches students.",
+      "Teaches teacher students."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chỉ có 'Teacher teaches students' sắp xếp theo đúng trật tự Chủ ngữ - Động từ - Tân ngữ."
+  },
+  {
+    "prompt": "Choose the best fit: 'The chef ____ the meal.'",
+    "choices": [
+      "cooks",
+      "the chef",
+      "meal"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu này đang thiếu động từ để liên kết chủ ngữ 'The chef' và tân ngữ 'the meal'."
+  },
+  {
+    "prompt": "Select the sentence with the correct order.",
+    "choices": [
+      "Dog chases cat.",
+      "Cat dog chases.",
+      "Chases dog cat."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trật tự câu đúng là chủ ngữ 'Dog', động từ 'chases' và tân ngữ 'cat'."
+  },
+  {
+    "prompt": "Identify the correct structure for: 'She likes coffee.'",
+    "choices": [
+      "Subject + Verb + Object",
+      "Object + Verb + Subject",
+      "Verb + Subject + Object"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'She' là chủ ngữ, 'likes' là động từ, 'coffee' là tân ngữ, đúng theo công thức S-V-O."
+  },
+  {
+    "prompt": "Complete correctly: 'The birds ____ in the sky.'",
+    "choices": [
+      "birds",
+      "the sky",
+      "fly"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sau chủ ngữ 'The birds', câu cần một động từ là 'fly' để diễn tả hành động."
+  },
+  {
+    "prompt": "Which option makes a complete sentence?",
+    "choices": [
+      "The earth the sun warms.",
+      "The sun warms the earth.",
+      "Warms the sun earth."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là câu duy nhất tuân thủ đúng quy tắc trật tự từ chủ ngữ - động từ - tân ngữ."
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The manager argued that the new policy was necessary, notwithstanding the concerns raised by the staff. What does 'notwithstanding' mean in this context?",
+    "choices": [
+      "Despite the existence of",
+      "In total agreement with",
+      "Because of the impact of"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'notwithstanding' được sử dụng để thể hiện sự đối lập, tương đương với 'in spite of' hoặc 'despite'."
+  },
+  {
+    "prompt": "To what extent do you agree that remote work has permanently altered the corporate landscape? In this sentence, 'to what extent' is used to inquire about:",
+    "choices": [
+      "The primary motivation for actions",
+      "The degree or scope of something",
+      "The specific time frame of events"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'to what extent' dùng để hỏi về mức độ hoặc phạm vi ảnh hưởng của một sự việc."
+  },
+  {
+    "prompt": "While the film received mixed reviews, it is arguably the most visually stunning production of the decade. What is the speaker implying by using 'arguably'?",
+    "choices": [
+      "That the critics were clearly wrong",
+      "That the opinion is open to debate",
+      "That the film is objectively superior"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trạng từ 'arguably' ám chỉ rằng một ý kiến có thể tranh luận được và có cơ sở để chứng minh."
+  },
+  {
+    "prompt": "Not only did they finish the project ahead of schedule, __________ the quality was exceptional.",
+    "choices": [
+      "but also",
+      "furthermore",
+      "as well as"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc đảo ngữ 'not only... but also' yêu cầu vế thứ hai phải bắt đầu bằng 'but also'."
+  },
+  {
+    "prompt": "Little __________ that the decision would lead to such significant long-term consequences for the company.",
+    "choices": [
+      "they had known",
+      "have they known",
+      "did they know"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đảo ngữ với các trạng từ mang nghĩa phủ định (Little) đòi hỏi trợ động từ đứng trước chủ ngữ."
+  },
+  {
+    "prompt": "__________ had the meeting started when the fire alarm began to ring loudly.",
+    "choices": [
+      "Not once",
+      "Hardly",
+      "No sooner"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'No sooner... than' thường được dùng để diễn tả sự việc xảy ra ngay sau sự việc khác."
+  },
+  {
+    "prompt": "A: Do you think the new regulations will actually improve safety? B: __________, they might make the process more cumbersome.",
+    "choices": [
+      "To a great extent",
+      "In light of this",
+      "To be perfectly honest"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ này giúp người nói nhấn mạnh ý kiến cá nhân khi đưa ra một góc nhìn phản biện."
+  },
+  {
+    "prompt": "A: The team has faced numerous setbacks this quarter. B: True, __________, they have remained focused on their primary objectives.",
+    "choices": [
+      "arguably",
+      "notwithstanding",
+      "nevertheless"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ nối 'nevertheless' được dùng để diễn tả sự tương phản sau một mệnh đề thừa nhận khó khăn."
+  },
+  {
+    "prompt": "A: How far should we push for these changes? B: We need to consider the __________ of the impact on our client base.",
+    "choices": [
+      "arguably",
+      "extent",
+      "notwithstanding"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Danh từ 'extent' đi với giới từ 'of' để chỉ mức độ ảnh hưởng của một sự việc."
+  },
+  {
+    "prompt": "Under no circumstances __________ to enter the laboratory without proper protective equipment.",
+    "choices": [
+      "students are allowed",
+      "should students allow",
+      "are students allowed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ phủ định 'Under no circumstances' yêu cầu đảo ngữ (động từ trước chủ ngữ)."
+  },
+  {
+    "prompt": "The proposal was accepted, __________ the fact that the budget was already over-stretched.",
+    "choices": [
+      "notwithstanding",
+      "to the extent",
+      "arguably"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Giới từ 'notwithstanding' phù hợp để nối mệnh đề với cụm danh từ 'the fact that'."
+  },
+  {
+    "prompt": "Rarely __________ such a high level of dedication from a junior department.",
+    "choices": [
+      "have we seen",
+      "we have seen",
+      "we did see"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trạng từ chỉ tần suất mang nghĩa phủ định 'Rarely' đứng đầu câu bắt buộc phải đảo ngữ."
+  },
+  {
+    "prompt": "It is __________ one of the most innovative startups to emerge in the sector this year.",
+    "choices": [
+      "extent",
+      "arguably",
+      "notwithstanding"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trạng từ 'arguably' bổ nghĩa cho tính từ và thường đứng trước cụm danh từ/tính từ trong ngữ cảnh này."
+  },
+  {
+    "prompt": "Only by working together __________ to solve this complex logistical challenge.",
+    "choices": [
+      "will we be able",
+      "we will be able",
+      "are we able"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Mệnh đề bắt đầu bằng 'Only by...' đòi hỏi đảo ngữ ở vế chính của câu."
+  },
+  {
+    "prompt": "The report was detailed, __________ it failed to address the core issue of sustainability.",
+    "choices": [
+      "to the extent",
+      "nevertheless",
+      "notwithstanding"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ nối 'nevertheless' được dùng để thể hiện sự tương phản giữa hai mệnh đề độc lập."
+  }
+]

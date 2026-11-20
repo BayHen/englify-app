@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Before diving into the detailed data analysis, the speaker provided a high-level ________ of the company's quarterly performance.",
+    "choices": [
+      "overview",
+      "takeaway",
+      "transition"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'overview' phù hợp nhất để chỉ một cái nhìn tổng quan trước khi đi sâu vào chi tiết."
+  },
+  {
+    "prompt": "After discussing the budget cuts, we need a smooth ________ to the next section regarding our new marketing strategies.",
+    "choices": [
+      "takeaway",
+      "overview",
+      "transition"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Transition' là từ chính xác để chỉ sự chuyển tiếp mượt mà giữa hai phần của bài thuyết trình."
+  },
+  {
+    "prompt": "If you remember only one thing from today's meeting, let the main ________ be that customer satisfaction is our top priority.",
+    "choices": [
+      "overview",
+      "transition",
+      "takeaway"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Takeaway' được dùng để chỉ điểm mấu chốt hoặc thông điệp quan trọng nhất cần ghi nhớ."
+  },
+  {
+    "prompt": "________, I'd like to thank everyone for joining us this morning.",
+    "choices": [
+      "To start with",
+      "To being with",
+      "To starting with"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'To start with' là cách dùng đúng để bắt đầu một bài nói."
+  },
+  {
+    "prompt": "Now that we've covered the obstacles, ________ move on to the proposed solutions.",
+    "choices": [
+      "let us be",
+      "let's",
+      "let us to"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'let's' (viết tắt của let us) theo sau bởi động từ nguyên mẫu là cách dùng chuẩn để chuyển ý."
+  },
+  {
+    "prompt": "________ to the final point, we must consider the environmental impact of this project.",
+    "choices": [
+      "Turned",
+      "Turn",
+      "Turning"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dạng V-ing 'Turning' được dùng trong cụm từ 'Turning to...' để giới thiệu một ý mới."
+  },
+  {
+    "prompt": "Presenter A: 'Our production costs have risen significantly.' Presenter B: '________, are we planning to adjust our retail pricing to maintain margins?'",
+    "choices": [
+      "In light of this",
+      "In view to this",
+      "In light to this"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'In light of this' là cách diễn đạt đúng để kết nối hệ quả của thông tin vừa nêu."
+  },
+  {
+    "prompt": "Colleague A: 'Should we include the technical specifications in the slides?' Colleague B: 'No, let's keep it simple and ________ for the Q&A session.'",
+    "choices": [
+      "save them",
+      "save those",
+      "save that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'them' để thay thế cho danh từ số nhiều 'specifications' đã nhắc đến trước đó."
+  },
+  {
+    "prompt": "Speaker: 'We have analyzed the current market trends.' Audience member: '________, how do these trends affect our local competitors?'",
+    "choices": [
+      "Touching on that",
+      "By the way",
+      "Looking on that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Touching on that' là cụm từ lịch sự để yêu cầu làm rõ thêm một ý vừa được đề cập."
+  },
+  {
+    "prompt": "Which phrase is most effective for signaling the end of a specific section in a formal presentation?",
+    "choices": [
+      "That finishes for now",
+      "That is all for here",
+      "That's all for now"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'That's all for now' là cách diễn đạt tự nhiên và chuẩn mực nhất để kết thúc một phần."
+  },
+  {
+    "prompt": "Which signposting language is best used to elaborate on a point previously made?",
+    "choices": [
+      "In another words",
+      "In other words",
+      "In different words"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'In other words' là cụm từ cố định chuẩn xác để diễn giải lại một ý."
+  },
+  {
+    "prompt": "When a presenter says 'I'd like to draw your attention to...', they are typically ________.",
+    "choices": [
+      "ending the presentation",
+      "introducing a new visual or fact",
+      "summarizing the entire talk"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ này được dùng để hướng sự tập trung của khán giả vào một chi tiết cụ thể."
+  },
+  {
+    "prompt": "If a speaker wants to indicate a contrast with a previous point, which connector is most appropriate?",
+    "choices": [
+      "Having said so",
+      "Having said this",
+      "Having said that"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Having said that' là cấu trúc dùng để đưa ra ý kiến ngược lại hoặc bổ sung sau một mệnh đề trước đó."
+  },
+  {
+    "prompt": "What is the primary function of a 'roadmap' slide at the beginning of a presentation?",
+    "choices": [
+      "To list every takeaway",
+      "To provide an overview",
+      "To detail the conclusion"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Roadmap giúp khán giả hình dung lộ trình và cấu trúc tổng quan của bài thuyết trình."
+  },
+  {
+    "prompt": "Which option is the most professional way to handle a question you cannot answer immediately?",
+    "choices": [
+      "I don't have the takeaway.",
+      "I'll get back to you on that.",
+      "I'll transition that later."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu 'I'll get back to you on that' là cách phản hồi chuyên nghiệp khi cần kiểm tra thông tin."
+  }
+]

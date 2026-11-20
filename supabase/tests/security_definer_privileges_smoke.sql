@@ -40,6 +40,18 @@ BEGIN
     OR pg_catalog.has_table_privilege('authenticated', 'public.xp_events', 'DELETE') THEN
     RAISE EXCEPTION 'Learners can mutate XP directly';
   END IF;
+  IF pg_catalog.has_table_privilege('authenticated', 'public.learning_progress', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.learning_progress', 'UPDATE')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.lesson_attempts', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.journey_checkpoint_attempts', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.journey_milestone_events', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.quest_claims', 'INSERT')
+    OR pg_catalog.has_table_privilege('authenticated', 'public.user_badges', 'INSERT') THEN
+    RAISE EXCEPTION 'Journey server-owned progress or reward data is client-mutable';
+  END IF;
+  IF pg_catalog.has_table_privilege('authenticated', 'public.journey_content_reports', 'INSERT') THEN
+    RAISE EXCEPTION 'Journey reports can bypass the validating RPC';
+  END IF;
   IF pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_assignments', 'INSERT')
     OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_assignments', 'UPDATE')
     OR pg_catalog.has_table_privilege('authenticated', 'public.writing_daily_completions', 'INSERT')

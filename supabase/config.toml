@@ -70,7 +70,7 @@ schema_paths = []
 enabled = true
 # Specifies an ordered list of seed files to load during db reset.
 # Supports glob patterns relative to supabase directory: "./seeds/*.sql"
-sql_paths = ["./seeds/development.sql", "./seeds/real_english_development.sql", "./seeds/writing_development.sql", "./seeds/writing_v2_development.sql", "./seeds/gamification_development.sql", "./seeds/real_english_hybrid_topics.sql", "./seeds/phase2_a1_a2_content.sql", "./seeds/quiz_arena_development.sql"]
+sql_paths = ["./seeds/development.sql", "./seeds/real_english_development.sql", "./seeds/writing_development.sql", "./seeds/writing_v2_development.sql", "./seeds/gamification_development.sql", "./seeds/real_english_hybrid_topics.sql", "./seeds/phase2_a1_a2_content.sql", "./seeds/quiz_arena_development.sql", "./seeds/journey_v27_curriculum.sql"]
 
 [db.network_restrictions]
 # Enable management of network restrictions.
@@ -446,4 +446,7 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.writing-ai-rewrite]
+verify_jwt = true
+
+[functions.journey-lesson-generate]
 verify_jwt = true

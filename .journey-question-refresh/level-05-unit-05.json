@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our manager is very strict with deadlines. ________, she is always willing to help us if we fall behind.",
+    "choices": [
+      "Point",
+      "Exactly",
+      "However"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'However' dùng để nối hai mệnh đề mang ý nghĩa trái ngược nhau trong câu."
+  },
+  {
+    "prompt": "A: I think we should start the meeting at nine. B: ________! That gives everyone enough time to arrive.",
+    "choices": [
+      "Exactly",
+      "Point",
+      "However"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'Exactly' dùng để khẳng định sự đồng tình hoàn toàn với ý kiến của người khác."
+  },
+  {
+    "prompt": "I see your ________ about the budget, but we really need to invest in new software this year.",
+    "choices": [
+      "point",
+      "however",
+      "exactly"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'I see your point' được dùng để công nhận ý kiến của người đối diện trước khi đưa ra quan điểm phản biện."
+  },
+  {
+    "prompt": "The team finished the project early; ________, they decided to start the next one immediately.",
+    "choices": [
+      "although",
+      "because",
+      "furthermore"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ nối 'furthermore' được dùng để bổ sung thêm thông tin cùng chiều với mệnh đề trước đó."
+  },
+  {
+    "prompt": "I wanted to go for lunch, ________ the heavy rain made us stay in the office.",
+    "choices": [
+      "and",
+      "but",
+      "so"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Liên từ 'but' phù hợp nhất để diễn tả sự tương phản giữa mong muốn đi ăn và thực tế thời tiết."
+  },
+  {
+    "prompt": "We missed our target for this month. ________, we are still ahead of our annual goal.",
+    "choices": [
+      "Nevertheless",
+      "Therefore",
+      "Moreover"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'Nevertheless' diễn tả sự nhượng bộ, dùng khi mệnh đề sau làm giảm nhẹ ý nghĩa của mệnh đề trước."
+  },
+  {
+    "prompt": "A: I feel like we are spending too much on paper. B: ________. We should switch to digital documents.",
+    "choices": [
+      "I am not sure",
+      "That is a bad idea",
+      "I agree with that"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu khẳng định 'I agree with that' là phản hồi phù hợp nhất cho lời đề nghị thay đổi sang tài liệu điện tử."
+  },
+  {
+    "prompt": "A: What do you think about the new office layout? B: ________, but it might be too noisy for the design team.",
+    "choices": [
+      "It is very expensive",
+      "I really like it",
+      "I see the benefits"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'I see the benefits, but' thể hiện kỹ năng đồng ý một phần trước khi đưa ra ý kiến phản biện về tiếng ồn."
+  },
+  {
+    "prompt": "A: Let's postpone the training session until Friday. B: ________, as most staff are attending a conference then.",
+    "choices": [
+      "You are right",
+      "I am afraid I disagree",
+      "That sounds great"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Vì đa số nhân viên bận vào thứ Sáu, việc từ chối lịch hẹn là phản ứng logic nhất."
+  },
+  {
+    "prompt": "I believe this marketing strategy will increase our sales. Does everyone ________?",
+    "choices": [
+      "however",
+      "agree",
+      "point"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'agree' là từ chính xác nhất để hỏi về sự đồng thuận của mọi người trong ngữ cảnh cuộc họp."
+  },
+  {
+    "prompt": "The clients were unhappy with the delay; ________, they were pleased with the quality of the final product.",
+    "choices": [
+      "on the other hand",
+      "therefore",
+      "consequently"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'on the other hand' dùng để giới thiệu khía cạnh tích cực đối lập với khía cạnh tiêu cực trước đó."
+  },
+  {
+    "prompt": "She is an excellent presenter. ________, her slides are always very easy to read and understand.",
+    "choices": [
+      "Instead",
+      "In addition",
+      "Otherwise"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'In addition' dùng để bổ sung thông tin hỗ trợ cho việc tại sao cô ấy là người thuyết trình xuất sắc."
+  },
+  {
+    "prompt": "Many people argue that working from home is better. ________, some employees feel lonely without social contact.",
+    "choices": [
+      "So",
+      "However",
+      "Consequently"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'However' được dùng để chỉ ra một khía cạnh trái ngược hoặc nhược điểm của việc làm việc tại nhà."
+  },
+  {
+    "prompt": "We need to hire more staff to meet the deadline. ________, we could ask the current team to work overtime.",
+    "choices": [
+      "Similarly",
+      "In fact",
+      "Alternatively"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'Alternatively' dùng để giới thiệu một phương án giải quyết khác thay vì phương án thuê thêm người."
+  },
+  {
+    "prompt": "The budget is limited. ________, we should prioritize the most essential tasks first.",
+    "choices": [
+      "Therefore",
+      "On the contrary",
+      "Nevertheless"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'Therefore' chỉ kết quả, vì ngân sách hạn hẹp nên việc ưu tiên các nhiệm vụ thiết yếu là kết quả logic."
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I thought the concert was sold out, but I managed to get a ticket. - Oh, really? I ______ thought it was fully booked as well.",
+    "choices": [
+      "by the way",
+      "fair enough",
+      "actually"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'actually' được dùng ở đây để bày tỏ sự ngạc nhiên hoặc xác nhận một thông tin trái ngược với giả định ban đầu."
+  },
+  {
+    "prompt": "We are going to be late because of the traffic. - ______, we should have left the house twenty minutes earlier.",
+    "choices": [
+      "Fair enough",
+      "Actually",
+      "By the way"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm 'fair enough' dùng để thừa nhận rằng ý kiến hoặc lập luận của người kia là hợp lý."
+  },
+  {
+    "prompt": "I love your new bag! ______, where did you buy it?",
+    "choices": [
+      "Fair enough",
+      "By the way",
+      "Actually"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'by the way' được sử dụng để chuyển đổi chủ đề hoặc giới thiệu một thông tin thêm trong hội thoại."
+  },
+  {
+    "prompt": "You haven't finished the report, ______?",
+    "choices": [
+      "did you",
+      "have you",
+      "do you"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc câu hỏi đuôi cần đồng nhất với thì của động từ chính và dạng khẳng định/phủ định."
+  },
+  {
+    "prompt": "I'm sorry, I can't attend the meeting. - ______, I understand. We can reschedule for tomorrow.",
+    "choices": [
+      "So as",
+      "Right so",
+      "That's fine"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm 'that's fine' là cách phản hồi lịch sự để chấp nhận lời xin lỗi hoặc sự thay đổi kế hoạch."
+  },
+  {
+    "prompt": "So, ______ you are saying is that we need more time to complete the project?",
+    "choices": [
+      "what",
+      "which",
+      "that"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'what... is...' dùng để nhấn mạnh nội dung được nhắc lại trong quá trình giao tiếp."
+  },
+  {
+    "prompt": "I don't think we should walk there; it's too far. - ______. Let's just take a taxi instead.",
+    "choices": [
+      "I see your point",
+      "Actually it is",
+      "I'm sorry for you"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm 'I see your point' được dùng để thể hiện sự đồng tình với lập luận của người đối diện."
+  },
+  {
+    "prompt": "If you don't mind, could you help me move this table? - ______, I'd be happy to.",
+    "choices": [
+      "Not at all",
+      "By the way",
+      "Fair enough"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu 'Not at all' là cách đáp lại lịch sự khi ai đó xin phép hoặc nhờ vả mình."
+  },
+  {
+    "prompt": "The cafe is closed today. - Oh, I didn't know that. ______, we can go to the one down the street.",
+    "choices": [
+      "By the way",
+      "Anyway",
+      "Actually"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'anyway' được dùng để kết thúc một chủ đề không còn hữu ích và chuyển sang hướng giải quyết khác."
+  },
+  {
+    "prompt": "I really don't feel like cooking tonight. - ______. Let's just order a pizza.",
+    "choices": [
+      "Actually",
+      "Fair enough",
+      "By the way"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'fair enough' để đồng ý với quan điểm hoặc cảm xúc của người kia một cách tự nhiên."
+  },
+  {
+    "prompt": "It's quite cold outside. You should wear a jacket. - ______, I didn't even realize the temperature had dropped.",
+    "choices": [
+      "Actually",
+      "Fair enough",
+      "By the way"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'actually' để phản hồi lại thông tin mới mà người nói chưa biết trước đó."
+  },
+  {
+    "prompt": "We need to finish this presentation by Friday. ______, did you talk to the manager about the deadline extension?",
+    "choices": [
+      "Fair enough",
+      "Actually",
+      "By the way"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng 'by the way' để hỏi thêm một chi tiết liên quan đến chủ đề chính."
+  },
+  {
+    "prompt": "The bus is always late on Mondays. - ______. It's really frustrating for commuters.",
+    "choices": [
+      "Actually",
+      "By the way",
+      "Fair enough"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'fair enough' để công nhận thực trạng hoặc ý kiến của người nói là đúng."
+  },
+  {
+    "prompt": "I thought this movie was a comedy, but it turned out to be quite sad. - ______, the director said it was a drama in the interview.",
+    "choices": [
+      "By the way",
+      "Fair enough",
+      "Actually"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Dùng 'actually' để đưa ra thông tin đính chính lại suy nghĩ ban đầu của người nghe."
+  },
+  {
+    "prompt": "I'm heading to the grocery store now. ______, do we need milk?",
+    "choices": [
+      "Actually",
+      "By the way",
+      "Fair enough"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng 'by the way' để nhắc đến một vấn đề mới phát sinh trong cuộc hội thoại."
+  }
+]

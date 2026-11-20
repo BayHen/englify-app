@@ -4,9 +4,10 @@ type Row = Record<string, unknown> & { id: string };
 type Resource = keyof typeof schema;
 const schema = {
   vocabulary: { term: 'text', definition: 'text', translation: 'text', ipa: 'optional', part_of_speech: 'optional', example: 'optional', audio_url: 'optional', source_name: 'text', license_id: 'text' },
-  courses: { slug: 'slug', title: 'text', description: 'optional', level: 'positive' },
-  units: { course_id: 'uuid', slug: 'slug', title: 'text', position: 'positive' },
-  lessons: { course_id: 'uuid', unit_id: 'uuid', slug: 'slug', title: 'text', objective: 'text', position: 'positive', xp_reward: 'xp', content: 'object' },
+  courses: { slug: 'slug', title: 'text', description: 'optional', level: 'positive', cefr_level: 'cefr_level' },
+  chapters: { course_id: 'uuid', slug: 'slug', title: 'text', description: 'optional', position: 'positive' },
+  units: { course_id: 'uuid', chapter_id: 'uuid', slug: 'slug', title: 'text', position: 'positive', is_required: 'boolean' },
+  lessons: { course_id: 'uuid', unit_id: 'uuid', slug: 'slug', title: 'text', objective: 'text', position: 'positive', xp_reward: 'xp', content: 'object', is_required: 'boolean', estimated_minutes: 'positive', lesson_kind: 'lesson_kind' },
   'lesson-items': { lesson_id: 'uuid', position: 'positive', kind: 'item_kind', body: 'object' },
   'quiz-questions': { lesson_id: 'uuid', position: 'positive', kind: 'question_kind', prompt: 'text', explanation: 'optional', payload: 'object', answer: 'json' },
   'quiz-options': { question_id: 'uuid', position: 'positive', answer_text: 'text', is_correct: 'boolean' },
@@ -16,7 +17,7 @@ const schema = {
   badges: { code: 'slug', title: 'text', description: 'optional', metric: 'badge_metric', target: 'positive' },
 } as const;
 const tables: Record<Resource, string> = {
-  vocabulary: 'dictionary_entries', courses: 'courses', units: 'learning_units', lessons: 'lessons',
+  vocabulary: 'dictionary_entries', courses: 'courses', chapters: 'journey_chapters', units: 'learning_units', lessons: 'lessons',
   'lesson-items': 'lesson_items', 'quiz-questions': 'quiz_questions', 'quiz-options': 'quiz_options',
   'real-english': 'real_english_expressions', badges: 'badges',
   'writing-topics': 'writing_topics', 'writing-exercises': 'writing_exercises',
@@ -196,6 +197,40 @@ export async function supabaseAdminRequest<T>(client: SupabaseClient, path: stri
     const p=JSON.parse(String(init.body??'{}')) as {slug?:string;title?:string;description?:string;sort_order?:number;status?:string};
     return checked(await client.rpc('englify_admin_upsert_arena_topic',{p_slug:p.slug,p_title:p.title,p_description:p.description??'',p_sort_order:p.sort_order??0,p_status:p.status??'published'})) as T;
   }
+  if (parts[0] === 'journey' && parts[1] === 'overview' && method === 'GET') {
+    return checked(await client.rpc('englify_admin_journey_overview')) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'quality' && method === 'GET') {
+    return checked(await client.rpc('englify_admin_journey_curriculum_quality')) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'lessons' && method === 'POST' && !parts[2]) {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string;id?:string|null;data?:Record<string,unknown>};
+    return checked(await client.rpc('englify_admin_save_journey_lesson',{p_request_id:p.request_id,p_id:p.id??null,p_data:p.data})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'lessons' && parts[2] && parts[3] === 'transition' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {status?:string;reason?:string};
+    return checked(await client.rpc('englify_admin_transition_journey_lesson',{p_id:parts[2],p_status:p.status,p_reason:p.reason??''})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'nodes' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {kind?:string;id?:string|null;data?:Record<string,unknown>}; return checked(await client.rpc('englify_admin_save_journey_node',{p_kind:p.kind,p_id:p.id??null,p_data:p.data})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'prerequisites' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {lesson_id?:string;required?:string[]}; return checked(await client.rpc('englify_admin_set_journey_prerequisites',{p_lesson:p.lesson_id,p_required:p.required??[]})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'checkpoints' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {lesson_id?:string;unit_id?:string;objectives?:unknown[];passing_percent?:number}; return checked(await client.rpc('englify_admin_save_journey_checkpoint',{p_lesson:p.lesson_id,p_unit:p.unit_id,p_objectives:p.objectives??[],p_passing:p.passing_percent??70})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'reorder' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {kind?:string;parent_id?:string;ids?:string[]}; return checked(await client.rpc('englify_admin_reorder_journey',{p_kind:p.kind,p_parent:p.parent_id,p_ids:p.ids??[]})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'imports' && parts[2] === 'stage' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string;filename?:string;format?:string;rows?:unknown[]}; return checked(await client.rpc('englify_admin_stage_journey_import',{p_request_id:p.request_id,p_filename:p.filename,p_format:p.format,p_rows:p.rows})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'imports' && parts[2] && parts[3] === 'commit' && method === 'POST') {
+    const p=JSON.parse(String(init.body??'{}')) as {request_id?:string}; return checked(await client.rpc('englify_admin_commit_journey_import',{p_batch:parts[2],p_request_id:p.request_id})) as T;
+  }
+  if (parts[0] === 'journey' && parts[1] === 'analytics' && method === 'GET') return checked(await client.rpc('englify_admin_journey_analytics')) as T;
+  if (parts[0] === 'journey' && parts[1] === 'generate' && method === 'POST') return checked(await client.functions.invoke('journey-lesson-generate',{body:JSON.parse(String(init.body??'{}'))})) as T;
   if (parts[0] !== 'catalog' || !parts[1]) throw new Error('Unknown admin operation.');
   const resource = resourceOf(parts[1]);
   const table = tables[resource];

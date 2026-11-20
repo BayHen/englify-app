@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "We have a meeting on the 5th of July. Today is the 4th, so the meeting is ______.",
+    "choices": [
+      "tomorrow",
+      "yesterday",
+      "today"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Ngày 4 là hôm nay, vì vậy ngày 5 là ngày mai."
+  },
+  {
+    "prompt": "Today is Tuesday. My birthday is tomorrow. Is it on a ______?",
+    "choices": [
+      "Saturday",
+      "Wednesday",
+      "Sunday"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Ngày ngay sau thứ Ba là thứ Tư."
+  },
+  {
+    "prompt": "There are seven ______ in a week: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday.",
+    "choices": [
+      "days",
+      "dates",
+      "months"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ thứ Hai đến Chủ Nhật là các ngày trong tuần."
+  },
+  {
+    "prompt": "I have one brother, but she has three ______.",
+    "choices": [
+      "brother",
+      "brothers",
+      "brotheres"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi số lượng lớn hơn một, danh từ phải ở dạng số nhiều (thêm s)."
+  },
+  {
+    "prompt": "The library has one book on the table and two ______ on the shelf.",
+    "choices": [
+      "bookes",
+      "books",
+      "book"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Vì có hai cuốn sách nên danh từ phải ở dạng số nhiều là books."
+  },
+  {
+    "prompt": "Today is the ______ of October.",
+    "choices": [
+      "once",
+      "one",
+      "first"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi nói về ngày trong tháng, chúng ta sử dụng số thứ tự (first)."
+  },
+  {
+    "prompt": "A: What is today's date?\nB: It is ______.",
+    "choices": [
+      "Monday",
+      "the three",
+      "the 12th of May"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu hỏi về ngày tháng cần một câu trả lời chỉ ngày cụ thể trong tháng."
+  },
+  {
+    "prompt": "A: When is your class?\nB: It is ______.",
+    "choices": [
+      "in the number",
+      "at twenty",
+      "on Tuesday"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Để nói về thời gian diễn ra sự kiện trong tuần, chúng ta dùng giới từ 'on' kèm theo thứ."
+  },
+  {
+    "prompt": "A: How many pens do you have?\nB: I have ______.",
+    "choices": [
+      "the 5th",
+      "four pens",
+      "a Friday"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu hỏi 'How many' yêu cầu câu trả lời là số lượng đồ vật."
+  },
+  {
+    "prompt": "The trip takes three ______. Complete the sentence with the plural of 'day'.",
+    "choices": [
+      "days",
+      "dayes",
+      "day"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dạng số nhiều của 'day' là 'days'."
+  },
+  {
+    "prompt": "Your work schedule runs from Monday to Friday. The first workday is ______.",
+    "choices": [
+      "Sunday",
+      "Monday",
+      "Friday"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Theo quy ước thông thường trong lịch làm việc, thứ Hai là ngày đầu tiên của tuần."
+  },
+  {
+    "prompt": "If today is Friday, tomorrow is ______.",
+    "choices": [
+      "Sunday",
+      "Thursday",
+      "Saturday"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Ngày tiếp sau thứ Sáu là thứ Bảy."
+  },
+  {
+    "prompt": "What comes after the number 19?",
+    "choices": [
+      "eighteen",
+      "thirty",
+      "twenty"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Số tiếp theo sau 19 là 20."
+  },
+  {
+    "prompt": "Which option is a date?",
+    "choices": [
+      "the 20th of August",
+      "the ten days",
+      "the two books"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Ngày tháng bao gồm ngày cụ thể và tên tháng."
+  },
+  {
+    "prompt": "Choose the correct singular noun.",
+    "choices": [
+      "month",
+      "months",
+      "dates"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "'Month' là danh từ số ít, còn 'months' và 'dates' là số nhiều."
+  }
+]

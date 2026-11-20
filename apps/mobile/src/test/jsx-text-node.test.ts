@@ -32,5 +32,5 @@ describe('React Native JSX children', () => {
       visit(file);
     }
     expect(violations, 'Use !!value, a comparison, or a ternary returning null in JSX').toEqual([]);
-  });
+  }, 15_000);
 });

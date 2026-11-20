@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "You meet a new person at school and want to be friendly. You say: \"________, I am Sarah.\"",
+    "choices": [
+      "Name",
+      "From",
+      "Hello"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hello là lời chào xã giao phổ biến khi bắt đầu cuộc hội thoại."
+  },
+  {
+    "prompt": "A student asks about your identity. You point to yourself and say: \"My ________ is Mark.\"",
+    "choices": [
+      "Hello",
+      "Name",
+      "From"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Name dùng để giới thiệu tên của bản thân."
+  },
+  {
+    "prompt": "Someone asks where you live. You answer: \"I am ________ Brazil.\"",
+    "choices": [
+      "Hello",
+      "Name",
+      "From"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ from được dùng để chỉ nguồn gốc hoặc nơi xuất thân."
+  },
+  {
+    "prompt": "Introduce yourself to your new teacher by saying: \"________ John.\"",
+    "choices": [
+      "I am",
+      "I are",
+      "You are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'I am' dùng để giới thiệu bản thân."
+  },
+  {
+    "prompt": "You are talking to a classmate. You point to them and say: \"________ Anna.\"",
+    "choices": [
+      "You am",
+      "You are",
+      "I am"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'You are' dùng để nói về người đối diện."
+  },
+  {
+    "prompt": "Complete the sentence about yourself: \"________ Peter.\"",
+    "choices": [
+      "You am",
+      "I am",
+      "You are"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đại từ 'I' luôn đi với động từ 'am' trong câu giới thiệu."
+  },
+  {
+    "prompt": "Person A: \"Hello, what is your name?\" Person B: \"________ Emma.\"",
+    "choices": [
+      "I am",
+      "From are",
+      "You are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi được hỏi tên, bạn trả lời bằng cụm từ 'I am' cộng với tên của mình."
+  },
+  {
+    "prompt": "Person A: \"Where are you from?\" Person B: \"I am ________ Japan.\"",
+    "choices": [
+      "name",
+      "hello",
+      "from"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giới từ 'from' dùng để trả lời cho câu hỏi về nơi chốn."
+  },
+  {
+    "prompt": "Person A: \"Hi, I am David.\" Person B: \"Hello David, ________ Maria.\"",
+    "choices": [
+      "I am",
+      "From are",
+      "You are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Người nói giới thiệu tên mình cho người kia biết."
+  },
+  {
+    "prompt": "Which sentence correctly introduces a person?",
+    "choices": [
+      "I am Tom.",
+      "I are Tom.",
+      "Tom am I."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu 'I am Tom' tuân thủ đúng quy tắc ngữ pháp chủ ngữ và động từ to be."
+  },
+  {
+    "prompt": "Pick the correct way to talk to someone else.",
+    "choices": [
+      "You am Sam.",
+      "You are Sam.",
+      "Sam are you."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đại từ 'You' đi kèm với động từ 'are'."
+  },
+  {
+    "prompt": "Choose the best response to 'Hello, I am Lucy.'",
+    "choices": [
+      "I am Sam.",
+      "Hello from.",
+      "You are Sam."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi ai đó giới thiệu tên họ, cách đáp lại tự nhiên nhất là giới thiệu tên của bạn."
+  },
+  {
+    "prompt": "Which option is correct for a greeting?",
+    "choices": [
+      "Name hello!",
+      "I am from hello.",
+      "Hello, I am Li."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu 'Hello, I am Li' là cách chào hỏi và giới thiệu chuẩn mực."
+  },
+  {
+    "prompt": "Select the correct sentence.",
+    "choices": [
+      "Italy am I from.",
+      "I from am Italy.",
+      "I am from Italy."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này sắp xếp đúng trật tự chủ ngữ, động từ và tân ngữ chỉ nơi chốn."
+  },
+  {
+    "prompt": "What is the best way to ask someone's identity?",
+    "choices": [
+      "Hello, I am you?",
+      "Hello, you are?",
+      "Hello, name?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'You are?' dùng để xác nhận danh tính hoặc tên của người đối diện."
+  }
+]

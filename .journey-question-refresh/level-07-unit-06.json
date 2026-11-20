@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After reading the meeting notes, please ensure the __________ line clearly indicates the project name so the recipient knows what the message concerns.",
+    "choices": [
+      "subject",
+      "request",
+      "attachment"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Subject line là thành phần bắt buộc để người nhận biết nội dung email là gì."
+  },
+  {
+    "prompt": "I have included the updated budget proposal as an __________ to this email for your review.",
+    "choices": [
+      "request",
+      "subject",
+      "attachment"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Attachment là từ dùng để chỉ tệp tin đính kèm trong email."
+  },
+  {
+    "prompt": "Could you please process my __________ for an extension on the project deadline due to the recent system issues?",
+    "choices": [
+      "attachment",
+      "subject",
+      "request"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Request mang nghĩa là yêu cầu, phù hợp trong ngữ cảnh xin gia hạn thời hạn dự án."
+  },
+  {
+    "prompt": "__________ you have any questions regarding the proposal, please feel free to contact me at your earliest convenience.",
+    "choices": [
+      "If",
+      "Do",
+      "Should"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc đảo ngữ 'Should + S + V' được dùng trong văn phong trang trọng thay cho 'If you have'."
+  },
+  {
+    "prompt": "We __________ the revised contract for your signature yesterday afternoon.",
+    "choices": [
+      "sending",
+      "sent",
+      "send"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng thì quá khứ đơn vì hành động đã xảy ra vào thời điểm xác định là chiều hôm qua."
+  },
+  {
+    "prompt": "It is __________ that all employees complete the security training by the end of the week.",
+    "choices": [
+      "required",
+      "requiring",
+      "require"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc bị động sau 'It is' cần một phân từ hai (quá khứ phân từ) để bổ nghĩa."
+  },
+  {
+    "prompt": "Sender: I have attached the quarterly report. \nRecipient: Thank you for sending it; __________.",
+    "choices": [
+      "I have received it safely",
+      "I will get it soon",
+      "I want to send one"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời lịch sự và phù hợp nhất để xác nhận đã nhận được tệp tin đính kèm."
+  },
+  {
+    "prompt": "Sender: Could you please clarify the instructions for the new software? \nRecipient: __________, I would be happy to explain them further.",
+    "choices": [
+      "Of course",
+      "Never mind",
+      "Not really"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Of course là cách phản hồi tích cực và chuyên nghiệp khi đồng ý hỗ trợ người khác."
+  },
+  {
+    "prompt": "Sender: I am writing to apologize for the delay in my response. \nRecipient: __________, we appreciate you getting back to us.",
+    "choices": [
+      "Go ahead",
+      "No problem",
+      "I agree"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "No problem là cách phản hồi thông dụng để chấp nhận lời xin lỗi và duy trì mối quan hệ công việc."
+  },
+  {
+    "prompt": "When writing a formal email, which of the following is the most appropriate closing?",
+    "choices": [
+      "Best wishes",
+      "Sincerely",
+      "Talk soon"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sincerely là cách kết thư trang trọng nhất phù hợp với môi trường chuyên nghiệp."
+  },
+  {
+    "prompt": "What is the primary function of a clear subject line in a professional email?",
+    "choices": [
+      "To summarize the main purpose",
+      "To introduce the sender's history",
+      "To provide a long list of dates"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tiêu đề cần tóm tắt mục đích chính để người nhận nắm bắt thông tin nhanh chóng."
+  },
+  {
+    "prompt": "If you need to ask for a favor in an email, which phrase is most professional?",
+    "choices": [
+      "Do this for me now",
+      "Could you please assist me",
+      "I need you to do this"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cách đặt câu hỏi với 'Could you please' thể hiện sự lịch thiệp và tôn trọng trong công việc."
+  },
+  {
+    "prompt": "Which grammar structure is most common for formal professional requests?",
+    "choices": [
+      "Informal slang",
+      "Direct commands",
+      "Polite modal verbs"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sử dụng các động từ khuyết thiếu như 'could', 'would' giúp yêu cầu trở nên nhẹ nhàng và chuyên nghiệp hơn."
+  },
+  {
+    "prompt": "When referring to a file sent with your email, what is the best verb to use?",
+    "choices": [
+      "Attaching",
+      "Hold",
+      "Enclosing"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'enclosing' (đính kèm) thường được dùng trong các văn bản và email trang trọng."
+  },
+  {
+    "prompt": "How should you address someone whose name you do not know in a formal email?",
+    "choices": [
+      "Hey you",
+      "To whom it may concern",
+      "Dear person"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "To whom it may concern là cụm từ chuẩn mực khi viết email cho một người chưa xác định danh tính."
+  }
+]

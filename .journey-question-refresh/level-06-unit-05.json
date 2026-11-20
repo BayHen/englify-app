@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our new manager is very keen on building a strong sense of _____ among the staff, often organizing team lunches and group projects.",
+    "choices": [
+      "cooperate",
+      "community",
+      "responsibility"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'community' (cộng đồng) phù hợp nhất với ngữ cảnh xây dựng sự gắn kết trong tập thể."
+  },
+  {
+    "prompt": "It is your _____ to ensure all reports are submitted to the finance department by the end of the working day.",
+    "choices": [
+      "cooperate",
+      "community",
+      "responsibility"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'responsibility' (trách nhiệm) phù hợp với nghĩa vụ công việc cần phải hoàn thành."
+  },
+  {
+    "prompt": "If we want to finish the building project on time, we must learn to _____ with the architects and local contractors.",
+    "choices": [
+      "cooperate",
+      "community",
+      "responsibility"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'cooperate' (hợp tác) là một động từ cần thiết để thực hiện công việc chung với người khác."
+  },
+  {
+    "prompt": "The colleague _____ works at the front desk is responsible for greeting all new visitors.",
+    "choices": [
+      "who",
+      "which",
+      "whose"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đại từ quan hệ 'who' được dùng để chỉ người làm chủ ngữ cho mệnh đề quan hệ."
+  },
+  {
+    "prompt": "The factory, _____ was built over fifty years ago, is finally undergoing a major renovation.",
+    "choices": [
+      "which",
+      "that",
+      "where"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đại từ quan hệ 'which' được dùng cho vật trong mệnh đề quan hệ không xác định."
+  },
+  {
+    "prompt": "Employees _____ ideas are selected for the new marketing campaign will receive a special bonus.",
+    "choices": [
+      "that",
+      "whose",
+      "who"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đại từ quan hệ 'whose' biểu thị sự sở hữu cho danh từ theo sau."
+  },
+  {
+    "prompt": "A: I really struggle to balance my personal life and my job. B: _____",
+    "choices": [
+      "It is a heavy responsibility to manage.",
+      "I hope you cooperate with the schedule.",
+      "You should join our local community group."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời thừa nhận trách nhiệm công việc là lời đáp hợp lý cho việc khó cân bằng cuộc sống."
+  },
+  {
+    "prompt": "A: How are you finding the new department? B: It is great! Everyone is very willing to _____, so the work moves quickly.",
+    "choices": [
+      "community",
+      "cooperate",
+      "responsibility"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'cooperate' giải thích lý do tại sao công việc tiến triển nhanh chóng."
+  },
+  {
+    "prompt": "A: Why do you think this neighborhood is so popular? B: It is because of the strong sense of _____ among the residents.",
+    "choices": [
+      "cooperate",
+      "responsibility",
+      "community"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'community' mô tả đặc điểm xã hội của một khu dân cư."
+  },
+  {
+    "prompt": "The office _____ I started my career has recently moved to the city center.",
+    "choices": [
+      "who",
+      "which",
+      "where"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trạng từ quan hệ 'where' được dùng để chỉ địa điểm văn phòng nơi người nói bắt đầu sự nghiệp."
+  },
+  {
+    "prompt": "The tasks _____ you were assigned last week must be completed before the client meeting.",
+    "choices": [
+      "who",
+      "that",
+      "whose"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đại từ 'that' thay thế cho vật (tasks) trong mệnh đề quan hệ xác định."
+  },
+  {
+    "prompt": "Everyone in the company feels a shared _____ to protect the environment by reducing paper waste.",
+    "choices": [
+      "cooperate",
+      "responsibility",
+      "community"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'responsibility' kết hợp đúng với ngữ cảnh về nghĩa vụ bảo vệ môi trường."
+  },
+  {
+    "prompt": "The staff members _____ work overtime will be compensated with additional leave days.",
+    "choices": [
+      "where",
+      "which",
+      "who"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đại từ quan hệ 'who' thay thế cho danh từ chỉ người 'staff members'."
+  },
+  {
+    "prompt": "We need to _____ more effectively if we want to solve these complex societal issues.",
+    "choices": [
+      "cooperate",
+      "community",
+      "responsibility"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'cooperate' là hành động cần thiết để giải quyết các vấn đề phức tạp."
+  },
+  {
+    "prompt": "The project, _____ was led by our director, resulted in a significant increase in local support.",
+    "choices": [
+      "whose",
+      "that",
+      "which"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Mệnh đề quan hệ không xác định về một sự việc cần dùng đại từ 'which'."
+  }
+]

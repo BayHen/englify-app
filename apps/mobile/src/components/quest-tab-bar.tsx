@@ -4,6 +4,7 @@ import { Pressable, View } from 'react-native';
 import { useAppPalette } from '@/constants/app-theme';
 import { AppText } from '@/ui';
 import { useI18n, type TranslationKey } from '@/i18n';
+import { shouldNavigateToTab } from './tab-navigation';
 
 const tabs = [
   { label: 'nav.home', href: '/home', icon: { ios: 'house.fill', android: 'home', web: 'home' } },
@@ -29,7 +30,7 @@ export function QuestTabBar() {
     {tabs.map((tab) => {
       const selected = active === tab.href;
       const label = t(tab.label as TranslationKey);
-      return <Pressable key={tab.href} accessibilityRole="tab" accessibilityLabel={label} accessibilityState={{ selected }} onPress={() => router.replace(tab.href as Href)} style={({ pressed }) => ({ flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: 2, borderRadius: 16, backgroundColor: selected ? palette.primarySoft : 'transparent', opacity: pressed ? 0.7 : 1 })}>
+      return <Pressable key={tab.href} accessibilityRole="tab" accessibilityLabel={label} accessibilityState={{ selected }} onPress={() => { if (shouldNavigateToTab(path,tab.href)) router.replace(tab.href as Href); }} style={({ pressed }) => ({ flex: 1, minHeight: 54, alignItems: 'center', justifyContent: 'center', gap: 2, borderRadius: 16, backgroundColor: selected ? palette.primarySoft : 'transparent', opacity: pressed ? 0.7 : 1 })}>
         <SymbolView name={tab.icon} size={22} tintColor={selected ? palette.primary : palette.muted} fallback={<AppText>{label.slice(0, 1)}</AppText>} />
         <AppText variant="caption" numberOfLines={1} adjustsFontSizeToFit style={{ color: selected ? palette.primary : palette.muted, fontWeight: selected ? '800' : '600', fontSize: 11 }}>{label}</AppText>
       </Pressable>;

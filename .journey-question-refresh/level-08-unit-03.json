@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Read the following sentence: 'Before we present the final project to the board, let’s hold a quick meeting to ensure we are all on the same page.' What does the phrase 'on the same page' imply in this context?",
+    "choices": [
+      "To be working at the same physical desk",
+      "To share the same understanding or opinion",
+      "To read from the identical project document"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ này có nghĩa là mọi người cùng đồng thuận hoặc có chung một cách hiểu về vấn đề."
+  },
+  {
+    "prompt": "If an entrepreneur says that applying for a massive government grant is a long shot, what are they suggesting?",
+    "choices": [
+      "The chances of successfully receiving the grant are slim",
+      "The task will take a very long time to complete",
+      "The application process is extremely expensive"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thành ngữ 'a long shot' diễn tả một việc khó có khả năng thành công."
+  },
+  {
+    "prompt": "Context: 'Sarah wanted to surprise her team with a fancy office lunch, but they were not on the same page regarding the date.' Based on the context, what happened?",
+    "choices": [
+      "The team members had conflicting expectations about when the lunch would be",
+      "The team members refused to look at the office calendar together",
+      "The team members forgot to bring their lunch schedules to the meeting"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Ngữ cảnh cho thấy có sự bất đồng về thời gian, tức là họ không có cùng suy nghĩ."
+  },
+  {
+    "prompt": "Choose the sentence that uses the idiom 'a long shot' grammatically and logically correctly.",
+    "choices": [
+      "I am a long shot to finish this report by five o'clock today.",
+      "Winning the lottery is a long shot, but people buy tickets anyway.",
+      "The new manager is a long shot for the company's growth strategy."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu đầu tiên sử dụng đúng nghĩa về một sự việc ít có khả năng xảy ra."
+  },
+  {
+    "prompt": "Before signing a contract, the department heads need to agree on its terms. Which sentence expresses that meaning?",
+    "choices": [
+      "The students stayed on the same page while the teacher explained the lesson.",
+      "The actors were reading from the same page during the final rehearsal.",
+      "The department heads need to be on the same page before signing the contract."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đây là cách sử dụng thành ngữ đúng để chỉ sự thống nhất ý kiến giữa các bên."
+  },
+  {
+    "prompt": "Which pairing correctly explains the figurative meaning of the idiom?",
+    "choices": [
+      "On the same page: a state of agreement regarding a specific plan or idea.",
+      "A long shot: a strategy that requires a very long-term commitment.",
+      "On the same page: a situation where two people are reading the same source material."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Giải thích này phản ánh chính xác nghĩa bóng của thành ngữ trong giao tiếp."
+  },
+  {
+    "prompt": "Person A: 'Do you think our proposal will be accepted by the investors?' Person B: 'Honestly, given the current market volatility, it’s __________.'",
+    "choices": [
+      "a long shot",
+      "on the same page",
+      "a short process"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dựa vào bối cảnh thị trường bất ổn, câu trả lời phù hợp nhất là việc được chấp thuận rất khó xảy ra."
+  },
+  {
+    "prompt": "Person A: 'I am worried that our advertising team and the sales department are pulling in different directions.' Person B: 'I agree. We really need to get them __________ before the launch.'",
+    "choices": [
+      "a quick result",
+      "on the same page",
+      "a long shot"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi các bộ phận không cùng định hướng, họ cần được thống nhất ý kiến."
+  },
+  {
+    "prompt": "Person A: 'I'm thinking of asking for a promotion after only two months here.' Person B: 'That’s __________, but it doesn't hurt to try if you have the evidence.'",
+    "choices": [
+      "a common practice",
+      "on the same page",
+      "a long shot"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc xin tăng lương sau thời gian quá ngắn là một việc khó thành công."
+  },
+  {
+    "prompt": "Which scenario best illustrates the idiom 'on the same page'?",
+    "choices": [
+      "Two coworkers realize they are both assigned the same desk.",
+      "Two business partners reach a consensus on the project budget.",
+      "Two friends buy the exact same book to read at the same time."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thành ngữ này nhấn mạnh vào sự đồng thuận về mặt ý tưởng và kế hoạch."
+  },
+  {
+    "prompt": "Which scenario best illustrates the idiom 'a long shot'?",
+    "choices": [
+      "A struggling actor auditions for a role he is clearly unqualified for.",
+      "A student studies for weeks to pass an easy exam with a high score.",
+      "An athlete attempts a shot from the other end of the basketball court."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc thử sức với một vai diễn không phù hợp là một việc rất khó thành công."
+  },
+  {
+    "prompt": "When two people are 'on the same page', what are they essentially doing?",
+    "choices": [
+      "Consulting the same reference book for accuracy.",
+      "Sharing physical space to complete a document.",
+      "Aligning their perspectives to avoid misunderstanding."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Nghĩa bóng của thành ngữ này là sự hòa hợp về tư tưởng và quan điểm."
+  },
+  {
+    "prompt": "If you describe an outcome as 'a long shot', what are you emphasizing?",
+    "choices": [
+      "The physical distance between the goal and the attempt.",
+      "The high level of uncertainty and low probability of success.",
+      "The duration of time needed to reach the goal."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thành ngữ này nhấn mạnh vào độ rủi ro và xác suất thành công thấp."
+  },
+  {
+    "prompt": "Complete the logic: A team working 'on the same page' is to synergy as a plan that is 'a long shot' is to __________.",
+    "choices": [
+      "certainty",
+      "optimism",
+      "risk"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cả hai vế đều so sánh đặc tính của thành ngữ với trạng thái tương ứng, 'a long shot' đồng nghĩa với rủi ro cao."
+  },
+  {
+    "prompt": "Select the correct usage of the idiom 'on the same page' in a professional setting.",
+    "choices": [
+      "The files are on the same page, so you can easily compare them.",
+      "I am on the same page as you because we share the same office floor.",
+      "We need to get the stakeholders on the same page to approve the merger."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc đạt được sự đồng thuận giữa các bên liên quan là cách sử dụng đúng nhất của thành ngữ này."
+  }
+]

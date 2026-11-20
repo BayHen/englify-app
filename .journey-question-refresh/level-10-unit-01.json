@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After reading the article and listening to the lecture, the student was able to ________ the findings from both media into a cohesive summary.",
+    "choices": [
+      "compare",
+      "synthesize",
+      "source"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'synthesize' có nghĩa là tổng hợp thông tin từ nhiều nguồn để tạo ra một nội dung thống nhất."
+  },
+  {
+    "prompt": "When preparing for the debate, you must ________ the author's opinion in the essay with the expert's testimony from the interview to find common ground.",
+    "choices": [
+      "source",
+      "compare",
+      "synthesize"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'compare' phù hợp nhất để chỉ hành động đối chiếu ý kiến giữa văn bản và bài phỏng vấn."
+  },
+  {
+    "prompt": "Always verify the ________ of your information by checking if the data provided in the podcast matches the credentials listed on the official website.",
+    "choices": [
+      "compare",
+      "synthesize",
+      "source"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'source' (nguồn gốc/độ tin cậy của nguồn) là lựa chọn chính xác khi đề cập đến việc kiểm chứng thông tin."
+  },
+  {
+    "prompt": "Select the sentence that correctly uses cross-source synthesis to connect ideas.",
+    "choices": [
+      "While the article argues for remote work, the lecture implies a similar conclusion by highlighting increased productivity.",
+      "The article argues for remote work because the lecture highlights increased productivity.",
+      "The article argues for remote work, although the lecture highlights increased productivity."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'While... [main clause]' thể hiện sự đối chiếu và tổng hợp thông tin từ hai nguồn một cách logic nhất."
+  },
+  {
+    "prompt": "Identify the most effective way to integrate information from two differing reports.",
+    "choices": [
+      "The text focuses on costs, whereas the podcast suggests that the long-term benefits outweigh them.",
+      "The text focuses on costs, and the podcast suggests that the long-term benefits outweigh them.",
+      "Although the text focuses on costs, the podcast suggests that the long-term benefits outweigh them."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ nối 'whereas' được dùng để làm nổi bật sự khác biệt giữa hai luồng thông tin một cách chuyên nghiệp."
+  },
+  {
+    "prompt": "Choose the best structure to synthesize concurring points from a textbook and a speech.",
+    "choices": [
+      "The textbook supports this theory, and the guest speaker provides empirical data.",
+      "Not only does the textbook support this theory, but the guest speaker also provides empirical data.",
+      "The textbook supports this theory, so the guest speaker provides empirical data."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc 'Not only... but also' là cách diễn đạt trang trọng và hiệu quả để tổng hợp các thông tin bổ trợ cho nhau."
+  },
+  {
+    "prompt": "Speaker A: 'The professor’s lecture suggests the market will crash, but the report says it’s stable.' Speaker B: '________'",
+    "choices": [
+      "It is important to source the lecture properly.",
+      "I will synthesize the two points to find the truth.",
+      "I see your point about the conflicting data."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời của Speaker B xác nhận sự mâu thuẫn giữa hai nguồn thông tin đã được nêu ra."
+  },
+  {
+    "prompt": "Speaker A: 'How did you manage to write such a comprehensive essay?' Speaker B: 'I had to ________.'",
+    "choices": [
+      "synthesize insights from both the article and the audio clip",
+      "compare the lecture to the reading constantly",
+      "source the author correctly in every paragraph"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc 'synthesize insights' là kỹ năng cốt lõi để tạo ra một bài viết tổng hợp sâu sắc."
+  },
+  {
+    "prompt": "Speaker A: 'Do you think the podcast is a reliable source for our research?' Speaker B: '________'",
+    "choices": [
+      "I believe we need to source the interviewees.",
+      "It is easy to synthesize the audio information.",
+      "We should compare it with the peer-reviewed journal to be sure."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc đối chiếu với một nguồn uy tín (peer-reviewed) là cách kiểm chứng độ tin cậy của thông tin tốt nhất."
+  },
+  {
+    "prompt": "When analyzing conflicting information from two sources, what is the best first step?",
+    "choices": [
+      "Discard the information that seems the most complicated.",
+      "Choose the source that has the most professional tone.",
+      "Identify the specific areas where the sources contradict each other."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Để tổng hợp thông tin, bước đầu tiên cần làm là xác định các điểm khác biệt hoặc mâu thuẫn giữa các nguồn."
+  },
+  {
+    "prompt": "Why is it important to cite multiple sources when synthesizing information?",
+    "choices": [
+      "To make the essay longer and meet the word count requirement.",
+      "To provide a balanced view and increase the credibility of the argument.",
+      "To avoid the effort of writing original conclusions."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc sử dụng nhiều nguồn giúp luận điểm của bạn khách quan và đáng tin cậy hơn."
+  },
+  {
+    "prompt": "Which of the following describes a synthesis of information?",
+    "choices": [
+      "Combining ideas from different sources to create a new, broader perspective.",
+      "Copying large sections of text directly from the sources.",
+      "Summarizing each source separately in different paragraphs."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tổng hợp (synthesis) là quá trình kết hợp các ý tưởng riêng lẻ để tạo ra một cái nhìn tổng quát mới."
+  },
+  {
+    "prompt": "If an article and a lecture present different data, how should you report this?",
+    "choices": [
+      "State both findings and note the discrepancy between them.",
+      "Ignore the lecture data as it is harder to verify.",
+      "Choose the source that supports your personal opinion."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cách làm đúng đắn là trình bày cả hai dữ liệu và chỉ ra sự khác biệt để đảm bảo tính minh bạch."
+  },
+  {
+    "prompt": "What does it mean to 'cross-source' in academic writing?",
+    "choices": [
+      "Using only the most popular search engines for information.",
+      "Comparing or linking information derived from various distinct documents or media.",
+      "Translating information from a foreign language source."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cross-source là thuật ngữ chỉ việc liên kết hoặc so sánh thông tin từ nhiều nguồn khác nhau."
+  },
+  {
+    "prompt": "When asked to synthesize information for a presentation, what should you avoid?",
+    "choices": [
+      "Including evidence from both the provided reading and the audio lecture.",
+      "Creating a clear connection between disparate facts.",
+      "Presenting a singular source without mentioning any others."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chỉ trình bày một nguồn duy nhất không thể hiện được kỹ năng tổng hợp thông tin từ đa nguồn."
+  }
+]

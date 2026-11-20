@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Despite the initial challenges, the team managed to __________ in their research project, bringing them closer to the final discovery.",
+    "choices": [
+      "do progress",
+      "take progress",
+      "make progress"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'make progress' là collocation cố định trong tiếng Anh để chỉ sự tiến bộ."
+  },
+  {
+    "prompt": "The local community decided to __________ in the annual marathon to raise funds for the hospital's new wing.",
+    "choices": [
+      "do part",
+      "take part",
+      "make part"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Collocation 'take part' mang nghĩa tham gia vào một sự kiện hoặc hoạt động."
+  },
+  {
+    "prompt": "The detective presented __________ that the suspect was not at the scene of the crime during the incident.",
+    "choices": [
+      "hard evidence",
+      "strong evidence",
+      "heavy evidence"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong ngữ cảnh này, 'strong evidence' là cụm từ tự nhiên nhất để diễn tả bằng chứng thuyết phục."
+  },
+  {
+    "prompt": "The students __________ their homework before the teacher arrived, which was a huge relief for them.",
+    "choices": [
+      "had finished",
+      "have finished",
+      "were finished"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thì quá khứ hoàn thành dùng để chỉ hành động hoàn tất trước một thời điểm khác trong quá khứ."
+  },
+  {
+    "prompt": "If she __________ more effort into her presentation, she would have received a higher grade from the committee.",
+    "choices": [
+      "had put",
+      "puts",
+      "would put"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đây là câu điều kiện loại 3 dùng để diễn tả sự tiếc nuối về một hành động không xảy ra trong quá khứ."
+  },
+  {
+    "prompt": "By the time we reach the summit, we __________ for over six hours without a proper break.",
+    "choices": [
+      "are climbing",
+      "climbed",
+      "will have climbed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Thì tương lai hoàn thành tiếp diễn nhấn mạnh khoảng thời gian kéo dài của hành động đến một thời điểm tương lai."
+  },
+  {
+    "prompt": "Speaker A: 'I'm afraid I won't be able to finish the report by five.' Speaker B: 'Don't worry, just __________ and do your best.'",
+    "choices": [
+      "do a start",
+      "take a start",
+      "make a start"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'make a start' diễn tả việc bắt đầu thực hiện một công việc nào đó."
+  },
+  {
+    "prompt": "Speaker A: 'Did you enjoy the workshop yesterday?' Speaker B: 'Yes, it was fascinating to __________ in such a collaborative environment.'",
+    "choices": [
+      "take part",
+      "make part",
+      "do part"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'take part in' là lựa chọn chính xác về mặt từ vựng cho ngữ cảnh tham gia sự kiện."
+  },
+  {
+    "prompt": "Speaker A: 'Do you think they will release the results today?' Speaker B: 'Probably not, since there is no __________ to support their current theory.'",
+    "choices": [
+      "hard evidence",
+      "strong evidence",
+      "firm evidence"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'strong evidence' phù hợp nhất để trả lời cho câu hỏi về sự hỗ trợ của lý thuyết."
+  },
+  {
+    "prompt": "We need to __________ a decision soon if we want to secure the venue for the wedding.",
+    "choices": [
+      "take",
+      "do",
+      "make"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'make' luôn đi với danh từ 'decision' để tạo thành collocation cố định."
+  },
+  {
+    "prompt": "The government is trying to __________ changes to the education system to improve student performance.",
+    "choices": [
+      "take",
+      "make",
+      "do"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'make changes' được sử dụng phổ biến để diễn tả việc thực hiện thay đổi."
+  },
+  {
+    "prompt": "It is important to __________ a break every hour when you are working on a computer screen for a long time.",
+    "choices": [
+      "take",
+      "have",
+      "make"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'take a break' là collocation tự nhiên trong tiếng Anh để chỉ việc nghỉ giải lao."
+  },
+  {
+    "prompt": "She always __________ an effort to help her colleagues whenever they are struggling with their tasks.",
+    "choices": [
+      "takes",
+      "does",
+      "makes"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Collocation 'make an effort' nghĩa là nỗ lực làm việc gì đó."
+  },
+  {
+    "prompt": "After the long discussion, they finally __________ a conclusion that satisfied everyone in the room.",
+    "choices": [
+      "reached",
+      "did",
+      "took"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Động từ 'reach' đi với 'a conclusion' để tạo thành cụm từ đi đến kết luận."
+  },
+  {
+    "prompt": "The manager asked the employees to __________ notes during the meeting so they wouldn't forget the key points.",
+    "choices": [
+      "do",
+      "take",
+      "make"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'take notes' là collocation phổ biến dùng để chỉ việc ghi chép lại."
+  }
+]

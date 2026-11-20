@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I don't have a car, so I take the ______ to go to work every morning.",
+    "choices": [
+      "ticket",
+      "bus",
+      "station"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'bus' là phương tiện giao thông phù hợp nhất để đi làm hàng ngày."
+  },
+  {
+    "prompt": "You need to buy a ______ before you can get on the train.",
+    "choices": [
+      "platform",
+      "track",
+      "ticket"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hành khách cần có vé trước khi lên tàu."
+  },
+  {
+    "prompt": "The ______ leaves the city at 8:00 AM and arrives in the next town at 9:00 AM.",
+    "choices": [
+      "train",
+      "driver",
+      "seat"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tàu hỏa là phương tiện di chuyển phổ biến giữa các thành phố."
+  },
+  {
+    "prompt": "We usually travel ______ bus when we go to the city center.",
+    "choices": [
+      "by",
+      "in",
+      "on"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'by + phương tiện giao thông' được dùng để chỉ cách thức di chuyển."
+  },
+  {
+    "prompt": "My sister is ______ the train right now, so she cannot answer the phone.",
+    "choices": [
+      "at",
+      "on",
+      "by"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Khi đang ở trên phương tiện giao thông công cộng, chúng ta dùng giới từ 'on'."
+  },
+  {
+    "prompt": "He goes to the office ______ train every single day.",
+    "choices": [
+      "in",
+      "by",
+      "at"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Giới từ 'by' được sử dụng trước tên các loại phương tiện giao thông."
+  },
+  {
+    "prompt": "A: Excuse me, where do I buy a ticket for the bus?\nB: ______",
+    "choices": [
+      "The bus is blue.",
+      "It takes thirty minutes.",
+      "You can buy it at the station."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời cung cấp đúng địa điểm mua vé theo yêu cầu của người hỏi."
+  },
+  {
+    "prompt": "A: Is it expensive to travel by train?\nB: ______",
+    "choices": [
+      "The train is very long.",
+      "Yes, I like the train.",
+      "No, it is quite cheap."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời trực tiếp phản hồi về chi phí di chuyển bằng tàu."
+  },
+  {
+    "prompt": "A: How do you get to school?\nB: ______",
+    "choices": [
+      "I take the bus.",
+      "It is near the park.",
+      "I have a new bag."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời nêu rõ phương tiện di chuyển để đến trường."
+  },
+  {
+    "prompt": "Most people in this city prefer to go to work ______ bus to save money.",
+    "choices": [
+      "by",
+      "on",
+      "at"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'by' để diễn tả phương tiện giao thông được sử dụng để di chuyển."
+  },
+  {
+    "prompt": "Don't forget your ______! You cannot get on the train without it.",
+    "choices": [
+      "train",
+      "ticket",
+      "bus"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Vé là vật bắt buộc phải có để lên tàu."
+  },
+  {
+    "prompt": "There are many people waiting for the ______ at the bus stop.",
+    "choices": [
+      "ticket",
+      "station",
+      "bus"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Người ta thường đợi xe buýt tại trạm dừng xe buýt."
+  },
+  {
+    "prompt": "I am sitting ______ the bus, looking out of the window.",
+    "choices": [
+      "on",
+      "at",
+      "by"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng 'on' khi muốn diễn tả việc đang ở bên trong phương tiện giao thông."
+  },
+  {
+    "prompt": "We traveled ______ train across the country last summer.",
+    "choices": [
+      "on",
+      "in",
+      "by"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giới từ 'by' đi kèm với 'train' để chỉ phương thức di chuyển."
+  },
+  {
+    "prompt": "He bought a bus ______ at the machine in the station.",
+    "choices": [
+      "seat",
+      "ticket",
+      "driver"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Máy bán hàng tự động ở nhà ga thường được dùng để mua vé xe buýt."
+  }
+]

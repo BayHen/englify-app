@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The newspaper article had a catchy ________ that made people want to read the entire story about the city festival.",
+    "choices": [
+      "notice",
+      "detail",
+      "headline"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Headline là tiêu đề bài báo thường dùng để thu hút người đọc."
+  },
+  {
+    "prompt": "I saw a ________ on the wall saying that the library will be closed for renovations starting next Monday.",
+    "choices": [
+      "headline",
+      "notice",
+      "detail"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Notice là một thông báo ngắn gọn dán ở nơi công cộng."
+  },
+  {
+    "prompt": "The report was too long, but she managed to find every important ________ regarding the budget cuts.",
+    "choices": [
+      "notice",
+      "headline",
+      "detail"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Detail dùng để chỉ các thông tin chi tiết cụ thể trong văn bản."
+  },
+  {
+    "prompt": "When you ________ the text, you move your eyes quickly over the page to get the general idea without reading every word.",
+    "choices": [
+      "scan",
+      "skim",
+      "summarize"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Skimming là đọc lướt để lấy ý chính thay vì đọc chi tiết."
+  },
+  {
+    "prompt": "If you need to ________ the document to find the specific date of the meeting, look for numbers and names.",
+    "choices": [
+      "scan",
+      "edit",
+      "skim"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Scanning là phương pháp đọc quét để tìm kiếm một dữ kiện cụ thể."
+  },
+  {
+    "prompt": "After I ________ the brochure for five minutes, I decided it was not the right tour for my family.",
+    "choices": [
+      "noticed",
+      "scanned",
+      "skimmed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đọc lướt (skimmed) là hành động phù hợp để nhanh chóng đưa ra quyết định dựa trên ý chính."
+  },
+  {
+    "prompt": "A: Excuse me, can you tell me what time the train arrives? B: ________",
+    "choices": [
+      "Please notice the clock on the wall.",
+      "I will skim the ticket for you later.",
+      "Let me scan the departure board for you."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Scanning là kỹ năng tìm kiếm thông tin cụ thể như giờ tàu trên bảng tin."
+  },
+  {
+    "prompt": "A: Did you read the whole report? B: No, I just ________ to see if it mentioned the new policy.",
+    "choices": [
+      "skimmed it to look for details",
+      "scanned it for the main topic",
+      "read the notice on the front"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Skim là đọc lướt để hiểu ý chính trước khi tìm chi tiết."
+  },
+  {
+    "prompt": "A: Why is the store closed today? B: There is a ________ on the door explaining the emergency plumbing work.",
+    "choices": [
+      "notice",
+      "headline",
+      "detail"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thông tin về việc cửa hàng đóng cửa thường được ghi trên một tờ thông báo (notice)."
+  },
+  {
+    "prompt": "Which strategy should you use if you only want to know the general topic of an article?",
+    "choices": [
+      "noticing",
+      "skimming",
+      "scanning"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Skimming là kỹ thuật đọc lấy ý chính (general topic)."
+  },
+  {
+    "prompt": "When looking for a specific phone number in a long directory, which technique is most effective?",
+    "choices": [
+      "skimming",
+      "scanning",
+      "noticing"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Scanning được dùng để tìm kiếm các thông tin dữ liệu cụ thể như số điện thoại."
+  },
+  {
+    "prompt": "Which part of a newspaper article is usually written in large, bold letters?",
+    "choices": [
+      "the headline",
+      "the notice",
+      "the detail"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Headline thường được in đậm và to để làm nổi bật chủ đề bài báo."
+  },
+  {
+    "prompt": "If you are reading a menu to quickly find the price of a burger, what are you doing?",
+    "choices": [
+      "skimming",
+      "scanning",
+      "noticing"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Tìm kiếm giá tiền là tìm một chi tiết cụ thể, nên dùng kỹ năng scanning."
+  },
+  {
+    "prompt": "Why do writers include a headline at the beginning of an article?",
+    "choices": [
+      "To give the reader an idea of the content",
+      "To summarize all the technical details",
+      "To list the names of all the people interviewed"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tiêu đề giúp người đọc nắm bắt sơ bộ về nội dung của bài viết."
+  },
+  {
+    "prompt": "What is the best way to understand the structure of a long document before you start reading?",
+    "choices": [
+      "Scan every sentence for keywords",
+      "Write down a notice about the text",
+      "Skim the headings and subheadings"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đọc lướt các tiêu đề là cách tốt nhất để hiểu cấu trúc tổng quát của một văn bản dài."
+  }
+]

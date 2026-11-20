@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Before the exam, I always spend two hours to ______ my notes to make sure I remember everything.",
+    "choices": [
+      "revise",
+      "feedback",
+      "assignment"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'revise' có nghĩa là ôn tập, phù hợp nhất để dùng trước kỳ thi."
+  },
+  {
+    "prompt": "Our teacher gave us a very difficult ______ about global warming that we need to finish by Friday.",
+    "choices": [
+      "revise",
+      "assignment",
+      "feedback"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'assignment' có nghĩa là bài tập được giao, phù hợp với ngữ cảnh cần hoàn thành trước thứ Sáu."
+  },
+  {
+    "prompt": "I was nervous about my essay, but the teacher's ______ helped me understand how to improve my writing.",
+    "choices": [
+      "feedback",
+      "assignment",
+      "revise"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'feedback' có nghĩa là phản hồi, giúp người viết cải thiện bài làm của mình."
+  },
+  {
+    "prompt": "I ______ already ______ all the chapters for the history test.",
+    "choices": [
+      "have / read",
+      "have / reading",
+      "has / read"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc hiện tại hoàn thành với chủ ngữ 'I' đi với trợ động từ 'have' và quá khứ phân từ."
+  },
+  {
+    "prompt": "______ you ever ______ a presentation in front of the whole class?",
+    "choices": [
+      "Has / give",
+      "Have / given",
+      "Have / gave"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dạng nghi vấn của hiện tại hoàn thành yêu cầu 'Have' + chủ ngữ + quá khứ phân từ (given)."
+  },
+  {
+    "prompt": "Sarah ______ never ______ to the library to study before.",
+    "choices": [
+      "has / been",
+      "has / went",
+      "have / been"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Chủ ngữ ngôi thứ ba số ít 'Sarah' đi với 'has' và quá khứ phân từ của 'be' là 'been'."
+  },
+  {
+    "prompt": "A: Did you finish the math homework? B: Yes, ______.",
+    "choices": [
+      "I finish it already",
+      "I have it done",
+      "I've just finished it"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Thì hiện tại hoàn thành với 'just' diễn tả một hành động vừa mới hoàn thành xong."
+  },
+  {
+    "prompt": "A: Why are you so happy? B: ______.",
+    "choices": [
+      "I pass my exam",
+      "I have passed my exam",
+      "I passed my exam"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Hiện tại hoàn thành nhấn mạnh kết quả của hành động thi đậu ở hiện tại."
+  },
+  {
+    "prompt": "A: Can we use the classroom now? B: No, the teacher ______ locked the door.",
+    "choices": [
+      "hasn't yet",
+      "have yet",
+      "has already"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trạng từ 'already' được dùng trong câu khẳng định của thì hiện tại hoàn thành để chỉ hành động đã xảy ra."
+  },
+  {
+    "prompt": "If you don't understand the lesson, you should ask the teacher for ______. ",
+    "choices": [
+      "revision",
+      "homework",
+      "guidance"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi không hiểu bài, việc xin sự hướng dẫn (guidance) là logic nhất."
+  },
+  {
+    "prompt": "She has ______ her textbook three times, so she knows the material very well.",
+    "choices": [
+      "reviewed with",
+      "reviewing",
+      "reviewed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sau 'has' cần một quá khứ phân từ (V3/ed) để tạo thành thì hiện tại hoàn thành."
+  },
+  {
+    "prompt": "Learning together in a group is often better because you can ______ ideas with your friends.",
+    "choices": [
+      "share",
+      "give",
+      "make"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'share ideas' (chia sẻ ý tưởng) là kết hợp từ tự nhiên trong ngữ cảnh học tập nhóm."
+  },
+  {
+    "prompt": "My brother has ______ at this university for three years now.",
+    "choices": [
+      "been studying",
+      "studied",
+      "study"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thì hiện tại hoàn thành diễn tả một hành động kéo dài từ quá khứ đến hiện tại."
+  },
+  {
+    "prompt": "Make sure you ______ the instructions carefully before you start writing the assignment.",
+    "choices": [
+      "reading",
+      "have read",
+      "read"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Đây là câu mệnh lệnh, cần dùng động từ nguyên thể ở đầu câu."
+  },
+  {
+    "prompt": "We ______ all of our project goals for this semester already.",
+    "choices": [
+      "has achieved",
+      "have achieved",
+      "achieve"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ 'We' số nhiều đi với 'have' và quá khứ phân từ để chỉ sự hoàn thành."
+  }
+]

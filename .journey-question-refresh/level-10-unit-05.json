@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "After months of research, the team finally submitted a formal ________ to the board of directors outlining the new project timeline.",
+    "choices": [
+      "proposal",
+      "stakeholder",
+      "outcome"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'proposal' phù hợp nhất trong ngữ cảnh gửi một bản kế hoạch hoặc đề xuất chính thức cho ban giám đốc."
+  },
+  {
+    "prompt": "It is crucial to identify every ________ early in the project to ensure that everyone's interests and expectations are addressed.",
+    "choices": [
+      "outcome",
+      "proposal",
+      "stakeholder"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Các bên liên quan (stakeholders) cần được xác định sớm để đảm bảo quyền lợi của họ được xem xét."
+  },
+  {
+    "prompt": "The primary ________ of the negotiation was a significant reduction in production costs, which satisfied all parties involved.",
+    "choices": [
+      "proposal",
+      "stakeholder",
+      "outcome"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'outcome' mô tả kết quả cuối cùng đạt được sau một quá trình đàm phán."
+  },
+  {
+    "prompt": "Select the most appropriate formal register for an email to a potential client: \"________ you have any questions regarding the attached document, please do not hesitate to contact me.\"",
+    "choices": [
+      "Could",
+      "Should",
+      "Would"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc đảo ngữ 'Should you have...' mang tính trang trọng và chuyên nghiệp hơn so với các lựa chọn còn lại."
+  },
+  {
+    "prompt": "Choose the correct professional phrasing to acknowledge a mistake: \"I realize that our previous report was incomplete, and I ________ apologize for the inconvenience caused.\"",
+    "choices": [
+      "am truly",
+      "am having to",
+      "would like to"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cụm từ 'would like to' thể hiện sự lịch thiệp và chuyên nghiệp trong giao tiếp công sở."
+  },
+  {
+    "prompt": "Which sentence follows standard professional register when requesting a deadline extension?",
+    "choices": [
+      "I need more time for this.",
+      "Could we possibly extend the deadline to Friday?",
+      "Can you give me until Friday to finish it?"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu thứ hai sử dụng cấu trúc cầu khiến nhẹ nhàng, lịch sự phù hợp với ngữ cảnh công việc."
+  },
+  {
+    "prompt": "Colleague: 'We really need to finalize the budget by this afternoon.' You: '________. I will prioritize this immediately.'",
+    "choices": [
+      "That sounds like a fun task.",
+      "I understand the urgency.",
+      "No way, I am too busy."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời này thể hiện sự chuyên nghiệp bằng cách xác nhận mức độ ưu tiên của công việc."
+  },
+  {
+    "prompt": "Manager: 'The client was quite disappointed with the initial presentation.' You: '________. What specific areas should we improve?'",
+    "choices": [
+      "That is their problem.",
+      "Why did they complain?",
+      "I see. Thank you for the feedback."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cách phản hồi này thể hiện thái độ cầu thị và chuyên nghiệp đối với những đóng góp ý kiến."
+  },
+  {
+    "prompt": "Partner: 'Are you available for a quick sync at 2 PM?' You: '________, but I can make time if it is critical.'",
+    "choices": [
+      "My schedule is quite tight",
+      "I have nothing to do",
+      "I am totally slammed"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cách diễn đạt 'My schedule is quite tight' mang tính chuyên nghiệp hơn khi từ chối khéo léo."
+  },
+  {
+    "prompt": "When providing constructive feedback to a peer, it is most effective to focus on ________ rather than personal attributes.",
+    "choices": [
+      "emotional reactions",
+      "specific behaviors",
+      "general frustrations"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong giao tiếp chuyên nghiệp, việc tập trung vào các hành vi cụ thể giúp phản hồi mang tính xây dựng và ít gây xung đột."
+  },
+  {
+    "prompt": "Which method is best for ensuring clarity in a complex email exchange?",
+    "choices": [
+      "Summarizing key points in bullet points.",
+      "Writing everything in one large paragraph.",
+      "Using long, complex sentences."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sử dụng các ý gạch đầu dòng giúp thông tin trở nên rõ ràng và dễ nắm bắt hơn cho người đọc."
+  },
+  {
+    "prompt": "What is the most appropriate action when you do not understand a task assigned by your supervisor?",
+    "choices": [
+      "Ask for a brief clarification.",
+      "Wait for someone else to explain it.",
+      "Guess what they mean to avoid bother."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc chủ động yêu cầu làm rõ giúp tránh sai sót và thể hiện trách nhiệm trong công việc."
+  },
+  {
+    "prompt": "When conducting a virtual meeting, what demonstrates professional engagement?",
+    "choices": [
+      "Keeping your camera off at all times.",
+      "Checking your personal email during pauses.",
+      "Maintaining eye contact by looking at the camera."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Nhìn vào camera trong các cuộc họp trực tuyến tạo ra kết nối và thể hiện sự tôn trọng với người đối thoại."
+  },
+  {
+    "prompt": "Which of the following is considered a best practice when writing a professional email subject line?",
+    "choices": [
+      "Keep it brief and descriptive.",
+      "Use all capital letters for visibility.",
+      "Leave it empty to spark curiosity."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Tiêu đề ngắn gọn và mô tả đúng nội dung giúp người nhận dễ dàng quản lý email."
+  },
+  {
+    "prompt": "If you need to report a delay to a client, what is the best approach?",
+    "choices": [
+      "Wait until the deadline has passed.",
+      "Inform them as soon as the delay is anticipated.",
+      "Blame the technical department for the issue."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thông báo sớm về sự chậm trễ cho thấy sự chuyên nghiệp và giúp khách hàng có phương án dự phòng."
+  }
+]

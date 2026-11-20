@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "During the formal debate, Sarah offered a brilliant ________ that dismantled her opponent's claim about urban infrastructure.",
+    "choices": [
+      "concede",
+      "rebuttal",
+      "compelling"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Rebuttal là danh từ chỉ sự phản bác, phù hợp với ngữ cảnh tranh luận."
+  },
+  {
+    "prompt": "The expert witness was forced to ________ that the new evidence might indeed change the outcome of the case.",
+    "choices": [
+      "rebuttal",
+      "compelling",
+      "concede"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Concede là động từ có nghĩa là thừa nhận, phù hợp để mô tả việc chấp nhận bằng chứng đối nghịch."
+  },
+  {
+    "prompt": "The committee found the candidate’s vision for the company to be highly ________, leading them to offer her the position immediately.",
+    "choices": [
+      "rebuttal",
+      "compelling",
+      "concede"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Compelling là tính từ có nghĩa là thuyết phục, phù hợp để mô tả một tầm nhìn có sức ảnh hưởng."
+  },
+  {
+    "prompt": "Choose the sentence that demonstrates a logical progression from premise to conclusion.",
+    "choices": [
+      "Since renewable energy is cheaper, we must ban all fossil fuels immediately regardless of economic fallout.",
+      "Unless we see economic fallout, we should conclude that solar energy is the only way to save the planet.",
+      "Given that solar energy costs have plummeted, investing in solar infrastructure is a financially prudent strategy for the city."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này thể hiện cấu trúc lập luận logic từ dữ liệu chi phí đến kết luận chiến lược."
+  },
+  {
+    "prompt": "Select the correct transition to strengthen an argument by adding weight to a prior point.",
+    "choices": [
+      "The policy is flawed; furthermore, it fails to address the needs of the community entirely.",
+      "The policy is flawed; nevertheless, it fails to address the needs of the community entirely.",
+      "The policy is flawed; alternatively, it fails to address the needs of the community entirely."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Furthermore dùng để thêm ý bổ trợ làm mạnh thêm cho luận điểm đã nêu."
+  },
+  {
+    "prompt": "Identify the statement that uses a concessive clause to acknowledge an opposing view before pivoting.",
+    "choices": [
+      "Digital learning offers flexibility because students prefer to learn from home during the pandemic.",
+      "Digital learning offers flexibility, so it should replace the physical classroom to save costs.",
+      "Although digital learning offers flexibility, it cannot fully replace the interpersonal benefits of a physical classroom."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Mệnh đề 'Although' giúp thừa nhận ý kiến trái chiều trước khi đưa ra luận điểm chính."
+  },
+  {
+    "prompt": "Person A: 'I believe we should increase the minimum wage to boost local spending.' Person B: '________, but we must consider the potential rise in operational costs for small businesses.'",
+    "choices": [
+      "That is a valid point",
+      "I absolutely disagree",
+      "That is a fair assessment"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm 'That is a valid point' là cách lịch sự để thừa nhận quan điểm trước khi đưa ra phản biện."
+  },
+  {
+    "prompt": "Person A: 'The statistics prove that remote work increases productivity.' Person B: '________, recent studies show that social isolation can actually lower long-term output.'",
+    "choices": [
+      "I see your perspective",
+      "On the contrary",
+      "That makes sense"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'On the contrary' dùng để giới thiệu thông tin trái ngược với ý kiến vừa đưa ra."
+  },
+  {
+    "prompt": "Person A: 'Should we prioritize environmental regulations over industrial expansion?' Person B: 'It is a complex trade-off, but ________ long-term sustainability is essential for survival.'",
+    "choices": [
+      "I am not interested",
+      "I tend to think that",
+      "I refuse to believe"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'I tend to think that' giúp bày tỏ quan điểm cá nhân một cách chừng mực trong tranh luận."
+  },
+  {
+    "prompt": "Which element is most essential when constructing a persuasive argument for a skeptical audience?",
+    "choices": [
+      "A highly emotional tone that discourages questioning.",
+      "A long list of personal anecdotes without external validation.",
+      "Data-driven evidence that addresses potential counter-arguments."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc dùng dữ liệu và phản hồi các ý kiến trái chiều là cách thuyết phục người nghe đa nghi tốt nhất."
+  },
+  {
+    "prompt": "How does a speaker maintain credibility during a heated debate?",
+    "choices": [
+      "By addressing opposing points with respect and logical analysis.",
+      "By avoiding the mention of weaknesses in their own argument.",
+      "By consistently using complex jargon to overwhelm the opponent."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sự tôn trọng và phân tích logic giúp duy trì uy tín của người tranh luận."
+  },
+  {
+    "prompt": "What is the primary function of a rebuttal in a formal debate?",
+    "choices": [
+      "To identify and weaken the logic of the opposing side's claims.",
+      "To summarize the speaker's own opening statement.",
+      "To dismiss the opponent's right to speak on the topic."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Mục đích của phản biện là chỉ ra lỗ hổng logic trong lập luận của đối phương."
+  },
+  {
+    "prompt": "When is it most appropriate to use a concession in a persuasive speech?",
+    "choices": [
+      "When you need to build trust by validating a minor truth in the opposition's argument.",
+      "When you are running out of time and need to finish the speech quickly.",
+      "When you want to show your argument is flawless."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thừa nhận một sự thật nhỏ ở phe đối lập giúp tăng độ tin cậy của bài nói."
+  },
+  {
+    "prompt": "Which strategy describes an effective 'pathos' appeal in a debate?",
+    "choices": [
+      "Listing the mathematical probability of a policy failing next year.",
+      "Using a poignant story that illustrates the real-world impact of a policy.",
+      "Referencing the historical credentials of the person who proposed the idea."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Pathos là yếu tố cảm xúc, thường được thể hiện qua các câu chuyện có tính tác động cao."
+  },
+  {
+    "prompt": "If a speaker says, 'While I respect the budget constraints mentioned, we cannot ignore the human cost,' what are they doing?",
+    "choices": [
+      "They are ending the debate because they cannot find a solution.",
+      "They are shifting the topic to avoid discussing the budget entirely.",
+      "They are conceding to the opponent's logic but prioritizing their own values."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu này thể hiện sự thừa nhận (concede) một ý kiến đối lập trước khi nêu lên quan điểm chính."
+  }
+]

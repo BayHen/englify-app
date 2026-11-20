@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Look at the park. There are many trees and flowers in this ________.",
+    "choices": [
+      "place",
+      "person",
+      "object"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Công viên là một địa điểm, vì vậy từ 'place' là lựa chọn chính xác."
+  },
+  {
+    "prompt": "My teacher is a kind ________. She helps us learn every day.",
+    "choices": [
+      "object",
+      "place",
+      "person"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Giáo viên là một con người, nên từ 'person' phù hợp nhất."
+  },
+  {
+    "prompt": "I need a pen to write. Where can I find that ________?",
+    "choices": [
+      "object",
+      "person",
+      "place"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cây bút là một đồ vật, vì thế từ 'object' là từ đúng."
+  },
+  {
+    "prompt": "John is my best friend. ________ lives in London.",
+    "choices": [
+      "He",
+      "She",
+      "It"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "John là nam giới nên đại từ nhân xưng phù hợp là 'He'."
+  },
+  {
+    "prompt": "The table is very big. ________ is made of wood.",
+    "choices": [
+      "She",
+      "He",
+      "It"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cái bàn là đồ vật, vì vậy ta dùng đại từ 'It' để thay thế."
+  },
+  {
+    "prompt": "Sarah and I are students. ________ go to school together.",
+    "choices": [
+      "We",
+      "You",
+      "They"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sarah và tôi là 'chúng tôi', nên đại từ phù hợp là 'We'."
+  },
+  {
+    "prompt": "A: Who is that man? B: ________ is my father.",
+    "choices": [
+      "She",
+      "It",
+      "He"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Người đàn ông được thay thế bằng đại từ 'He' trong câu trả lời."
+  },
+  {
+    "prompt": "A: Where is your bag? B: ________ is in the classroom.",
+    "choices": [
+      "He",
+      "They",
+      "It"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cái túi là đồ vật, nên dùng 'It' để chỉ vị trí của nó."
+  },
+  {
+    "prompt": "A: Are you and Ann friends? B: Yes, ________ are best friends.",
+    "choices": [
+      "You",
+      "We",
+      "I"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Bạn và Ann là hai người, nên câu trả lời dùng 'We' là chính xác."
+  },
+  {
+    "prompt": "The cat is sleeping on the chair. ________ is very tired.",
+    "choices": [
+      "He",
+      "She",
+      "It"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Con vật (con mèo) được thay thế bằng đại từ 'It' trong ngữ cảnh này."
+  },
+  {
+    "prompt": "My mother works at the hospital. ________ is a doctor.",
+    "choices": [
+      "It",
+      "She",
+      "He"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Mẹ là nữ giới nên ta dùng đại từ 'She'."
+  },
+  {
+    "prompt": "Look at those books. ________ are very interesting.",
+    "choices": [
+      "They",
+      "We",
+      "It"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Những cuốn sách là số nhiều, vì vậy dùng 'They' để thay thế."
+  },
+  {
+    "prompt": "The library is a quiet ________ where we study.",
+    "choices": [
+      "object",
+      "place",
+      "person"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thư viện là một địa điểm nên dùng 'place'."
+  },
+  {
+    "prompt": "This cup is blue. ________ is on the desk.",
+    "choices": [
+      "He",
+      "It",
+      "We"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cái cốc là đồ vật nên dùng 'It'."
+  },
+  {
+    "prompt": "Mr. Lee is a nice ________. He works in the bank.",
+    "choices": [
+      "object",
+      "person",
+      "place"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Ông Lee là một con người nên dùng 'person'."
+  }
+]

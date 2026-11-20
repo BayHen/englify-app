@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Climbing the highest mountain in the country was a major _______ for the young hiker.",
+    "choices": [
+      "challenge",
+      "achievement",
+      "memorable"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'achievement' (thành tựu) phù hợp nhất với ngữ cảnh nói về việc vượt qua một cột mốc quan trọng."
+  },
+  {
+    "prompt": "Traveling through the desert without a guide was a difficult _______, but he learned a lot.",
+    "choices": [
+      "achievement",
+      "challenge",
+      "memorable"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'challenge' (thử thách) diễn tả một trải nghiệm khó khăn cần vượt qua."
+  },
+  {
+    "prompt": "Our sunset cruise in the Mediterranean was a truly _______ experience that we will never forget.",
+    "choices": [
+      "achievement",
+      "challenge",
+      "memorable"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'memorable' (đáng nhớ) dùng để chỉ một sự kiện khó quên."
+  },
+  {
+    "prompt": "I _______ to Japan three times since I started working for this international company.",
+    "choices": [
+      "have traveled",
+      "did travel",
+      "traveled"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng thì hiện tại hoàn thành với 'since' để chỉ hành động lặp lại trong một khoảng thời gian đến hiện tại."
+  },
+  {
+    "prompt": "She _______ her backpack in the lobby when she checked into the hotel yesterday afternoon.",
+    "choices": [
+      "was leaving",
+      "left",
+      "has left"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng thì quá khứ đơn vì hành động xảy ra tại một thời điểm xác định trong quá khứ là 'yesterday afternoon'."
+  },
+  {
+    "prompt": "We _______ the museum yet, so we are planning to go there tomorrow morning.",
+    "choices": [
+      "didn't visit",
+      "haven't visited",
+      "don't visit"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Thì hiện tại hoàn thành đi với 'yet' dùng để nói về trải nghiệm chưa xảy ra tính đến thời điểm hiện tại."
+  },
+  {
+    "prompt": "A: Have you ever been to a desert? B: Yes, I _______ to the Sahara last summer.",
+    "choices": [
+      "go",
+      "went",
+      "have gone"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Người B trả lời cụ thể về 'last summer' nên phải dùng quá khứ đơn."
+  },
+  {
+    "prompt": "A: How was the festival? B: It was incredible! I _______ so many interesting people.",
+    "choices": [
+      "meet",
+      "have met",
+      "met"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sự kiện lễ hội đã kết thúc nên dùng thì quá khứ đơn để kể lại."
+  },
+  {
+    "prompt": "A: Are you excited about the trip? B: Definitely. I _______ all the necessary preparations already.",
+    "choices": [
+      "have finished",
+      "finish",
+      "finished"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng thì hiện tại hoàn thành với 'already' để chỉ một việc vừa hoàn thành xong."
+  },
+  {
+    "prompt": "Learning to scuba dive was a significant _______ that helped her overcome her fear of water.",
+    "choices": [
+      "memorable",
+      "challenge",
+      "achievement"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Việc vượt qua nỗi sợ hãi được coi là một thành tựu cá nhân."
+  },
+  {
+    "prompt": "The rainy weather during our hike turned out to be a real _______ for our group.",
+    "choices": [
+      "challenge",
+      "achievement",
+      "memorable"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Thời tiết xấu tạo ra những khó khăn cần khắc phục, đó là một thử thách."
+  },
+  {
+    "prompt": "I will always cherish the _______ photos we took during our backpacking trip through Europe.",
+    "choices": [
+      "challenge",
+      "achievement",
+      "memorable"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Những bức ảnh gợi nhắc về những kỷ niệm đáng nhớ."
+  },
+  {
+    "prompt": "He _______ his passport in the taxi, so he couldn't board the plane.",
+    "choices": [
+      "has lost",
+      "lose",
+      "lost"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Hành động mất hộ chiếu xảy ra tại một thời điểm cụ thể dẫn đến hậu quả trong quá khứ nên dùng quá khứ đơn."
+  },
+  {
+    "prompt": "They _______ to three different continents since they retired last year.",
+    "choices": [
+      "have flown",
+      "flew",
+      "fly"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Hành động kéo dài từ quá khứ đến hiện tại cần dùng hiện tại hoàn thành."
+  },
+  {
+    "prompt": "My sister _______ an award for her photography work last month.",
+    "choices": [
+      "won",
+      "has won",
+      "wins"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trạng từ chỉ thời gian 'last month' yêu cầu sử dụng thì quá khứ đơn."
+  }
+]

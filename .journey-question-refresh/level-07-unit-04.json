@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "The primary ______ of the factory closure was the unexpected decline in consumer demand for our products.",
+    "choices": [
+      "cause",
+      "impact",
+      "solution"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'cause' phù hợp để chỉ nguyên nhân dẫn đến việc đóng cửa nhà máy."
+  },
+  {
+    "prompt": "We need to analyze the long-term ______ of this strategy on our company's profitability before moving forward.",
+    "choices": [
+      "cause",
+      "impact",
+      "solution"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'impact' mô tả tác động hoặc ảnh hưởng lâu dài của một chiến lược lên lợi nhuận."
+  },
+  {
+    "prompt": "After discussing several ideas, the team finally proposed a creative ______ to the recurring software bug.",
+    "choices": [
+      "cause",
+      "solution",
+      "impact"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'solution' được dùng để chỉ giải pháp cho một vấn đề kỹ thuật."
+  },
+  {
+    "prompt": "If the project manager ______ more time to review the documents, he would have noticed the error.",
+    "choices": [
+      "takes",
+      "had taken",
+      "took"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là câu điều kiện loại 3 diễn tả một giả thiết trái ngược với quá khứ."
+  },
+  {
+    "prompt": "Unless you ______ a clear plan to the board, they will not approve your budget request.",
+    "choices": [
+      "presented",
+      "will present",
+      "present"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trong câu điều kiện loại 1 với 'unless', mệnh đề phụ sử dụng thì hiện tại đơn."
+  },
+  {
+    "prompt": "If we ______ our marketing strategy now, we would see better results by the end of the quarter.",
+    "choices": [
+      "changed",
+      "had changed",
+      "will change"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đây là câu điều kiện loại 2 dùng để chỉ một tình huống giả định ở hiện tại."
+  },
+  {
+    "prompt": "Client: 'Our customer support response time has doubled this month.' Agent: '______'",
+    "choices": [
+      "We are looking for the cause of the solution.",
+      "I believe the cause is a shortage of support staff.",
+      "That is a very positive impact on our growth."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu trả lời đưa ra nguyên nhân hợp lý cho vấn đề khách hàng nêu."
+  },
+  {
+    "prompt": "Manager: 'What do you think is the best solution for the warehouse storage issue?' Employee: '______'",
+    "choices": [
+      "The cause is that we have too many boxes.",
+      "The impact of the boxes is very significant.",
+      "Implementing an automated inventory system would be efficient."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời đề xuất một giải pháp thực tế cho vấn đề kho bãi."
+  },
+  {
+    "prompt": "Supervisor: 'We have to reduce the environmental impact of our waste disposal.' Colleague: '______'",
+    "choices": [
+      "The cause is simply too much trash produced.",
+      "Let's ignore the solution and look at the cause.",
+      "Agreed, we should invest in better recycling technology."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời đưa ra một giải pháp cụ thể để giảm tác động môi trường."
+  },
+  {
+    "prompt": "If the team ______ the data earlier, they would have avoided the mistake.",
+    "choices": [
+      "had reviewed",
+      "reviewed",
+      "would review"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu điều kiện loại 3 dùng 'had + V3' trong mệnh đề 'if' để nói về quá khứ."
+  },
+  {
+    "prompt": "The primary ______ for the delay in shipping was a supply chain disruption.",
+    "choices": [
+      "impact",
+      "cause",
+      "solution"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'cause' phù hợp để giải thích lý do dẫn đến sự chậm trễ."
+  },
+  {
+    "prompt": "We need to find a sustainable ______ to the rising energy costs in our production plant.",
+    "choices": [
+      "solution",
+      "impact",
+      "cause"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'solution' là lựa chọn đúng khi nói đến việc xử lý vấn đề chi phí năng lượng."
+  },
+  {
+    "prompt": "If we ______ our budget, we might need to cut back on some of our smaller projects.",
+    "choices": [
+      "had exceeded",
+      "exceeded",
+      "exceed"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu điều kiện loại 1 diễn tả một sự việc có khả năng xảy ra trong tương lai."
+  },
+  {
+    "prompt": "What kind of ______ will this new policy have on the daily routine of the employees?",
+    "choices": [
+      "impact",
+      "cause",
+      "solution"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'impact' dùng để hỏi về sự ảnh hưởng của chính sách mới."
+  },
+  {
+    "prompt": "If I ______ you, I would propose a different approach to solve the problem.",
+    "choices": [
+      "will be",
+      "am",
+      "were"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'If I were you' là dạng chuẩn của câu điều kiện loại 2."
+  }
+]

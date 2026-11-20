@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Our internet at home is very slow today. Does anyone know how to fix this technical _______?",
+    "choices": [
+      "connection",
+      "issue",
+      "solution"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Từ 'issue' (vấn đề) phù hợp nhất với ngữ cảnh đang gặp rắc rối kỹ thuật."
+  },
+  {
+    "prompt": "I can't hear you clearly because there is a bad ________. Can you call me back later?",
+    "choices": [
+      "solution",
+      "connection",
+      "issue"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trong ngữ cảnh điện thoại, 'bad connection' có nghĩa là kết nối mạng hoặc sóng bị chập chờn."
+  },
+  {
+    "prompt": "We have discussed the problem for an hour, but we haven't found a good ________ yet.",
+    "choices": [
+      "connection",
+      "solution",
+      "issue"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sau khi thảo luận vấn đề, chúng ta cần tìm kiếm một 'solution' (giải pháp)."
+  },
+  {
+    "prompt": "A: I'm having trouble with the app. B: ________ do you mean by 'trouble'?",
+    "choices": [
+      "What",
+      "Which",
+      "How"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'What do you mean by...' dùng để yêu cầu làm rõ ý nghĩa của từ ngữ."
+  },
+  {
+    "prompt": "A: My computer keeps freezing. B: ________ exactly does it happen, during video calls?",
+    "choices": [
+      "Why",
+      "Who",
+      "When"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu hỏi bắt đầu bằng 'When' để làm rõ thời điểm xảy ra vấn đề."
+  },
+  {
+    "prompt": "A: I can't log in. B: Are you ________ your password correctly?",
+    "choices": [
+      "typing",
+      "typed",
+      "to type"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Sau động từ 'are' trong thì hiện tại tiếp diễn, ta dùng V-ing."
+  },
+  {
+    "prompt": "A: The screen is blank. B: Did you try pressing the power button?",
+    "choices": [
+      "I will buy a new one.",
+      "No, it is broken.",
+      "Yes, I did that twice."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời trực tiếp xác nhận hành động đã thực hiện để khắc phục lỗi."
+  },
+  {
+    "prompt": "A: My messages aren't sending. B: Is your Wi-Fi turned on?",
+    "choices": [
+      "Let me check, wait a second.",
+      "I don't like messaging.",
+      "It's very expensive."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu trả lời phản hồi hợp lý với câu hỏi về tình trạng mạng Wi-Fi."
+  },
+  {
+    "prompt": "A: Sorry, you're breaking up. B: ________ I repeat that again?",
+    "choices": [
+      "Do",
+      "Shall",
+      "Are"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Dùng 'Shall' để đề nghị thực hiện một hành động (nhắc lại)."
+  },
+  {
+    "prompt": "When you ________ a problem with your tablet, try restarting it first.",
+    "choices": [
+      "speak",
+      "solve",
+      "encounter"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Encounter a problem' là cụm từ chỉ việc gặp phải một vấn đề."
+  },
+  {
+    "prompt": "If the online meeting has no sound, check your audio ________ in the settings menu.",
+    "choices": [
+      "connection",
+      "talk",
+      "settings"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trong ngữ cảnh kỹ thuật, 'connection' hoặc thiết lập âm thanh là điều cần kiểm tra."
+  },
+  {
+    "prompt": "A: I don't understand the error code. B: ________ you explain what it looks like?",
+    "choices": [
+      "Could",
+      "Do",
+      "Are"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Dùng 'Could' để đưa ra yêu cầu lịch sự nhằm làm rõ thông tin."
+  },
+  {
+    "prompt": "Please wait a moment while I ________ to a stronger network.",
+    "choices": [
+      "explain",
+      "repair",
+      "switch"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Switch to' có nghĩa là chuyển sang một mạng khác để cải thiện kết nối."
+  },
+  {
+    "prompt": "To ________ the issue, we should first identify the main cause of the error.",
+    "choices": [
+      "connect",
+      "talk",
+      "resolve"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "'Resolve the issue' là cách diễn đạt phổ biến để chỉ việc giải quyết vấn đề."
+  },
+  {
+    "prompt": "A: Can you hear me? B: No, your voice is very ________. Please speak louder.",
+    "choices": [
+      "fast",
+      "faint",
+      "clear"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "'Faint' mô tả âm thanh nhỏ hoặc yếu, khiến người nghe khó nhận biết."
+  }
+]

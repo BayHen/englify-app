@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "In the morning, I always eat toast and drink orange juice for ________.",
+    "choices": [
+      "like",
+      "water",
+      "breakfast"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Breakfast là bữa ăn đầu tiên trong ngày vào buổi sáng."
+  },
+  {
+    "prompt": "I am very thirsty after my run, so I need a big glass of ________.",
+    "choices": [
+      "like",
+      "water",
+      "breakfast"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Water là thức uống phù hợp nhất khi cơ thể bị khát."
+  },
+  {
+    "prompt": "My sister does not ________ spicy food, but she loves sweet chocolate.",
+    "choices": [
+      "water",
+      "like",
+      "breakfast"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Like được dùng để diễn tả sở thích đối với một loại thực phẩm."
+  },
+  {
+    "prompt": "I ________ a cup of coffee, please. I am tired.",
+    "choices": [
+      "would like",
+      "like",
+      "likes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Would like là cấu trúc lịch sự dùng để gọi món hoặc đưa ra yêu cầu."
+  },
+  {
+    "prompt": "He ________ apples, but he doesn't eat bananas.",
+    "choices": [
+      "would like",
+      "like",
+      "likes"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ là ngôi thứ ba số ít 'He' nên động từ 'like' cần thêm 's'."
+  },
+  {
+    "prompt": "________ you like to eat lunch with us today?",
+    "choices": [
+      "Are",
+      "Would",
+      "Do"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cấu trúc Would you like là cách hỏi lịch sự về ý muốn của người khác."
+  },
+  {
+    "prompt": "- Do you want some cake?\n- Yes, ________.",
+    "choices": [
+      "please",
+      "I would",
+      "I like"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Khi đồng ý nhận một món đồ được mời, người ta dùng 'please' để tỏ thái độ lịch sự."
+  },
+  {
+    "prompt": "- What do you drink for breakfast?\n- I usually drink ________.",
+    "choices": [
+      "some milk",
+      "would milk",
+      "like milk"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Some dùng trước danh từ không đếm được như milk để chỉ một lượng không xác định."
+  },
+  {
+    "prompt": "- Would you like some water?\n- No, thank you. I ________ coffee.",
+    "choices": [
+      "would like",
+      "like",
+      "breakfast"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Người nói đang thể hiện mong muốn dùng cà phê thay vì nước lọc."
+  },
+  {
+    "prompt": "My parents ________ tea in the morning.",
+    "choices": [
+      "likes",
+      "would",
+      "like"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Chủ ngữ 'My parents' ở dạng số nhiều nên dùng 'like' nguyên thể."
+  },
+  {
+    "prompt": "I am hungry! I ________ a sandwich.",
+    "choices": [
+      "breakfast",
+      "like",
+      "would like"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Khi cảm thấy đói, người ta thường dùng 'would like' để nói về món mình muốn ăn ngay."
+  },
+  {
+    "prompt": "________ your brother like ice cream?",
+    "choices": [
+      "Are",
+      "Does",
+      "Do"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Chủ ngữ 'your brother' là ngôi thứ ba số ít nên trợ động từ phải là 'Does'."
+  },
+  {
+    "prompt": "We have eggs and bread for ________ every day.",
+    "choices": [
+      "like",
+      "breakfast",
+      "water"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Eggs và bread là các món ăn phổ biến cho bữa sáng."
+  },
+  {
+    "prompt": "She ________ cold water on a hot day.",
+    "choices": [
+      "would like",
+      "do like",
+      "like"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Would like là cách diễn đạt phù hợp khi muốn một món đồ uống cụ thể."
+  },
+  {
+    "prompt": "Do you ________ vegetables?",
+    "choices": [
+      "likes",
+      "would like",
+      "like"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Sau trợ động từ 'Do', ta sử dụng động từ 'like' ở dạng nguyên thể."
+  }
+]

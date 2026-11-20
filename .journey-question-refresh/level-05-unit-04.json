@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I don't think this restaurant is very good. What is the main ______ for your opinion?",
+    "choices": [
+      "reason",
+      "prefer",
+      "believe"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'reason' có nghĩa là lý do, phù hợp để hỏi về nguyên nhân đằng sau một ý kiến."
+  },
+  {
+    "prompt": "Many people ______ that learning a second language helps improve memory.",
+    "choices": [
+      "prefer",
+      "reason",
+      "believe"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'believe' diễn tả niềm tin hoặc quan điểm của mọi người về một vấn đề."
+  },
+  {
+    "prompt": "Do you ______ to travel by train or by plane for long distances?",
+    "choices": [
+      "believe",
+      "reason",
+      "prefer"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Từ 'prefer' dùng để hỏi về sự yêu thích hay lựa chọn giữa hai phương án."
+  },
+  {
+    "prompt": "I think ______ public transportation is better for the environment than driving a car.",
+    "choices": [
+      "that",
+      "which",
+      "what"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'that' được dùng làm liên từ để bắt đầu mệnh đề nêu ý kiến sau động từ 'think'."
+  },
+  {
+    "prompt": "In my opinion, ______ movies at home is more relaxing than going to the theater.",
+    "choices": [
+      "watched",
+      "watching",
+      "watch"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Danh động từ 'watching' đóng vai trò là chủ ngữ của mệnh đề nêu ý kiến."
+  },
+  {
+    "prompt": "I believe that online shopping ______ more convenient than visiting local stores.",
+    "choices": [
+      "are",
+      "is",
+      "be"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'is' chia ở số ít để hòa hợp với chủ ngữ số ít 'online shopping'."
+  },
+  {
+    "prompt": "A: Why do you dislike this new office design? B: ______, it looks too dark and small.",
+    "choices": [
+      "The reason",
+      "To me",
+      "I believe"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm 'To me' là cách diễn đạt phổ biến để bắt đầu đưa ra ý kiến cá nhân."
+  },
+  {
+    "prompt": "A: Which type of music do you like best? B: I ______ jazz because it helps me focus.",
+    "choices": [
+      "prefer",
+      "believe",
+      "reason"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'prefer' phù hợp khi đưa ra sự lựa chọn yêu thích cá nhân."
+  },
+  {
+    "prompt": "A: Is it important to exercise every day? B: Yes, I ______ that daily exercise is essential for health.",
+    "choices": [
+      "prefer",
+      "believe",
+      "reason"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Động từ 'believe' đi với mệnh đề 'that' để khẳng định một quan điểm."
+  },
+  {
+    "prompt": "I believe ______ the government should invest more in parks and recreation areas.",
+    "choices": [
+      "that",
+      "what",
+      "so"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cấu trúc 'believe that' dùng để dẫn dắt mệnh đề quan điểm."
+  },
+  {
+    "prompt": "The main ______ I like this book is that the characters feel very realistic.",
+    "choices": [
+      "preference",
+      "belief",
+      "reason"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc 'the reason... is that' dùng để giải thích rõ nguyên nhân."
+  },
+  {
+    "prompt": "In my opinion, ______ more time outdoors makes people feel much happier.",
+    "choices": [
+      "spend",
+      "spending",
+      "to spend"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Sử dụng danh động từ 'spending' làm chủ ngữ cho hành động nêu ý kiến."
+  },
+  {
+    "prompt": "Some people ______ that robots will perform all household chores in the future.",
+    "choices": [
+      "prefer",
+      "reason",
+      "believe"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'believe' diễn tả một suy đoán hoặc niềm tin về tương lai."
+  },
+  {
+    "prompt": "Do you have any specific ______ for choosing this particular college?",
+    "choices": [
+      "reasons",
+      "prefers",
+      "believes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Danh từ 'reasons' được dùng để hỏi về những nguyên nhân cụ thể."
+  },
+  {
+    "prompt": "I ______ to walk to work rather than drive because it is great exercise.",
+    "choices": [
+      "reason",
+      "believe",
+      "prefer"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Động từ 'prefer' thể hiện sự ưu tiên giữa hai hành động khác nhau."
+  }
+]

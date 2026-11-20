@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "I eat breakfast at 7:00 AM every single day. My routine is constant. I ____ eat breakfast.",
+    "choices": [
+      "always",
+      "usually",
+      "sometimes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Từ 'every single day' chỉ thói quen không thay đổi nên dùng 'always'."
+  },
+  {
+    "prompt": "Minh goes to the gym on Mondays and Wednesdays, but not on other days. He ____ goes to the gym.",
+    "choices": [
+      "always",
+      "sometimes",
+      "usually"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc chỉ tập một vài ngày trong tuần được diễn tả bằng 'sometimes'."
+  },
+  {
+    "prompt": "Sarah speaks English at home most of the time, but she speaks French on weekends. She ____ speaks English.",
+    "choices": [
+      "usually",
+      "always",
+      "sometimes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Việc xảy ra phần lớn thời gian được diễn tả bằng 'usually'."
+  },
+  {
+    "prompt": "Choose the correct sentence structure for frequency adverbs.",
+    "choices": [
+      "He is always late.",
+      "He always is late.",
+      "Always he is late."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Trạng từ chỉ tần suất đứng sau động từ 'to be'."
+  },
+  {
+    "prompt": "Select the sentence with the correct word order.",
+    "choices": [
+      "Usually they play soccer.",
+      "They usually play soccer.",
+      "They play usually soccer."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Trạng từ chỉ tần suất đứng trước động từ thường."
+  },
+  {
+    "prompt": "Which option is grammatically correct?",
+    "choices": [
+      "Sometimes she walks to work.",
+      "She walks sometimes to work.",
+      "She sometimes walks to work."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trạng từ chỉ tần suất thường đứng trước động từ chính trong câu."
+  },
+  {
+    "prompt": "Person A: 'Do you watch TV before bed?' Person B: 'Yes, ____. It helps me relax.'",
+    "choices": [
+      "I always am",
+      "I usually go",
+      "I always do"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu trả lời sử dụng trợ động từ 'do' để lặp lại hành động trước đó."
+  },
+  {
+    "prompt": "Person A: 'How often do you visit your grandparents?' Person B: '____, about once a month.'",
+    "choices": [
+      "Always",
+      "Usually",
+      "Sometimes"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Vì tần suất là 'một lần một tháng' nên 'sometimes' là phù hợp nhất."
+  },
+  {
+    "prompt": "Person A: 'Is the library busy in the morning?' Person B: 'Yes, it ____ crowded at 9:00 AM.'",
+    "choices": [
+      "always is",
+      "always has",
+      "is always"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Trạng từ 'always' phải đứng sau động từ 'is'."
+  },
+  {
+    "prompt": "Mark plays tennis every Saturday and Sunday without fail. He ____ plays tennis on weekends.",
+    "choices": [
+      "always",
+      "sometimes",
+      "usually"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Cụm từ 'without fail' nhấn mạnh tính chất luôn luôn."
+  },
+  {
+    "prompt": "I don't like coffee, so I ____ drink it.",
+    "choices": [
+      "sometimes",
+      "usually",
+      "never"
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Vì không thích cà phê nên tôi không bao giờ uống nó."
+  },
+  {
+    "prompt": "We ____ go to the beach in summer because it is very hot.",
+    "choices": [
+      "sometimes",
+      "usually",
+      "never"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Câu văn mô tả một thói quen thường xuyên vào mùa hè."
+  },
+  {
+    "prompt": "Look at the chart: Mon (Yes), Tue (Yes), Wed (No), Thu (Yes), Fri (Yes). She ____ studies at home.",
+    "choices": [
+      "sometimes",
+      "usually",
+      "always"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Vì cô ấy học hầu hết các ngày (4/5) nên 'usually' là phù hợp."
+  },
+  {
+    "prompt": "My brother is a chef. He ____ finishes work very late at night.",
+    "choices": [
+      "always",
+      "never",
+      "sometimes"
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Đặc thù công việc đầu bếp thường dẫn đến việc về muộn hàng ngày."
+  },
+  {
+    "prompt": "I ____ forget my keys, but it happens once in a blue moon.",
+    "choices": [
+      "usually",
+      "sometimes",
+      "always"
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'once in a blue moon' có nghĩa là hiếm khi, tương ứng với 'sometimes'."
+  }
+]

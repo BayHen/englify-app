@@ -1,0 +1,152 @@
+[
+  {
+    "prompt": "Which of these is a personal 'opinion' rather than a factual statement?",
+    "choices": [
+      "The book has three hundred pages.",
+      "I think this book is very boring.",
+      "The author wrote this book in 1995."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Đây là một ý kiến chủ quan dựa trên cảm nhận cá nhân thay vì một sự thật khách quan."
+  },
+  {
+    "prompt": "When you write an 'example' in a paragraph, what are you doing?",
+    "choices": [
+      "Stating your main idea again.",
+      "Explaining the history of your topic.",
+      "Providing a specific case to prove your point."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Ví dụ giúp làm rõ và minh họa cho ý chính của đoạn văn bằng một trường hợp cụ thể."
+  },
+  {
+    "prompt": "If you need a 'reason' for your opinion, what should you provide?",
+    "choices": [
+      "An explanation of why you feel that way.",
+      "A list of your favorite colors.",
+      "The exact date you formed your opinion."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Lý do là sự giải thích hợp lý để thuyết phục người đọc về ý kiến của bạn."
+  },
+  {
+    "prompt": "Which sentence is the best 'topic sentence' for an opinion paragraph?",
+    "choices": [
+      "There are many public parks in this city with green grass.",
+      "Some people like to go to the park on the weekend.",
+      "Public parks are the best places for families to spend time together."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Câu chủ đề tốt nhất cần nêu rõ ý kiến chính mà đoạn văn sẽ thảo luận."
+  },
+  {
+    "prompt": "What is the correct order for an opinion paragraph?",
+    "choices": [
+      "Reason, example, opinion.",
+      "Example, opinion, reason.",
+      "Opinion, reason, example."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Cấu trúc chuẩn của một đoạn văn nêu ý kiến thường đi từ ý kiến chủ đạo đến lý do và ví dụ minh họa."
+  },
+  {
+    "prompt": "Choose the best concluding sentence for a paragraph about why cats are great pets.",
+    "choices": [
+      "In conclusion, cats are wonderful and easy companions.",
+      "Many people prefer to have a dog instead.",
+      "Cats have soft fur and sharp claws."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu kết luận giúp tóm tắt lại ý chính đã được trình bày trong toàn bộ đoạn văn."
+  },
+  {
+    "prompt": "Person A: 'Why do you like living in this city?' Person B: '________'",
+    "choices": [
+      "I think the public transportation is very convenient.",
+      "There are many tall buildings in the center.",
+      "The city was built over two hundred years ago."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Người B đưa ra ý kiến cá nhân để trả lời cho câu hỏi về lý do tại sao thích thành phố."
+  },
+  {
+    "prompt": "Person A: 'What do you think of this movie?' Person B: 'I didn't like it. ________'",
+    "choices": [
+      "It is a very long movie with many actors.",
+      "The tickets cost ten dollars at the cinema.",
+      "The story was confusing and the acting was poor."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Người B đưa ra lý do cụ thể để giải thích cho ý kiến không thích bộ phim của mình."
+  },
+  {
+    "prompt": "Person A: 'I believe online shopping is better.' Person B: 'Can you give me an example?' Person A: '________'",
+    "choices": [
+      "Yes, it is faster than going to the store.",
+      "Sure, I can buy clothes without leaving my house.",
+      "Because I do not have a car to drive."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Người A đưa ra một hành động cụ thể để minh họa cho ý kiến mua sắm trực tuyến tốt hơn."
+  },
+  {
+    "prompt": "Which sentence follows logically after: 'I think that morning exercise is beneficial.'?",
+    "choices": [
+      "It helps me feel energetic for the rest of the day.",
+      "Exercise is a physical activity for health.",
+      "Many people exercise at the gym in the evening."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Câu này đưa ra lý do hỗ trợ trực tiếp cho ý kiến tập thể dục buổi sáng."
+  },
+  {
+    "prompt": "Which of these is a strong supporting reason for the opinion: 'Learning English is important.'?",
+    "choices": [
+      "I started learning English when I was seven years old.",
+      "English is spoken in many countries around the world.",
+      "Some people find English grammar quite difficult."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Việc tiếng Anh được sử dụng rộng rãi là một lý do hợp lý giải thích tại sao nó quan trọng."
+  },
+  {
+    "prompt": "Identify the 'opinion' in this set.",
+    "choices": [
+      "This laptop costs five hundred dollars.",
+      "This laptop is the best one for students.",
+      "This laptop has a large screen and a fast processor."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Cụm từ 'the best' thể hiện quan điểm cá nhân chứ không phải dữ kiện kỹ thuật."
+  },
+  {
+    "prompt": "Which sentence is a clear 'example' supporting the opinion that home-cooked food is healthier?",
+    "choices": [
+      "My friend likes to eat at restaurants every day.",
+      "For instance, I can control the amount of salt in my meals.",
+      "Home-cooked food is usually better for your body."
+    ],
+    "correct_index": 1,
+    "explanation_vi": "Ví dụ về việc kiểm soát lượng muối minh họa trực tiếp cho luận điểm thức ăn tự nấu tốt cho sức khỏe."
+  },
+  {
+    "prompt": "What is the purpose of an opinion paragraph?",
+    "choices": [
+      "To persuade the reader to agree with your viewpoint.",
+      "To give instructions on how to build something.",
+      "To report facts about a news event."
+    ],
+    "correct_index": 0,
+    "explanation_vi": "Mục đích chính của đoạn văn nêu ý kiến là thuyết phục người đọc đồng ý với quan điểm cá nhân."
+  },
+  {
+    "prompt": "Which part of a paragraph should contain your reasons?",
+    "choices": [
+      "The topic sentence.",
+      "The concluding sentence.",
+      "The body of the paragraph."
+    ],
+    "correct_index": 2,
+    "explanation_vi": "Phần thân bài là nơi trình bày các lý do và ví dụ để làm rõ cho ý chính."
+  }
+]

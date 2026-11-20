@@ -41,6 +41,6 @@ export default function UiV2Preview() {
   if (screen === 'change-password') return <ChangePassword />;
   if (screen === 'learning-preferences') return <LearningPreferences />;
   if (screen === 'practice') return <PracticeScreen />;
-  if (screen === 'journey') return <Page eyebrow="DESIGN PREVIEW · SAMPLE DATA" title="Your adventure" description="No progress is saved." compact><AppText variant="heading">Everyday English</AppText><AdventurePath unit={courses[0].units[0]} /></Page>;
+  if (screen === 'journey') return <Page eyebrow="DESIGN PREVIEW · SAMPLE DATA" title="Your adventure" description="No progress is saved." compact><AppText variant="heading">Everyday English</AppText><AdventurePath unit={courses[0].units[0]} expanded onToggle={()=>{}} /></Page>;
   return <HomeScreen preview={{ overview, courses }} />;
 }
