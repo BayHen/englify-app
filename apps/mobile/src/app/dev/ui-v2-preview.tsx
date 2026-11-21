@@ -1,9 +1,9 @@
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import { HomeScreen } from '@/features/home/home-screen';
 import { ExploreScreen, PracticeScreen } from '@/features/home/tool-hub';
-import { AdventurePath } from '@/features/learning/adventure-path';
-import { Page } from '@/components/page';
-import { AppText } from '@/ui';
+import { JourneyScreen } from '@/features/learning/journey-screen';
+import { DictionaryScreen } from '@/features/dictionary/screen';
+import type { DictionaryWord } from '@/features/dictionary/types';
 import { VoicePreview } from '@/features/speaking/voice-preview';
 import AccountSettings from '@/app/account-settings';
 import EditProfile from '@/app/edit-profile';
@@ -24,14 +24,27 @@ const overview: GamificationOverview = {
   badges: [{ id: 'preview-badge', title: 'First step', description: 'Sample badge', unlocked: true, unlocked_at: null }],
   rewards: [], statistics: { completed_lessons: 1, mastered_lessons: 0, quiz_attempts: 2, correct_answers: 4 },
 };
-const courses: JourneyCourse[] = [{ id: 'preview-course', title: 'Everyday English', units: [{ id: 'preview-unit', title: 'First conversations', position: 1, lessons: [
-  { id: 'preview-lesson-1', title: 'Say hello', objective: 'Greet someone', position: 1, state: 'completed' },
-  { id: 'preview-lesson-2', title: 'Keep it going', objective: 'Ask a follow-up question', position: 2, state: 'available' },
-] }] }];
+const upcomingLesson = { id: 'preview-lesson-2', title: 'Keep it going', objective: 'Ask a follow-up question', position: 2, state: 'available' } as const;
+const courses: JourneyCourse[] = [{
+  id: 'preview-course', title: 'Everyday English', continue_lesson: upcomingLesson,
+  units: [{ id: 'preview-unit', title: 'First conversations', position: 1, lessons: [
+    { id: 'preview-lesson-1', title: 'Say hello', objective: 'Greet someone', position: 1, state: 'completed' },
+    upcomingLesson,
+    { id: 'preview-lesson-3', title: 'Listen and reply', objective: 'Recognize a greeting', position: 3, state: 'locked' },
+  ] }],
+}];
+
+const dictionaryWords: DictionaryWord[] = [{
+  id: 'preview-curious', term: 'curious', ipa: '/ˈkjʊəriəs/', part_of_speech: 'adjective',
+  translation: 'tò mò', definition: 'Eager to learn or know more about something.',
+  example: 'She was curious about how the story would end.',
+  audio_url: null, source_name: 'Design preview', license_id: 'preview',
+}];
 
 export default function UiV2Preview() {
   const { screen } = useLocalSearchParams<{ screen?: string }>();
   if (!__DEV__) return <Redirect href="/login" />;
+  if (screen === 'dictionary') return <DictionaryScreen previewWords={dictionaryWords} />;
   if (screen === 'explore') return <ExploreScreen />;
   if (screen === 'voice') return <VoicePreview />;
   if (screen === 'profile') return <ProfileScreen preview={overview} />;
@@ -41,6 +54,6 @@ export default function UiV2Preview() {
   if (screen === 'change-password') return <ChangePassword />;
   if (screen === 'learning-preferences') return <LearningPreferences />;
   if (screen === 'practice') return <PracticeScreen />;
-  if (screen === 'journey') return <Page eyebrow="DESIGN PREVIEW · SAMPLE DATA" title="Your adventure" description="No progress is saved." compact><AppText variant="heading">Everyday English</AppText><AdventurePath unit={courses[0].units[0]} expanded onToggle={()=>{}} /></Page>;
+  if (screen === 'journey') return <JourneyScreen previewCourses={courses} />;
   return <HomeScreen preview={{ overview, courses }} />;
 }

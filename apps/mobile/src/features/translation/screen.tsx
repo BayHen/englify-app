@@ -9,9 +9,17 @@ import { translateText, utf8ByteLength, type Language, type SourceLanguage, type
 import { englishLookupWord, lookupEnglishWord, type DictionaryDetails } from './dictionary';
 import { readSavedPhrases, savePhrase, type SavedPhrase } from './saved';
 import { usePronunciation } from './use-pronunciation';
-import { getSupabase } from '@/auth/supabase';
+import { useAuth } from '@/auth/provider';
+import { usePendingDestination } from '@/auth/access';
+import { router } from 'expo-router';
 
 export function TranslationScreen() {
+  const { phase, profile } = useAuth();
+  const userId = phase === 'authenticated' ? profile?.id ?? null : null;
+  return <TranslationContent key={userId ?? 'guest'} userId={userId} />;
+}
+
+function TranslationContent({ userId }: { userId: string | null }) {
   const palette = useAppPalette();
   const audio = usePronunciation();
   const [source, setSource] = useState<SourceLanguage>('en');
@@ -24,7 +32,6 @@ export function TranslationScreen() {
   const [exampleTranslation, setExampleTranslation] = useState('');
   const [exampleLoading, setExampleLoading] = useState(false);
   const [saved, setSaved] = useState<SavedPhrase[]>([]);
-  const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -33,16 +40,13 @@ export function TranslationScreen() {
   const inputRef = useRef<TextInputInstance>(null);
 
   useEffect(() => {
+    if (!userId) return;
     let live = true;
-    void getSupabase().auth.getSession().then(async ({ data }) => {
-      const id = data.session?.user.id;
-      if (!id || !live) return;
-      setUserId(id);
-      const phrases = await readSavedPhrases(id);
+    void readSavedPhrases(userId).then((phrases) => {
       if (live) setSaved(phrases);
     }).catch(() => {});
     return () => { live = false; };
-  }, []);
+  }, [userId]);
 
   function clearOutput() {
     requestVersion.current++;
@@ -82,7 +86,7 @@ export function TranslationScreen() {
     const version = requestVersion.current;
     setLoading(true);
     try {
-      const translated = await translateText({ source, target, text: input });
+      const translated = await translateText({ source, target, text: input }, userId);
       if (version === requestVersion.current) {
         setResult(translated);
         void loadDetails(translated, version);
@@ -101,7 +105,7 @@ export function TranslationScreen() {
     setDictionaryNotice('');
     const version = requestVersion.current;
     try {
-      const response = await translateText({ source: 'en', target: 'vi', text: example });
+      const response = await translateText({ source: 'en', target: 'vi', text: example }, userId);
       if (version === requestVersion.current) setExampleTranslation(response.translated_text ?? '');
     } catch (cause) {
       if (version === requestVersion.current) setDictionaryNotice(cause instanceof Error ? cause.message : 'Could not translate the example.');
@@ -111,7 +115,12 @@ export function TranslationScreen() {
   }
 
   async function save() {
-    if (!result || !userId) return;
+    if (!result) return;
+    if (!userId) {
+      usePendingDestination.getState().set('/translation');
+      router.push('/login-required');
+      return;
+    }
     try {
       setSaved(await savePhrase(userId, result, dictionary));
       setNotice('Saved on this device.');
@@ -124,28 +133,20 @@ export function TranslationScreen() {
 
   return <Page eyebrow="WORD LAB" title="Translate & learn" description="Translate a short sentence, then explore English word details when available.">
     <AppCard style={{ gap: 10 }}>
-      <AppText variant="label">From</AppText>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-        {(['en', 'vi'] as const).map((value) => <AppButton key={value} label={value === 'en' ? 'English' : 'Vietnamese'} variant={source === value ? 'primary' : 'secondary'} onPress={() => {
-          setSource(value); if (value === target) setTarget(value === 'en' ? 'vi' : 'en'); clearOutput();
-        }} />)}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+        <View style={{ flexGrow: 1, gap: 4 }}><AppText variant="caption" tone="muted">From</AppText><AppText variant="heading">{source === 'en' ? 'English' : 'Vietnamese'}</AppText></View>
+        <AppButton label="Swap languages" variant="secondary" size="medium" onPress={() => { setSource(target); setTarget(source); clearOutput(); }} />
+        <View style={{ flexGrow: 1, gap: 4 }}><AppText variant="caption" tone="muted">To</AppText><AppText variant="heading">{target === 'en' ? 'English' : 'Vietnamese'}</AppText></View>
       </View>
-      <AppText variant="label">To</AppText>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-        {(['en', 'vi'] as const).map((value) => <AppButton key={value} label={value === 'en' ? 'English' : 'Vietnamese'} variant={target === value ? 'primary' : 'secondary'} onPress={() => {
-          setTarget(value); if (source === value) setSource(value === 'en' ? 'vi' : 'en'); clearOutput();
-        }} />)}
-      </View>
-      <AppButton label="Swap languages" variant="secondary" onPress={() => { setSource(target); setTarget(source); clearOutput(); }} />
-    </AppCard>
     <AppInput ref={inputRef} label="Text to translate" placeholder={source === 'vi' ? 'Thử: Giấy phép' : 'Try: License'} value={input}
       onChangeText={(value) => { setInput(value); clearOutput(); }} multiline
       style={{ minHeight: 100, textAlignVertical: 'top', paddingVertical: 14 }}
       hint={`${utf8ByteLength(input.trim())}/500 UTF-8 bytes`} />
-    <View style={{ gap: 8 }}>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
       <AppButton label="Translate" onPress={() => { void submit(); }} disabled={!input.trim() || loading} loading={loading} />
       {!!input && <AppButton label="Clear text" variant="secondary" onPress={() => { setInput(''); clearOutput(); }} />}
     </View>
+    </AppCard>
     {loading && <LoadingSkeleton accessibilityLabel="Translating" />}
     {!!error && <ErrorState title="Translation unavailable" message={error} retry={() => { void submit(); }} />}
     {!loading && !error && !result && <EmptyState title="Ready to translate" message="Enter English or Vietnamese text and choose Translate." />}
@@ -171,9 +172,8 @@ export function TranslationScreen() {
             size={22} tintColor={palette.primary} />}
         </Pressable>}
         <Pressable accessibilityRole="button" accessibilityLabel="Save translation" onPress={() => { void save(); }}
-          disabled={!userId} accessibilityState={{ disabled: !userId }}
           style={({ pressed }) => ({ width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center',
-            backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, opacity: !userId ? 0.5 : pressed ? 0.75 : 1 })}>
+            backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.border, opacity: pressed ? 0.75 : 1 })}>
           <SymbolView name={{ ios: 'bookmark', android: 'bookmark_border', web: 'bookmark_border' }} size={22} tintColor={palette.primary} />
         </Pressable>
       </View>
@@ -218,7 +218,7 @@ export function TranslationScreen() {
           if (result.translated_text) void Clipboard.setStringAsync(result.translated_text)
             .then(() => setNotice('Copied.')).catch(() => setError('Could not copy translation.'));
         }} />
-        <AppButton label="Save phrase" variant="secondary" style={{ flexGrow: 1, flexBasis: 140, paddingHorizontal: 8 }} disabled={!userId} onPress={() => { void save(); }} />
+        <AppButton label={userId ? 'Save phrase' : 'Sign in to save'} variant="secondary" style={{ flexGrow: 1, flexBasis: 140, paddingHorizontal: 8 }} onPress={() => { void save(); }} />
       </View>
       {!!notice && <AppText variant="caption" tone="success" accessibilityRole="alert">{notice}</AppText>}
       {!!dictionary && <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, alignItems: 'center' }}>
@@ -231,7 +231,7 @@ export function TranslationScreen() {
         }}>License</AppText>}
       </View>}
     </AppCard>}
-    <View style={{ gap: 10 }}>
+    {userId ? <View style={{ gap: 10 }}>
       <AppText variant="heading">Saved on this device</AppText>
       {saved.length ? saved.map((item) => <AppCard key={`${item.source}:${item.source_text}`} style={{ gap: 4 }}>
         <AppText variant="label">{item.source_text}</AppText>
@@ -239,7 +239,7 @@ export function TranslationScreen() {
         {!!item.ipa && <AppText variant="caption" tone="muted">{item.ipa}</AppText>}
         {!!item.part_of_speech && <AppText variant="caption" tone="muted">{item.part_of_speech}</AppText>}
       </AppCard>) : <EmptyState title="No saved phrases" message="Save a translation to find it here later on this device." />}
-    </View>
+    </View> : null}
     <NavLink href="/home" label="Back to dashboard" />
   </Page>;
 }

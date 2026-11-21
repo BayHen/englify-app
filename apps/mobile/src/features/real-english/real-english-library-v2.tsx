@@ -2,7 +2,8 @@ import { useCallback, useRef, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import { randomUUID } from 'expo-crypto';
 import * as Speech from 'expo-speech';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
+import { useAppPalette } from '@/constants/app-theme';
 import { AppButton, AppCard, AppModal, AppText, EmptyState, ErrorState, LoadingSkeleton } from '@/ui';
 import {
   getPublishedLesson, getReadingQuestions, recordReading, saveLessonPhrase, searchRealEnglishLibrary,
@@ -17,6 +18,7 @@ const emptyPage: LibraryPage = { items: [], total: 0, page: 1, page_size: 5, pag
 const progressLabels: Record<string, string> = { reading: 'Reading', read: 'Read', practiced: 'Practiced', passed: 'Passed', mastered: 'Mastered' };
 
 export function RealEnglishLibraryV2({ query, cefr, topic, category, savedOnly, onOpenExpression }: Props) {
+  const palette = useAppPalette();
   const { language, l } = useI18n();
   const [result, setResult] = useState<LibraryPage>(emptyPage);
   const [page, setPage] = useState(1);
@@ -93,13 +95,19 @@ export function RealEnglishLibraryV2({ query, cefr, topic, category, savedOnly, 
       <AppText tone="muted">{language === 'vi' ? `${result.total} mẫu câu và bài học đã xuất bản` : `Published expressions and lessons · ${result.total} result${result.total === 1 ? '' : 's'}`}</AppText></View>
     {loading ? <LoadingSkeleton lines={5} /> : error ? <ErrorState message={error} retry={() => { void load(); }} />
       : result.items.length === 0 ? <EmptyState title="No reading found" message="Try another keyword, level, topic, or category." />
-        : result.items.map((item) => <AppCard key={`${item.item_type}-${item.id}`}
+        : result.items.map((item) => <Pressable key={`${item.item_type}-${item.id}`}
           onPress={() => item.item_type === 'lesson' ? void openLesson(item) : onOpenExpression(item.id)}
-          accessibilityLabel={`Open ${item.title}`} style={{ gap: 5 }}>
-          <AppText variant="caption" tone="primary">{item.item_type === 'lesson' ? 'READING LESSON' : item.category.replaceAll('_', ' ').toUpperCase()}{item.cefr_level ? ` · ${item.cefr_level}` : ''}</AppText>
-          <AppText variant="heading">{item.title}{item.saved ? ' ★' : ''}</AppText><AppText tone="muted">{item.subtitle}</AppText>
-          {item.progress_status ? <AppText variant="caption" tone="success">{progressLabels[item.progress_status]}</AppText> : null}
-        </AppCard>)}
+          accessibilityRole="button" accessibilityLabel={`Open ${item.title}`}
+          style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12,
+            borderBottomWidth: 1, borderColor: palette.border, backgroundColor: pressed ? palette.primarySoft : 'transparent' })}>
+          <View style={{ flex: 1, gap: 5 }}>
+            <AppText variant="caption" tone="primary">{item.item_type === 'lesson' ? 'Reading lesson' : item.category.replaceAll('_', ' ')}{item.cefr_level ? ` · ${item.cefr_level}` : ''}</AppText>
+            <AppText variant="heading">{item.title}{item.saved ? ' ★' : ''}</AppText>
+            <AppText tone="muted">{item.subtitle}</AppText>
+            {item.progress_status ? <AppText variant="caption" tone="success">{progressLabels[item.progress_status]}</AppText> : null}
+          </View>
+          <AppText accessible={false} tone="primary">›</AppText>
+        </Pressable>)}
     {!loading && !error && result.total > 0 ? <View style={{ gap: 8 }}><AppText variant="caption" tone="muted" style={{ textAlign: 'center' }}>{l(`Page ${result.page} of ${result.page_count}`)}</AppText>
       <View style={{ flexDirection: 'row', gap: 8 }}><AppButton label="Previous" variant="secondary" disabled={result.page <= 1} style={{ flex: 1 }} onPress={() => setPage(Math.max(1, result.page - 1))} />
         <AppButton label="Next" variant="secondary" disabled={result.page >= result.page_count} style={{ flex: 1 }} onPress={() => setPage(result.page + 1)} /></View></View> : null}

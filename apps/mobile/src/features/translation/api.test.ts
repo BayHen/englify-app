@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { translateText } from './api';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { clearAccountTranslations, translateText } from './api';
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
 vi.mock('@/auth/supabase', () => ({ getSupabase: () => state.client }));
@@ -8,8 +8,41 @@ function withInvoke(invoke: ReturnType<typeof vi.fn>) {
   state.client = { auth: { getSession: async () => session }, functions: { invoke } };
 }
 beforeEach(() => { state.client = null; });
+afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
 describe('translation mobile integration', () => {
+  it('reports an anonymous gateway denial without asking the guest to sign in', async () => {
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'test-public-key');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(null, { status: 401 })));
+    await expect(translateText({ source: 'vi', target: 'en', text: 'A guest request.' }, null))
+      .rejects.toMatchObject({ status: 401, message: 'Translation is temporarily unavailable.' });
+  });
+  it('sends guest translation without a user token and consumes the provider response', async () => {
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'test-public-key');
+    const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      translatedText: 'Xin chao', sourceLanguage: 'en', targetLanguage: 'vi', provider: 'mymemory',
+    })));
+    vi.stubGlobal('fetch', fetcher);
+    await expect(translateText({ source: 'en', target: 'vi', text: 'A guest greeting.' }, null))
+      .resolves.toMatchObject({ translated_text: 'Xin chao' });
+    expect(fetcher.mock.calls[0][0]).toBe('https://example.supabase.co/functions/v1/translate');
+    expect(fetcher.mock.calls[0][1].headers).toEqual({ apikey: 'test-public-key', 'Content-Type': 'application/json' });
+  });
+  it('clears only the signed-out account translation cache', async () => {
+    const invoke = vi.fn().mockResolvedValue({ data: {
+      translatedText: 'Xin chao', sourceLanguage: 'en', targetLanguage: 'vi', provider: 'mymemory',
+    }, error: null });
+    withInvoke(invoke);
+    const request = { source: 'en', target: 'vi', text: 'A scoped cache example.' } as const;
+    await translateText(request, 'scope-first');
+    await translateText(request, 'scope-second');
+    clearAccountTranslations('scope-first');
+    await translateText(request, 'scope-second');
+    await translateText(request, 'scope-first');
+    expect(invoke).toHaveBeenCalledTimes(3);
+  });
   it('sends arbitrary text to the Supabase function and uses only its response', async () => {
     const invoke = vi.fn().mockResolvedValue({ data: {
       translatedText: 'Một bản dịch trả về từ API', sourceLanguage: 'en', targetLanguage: 'vi',

@@ -15,11 +15,12 @@ async function ownedId(expected?: string): Promise<string> {
 export async function readProfile(expectedUserId?: string): Promise<Profile> {
   const userId = await ownedId(expectedUserId);
   const client = getSupabase();
-  const profile = dataOrThrow<ProfileRow>(await client.from('profiles')
-    .select('id,display_name,username,bio,avatar_url').eq('id', userId).maybeSingle());
-  const preferenceResult = await client.from('user_preferences')
+  const [profileResult, preferenceResult] = await Promise.all([client.from('profiles')
+    .select('id,display_name,username,bio,avatar_url').eq('id', userId).maybeSingle(),
+  client.from('user_preferences')
     .select('learning_goal,initial_proficiency,daily_goal_minutes,onboarding_completed_at,current_cefr,preferred_accent,interface_language')
-    .eq('user_id', userId).maybeSingle();
+    .eq('user_id', userId).maybeSingle()]);
+  const profile = dataOrThrow<ProfileRow>(profileResult);
   errorOrThrow(preferenceResult);
   const preferences = preferenceResult.data as PreferencesRow | null;
   return { ...profile, preferences };

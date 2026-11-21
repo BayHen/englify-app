@@ -1,8 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 let handler: ((request: Request) => Promise<Response>) | null;
 const env: Record<string, string> = {
   SUPABASE_URL: 'http://127.0.0.1:54321', SUPABASE_ANON_KEY: 'test-public-key',
+  SUPABASE_SERVICE_ROLE_KEY: 'test-server-key',
   TRANSLATE_ALLOWED_ORIGINS: 'http://localhost:8081',
 };
 function request(body: unknown, authorization = 'Bearer user-jwt', origin?: string): Request {
@@ -22,11 +23,30 @@ beforeEach(async () => {
   // @ts-ignore Deno Edge Functions use explicit TypeScript extensions.
   await import('../../../../../supabase/functions/translate/index.ts');
 });
+afterEach(() => vi.unstubAllGlobals());
 describe('translation Edge Function contract', () => {
   const input = { text: 'I am learning English.', sourceLanguage: 'en', targetLanguage: 'vi' };
-  it('rejects missing auth and disallowed browser origins', async () => {
+  it('rejects malformed authorization and disallowed browser origins', async () => {
     expect((await invoke(input, 'invalid')).status).toBe(401);
     expect((await invoke(input, undefined, 'https://evil.test')).status).toBe(403);
+  });
+  it('uses the bounded guest quota without calling the user endpoint', async () => {
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(new Response(null, { status: 204 }))
+      .mockResolvedValueOnce(new Response('{"responseStatus":200,"responseData":{"translatedText":"Toi hoc tieng Anh."}}'));
+    vi.stubGlobal('fetch', fetcher);
+    const response = await invoke(input, '');
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({ translatedText: 'Toi hoc tieng Anh.', provider: 'mymemory' });
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(String(fetcher.mock.calls[0][0])).toContain('/rpc/englify_reserve_guest_translation');
+    expect(fetcher.mock.calls[0][1].headers.Authorization).toBe('Bearer test-server-key');
+  });
+  it('blocks guest requests before calling the provider when quota is exhausted', async () => {
+    const fetcher = vi.fn().mockResolvedValue(new Response('{"code":"P0001"}', { status: 400 }));
+    vi.stubGlobal('fetch', fetcher);
+    expect((await invoke(input, '')).status).toBe(429);
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
   it('rejects empty, oversized and invalid language requests before quota', async () => {
     const fetcher = vi.fn().mockResolvedValue(new Response('{}', { status: 200 }));

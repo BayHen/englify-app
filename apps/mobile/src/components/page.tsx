@@ -22,7 +22,7 @@ const screenIcons = {
   '/coach': { ios: 'sparkles', android: 'auto_awesome', web: 'auto_awesome' },
 } as const;
 
-export function Page({ eyebrow, title, description, children, compact = false, headerAccessory }: { eyebrow: string; title: string; description: string; children: ReactNode; compact?: boolean; headerAccessory?: ReactNode }) {
+export function Page({ eyebrow, title, description, children, compact = false, headerAccessory }: { eyebrow?: string; title: string; description?: string; children: ReactNode; compact?: boolean; headerAccessory?: ReactNode }) {
   const palette = useAppPalette();
   const path = usePathname();
   const condensed = compact || isQuestRoute(path);
@@ -34,7 +34,7 @@ export function Page({ eyebrow, title, description, children, compact = false, h
       <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <View style={styles.content}>
           {!condensed ? <AppText variant="label" tone="primary" style={styles.brand}>ENGLIFY QUEST</AppText> : null}
-          <AppText variant="caption" tone="primary" style={styles.eyebrow}>{eyebrow}</AppText>
+          {eyebrow ? <AppText variant="caption" tone="primary" style={styles.eyebrow}>{eyebrow}</AppText> : null}
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: designTokens.spacing.md }}><AppText variant={condensed ? 'title' : 'display'} accessibilityRole="header" style={[styles.title, { flexShrink: 1 }]}>{title}</AppText>{accessory}</View>
           {description ? <AppText tone="muted" style={styles.description}>{description}</AppText> : null}
           <View style={[styles.body, condensed && { marginTop: designTokens.spacing.lg }]}>{children}</View>

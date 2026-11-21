@@ -24,14 +24,23 @@ export default function AccountSettings() {
     finally { setLanguageBusy(false); }
   }
   return <Page eyebrow={t('settings.eyebrow')} title={t('settings.title')} description={t('settings.description')} compact>
-    <View style={{ backgroundColor: palette.surface, borderRadius: 20, paddingHorizontal: 16 }}>
+    <View style={{ paddingHorizontal: 16, paddingVertical: 12, gap: 4, backgroundColor: palette.surface, borderRadius: 18 }}>
+      <AppText variant="label">{t('settings.email')}</AppText>
+      <AppText variant="heading" selectable>{session?.user.email ?? t('settings.emailUnavailable')}</AppText>
+      <AppText variant="caption" tone="muted">{t('settings.emailDetail')}</AppText>
+    </View>
+    <View style={{ borderTopWidth: 1, borderBottomWidth: 1, borderColor: palette.border }}>
       <SettingsRow label={t('settings.editProfile')} detail={t('settings.editProfileDetail')} onPress={() => router.push('/edit-profile' as Href)} />
       <SettingsRow label={t('settings.changeAvatar')} detail={t('settings.changeAvatarDetail')} onPress={() => router.push('/change-avatar' as Href)} />
       <SettingsRow label={t('settings.learningPreferences')} detail={t('settings.learningPreferencesDetail')} onPress={() => router.push('/learning-preferences' as Href)} />
       <SettingsRow label={t('settings.changePassword')} detail={t('settings.changePasswordDetail')} onPress={() => router.push('/change-password' as Href)} />
     </View>
-    <View style={{ gap: 8 }}><AppText variant="heading">{t('settings.language')}</AppText><AppText tone="muted">{t('settings.languageDetail')}</AppText><LanguageSelector value={language} disabled={languageBusy} onChange={(next) => { void changeLanguage(next); }} />{languageError ? <AppText tone="error" accessibilityRole="alert">{languageError}</AppText> : null}</View>
-    <View style={{ gap: 4 }}><AppText variant="label">{t('settings.email')}</AppText><AppText tone="muted">{session?.user.email ?? t('settings.emailUnavailable')}</AppText><AppText variant="caption" tone="muted">{t('settings.emailDetail')}</AppText></View>
-    <AppButton label={t('settings.signOut')} variant="secondary" onPress={() => { void signOut().finally(() => router.replace('/login')); }} />
+    <View style={{ gap: 8 }}>
+      <AppText variant="heading" accessibilityRole="header">{t('settings.language')}</AppText>
+      <AppText tone="muted">{t('settings.languageDetail')}</AppText>
+      <LanguageSelector value={language} disabled={languageBusy} onChange={(next) => { void changeLanguage(next); }} />
+      {languageError ? <AppText tone="error" accessibilityRole="alert">{languageError}</AppText> : null}
+    </View>
+    <AppButton label={t('settings.signOut')} variant="secondary" onPress={() => { void signOut(); }} />
   </Page>;
 }

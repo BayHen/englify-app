@@ -40,7 +40,7 @@ export function RewardsScreen() {
     } catch (cause) { setError(cause instanceof Error ? cause.message : 'Could not mark notification read.'); }
     finally { setBusy(null); }
   }
-  return <Page eyebrow="YOUR ACHIEVEMENTS" title="Rewards" description="Your earned progress, quests and badges from completed lessons.">
+  return <Page eyebrow="PROGRESS" title="Rewards" description="Track your quests and earned badges." compact>
     {loading ? <LoadingSkeleton lines={6} /> : overview ? <>
       <AppCard tone="primary" style={{ gap: 12 }}><LevelBadge level={overview.level} /><AppText variant="heading">{overview.total_xp} lifetime XP</AppText><AnimatedXPProgress value={overview.xp_into_level} max={overview.xp_for_next_level} /><AppText tone="muted">{overview.available_xp} XP available for rewards</AppText></AppCard>
       <AppText variant="heading">Quests</AppText>

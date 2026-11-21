@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { saveWord, searchDictionary } from './api';
 
 const state = vi.hoisted(() => ({ client: null as unknown }));
@@ -19,8 +19,69 @@ function query<T>(data: T, error: { message: string } | null = null, status = 20
 }
 
 beforeEach(() => { state.client = null; });
+afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
 describe('dictionary Supabase repository', () => {
+  it('searches published words as a guest without importing or checking an account', async () => {
+    const getSession = vi.fn();
+    const invoke = vi.fn();
+    const words = query([{ id: 'word-1', term: 'hello', definition: 'greeting' }]);
+    state.client = { auth: { getSession }, functions: { invoke }, from: vi.fn().mockReturnValue(words) };
+    await expect(searchDictionary('hello', false)).resolves.toHaveLength(1);
+    expect(words.eq).toHaveBeenCalledWith('is_published', true);
+    const fetcher = vi.fn().mockResolvedValue(new Response(null, { status: 404 }));
+    vi.stubGlobal('fetch', fetcher);
+    await expect(searchDictionary('not-in-catalog', false)).resolves.toHaveLength(1);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(getSession).not.toHaveBeenCalled();
+    expect(invoke).not.toHaveBeenCalled();
+  });
+  it('finds an exact guest word outside the catalog without importing it', async () => {
+    const invoke = vi.fn();
+    state.client = { from: vi.fn().mockReturnValue(query([])), functions: { invoke } };
+    const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify([{
+      word: 'medium', meanings: [{ partOfSpeech: 'noun', definitions: [{ definition: 'A means of communication.' }] }],
+    }])));
+    vi.stubGlobal('fetch', fetcher);
+    await expect(searchDictionary('medium', false)).resolves.toEqual([
+      expect.objectContaining({ id: 'public-lookup:medium', term: 'medium', translation: null, definition: 'A means of communication.' }),
+    ]);
+    expect(fetcher).toHaveBeenCalledWith('https://api.dictionaryapi.dev/api/v2/entries/en/medium', expect.anything());
+    expect(invoke).not.toHaveBeenCalled();
+  });
+  it('keeps the editorial Vietnamese meaning separate from unrelated meanings of light', async () => {
+    const catalog = query([{ id: 'adjective', term: 'light', part_of_speech: 'adjective', definition: 'Not heavy.', translation: 'nhẹ' }]);
+    state.client = { from: vi.fn().mockReturnValue(catalog) };
+    const words = await searchDictionary('light', false);
+    expect(words).toEqual([
+      expect.objectContaining({ part_of_speech: 'noun', translation: 'ánh sáng' }),
+      expect.objectContaining({ part_of_speech: 'adjective', translation: 'nhẹ' }),
+    ]);
+  });
+  it('shows both editorial senses of duck without treating the verb definition as a noun', async () => {
+    state.client = { from: vi.fn().mockReturnValue(query([])) };
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(null, { status: 404 })));
+    await expect(searchDictionary('duck', false)).resolves.toEqual([
+      expect.objectContaining({ part_of_speech: 'noun', translation: 'con vịt' }),
+      expect.objectContaining({ part_of_speech: 'verb', translation: 'cúi xuống, né' }),
+    ]);
+  });
+  it('adds a suggested word translation without changing the definition translation', async () => {
+    state.client = { from: vi.fn().mockReturnValue(query([])) };
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_URL', 'https://example.supabase.co');
+    vi.stubEnv('EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'test-public-key');
+    const fetcher = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify([{
+        word: 'harbor', meanings: [{ partOfSpeech: 'noun', definitions: [{ definition: 'A sheltered place for boats.' }] }],
+      }])))
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        provider: 'mymemory', sourceLanguage: 'en', targetLanguage: 'vi', translatedText: 'bến cảng',
+      })));
+    vi.stubGlobal('fetch', fetcher);
+    await expect(searchDictionary('harbor', false)).resolves.toEqual([
+      expect.objectContaining({ term: 'harbor', translation: null, suggested_translation: 'bến cảng' }),
+    ]);
+  });
   it('reads published English words without calling FastAPI', async () => {
     const word = { id: 'word-1', term: 'hello', definition: 'greeting' };
     const words = query([word]);

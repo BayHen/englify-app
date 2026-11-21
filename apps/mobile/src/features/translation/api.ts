@@ -1,5 +1,5 @@
-import { currentUserId } from '@/lib/supabase-query';
 import { ApiError } from '@/lib/api';
+import { currentUserId } from '@/lib/supabase-query';
 import { getSupabase } from '@/auth/supabase';
 
 export type Language = 'en' | 'vi';
@@ -14,6 +14,17 @@ export type TranslateResult = {
 type ProviderResponse = { status?: 'translated' | 'unavailable'; translatedText: string | null;
   sourceLanguage: Language; targetLanguage: Language; provider: string; message?: string };
 const recent = new Map<string, { result: TranslateResult; expires: number }>();
+const pendingTranslations = new Map<AbortController, string>();
+
+export function clearAccountTranslations(userId: string) {
+  const prefix = JSON.stringify(['mymemory-validated-v3', userId]).slice(0, -1) + ',';
+  for (const key of recent.keys()) {
+    if (key.startsWith(prefix)) recent.delete(key);
+  }
+  for (const [controller, owner] of pendingTranslations) {
+    if (owner === userId) controller.abort();
+  }
+}
 type HttpResponse = { status: number; clone: () => { json: () => Promise<unknown> } };
 function isHttpResponse(value: unknown): value is HttpResponse {
   return typeof value === 'object' && value !== null && 'status' in value && typeof value.status === 'number'
@@ -41,8 +52,8 @@ export function utf8ByteLength(text: string): number {
   return bytes;
 }
 
-export async function translateText(request: TranslateRequest): Promise<TranslateResult> {
-  const userId = await currentUserId();
+export async function translateText(request: TranslateRequest, account?: string | null): Promise<TranslateResult> {
+  const userId = account === undefined ? await currentUserId() : account;
   const text = request.text.trim();
   if (!text || utf8ByteLength(text) > 500 || !['en', 'vi'].includes(request.source)
       || !['en', 'vi'].includes(request.target) || request.source === request.target) {
@@ -52,16 +63,39 @@ export async function translateText(request: TranslateRequest): Promise<Translat
   const cached = recent.get(cacheKey);
   if (cached && cached.expires > Date.now()) return cached.result;
   const controller = new AbortController();
+  if (userId) pendingTranslations.set(controller, userId);
   const timer = setTimeout(() => controller.abort(), 20000);
   let response: { data: ProviderResponse | null; error: Error | null };
   try {
-    response = await getSupabase().functions.invoke<ProviderResponse>('translate', {
-      body: { text, sourceLanguage: request.source, targetLanguage: request.target }, signal: controller.signal,
-    });
-  } catch {
+    const body = { text, sourceLanguage: request.source, targetLanguage: request.target };
+    if (userId) {
+      response = await getSupabase().functions.invoke<ProviderResponse>('translate', { body, signal: controller.signal });
+    } else {
+      const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
+      const key = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+      if (!url || !key) throw new ApiError(503, 'Translation service is not configured.');
+      const remote = await fetch(`${url.replace(/\/$/, '')}/functions/v1/translate`, {
+        method: 'POST', headers: { apikey: key, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body), signal: controller.signal,
+      });
+      if (!remote.ok) {
+        if (remote.status === 401 || remote.status === 403 || remote.status >= 500 || remote.status === 404) {
+          throw new ApiError(remote.status, 'Translation is temporarily unavailable.');
+        }
+        if (remote.status === 429) throw new ApiError(429, 'Too many requests. Please try again shortly.');
+        throw await translationError(Object.assign(new Error('Guest translation failed'), { context: remote }));
+      }
+      response = { data: await remote.json() as ProviderResponse, error: null };
+    }
+  } catch (cause) {
+    if (cause instanceof ApiError) throw cause;
     throw new ApiError(controller.signal.aborted ? 504 : 0,
-      controller.signal.aborted ? 'Translation timed out.' : 'Cannot reach the translation service.');
-  } finally { clearTimeout(timer); }
+      controller.signal.aborted ? 'Translation timed out.' : 'Unable to connect. Check your internet connection.');
+  } finally {
+    clearTimeout(timer);
+    pendingTranslations.delete(controller);
+  }
+  if (controller.signal.aborted) throw new ApiError(504, 'Translation request ended.');
   const { data, error } = response;
   if (error) {
     if (controller.signal.aborted) throw new ApiError(504, 'Translation timed out.');

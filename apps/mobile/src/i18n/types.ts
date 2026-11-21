@@ -5,6 +5,8 @@ export type TranslationKey =
   | 'nav.journey'
   | 'nav.explore'
   | 'nav.practice'
+  | 'nav.translate'
+  | 'nav.voca'
   | 'nav.profile'
   | 'preferences.eyebrow'
   | 'preferences.title'

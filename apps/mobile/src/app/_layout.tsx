@@ -1,4 +1,5 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider, router, useSegments, type Href } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, router, usePathname, type Href } from 'expo-router';
+import * as Linking from 'expo-linking';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { Platform, useColorScheme } from 'react-native';
@@ -7,9 +8,10 @@ import { useFonts } from 'expo-font';
 
 import { AppErrorBoundary } from '@/components/app-error-boundary';
 import { AuthProvider, useAuth } from '@/auth/provider';
+import { accountDestination, authenticationRedirects, usePendingDestination } from '@/auth/access';
 import { Page } from '@/components/page';
 import { useAppStore } from '@/state/app-store';
-import { AppButton, ErrorState, LoadingSkeleton } from '@/ui';
+import { AppText } from '@/ui';
 import { SyncEngine } from '@/features/offline/sync-engine';
 import { I18nProvider, useI18n } from '@/i18n';
 
@@ -18,37 +20,63 @@ const clientReady = () => true;
 const serverReady = () => false;
 
 function AppNavigator() {
-  const { loading, session, profile, profileError, refreshProfile, signOut, callbackTarget, clearCallbackTarget } = useAuth();
-  const segments = useSegments();
+  const { phase, session, profile, callbackTarget, clearCallbackTarget } = useAuth();
+  const pathname = usePathname();
+  const destination = usePendingDestination((state) => state.destination);
   useEffect(() => {
-    if (!loading && callbackTarget && (callbackTarget === '/login' || (session && (profile || callbackTarget === '/reset-password')))) {
+    if (phase !== 'guest') return;
+    let live = true;
+    const remember = (url: string) => {
+      const path = Linking.parse(url).path;
+      const target = path ? accountDestination(`/${path.replace(/^\/+/, '')}`) : null;
+      if (live && target) usePendingDestination.getState().set(target);
+    };
+    const subscription = Linking.addEventListener('url', ({ url }) => remember(url));
+    if (pathname === '/login-required' && !usePendingDestination.getState().destination) {
+      void Linking.getInitialURL().then((url) => { if (url) remember(url); }).catch(() => undefined);
+    }
+    return () => { live = false; subscription.remove(); };
+  }, [phase, pathname]);
+  useEffect(() => {
+    if (phase !== 'initializing' && callbackTarget && (callbackTarget === '/login' || (session && (profile || callbackTarget === '/reset-password')))) {
       router.replace(callbackTarget as Href);
       clearCallbackTarget();
+    } else if (phase === 'authenticated' && !callbackTarget && destination && pathname === destination) {
+      usePendingDestination.getState().set(null);
+    } else if (phase === 'authenticated' && !callbackTarget && destination && pathname === '/home' && profile?.preferences?.onboarding_completed_at) {
+      usePendingDestination.getState().set(null);
+      router.replace(destination);
     }
-  }, [loading, callbackTarget, session, profile, clearCallbackTarget]);
-  if (loading || (session && !profile && !profileError)) return <Page eyebrow="RESTORING SESSION" title="Welcome back" description="Checking your account securely."><LoadingSkeleton /></Page>;
-  if (session && profileError && callbackTarget !== '/reset-password' && String(segments[0]) !== 'reset-password') return <Page eyebrow="ACCOUNT UNAVAILABLE" title="Could not load your profile" description="You are signed in, but the learning service could not load your profile."><ErrorState message={profileError} retry={() => { void refreshProfile(); }} /><AppButton label="Sign out" variant="secondary" onPress={() => { void signOut(); }} /></Page>;
+  }, [phase, callbackTarget, session, profile, clearCallbackTarget, destination, pathname]);
+  if (phase === 'initializing') return <Page title="Englify" compact><AppText tone="muted">Restoring your session…</AppText></Page>;
   const signedIn = Boolean(session);
   const onboarded = Boolean(profile?.preferences?.onboarding_completed_at);
+  const redirects = authenticationRedirects(phase, signedIn, Boolean(profile), onboarded, destination);
   return <Stack screenOptions={{ headerShown: false }}>
     <Stack.Screen name="index" />
     <Stack.Screen name="auth-callback" />
+    <Stack.Screen name="home" />
+    <Stack.Protected guard={phase !== 'signingOut'} redirectTo="/home">
+      <Stack.Screen name="profile" />
+    </Stack.Protected>
+    <Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
     {__DEV__ && <Stack.Screen name="dev/auth-diagnostic" />}
     {__DEV__ && <Stack.Screen name="dev/ui-v2-preview" />}
-    <Stack.Protected guard={!signedIn} redirectTo="/login">
+    <Stack.Protected guard={!signedIn && phase !== 'signingOut'} redirectTo={redirects.publicAuth}>
+      <Stack.Screen name="login-required" />
       <Stack.Screen name="login" />
       <Stack.Screen name="register" />
       <Stack.Screen name="forgot-password" />
     </Stack.Protected>
     <Stack.Protected guard={signedIn} redirectTo="/login"><Stack.Screen name="reset-password" /></Stack.Protected>
-    <Stack.Protected guard={signedIn && !onboarded} redirectTo="/home"><Stack.Screen name="onboarding" /></Stack.Protected>
-    <Stack.Protected guard={signedIn && onboarded} redirectTo={signedIn ? '/onboarding' : '/login'}>
-      <Stack.Screen name="home" /><Stack.Screen name="journey" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="explore" /><Stack.Screen name="practice" />
-      <Stack.Screen name="coach" /><Stack.Screen name="dictionary" /><Stack.Screen name="translation" />
+    <Stack.Protected guard={signedIn && Boolean(profile) && !onboarded} redirectTo={onboarded ? destination ?? '/home' : '/home'}><Stack.Screen name="onboarding" /></Stack.Protected>
+    <Stack.Protected guard={signedIn && onboarded} redirectTo={redirects.privateRoute}>
+      <Stack.Screen name="journey" /><Stack.Screen name="journey-placement" /><Stack.Screen name="learning-plan" /><Stack.Screen name="lesson/[id]" /><Stack.Screen name="practice" />
+      <Stack.Screen name="coach" /><Stack.Screen name="explore" />
       <Stack.Screen name="vocabulary-review" />
       <Stack.Screen name="real-english" /><Stack.Screen name="speaking" /><Stack.Screen name="writing" />
       <Stack.Screen name="writing-progress" /><Stack.Screen name="writing-progress/[id]" />
-      <Stack.Screen name="quiz-arena" /><Stack.Screen name="quiz-practice/[id]" /><Stack.Screen name="time-attack/[id]" /><Stack.Screen name="ranked-arena/[id]" /><Stack.Screen name="mistakes" /><Stack.Screen name="mistake-review/[id]" /><Stack.Screen name="rewards" /><Stack.Screen name="profile" />
+      <Stack.Screen name="quiz-arena" /><Stack.Screen name="quiz-practice/[id]" /><Stack.Screen name="time-attack/[id]" /><Stack.Screen name="ranked-arena/[id]" /><Stack.Screen name="mistakes" /><Stack.Screen name="mistake-review/[id]" /><Stack.Screen name="rewards" />
       <Stack.Screen name="account-settings" /><Stack.Screen name="edit-profile" />
       <Stack.Screen name="change-avatar" /><Stack.Screen name="change-password" />
       <Stack.Screen name="learning-preferences" />

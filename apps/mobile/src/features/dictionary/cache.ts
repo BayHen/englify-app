@@ -13,11 +13,16 @@ async function readArray<T>(key: string): Promise<T[]> {
   catch { return []; }
 }
 
-export async function cacheWords(words: DictionaryWord[]): Promise<void> {
-  const current = await readArray<DictionaryWord>(wordsKey);
-  const merged = new Map(current.map((word) => [word.id, word]));
-  words.forEach((word) => merged.set(word.id, word));
-  await writeStorage(wordsKey, JSON.stringify(Array.from(merged.values()).slice(-500)));
+let cacheWrite = Promise.resolve();
+export function cacheWords(words: DictionaryWord[]): Promise<void> {
+  const write = cacheWrite.then(async () => {
+    const current = await readArray<DictionaryWord>(wordsKey);
+    const merged = new Map(current.map((word) => [word.id, word]));
+    words.forEach((word) => { merged.delete(word.id); merged.set(word.id, word); });
+    await writeStorage(wordsKey, JSON.stringify(Array.from(merged.values()).slice(-500)));
+  });
+  cacheWrite = write.catch(() => undefined);
+  return write;
 }
 export async function searchCachedWords(query: string): Promise<DictionaryWord[]> {
   return filterCachedWords(await readArray<DictionaryWord>(wordsKey), query);

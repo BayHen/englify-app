@@ -38,12 +38,10 @@ export function AuthForm({ register }: { register: boolean }) {
       if (register) {
         const hasSession = await signUp(email.trim(), password, name.trim());
         setPassword(''); setConfirm('');
-        if (hasSession) router.replace('/onboarding');
-        else setMessage('Check your email to confirm your account, then sign in.');
+        if (!hasSession) setMessage('Check your email to confirm your account, then sign in.');
       } else {
-        const profile = await signIn(email.trim(), password);
+        await signIn(email.trim(), password);
         setPassword('');
-        if (profile) router.replace(profile.preferences?.onboarding_completed_at ? '/home' : '/onboarding');
       }
     } catch (cause) { setError(cause instanceof Error ? cause.message : 'Authentication failed. Please try again.'); }
     finally { submitting.current = false; setBusy(false); }
