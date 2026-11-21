@@ -15,6 +15,14 @@ const secureStorage: SupportedStorage = {
 };
 
 let instance: SupabaseClient | null = null;
+
+export async function removePersistedSession() {
+  if (!url) return;
+  const storageKey = `sb-${new URL(url).hostname.split('.')[0]}-auth-token`;
+  if (Platform.OS === 'web') globalThis.localStorage.removeItem(storageKey);
+  else await secureStorage.removeItem(storageKey);
+}
+
 export function getSupabase(): SupabaseClient {
   if (!authConfigured || !url || !key) throw new Error('Supabase configuration is missing or invalid. See docs/setup/SUPABASE_SETUP.md');
   if (!instance) {

@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { shouldNavigateToTab } from './tab-navigation';
+import { shouldNavigateToTab, visibleQuestTabs } from './tab-navigation';
+
+it('gives guests four public destinations in order', () => {
+  expect(visibleQuestTabs(false).map(({ href }) => href)).toEqual(['/home', '/translation', '/dictionary', '/profile']);
+});
+
+it('retains the five member destinations in order', () => {
+  expect(visibleQuestTabs(true).map(({ href }) => href)).toEqual(['/home', '/journey', '/explore', '/practice', '/profile']);
+});
 
 describe('shouldNavigateToTab',()=>{
   it('does not navigate when the active root tab is pressed again',()=>{

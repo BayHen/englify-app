@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { useState } from 'react';
 import { Page } from '@/components/page';
 import { AppButton, AppCard, AppText } from '@/ui';
@@ -27,7 +26,7 @@ export default function Onboarding() {
   async function submit() {
     if (!goal || !level) return;
     setBusy(true); setError('');
-    try { await saveOnboarding({ learning_goal: goal, initial_proficiency: level, daily_goal_minutes: minutes }); router.replace('/home'); }
+    try { await saveOnboarding({ learning_goal: goal, initial_proficiency: level, daily_goal_minutes: minutes }); }
     catch (cause) { setError(cause instanceof Error ? cause.message : 'Could not save your choices'); }
     finally { setBusy(false); }
   }

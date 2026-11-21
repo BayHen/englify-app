@@ -6,6 +6,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Page } from '@/components/page';
 import { QuestTabBar } from '@/components/quest-tab-bar';
 import { useAppPalette } from '@/constants/app-theme';
+import { NoirArtwork } from '@/ui/noir-artwork';
 import { AppButton, AppText } from '@/ui';
 import { useReducedMotion } from '@/ui/use-reduced-motion';
 import { designTokens } from '@englify/shared';
@@ -57,9 +58,17 @@ export function ExploreScreen() {
           <AppText tone="muted" style={{ maxWidth: 330 }}>Discover words, expressions, and real-life English.</AppText>
         </View>
         <Animated.View entering={reducedMotion ? undefined : FadeInDown.duration(340)}>
-          <Pressable accessibilityRole="button" accessibilityLabel="Open the Real English reading library" onPress={() => router.push('/real-english')} style={({ pressed }) => ({ minHeight: 154, borderRadius: 28, backgroundColor: palette.hero, padding: designTokens.spacing.lg, overflow: 'hidden', opacity: pressed ? 0.85 : 1, flexDirection: 'row', alignItems: 'center', gap: designTokens.spacing.md })}>
-            <View style={{ flex: 1, gap: designTokens.spacing.sm }}><AppText variant="caption" style={{ color: palette.heroAccent, letterSpacing: 1.2 }} weight="heavy">REAL ENGLISH</AppText><AppText variant="heading" style={{ color: palette.heroOn }}>English in the wild</AppText><AppText variant="caption" style={{ color: palette.heroMuted }}>Read everyday conversations and discover what expressions mean in context.</AppText><AppText variant="label" style={{ color: palette.heroAccent }}>Browse the reading library  →</AppText></View>
-            <View importantForAccessibility="no-hide-descendants" style={{ width: narrow ? 76 : 96, height: 104, justifyContent: 'center', alignItems: 'center' }}><View style={{ width: 78, height: 78, borderRadius: 39, backgroundColor: palette.reward, alignItems: 'center', justifyContent: 'center', transform: [{ rotate: '-13deg' }] }}><SymbolView name={{ ios: 'safari.fill', android: 'explore', web: 'explore' }} size={42} tintColor={palette.rewardOn} /></View><View style={{ position: 'absolute', top: 0, right: 0, width: 18, height: 18, borderRadius: 9, backgroundColor: palette.reward }} /></View>
+          <Pressable accessibilityRole="button" accessibilityLabel="Open the Real English reading library" onPress={() => router.push('/real-english')} style={({ pressed }) => ({
+            minHeight: 205, borderRadius: 24, backgroundColor: palette.hero, padding: designTokens.spacing.xl,
+            overflow: 'hidden', opacity: pressed ? 0.85 : 1, justifyContent: 'space-between', gap: designTokens.spacing.lg,
+          })}>
+            <NoirArtwork />
+            <View style={{ paddingRight: narrow ? 36 : 72, gap: designTokens.spacing.sm }}>
+              <AppText variant="label" style={{ color: palette.heroAccent }}>Real English</AppText>
+              <AppText variant="display" style={{ color: palette.heroOn }}>English in the wild</AppText>
+              <AppText style={{ color: palette.heroMuted }}>Read everyday conversations and learn expressions in context.</AppText>
+            </View>
+            <AppText variant="label" style={{ color: palette.heroAccent }}>Browse the reading library</AppText>
           </Pressable>
         </Animated.View>
         <View style={{ gap: designTokens.spacing.md }}><View style={{ gap: 2 }}><AppText variant="heading" accessibilityRole="header">Choose your path</AppText><AppText variant="caption" tone="muted">Three ways to make English yours.</AppText></View>
@@ -75,16 +84,16 @@ export function PracticeScreen() {
   const palette = useAppPalette();
   const { spacing, radius } = designTokens;
   return <Page eyebrow="PRACTICE" title="Skill studio" description="Train your voice, your writing, or your quick recall." compact>
-    <View style={{ gap: spacing.md, padding: spacing.xl, borderRadius: radius.xl, backgroundColor: palette.hero }}>
-      <SymbolView name={{ ios: 'waveform', android: 'graphic_eq', web: 'graphic_eq' }} size={42} tintColor={palette.heroAccent} />
-      <AppText variant="title" style={{ color: palette.heroOn }}>Speaking studio</AppText>
-      <AppText style={{ color: palette.heroMuted }}>Listen to a model, record your voice, and compare the two.</AppText>
-      <AppButton label="Open speaking studio" variant="reward" onPress={() => router.push('/speaking')} />
+    <View style={{ gap: spacing.lg, padding: spacing.xl, borderRadius: radius.xl, backgroundColor: palette.hero, alignItems: 'center' }}>
+      <View style={{ width: 82, height: 82, borderRadius: radius.pill, borderWidth: 1, borderColor: palette.heroAccent, justifyContent: 'center', alignItems: 'center' }}>
+        <SymbolView name={{ ios: 'waveform', android: 'graphic_eq', web: 'graphic_eq' }} size={42} tintColor={palette.heroAccent} />
+      </View>
+      <AppText variant="title" style={{ color: palette.heroOn, textAlign: 'center' }}>Speaking studio</AppText>
+      <AppText style={{ color: palette.heroMuted, textAlign: 'center' }}>Listen to a model, record your voice, and compare the two.</AppText>
+      <AppButton label="Open speaking studio" onPress={() => router.push('/speaking')} />
     </View>
-    <AppText variant="heading" accessibilityRole="header">Write or challenge yourself</AppText>
-    <View style={{ gap: spacing.sm }}>
-      {practice.slice(1).map((tool) => <ToolRow key={tool.label} tool={tool} />)}
-    </View>
+    <ToolRow tool={practice[1]} />
+    <DiscoveryCard tool={practice[2]} wide />
     <AppButton label="View learning plan" variant="secondary" onPress={() => router.push('/learning-plan')} />
   </Page>;
 }

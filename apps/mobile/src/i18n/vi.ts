@@ -5,6 +5,8 @@ export const vi = {
   'nav.journey': 'Hành trình',
   'nav.explore': 'Khám phá',
   'nav.practice': 'Luyện tập',
+  'nav.translate': 'D?ch',
+  'nav.voca': 'T? v?ng',
   'nav.profile': 'Hồ sơ',
   'preferences.eyebrow': 'THIẾT LẬP HỌC TẬP',
   'preferences.title': 'Tùy chọn học tập',

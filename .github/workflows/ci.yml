@@ -99,6 +99,7 @@ jobs:
           supabase/tests/journey_v2_7_complete_curriculum_smoke.sql
           supabase/tests/journey_answer_review_text_smoke.sql
           supabase/tests/journey_unit_question_bank_smoke.sql
+          supabase/tests/guest_access_smoke.sql
       - name: Verify Arena upgrade preserves Journey history
         run: python scripts/supabase_arena_upgrade_check.py
       - name: Verify Time Attack upgrade preserves Practice and Journey

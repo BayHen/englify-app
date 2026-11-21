@@ -5,8 +5,8 @@ import { syncOutbox } from './sync';
 
 /** Keeps the queue moving even when the learner stays on Home after reconnecting. */
 export function SyncEngine() {
-  const { profile } = useAuth();
-  const userId = profile?.id;
+  const { phase, profile } = useAuth();
+  const userId = phase === 'authenticated' ? profile?.id : undefined;
   useEffect(() => {
     if (!userId) return;
     let mounted = true;

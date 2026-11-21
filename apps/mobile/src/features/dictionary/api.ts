@@ -1,6 +1,9 @@
 import { getSupabase } from '@/auth/supabase';
 import { ApiError } from '@/lib/api';
 import { currentUserId, dataOrThrow, errorOrThrow } from '@/lib/supabase-query';
+import { lookupEnglishWord } from '@/features/translation/dictionary';
+import { curatedWords, duckVerb } from './curated-words';
+import { translateText } from '@/features/translation/api';
 import type { DictionaryWord, SavedWord } from './types';
 
 const WORD_COLUMNS = 'id,term,definition,translation,ipa,part_of_speech,example,audio_url,source_name,license_id';
@@ -52,8 +55,8 @@ async function importExactWord(word: string): Promise<DictionaryWord | null> {
   return payload.word;
 }
 
-export async function searchDictionary(query: string): Promise<DictionaryWord[]> {
-  await currentUserId();
+export async function searchDictionary(query: string, allowImport = true): Promise<DictionaryWord[]> {
+  if (allowImport) await currentUserId();
   const term = query.trim().toLocaleLowerCase();
   if (term.length > 80) throw new ApiError(422, 'Search term is too long.');
   if (!term) return dataOrThrow(await publishedWords().order('normalized_term').limit(50)) as DictionaryWord[];
@@ -66,12 +69,50 @@ export async function searchDictionary(query: string): Promise<DictionaryWord[]>
   const words = new Map<string, DictionaryWord>();
   for (const word of [...dataOrThrow(byTerm), ...dataOrThrow(byTranslation)] as DictionaryWord[]) words.set(word.id, word);
   const exact = exactEnglishWord(term);
+  const bilingual = curatedWords.find((word) => word.term === exact || word.translation?.toLocaleLowerCase() === term);
   const hasExact = exact !== null && [...words.values()].some((word) => word.term.toLocaleLowerCase() === exact);
   if (exact && !hasExact) {
-    const imported = await importExactWord(exact);
-    if (imported) words.set(imported.id, imported);
+    if (allowImport) {
+      const imported = await importExactWord(exact).catch((cause: unknown) => {
+        if (!bilingual || (cause instanceof ApiError && cause.status === 401)) throw cause;
+        return null;
+      });
+      if (imported) words.set(imported.id, imported);
+    } else {
+      try {
+        const details = await lookupEnglishWord(exact);
+        const sense = details?.senses[0];
+        if (details && sense) {
+          const id = `public-lookup:${exact}`;
+          words.set(id, {
+            id, term: details.word, definition: sense.definition, translation: null,
+            ipa: details.ipa, part_of_speech: sense.partOfSpeech, example: sense.example,
+            audio_url: details.audioUrl, source_name: 'Free Dictionary API', license_id: details.licenseName ?? '',
+            additional_senses: details.senses.slice(1),
+          });
+        }
+      } catch {
+        if (!words.size && !bilingual) throw new ApiError(502, 'The online dictionary provider is unavailable.');
+      }
+    }
   }
-  return [...words.values()].sort((a, b) => a.term.localeCompare(b.term)).slice(0, 50);
+  const catalog = [...words.values()].sort((a, b) => a.term.localeCompare(b.term));
+  if (bilingual && !catalog.some((word) => word.term.toLocaleLowerCase() === bilingual.term
+    && word.part_of_speech === bilingual.part_of_speech && word.translation === bilingual.translation)) {
+    catalog.unshift(bilingual);
+  }
+  if (exact === 'duck' && !catalog.some((word) => word.term.toLocaleLowerCase() === 'duck'
+    && word.part_of_speech === 'verb' && word.translation)) {
+    catalog.splice(1, 0, duckVerb);
+  }
+  if (!allowImport && exact && !catalog.some((word) => word.term.toLocaleLowerCase() === exact && word.translation)) {
+    const match = catalog.find((word) => word.term.toLocaleLowerCase() === exact);
+    if (match) {
+      const translated = await translateText({ text: exact, source: 'en', target: 'vi' }, null).catch(() => null);
+      if (translated?.translated_text) catalog[catalog.indexOf(match)] = { ...match, suggested_translation: translated.translated_text };
+    }
+  }
+  return catalog.slice(0, 50);
 }
 export async function listSavedWords(): Promise<SavedWord[]> {
   const userId = await currentUserId();

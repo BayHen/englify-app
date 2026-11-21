@@ -3,6 +3,8 @@ export const en = {
   'nav.journey': 'Journey',
   'nav.explore': 'Explore',
   'nav.practice': 'Practice',
+  'nav.translate': 'Translate',
+  'nav.voca': 'Voca',
   'nav.profile': 'Profile',
   'preferences.eyebrow': 'LEARNING SETUP',
   'preferences.title': 'Your preferences',

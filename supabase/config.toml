@@ -431,7 +431,7 @@ enabled = true
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
 
 [functions.translate]
-verify_jwt = true
+verify_jwt = false
 
 [functions.dictionary-import]
 verify_jwt = true

@@ -53,9 +53,14 @@ export function QuizArenaScreen() {
   const difficulties = [...new Set(levelGroups.filter(group => (config.topic === null || group.topic === config.topic)
     && (config.kind === null || group.kind === config.kind)).map(group => group.difficulty))].sort();
   return <Page eyebrow="PRACTICE" title="Quiz Arena" description="Choose a mode to practise, race the clock, or compete in ranked play." compact>
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap }}><AppButton label="Practice" style={{ flexGrow: 1 }} disabled={busy} variant={mode === 'practice' ? 'primary' : 'secondary'} onPress={() => setMode('practice')} />
-      <AppButton label="Time Attack" style={{ flexGrow: 1 }} disabled={busy} variant={mode === 'time_attack' ? 'primary' : 'secondary'} onPress={() => setMode('time_attack')} />
-      <AppButton label="Ranked Arena" style={{ flexGrow: 1 }} disabled={busy} variant={mode === 'ranked' ? 'primary' : 'secondary'} onPress={() => setMode('ranked')} /></View>
+    <AppCard tone="primary" style={{ gap: 12 }}>
+      <AppText variant="heading" accessibilityRole="header">Choose your challenge</AppText>
+      <AppButton label="Practice" disabled={busy} variant={mode === 'practice' ? 'primary' : 'secondary'} onPress={() => setMode('practice')} />
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap }}>
+        <AppButton label="Time Attack" style={{ flexGrow: 1 }} disabled={busy} variant={mode === 'time_attack' ? 'primary' : 'secondary'} onPress={() => setMode('time_attack')} />
+        <AppButton label="Ranked Arena" style={{ flexGrow: 1 }} disabled={busy} variant={mode === 'ranked' ? 'primary' : 'secondary'} onPress={() => setMode('ranked')} />
+      </View>
+    </AppCard>
     {mode === 'time_attack' ? <TimeAttackHome /> : mode === 'ranked' ? <RankedHome /> : <>
     {loading ? <LoadingSkeleton lines={5} /> : catalog ? <>
       {summary ? <AppCard tone="primary" style={{ gap }}><AppText variant="heading">Level {summary.level} · {summary.xp_total} XP</AppText>

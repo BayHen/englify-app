@@ -8,15 +8,16 @@ import type { JourneyLesson, JourneyUnit } from './api';
 
 const { spacing, radius } = designTokens;
 
-function PathNode({ lesson, last, onLocked }: {
+function PathNode({ lesson, last, featured, onLocked }: {
   lesson: JourneyLesson;
   last: boolean;
+  featured: boolean;
   onLocked: (lesson: JourneyLesson) => void;
 }) {
   const palette = useAppPalette();
   const locked = lesson.state === 'locked';
   const completed = lesson.state === 'completed' || lesson.state === 'mastered';
-  const current = lesson.state === 'in_progress';
+  const current = lesson.state === 'in_progress' || (featured && lesson.state === 'available');
   const status = {
     locked: 'Locked', available: 'Ready to start', in_progress: 'In progress',
     completed: 'Completed', mastered: 'Mastered',
@@ -29,7 +30,7 @@ function PathNode({ lesson, last, onLocked }: {
 
   return <View style={{ position: 'relative', paddingBottom: last ? 0 : spacing.sm }}>
     {!last ? <View pointerEvents="none" style={{
-      position: 'absolute', left: 23, top: 24, bottom: -24, width: 2,
+      position: 'absolute', left: 24, top: 24, bottom: -24, width: 2,
       backgroundColor: completed ? palette.success : palette.border,
     }} /> : null}
     <Pressable
@@ -44,6 +45,7 @@ function PathNode({ lesson, last, onLocked }: {
         flexDirection: 'row', alignItems: 'center', gap: spacing.sm, minHeight: 64,
         padding: spacing.xs, borderRadius: radius.md, borderCurve: 'continuous',
         backgroundColor: current || pressed ? palette.primarySoft : 'transparent',
+        borderWidth: 1, borderColor: current ? palette.primary : 'transparent',
       })}
     >
       <View style={{
@@ -64,9 +66,10 @@ function PathNode({ lesson, last, onLocked }: {
   </View>;
 }
 
-export function AdventurePath({ unit, expanded, onToggle, onLocked = () => {} }: {
+export function AdventurePath({ unit, expanded, currentLessonId, onToggle, onLocked = () => {} }: {
   unit: JourneyUnit;
   expanded: boolean;
+  currentLessonId?: string;
   onToggle?: () => void;
   onLocked?: (lesson: JourneyLesson) => void;
 }) {
@@ -76,9 +79,8 @@ export function AdventurePath({ unit, expanded, onToggle, onLocked = () => {} }:
   const done = unit.completed_required_lessons ?? complete;
   const progress = unit.progress_percent ?? Math.round(complete * 100 / Math.max(1, unit.lessons.length));
   return <View style={{
-    padding: spacing.md, gap: spacing.sm, borderRadius: radius.lg,
-    borderCurve: 'continuous', borderWidth: 1,
-    borderColor: expanded ? palette.primary : palette.border, backgroundColor: palette.surface,
+    paddingVertical: spacing.lg, gap: spacing.sm,
+    borderTopWidth: 1, borderColor: palette.border,
   }}>
     {onToggle ? <Pressable
       accessibilityRole="button"
@@ -100,7 +102,7 @@ export function AdventurePath({ unit, expanded, onToggle, onLocked = () => {} }:
     </View>}
     <XPProgressBar value={progress} max={100} label={`Unit ${unit.position} progress`} showValue={false} />
     {expanded ? <View style={{ paddingTop: spacing.sm }}>
-      {unit.lessons.map((lesson, index) => <PathNode key={lesson.id} lesson={lesson} last={index === unit.lessons.length - 1} onLocked={onLocked} />)}
+      {unit.lessons.map((lesson, index) => <PathNode key={lesson.id} lesson={lesson} last={index === unit.lessons.length - 1} featured={lesson.id === currentLessonId} onLocked={onLocked} />)}
     </View> : null}
   </View>;
 }

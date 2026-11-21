@@ -9,6 +9,8 @@ export type DictionaryWord = {
   audio_url: string | null;
   source_name: string;
   license_id: string;
+  additional_senses?: { partOfSpeech: string; definition: string; example: string | null }[];
+  suggested_translation?: string;
 };
 
 export type SavedWord = {

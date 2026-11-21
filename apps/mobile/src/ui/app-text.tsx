@@ -29,5 +29,5 @@ export function AppText({ children, variant = 'body', tone = 'default', weight, 
   const color = tone === 'default' ? palette.text : tone === 'muted' ? palette.muted : palette[tone];
   const fontFamily = weight === 'regular' ? designTokens.typography.family.regular : weight === 'medium' || weight === 'semibold' ? designTokens.typography.family.semibold : weight === 'bold' ? designTokens.typography.family.bold : weight === 'heavy' ? designTokens.typography.family.heavy : undefined;
   const localizedChildren = typeof children === 'string' ? l(children) : children;
-  return <Text allowFontScaling {...props} style={[typography[variant], { color }, fontFamily && { fontFamily }, style]}>{localizedChildren}</Text>;
+  return <Text allowFontScaling {...props} style={[typography[variant], { color }, palette.dark && (variant === 'display' || variant === 'title') && { fontFamily: designTokens.typography.family.heavy }, fontFamily && { fontFamily }, style]}>{localizedChildren}</Text>;
 }

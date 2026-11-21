@@ -30,16 +30,17 @@ Deno.serve(async (request) => {
   } });
   if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405, origin);
   const authorization = request.headers.get('Authorization') ?? '';
-  if (!/^Bearer [A-Za-z0-9._-]+$/.test(authorization)) return json({ error: 'Authentication required.' }, 401, origin);
+  if (authorization && !/^Bearer [A-Za-z0-9._-]+$/.test(authorization)) return json({ error: 'Invalid authorization.' }, 401, origin);
   const supabaseUrl = Deno.env.get('SUPABASE_URL');
   const key = publicKey();
   if (!supabaseUrl || !key) return json({ error: 'Translation service is not configured.' }, 503, origin);
-  const authHeaders = { apikey: key, Authorization: authorization };
-  let verified: Response;
-  try {
-    verified = await fetch(`${supabaseUrl}/auth/v1/user`, { headers: authHeaders, signal: AbortSignal.timeout(5000) });
-  } catch { return json({ error: 'Authentication service unavailable.' }, 503, origin); }
-  if (!verified.ok) return json({ error: 'Session expired. Sign in again.' }, 401, origin);
+  const authHeaders: Record<string, string> = authorization ? { apikey: key, Authorization: authorization } : { apikey: key };
+  if (authorization) {
+    try {
+      const verified = await fetch(`${supabaseUrl}/auth/v1/user`, { headers: authHeaders, signal: AbortSignal.timeout(5000) });
+      if (!verified.ok) return json({ error: 'Session expired. Sign in again.' }, 401, origin);
+    } catch { return json({ error: 'Authentication service unavailable.' }, 503, origin); }
+  }
   const lengthHeader = Number(request.headers.get('Content-Length'));
   if (Number.isFinite(lengthHeader) && lengthHeader > 10000) return json({ error: 'Input is too long.' }, 413, origin);
   let payload: unknown;
@@ -60,8 +61,12 @@ Deno.serve(async (request) => {
   // This SECURITY DEFINER RPC reserves a per-user and global quota atomically, without storing text.
   let reservation: Response;
   try {
-    reservation = await fetch(`${supabaseUrl}/rest/v1/rpc/englify_reserve_translation`, {
-      method: 'POST', headers: { ...authHeaders, 'Content-Type': 'application/json' },
+    const quota = authorization ? 'englify_reserve_translation' : 'englify_reserve_guest_translation';
+    const serverKey = authorization ? null : Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (!authorization && !serverKey) return json({ error: 'Guest translation service is not configured.' }, 503, origin);
+    const quotaHeaders = serverKey ? { apikey: serverKey, Authorization: `Bearer ${serverKey}` } : authHeaders;
+    reservation = await fetch(`${supabaseUrl}/rest/v1/rpc/${quota}`, {
+      method: 'POST', headers: { ...quotaHeaders, 'Content-Type': 'application/json' },
       body: JSON.stringify({ p_characters: characterCount }), signal: AbortSignal.timeout(5000),
     });
   } catch { return json({ error: 'Translation quota service unavailable.' }, 503, origin); }

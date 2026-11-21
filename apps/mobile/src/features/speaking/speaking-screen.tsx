@@ -1,3 +1,5 @@
+import { SymbolView } from 'expo-symbols';
+import { useAppPalette } from '@/constants/app-theme';
 import { useEffect, useState } from 'react';
 import { AccessibilityInfo, Linking, Platform, View } from 'react-native';
 import { Page, NavLink } from '@/components/page';
@@ -17,6 +19,7 @@ export function SpeakingScreen() {
 }
 
 function SpeakingSession({ userId }: { userId: string | undefined }) {
+  const palette = useAppPalette();
   const speech = useExpoSpeechProvider();
   const [promptId, setPromptId] = useState(practicePrompts[0].id);
   const [voices, setVoices] = useState<SpeechVoice[]>([]);
@@ -137,7 +140,10 @@ function SpeakingSession({ userId }: { userId: string | undefined }) {
   return <Page eyebrow="SPEAKING PRACTICE" title="Listen, say, compare" description="Practice with your device voice and your own recording. No speech recognition or pronunciation score is used.">
     {!history && !error ? <LoadingSkeleton lines={2} /> : null}
     <View style={{ gap: 8 }}><AppText variant="heading">Choose a line</AppText>{practicePrompts.map((item) => <AppButton key={item.id} label={item.text} variant={item.id === promptId ? 'primary' : 'secondary'} disabled={speech.isRecording || busy} onPress={() => { void speech.stopPlayback(); if (Platform.OS === 'web' && webUri) { void speech.deleteAudio(webUri); setWebUri(null); } setPromptId(item.id); }} />)}</View>
-    <AppCard tone="primary" style={{ gap: 10 }}><AppText variant="caption" tone="primary">REFERENCE TEXT</AppText><AppText variant="title">{prompt.text}</AppText><AppText tone="muted">{prompt.hint}</AppText><AppText>Read the line while listening. Compare the written words with what you hear in your recording; this is a self-check.</AppText></AppCard>
+    <AppCard tone="primary" style={{ gap: 14, alignItems: 'center', paddingVertical: 24 }}>
+      <SymbolView name={{ ios: 'waveform', android: 'graphic_eq', web: 'graphic_eq' }} size={38} tintColor={palette.primary} />
+      <AppText variant="caption" tone="primary">REFERENCE TEXT</AppText>
+      <AppText variant="title" style={{ textAlign: 'center' }}>{prompt.text}</AppText><AppText tone="muted">{prompt.hint}</AppText><AppText>Read the line while listening. Compare the written words with what you hear in your recording; this is a self-check.</AppText></AppCard>
     <View style={{ gap: 8 }}><AppText variant="heading">Reference voice</AppText><ReferenceVoiceSelector voice={selectedVoice} loading={voiceLoading} disabled={speech.isRecording || voiceLoading} onPress={() => setVoicePickerOpen(true)} />{!voiceLoading && voices.length === 0 ? <AppText variant="caption" tone="muted">No English voice was listed. Playback will try the device default.</AppText> : null}<AppButton label="Play reference" disabled={speech.isRecording || busy} onPress={() => { void run(() => speech.speak(prompt.text, voiceId)); }} /><AppButton label="Stop reference" variant="secondary" onPress={() => { void speech.stopSpeech(); }} /></View>
     <VoicePickerSheet visible={voicePickerOpen} voices={voices} selectedId={voiceId} loading={voiceLoading} error={voiceError} emptyMessage={voiceEmptyMessage} onSelect={selectVoice} onClose={() => setVoicePickerOpen(false)} onRetry={() => { void retryVoices(); }} />
     <AppCard style={{ gap: 10 }}><AppText variant="heading">Your recording</AppText><AppText tone="muted">{speech.isRecording ? `Recording… ${Math.round(speech.durationMillis / 1000)} s` : currentUri ? 'Latest take is stored locally.' : 'No recording yet.'}</AppText>{speech.isRecording ? <AppButton label="Stop recording" onPress={() => { void stop(); }} disabled={busy} /> : <AppButton label={currentUri ? 'Record a new take' : 'Start recording'} onPress={() => { void start(); }} disabled={busy || !history} />}{!!currentUri && !speech.isRecording && <><AppButton label="Play my recording" variant="secondary" onPress={() => { void run(() => speech.play(currentUri)); }} disabled={busy} /><AppButton label="Stop playback" variant="secondary" onPress={() => { void speech.stopPlayback(); }} /><AppButton label={takeCompleted ? 'Practice recorded' : 'I completed this practice'} onPress={() => { void markComplete(); }} disabled={busy || takeCompleted} /><AppButton label="Delete this recording" variant="secondary" onPress={() => { void removeRecording(); }} disabled={busy} /></>}</AppCard>
